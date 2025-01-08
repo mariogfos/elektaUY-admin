@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import ControlLabel, { PropsTypeInputBase } from "../ControlLabel";
 import { getUrlImages } from "@/mk/utils/string";

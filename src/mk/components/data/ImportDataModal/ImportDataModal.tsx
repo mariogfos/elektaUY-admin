@@ -1,3 +1,4 @@
+"use client";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";

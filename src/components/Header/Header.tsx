@@ -44,7 +44,7 @@ const Header = ({
 }: PropsType) => {
   const isActive = (path: string) => router.pathname === path;
   const menuItems = [
-    { name: "Territorio", route: "/config" },
+    { name: "Territorio", route: "/territory" },
     { name: "Afiliados", route: "/educations" },
     { name: "Metas", route: "/goals" },
     { name: "Gamificación", route: "/gamification" },

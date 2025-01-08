@@ -59,7 +59,7 @@ const useAxios = (
     let data = null;
     let error: null | { message: string; status: number; data: any } = null;
     try {
-      const response = await instance.request({
+      const response = await instance?.request({
         signal: controllerRef.current.signal,
         data: payload,
         method: _method,

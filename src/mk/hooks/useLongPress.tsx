@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 
 const useLongPress = (onLongPress: Function, ms: number = 1000) => {

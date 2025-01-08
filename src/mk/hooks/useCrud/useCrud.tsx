@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 import { useState, useEffect, Fragment, memo, useCallback } from "react";
 import useAxios from "../useAxios";
 import { getUrlImages } from "../../utils/string";

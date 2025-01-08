@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import ControlLabel, { PropsTypeInputBase } from "../ControlLabel";
 import styles from "./textArea.module.css";
