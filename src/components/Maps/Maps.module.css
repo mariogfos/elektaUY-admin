@@ -23,15 +23,15 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
-        stroke-width: 0.4px;
+        stroke: #3a9ed9;
+        stroke-width: 1px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
         fill: var(--cHover);
 
         &:hover {
           cursor: auto;
-          stroke-width: 1px;
+          stroke-width: 1.5px;
           fill: var(--cAccent);
         }
       }
@@ -64,7 +64,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -105,7 +105,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -146,7 +146,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -186,7 +186,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -227,7 +227,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -268,7 +268,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -309,7 +309,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -350,7 +350,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -391,7 +391,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -432,7 +432,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -473,7 +473,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -514,7 +514,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -555,7 +555,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -596,7 +596,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -637,7 +637,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -678,7 +678,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -718,7 +718,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -759,7 +759,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -800,7 +800,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -840,7 +840,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -880,7 +880,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -920,7 +920,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -960,7 +960,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -1001,7 +1001,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
@@ -1042,7 +1042,7 @@
     & > a {
       & > path {
         fill: #212529;
-        stroke: #f5951c;
+        stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;

@@ -119,7 +119,7 @@ export const DashboardMap = ({
         {params[0]?.level == 1 && (
           <div>
             <Image
-              src="/images/uruguayLogo.png"
+              src="/images/uruguayBandera.png"
               alt="Ecuador"
               width={190}
               height={40}
