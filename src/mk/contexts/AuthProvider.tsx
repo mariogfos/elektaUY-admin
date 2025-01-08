@@ -238,14 +238,10 @@ const AuthProvider = ({ children, noAuth = false }: any): any => {
 
   return (
     <AuthContext.Provider value={result}>
-      {loaded || (
-        <div className="loader-container">
-          <IconLogoElekta size={156} />
-          <div className="loader"></div>
-        </div>
-      )}
+      {loaded || <Splash />}
       <Toast toast={toast} showToast={setToast} />
       {!noAuth && !user ? <Login /> : children}
+      {/* {children} */}
     </AuthContext.Provider>
   );
 };
