@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "@/mk/components/ui/Card/Card";
 
-import { DepartmentsMaps } from "@/components/Maps/Departments/DepartmentsMaps";
+// import { DepartmentsMaps } from "@/components/Maps/Departments/DepartmentsMaps";
 
 import styles from "./WidgetMaps.module.css";
 import { formatNumber } from "../../../mk/utils/numbers";
@@ -39,7 +39,7 @@ export const WidgetMaps = ({
       </div>
 
       <div className={styles.uruguay}>
-        <DepartmentsMaps tooltipsData={tooltipsData} />
+        {/* <DepartmentsMaps tooltipsData={tooltipsData} /> */}
         <div>
           <Image
             src="/images/Uruguay.webp"

@@ -1,3 +1,4 @@
+"use client";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import React from "react";
 import style from "./users.module.css";
@@ -19,8 +20,6 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
     searchBy: id,
     fullType: "DET",
   });
-
-  console.log("data del user", data);
 
   return (
     <DataModal
@@ -53,7 +52,7 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
             w={88}
           />
           <div>
-            <div style={{ fontSize: "var(--sL)", color: "var(--cWhite)" }}>
+            {/* <div style={{ fontSize: "var(--sL)", color: "var(--cWhite)" }}>
               {getFullName(data?.data?.user)}
             </div>
             <div style={{ color: "var(--cWhiteV1)" }}>
@@ -68,7 +67,7 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
                 : data?.data?.user?.role[0]?.level === 5
                 ? data?.data?.user?.barrio
                 : ""}
-            </div>
+            </div> */}
           </div>
         </div>
         <Card
