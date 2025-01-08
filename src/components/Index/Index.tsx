@@ -5,11 +5,11 @@ import NotAccess from "../auth/NotAccess/NotAccess";
 import WidgetTime from "../Widgets/WidgetTime.tsx/WidgetTime";
 import WidgetTable from "../Widgets/WidgetTable.tsx/WidgetTable";
 import WidgetProgresiveBar from "../Widgets/WidgetProgresiveBar/WidgetProgresiveBar";
-import DashboardMap from "../ Widgets/DashboardMap/DashboardMap";
-import HistoryTitle from "../ Widgets/WidgetHistoryTitle/HistoryTitle";
-import WidgetCandidates from "../ Widgets/WidgetCandidates/WidgetCandidates";
-import { WidgetSkeleton } from "@/mk/components/ui/Skeleton/Skeleton";
 import styles from "./index.module.css";
+import WidgetCandidates from "../ Widgets/WidgetCandidates/WidgetCandidates";
+import HistoryTitle from "../ Widgets/WidgetHistoryTitle/HistoryTitle";
+import { WidgetSkeleton } from "@/mk/components/ui/Skeleton/Skeleton";
+import DashboardMap from "../ Widgets/DashboardMap/DashboardMap";
 
 const HomePage = () => {
   const { setStore, userCan } = useAuth();
@@ -79,7 +79,7 @@ const HomePage = () => {
       // Si es el nivel inicial, establece los parámetros iniciales
       setParams(paramInitial);
       setHistParams([]);
-      setHistTitulos(["Mapa de " + (user?.entidad?.name || "Ecuador")]);
+      setHistTitulos(["Mapa de " + (user?.entidad?.name || "Uruguay")]);
     } else {
       // Obtiene el nivel anterior
       const item = newHistParams[index];
