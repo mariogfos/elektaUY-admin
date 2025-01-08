@@ -2,15 +2,8 @@
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import styles from "./header.module.css";
-import {
-  IconEmail,
-  IconMenu,
-  IconNotification,
-  IconSetting,
-} from "../layout/icons/IconsBiblioteca";
-
+import { IconMenu, IconSetting } from "../layout/icons/IconsBiblioteca";
 import Dropdown from "@/mk/components/ui/Dropdown/Dropdown";
-import Link from "next/link";
 import HeadTitle from "../HeadTitle/HeadTitle";
 
 type PropsType = {
