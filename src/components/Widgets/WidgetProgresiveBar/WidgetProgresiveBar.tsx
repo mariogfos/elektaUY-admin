@@ -1,0 +1,28 @@
+import ProgresiveBar from "@/mk/components/ui/ProgresiveBar/ProgresiveBar";
+import styles from "./WidgetProgresiveBar.module.css";
+import { formatNumber } from "@/mk/utils/numbers";
+
+const WidgetProgresiveBar = ({ data, poblacion }: any) => {
+  const { totalAfiliados, totalHabilitados, level }: any = data;
+  // console.log(totalAfiliados,totalHabilitados,'totales')
+  // console.log(poblacion);
+  return (
+    <div className={styles["WidgetProgresiveBar"]}>
+      <div>
+        Esta barra refleja la cantidad de afiliados a nivel{" "}
+        {level == 1 ? "nacional" : level == 2 ? "provincia" : "cantón"} con
+        relación a los {poblacion?.label} para votar
+      </div>
+      <ProgresiveBar
+        topLabels
+        bottomLabels
+        total={totalHabilitados}
+        actualValue={totalAfiliados}
+        titleTotal={poblacion?.label}
+        titleActualValue={`${formatNumber(totalAfiliados, 0)} Afiliados`}
+      />
+    </div>
+  );
+};
+
+export default WidgetProgresiveBar;

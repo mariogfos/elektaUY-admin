@@ -1,0 +1,115 @@
+.widgetCandidates {
+  height: 508px;
+  border: none;
+
+  & > div:nth-child(2) {
+    height: 450px;
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos salten a la siguiente fila */
+    gap: 16px; /* Espaciado uniforme entre tarjetas */
+    align-content: flex-start; /* Alinea las filas al inicio vertical */
+    padding-top: 24px;
+    padding-bottom: 24px;
+    overflow-y: auto; /* Permite scroll si hay demasiados elementos */
+  }
+
+  & > p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 169px;
+    color: var(--cGray);
+    font-size: var(--sL);
+  }
+}
+
+.candidates {
+  position: relative;
+}
+
+.title {
+  font-size: var(--sL);
+  font-weight: 600;
+  color: var(--cWhite);
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: var(--sM);
+  font-weight: 400;
+  color: var(--cBlackV2);
+  text-align: center;
+}
+
+.widgetTitle {
+  color: var(--cWhite);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.candidateCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  /* background-color: #f14; */
+  border: 1px solid var(--cBlackV3);
+  border-radius: var(--bRadiusL);
+  padding: 12px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  width: 160px; /* Ancho fijo para uniformidad */
+  height: 200px; /* Ajuste opcional de altura */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Añade un pequeño sombreado */
+}
+
+.candidateCard:hover {
+  background-color: var(--cHover);
+  transform: translateY(-4px);
+}
+
+.avatar {
+  margin-bottom: 8px;
+}
+
+.candidateInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.candidateInfo p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cWhite);
+}
+
+.professionInfo {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--cBlackV2);
+  margin-top:  8px;
+}
+
+.noCandidates {
+  color: var(--cGray);
+  text-align: center;
+  font-size: 16px;
+}
+
+.titleDetail {
+  font-size: var(--sL);
+  font-weight: 600;
+  color: var(--cWhite);
+  margin-bottom: 4px;
+}
+
+.subtitleDetail {
+  font-size: var(--sM);
+  font-weight: 400;
+  color: var(--cBlackV2);
+}
