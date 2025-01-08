@@ -1,8 +1,8 @@
 import React from "react";
-import { Card } from "@/mk/components/ui/Card/Card";
-import { formatNumber } from "../../../mk/utils/numbers";
 import styles from "./DashboardMap.module.css";
 import Image from "next/image";
+import { Card } from "@/mk/components/ui/Card/Card";
+import { formatNumber } from "@/mk/utils/numbers";
 import Maps from "@/components/Maps/Maps";
 
 type TypeProps = {
@@ -54,9 +54,7 @@ export const DashboardMap = ({
                 //   })
                 // }
               >
-                <p>
-                  Población Censo <br /> 2022
-                </p>
+                <p>Población Censo <br /> 2022</p>
                 {params[0]?.level == entidadData?.role?.level ? (
                   <p>{formatNumber(entidadData?.entidad?.habitantes, 0)}</p>
                 ) : (
@@ -93,6 +91,7 @@ export const DashboardMap = ({
                     label: "Votos obtenidos PID 2023",
                   })
                 }
+                
               >
                 <p>Votos obtenidos PID 2023</p>
                 {params[0]?.level == entidadData?.role?.level ? (
@@ -111,13 +110,12 @@ export const DashboardMap = ({
       </>
 
       <div className={styles.ecuador}>
-        {/* <Maps
+        <Maps
           data={data?.entidad}
           params={params}
           onClick={onClick}
           itemSelected={itemSelected}
-        /> */}
-        <div>Uruguay</div>
+        />
         {params[0]?.level == 1 && (
           <div>
             <Image

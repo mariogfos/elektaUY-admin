@@ -21,37 +21,32 @@
     }
 } */
 .container {
+  padding: 0px var(--spXl);
+
+
+  @media (max-width: 1024px) {
+    padding-bottom:15%;
+  }
   & > section {
     width: 100%;
     gap: var(--spS);
-
+    margin-bottom: var(--spS);
     @media (min-width: 1024px) {
       display: flex;
     }
-
     & > div {
       width: 100%;
       margin-bottom: var(--spS);
-
       @media (min-width: 1024px) {
         /* width: 50%; */
       }
     }
   }
-
-  & > section:last-of-type {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    color: var(--cBlackV2);
-  }
 }
-
-.bar {
+.bar{
   background-color: aquamarine;
   border-radius: 5px;
-
-  & > div > div {
+  & > div > div{
     background-color: beige;
   }
 }
