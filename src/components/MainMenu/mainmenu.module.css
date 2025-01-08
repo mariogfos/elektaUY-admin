@@ -101,7 +101,7 @@
   border: 1px solid var(--cBlack);
 
   &:hover {
-    background-color: rgba(245, 149, 28, 0.2);
+    background-color: rgba(33, 37, 41, 0.5);
     color: white;
     border: 1px solid var(--cAccent);
   }
