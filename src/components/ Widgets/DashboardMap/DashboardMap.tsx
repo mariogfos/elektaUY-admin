@@ -31,11 +31,11 @@ export const DashboardMap = ({
     <div className={styles.WidgetMaps}>
       <>
         <div>
-          Resumen poblacional en{" "}
+          Resumen de afiliados a nivel{" "}
           {params[0]?.level === 1
-            ? "Ecuador"
+            ? "Nacional"
             : params[0]?.level === 2
-            ? "Provincia"
+            ? "Departamento"
             : "Cantón"}
         </div>
 
@@ -54,7 +54,7 @@ export const DashboardMap = ({
                 //   })
                 // }
               >
-                <p>Población Censo <br /> 2022</p>
+                <p>Población del censo 2023</p>
                 {params[0]?.level == entidadData?.role?.level ? (
                   <p>{formatNumber(entidadData?.entidad?.habitantes, 0)}</p>
                 ) : (
@@ -73,14 +73,14 @@ export const DashboardMap = ({
                   })
                 }
               >
-                <p>Votantes habilitados 2024</p>
+                <p>Padrón electoral 2024</p>
                 {params[0]?.level == entidadData?.role?.level ? (
                   <p>{formatNumber(entidadData?.entidad?.habilitados, 0)}</p>
                 ) : (
                   <p>{formatNumber(data?.population?.habilitados)}</p>
                 )}
               </Card>
-              <Card
+              {/* <Card
                 style={{ textAlign: "right", fontSize: 16, cursor: "pointer" }}
                 onClick={() =>
                   setPoblacion({
@@ -99,11 +99,11 @@ export const DashboardMap = ({
                 ) : (
                   <p>{formatNumber(data?.population?.pib)}</p>
                 )}
-              </Card>
+              </Card> */}
             </>
           )}
           <Card style={{ textAlign: "right", fontSize: 16 }}>
-            <p>Afiliados registrados en Elekta</p>
+            <p>Total de afiliados en la red</p>
             <p>{formatNumber(totalAfiliados, 0)}</p>
           </Card>
         </div>
@@ -119,7 +119,7 @@ export const DashboardMap = ({
         {params[0]?.level == 1 && (
           <div>
             <Image
-              src="/images/EcuadorM.png"
+              src="/images/uruguayLogo.png"
               alt="Ecuador"
               width={190}
               height={40}
