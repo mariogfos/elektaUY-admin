@@ -46,7 +46,7 @@ const colorPalette = [
 const WidgetTable = ({ data, level, onClickLevel, title }: any) => {
   // console.log(level,'lv')
   const titleFirstColumnLabel =
-    level === 1 ? "Provincia" : level === 2 ? "Cantón" : "Parroquia";
+    level === 1 ? "Departamento" : "Municipio";
   const [goals, setGoals]: any = useState([]);
   const [sortConfig, setSortConfig] = useState({
     key: "percentage_hab",

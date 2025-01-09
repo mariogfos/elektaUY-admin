@@ -27,60 +27,56 @@ export const DashboardMap = ({
     0
   );
 
+  console.log("entidadData: ", entidadData);
+
   return (
     <div className={styles.WidgetMaps}>
       <>
         <div>
           Resumen de afiliados a nivel{" "}
-          {params[0]?.level === 1
-            ? "Nacional"
-            : params[0]?.level === 2
-            ? "Departamento"
-            : "Cantón"}
+          {params[0]?.level === 1 ? "Nacional" : "Departamento"}
         </div>
 
         <div className={styles.stats}>
-          {params[0]?.level != 3 && (
-            <>
-              <Card
-                style={{ textAlign: "right", fontSize: 16 }}
-                // onClick={() =>
-                //   setPoblacion({
-                //     total:
-                //       params[0]?.level == entidadData?.role?.level
-                //         ? entidadData?.entidad?.habitantes
-                //         : data?.population?.habitantes,
-                //     label: "Censo 2022",
-                //   })
-                // }
-              >
-                <p>Población del censo 2023</p>
-                {params[0]?.level == entidadData?.role?.level ? (
-                  <p>{formatNumber(entidadData?.entidad?.habitantes, 0)}</p>
-                ) : (
-                  <p>{formatNumber(data?.population?.habitantes, 0)}</p>
-                )}
-              </Card>
-              <Card
-                style={{ textAlign: "right", fontSize: 16, cursor: "pointer" }}
-                onClick={() =>
-                  setPoblacion({
-                    total:
-                      params[0]?.level == entidadData?.role?.level
-                        ? entidadData?.entidad?.habilitados
-                        : data?.population?.habilitados,
-                    label: "Habilitados",
-                  })
-                }
-              >
-                <p>Padrón electoral 2024</p>
-                {params[0]?.level == entidadData?.role?.level ? (
-                  <p>{formatNumber(entidadData?.entidad?.habilitados, 0)}</p>
-                ) : (
-                  <p>{formatNumber(data?.population?.habilitados)}</p>
-                )}
-              </Card>
-              {/* <Card
+          <Card
+            style={{ textAlign: "right", fontSize: 16 }}
+            // onClick={() =>
+            //   setPoblacion({
+            //     total:
+            //       params[0]?.level == entidadData?.role?.level
+            //         ? entidadData?.entidad?.habitantes
+            //         : data?.population?.habitantes,
+            //     label: "Censo 2022",
+            //   })
+            // }
+          >
+            <p>Población del censo 2023</p>
+            {params[0]?.level == entidadData?.role?.level ? (
+              <p>{formatNumber(entidadData?.entidad?.habitantes, 0)}</p>
+            ) : (
+              <p>{formatNumber(data?.population?.habitantes, 0)}</p>
+            )}
+          </Card>
+          <Card
+            style={{ textAlign: "right", fontSize: 16, cursor: "pointer" }}
+            onClick={() =>
+              setPoblacion({
+                total:
+                  params[0]?.level == entidadData?.role?.level
+                    ? entidadData?.entidad?.habilitados
+                    : data?.population?.habilitados,
+                label: "Habilitados",
+              })
+            }
+          >
+            <p>Padrón electoral 2024</p>
+            {params[0]?.level == entidadData?.role?.level ? (
+              <p>{formatNumber(entidadData?.entidad?.habilitados, 0)}</p>
+            ) : (
+              <p>{formatNumber(data?.population?.habilitados)}</p>
+            )}
+          </Card>
+          {/* <Card
                 style={{ textAlign: "right", fontSize: 16, cursor: "pointer" }}
                 onClick={() =>
                   setPoblacion({
@@ -100,8 +96,7 @@ export const DashboardMap = ({
                   <p>{formatNumber(data?.population?.pib)}</p>
                 )}
               </Card> */}
-            </>
-          )}
+
           <Card style={{ textAlign: "right", fontSize: 16 }}>
             <p>Total de afiliados en la red</p>
             <p>{formatNumber(totalAfiliados, 0)}</p>
@@ -119,7 +114,7 @@ export const DashboardMap = ({
         {params[0]?.level == 1 && (
           <div>
             <Image
-              src="/images/uruguayBandera.png"
+              src="/images/Uruguay.webp"
               alt="Ecuador"
               width={190}
               height={40}

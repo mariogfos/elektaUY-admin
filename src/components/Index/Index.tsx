@@ -48,7 +48,7 @@ const HomePage = () => {
   }, [params]);
 
   const onClick = (row: any) => {
-    if (params?.level === 3) {
+    if (params?.level === 2) {
       return;
     }
 
@@ -120,7 +120,7 @@ const HomePage = () => {
         </>
       )}
       <section>
-        {params?.level <= 3 && (
+        {params?.level <= 2 && (
           <div>
             <DashboardMap
               data={dashboard?.data}
@@ -163,30 +163,29 @@ const HomePage = () => {
           />
         </div>
       </section>
-      <section>
-        <div>
-          {dashboard?.data?.entidad && (
-            <WidgetTable
-              data={dashboard?.data.entidad}
-              title={`Resumen general a nivel ${
-                params?.level === 1
-                  ? "Nacional"
-                  : params?.level === 2
-                  ? "Provincia"
-                  : "Cantón"
-              }`}
-              level={params?.level}
-              onClickLevel={onClick}
-            />
-          )}
-        </div>
-      </section>
-      <section>
-        <p>
-          Fuentes: Instituto Nacional de Estadística y Censos (INEC), Ecuador
-        </p>
-        <p>Consejo Nacional Electoral (CNE), Ecuador</p>
-      </section>
+      {dashboard?.data?.entidad && (
+        <>
+          <section>
+            <div>
+              <WidgetTable
+                data={dashboard?.data.entidad}
+                title={`Resumen general a nivel ${
+                  params?.level === 1 ? "Nacional" : "Departamento"
+                }`}
+                level={params?.level}
+                onClickLevel={onClick}
+              />
+            </div>
+          </section>
+          <section style={{justifyContent: 'right'}}>
+            <p>
+              Fuentes: Instituto Nacional de Estadística y Censos (INEC),
+              Ecuador
+            </p>
+            <p>Consejo Nacional Electoral (CNE), Ecuador</p>
+          </section>
+        </>
+      )}
     </div>
   );
 };
