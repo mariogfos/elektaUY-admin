@@ -1,3 +1,4 @@
+"use client";
 import Table from "@/mk/components/ui/Table/Table";
 import { formatNumber } from "@/mk/utils/numbers";
 import React, { useEffect, useState } from "react";
@@ -36,13 +37,17 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
       distribucion: d[1] ? (d[0] * 100) / d[1] : 0,
       habilitados: d[1],
     });
+    if (orden == "name") {
+      newData.sort((a: any, b: any) => a[orden]?.localeCompare(b[orden]));
+    }
     newData.sort((a: any, b: any) => b[orden] - a[orden]);
+    // console.log(newData);
     return newData;
   };
 
   const dataFormattedLocal = () => {
     let locals = data?.filter(
-      (item: any) => item?.prov_id === filters?.prov_idV
+      (item: any) => item?.dpto_id === filters?.dpto_idV
     );
     let newData: any = [];
 
@@ -58,14 +63,17 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
       }
     });
 
+    if (orden == "name") {
+      newData.sort((a: any, b: any) => a[orden]?.localeCompare(b[orden]));
+    }
     newData.sort((a: any, b: any) => b[orden] - a[orden]);
     return newData;
   };
   useEffect(() => {
-    if (type == "prov") {
+    if (type == "dpto") {
       dataFormattedDpto();
     }
-    if (type == "canton") {
+    if (type == "local") {
       dataFormattedLocal();
     }
   }, [orden]);
@@ -94,7 +102,7 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
     },
     {
       key: "name",
-      label: type == "prov" ? "Provincia" : "Canton",
+      label: type == "dpto" ? "Departamento" : "Localidad",
     },
     {
       key: "afiliados",
@@ -143,7 +151,7 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
     <WidgetBase
       title={
         <div className={styles.containerTitle}>
-          <p>Afiliados por {type == "prov" ? "provincia" : "canton"}</p>
+          <p>Afiliados por {type == "dpto" ? "Departamento" : "localidad"}</p>
           <div style={{ width: "200px" }}>
             <Select
               name="orden"
@@ -161,7 +169,7 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
       }
     >
       <Table
-        data={type == "prov" ? dataFormattedDpto() : dataFormattedLocal()}
+        data={type == "dpto" ? dataFormattedDpto() : dataFormattedLocal()}
         header={header}
         className="striped"
         sumarize={true}

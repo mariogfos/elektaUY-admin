@@ -6,17 +6,19 @@ import Listas from "../Listas/Listas";
 import Locals from "../Locals/Locals";
 import Dptos from "../Dptos/Dptos";
 import Barrios from "../Barrios/Barrios";
+import Muns from "../Muns/Muns";
 
 const Territory = () => {
   const [typeSearch, setTypeSearch] = useState("S");
   return (
     <div>
-      <div style={{ marginTop: 20 }}>
+      <div>
         <TabsButtons
           tabs={[
             { value: "S", text: "Sublemas" },
             { value: "L", text: "Listas" },
             { value: "D", text: "Departamentos" },
+            { value: "M", text: "Municipios" },
             { value: "O", text: "Localidades" },
             { value: "B", text: "Barrios" },
             // { value: "A", text: "Afiliados" },
@@ -28,6 +30,7 @@ const Territory = () => {
       {typeSearch === "S" && <Sublemas />}
       {typeSearch === "L" && <Listas />}
       {typeSearch === "D" && <Dptos />}
+      {typeSearch === "M" && <Muns />}
       {typeSearch === "O" && <Locals />}
       {typeSearch === "B" && <Barrios />}
       {/* {typeSearch === "A" && <Afiliados />} */}

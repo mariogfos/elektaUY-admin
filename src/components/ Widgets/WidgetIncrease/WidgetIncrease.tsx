@@ -28,7 +28,7 @@ const WidgetIncrease = ({ widget8 }: PropsType) => {
     return (
       <div>
         <h1>Crecimiento de afiliados</h1>
-        <p
+        <div
           style={{
             color: percentageColor,
             backgroundColor: backgroundColor,
@@ -46,7 +46,7 @@ const WidgetIncrease = ({ widget8 }: PropsType) => {
             {growthPercentage.toFixed(2)}%
             <IconComponent />
           </Tooltip>
-        </p>
+        </div>
       </div>
     );
   };

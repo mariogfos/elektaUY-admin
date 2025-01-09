@@ -38,7 +38,10 @@ const MainMenu = ({
             icon={<IconRedffiliates />}
             items={[
               { href: "/", label: "Resumen" },
-              { href: "/stats", label: "Crecimiento de los afiliados" },
+              {
+                href: "/affiliateGrowth",
+                label: "Crecimiento de los afiliados",
+              },
               { href: "/directAffiliates", label: "Red de afiliados" },
               { href: "/affiliates", label: "Afiliados" },
               { href: "/ranking", label: "Ranking" },
@@ -50,8 +53,8 @@ const MainMenu = ({
             label="Organización"
             icon={<IconNetwork />}
             items={[
-              { href: "/users", label: "Estructura del partido" },
-              { href: "/admins", label: "Administradores" },
+              { href: "/partyStructure", label: "Estructura del partido" },
+              { href: "/users", label: "Administradores" },
               { href: "/roles", label: "Roles y permisos" },
             ]}
             collapsed={collapsed}

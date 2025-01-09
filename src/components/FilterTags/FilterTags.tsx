@@ -19,16 +19,16 @@ const FilterTags = ({
   filters,
 }: PropsType) => {
   const _onClick = (item: any) => {
-    if (type === "prov_id") {
-      if (filters?.prov_id == item.id) {
-        setFilters((prev: any) => ({ ...prev, prov_id: null }));
-        setFilters((prev: any) => ({ ...prev, canton_id: null }));
+    if (type === "dpto_id") {
+      if (filters?.dpto_id == item.id) {
+        setFilters((prev: any) => ({ ...prev, dpto_id: null }));
+        setFilters((prev: any) => ({ ...prev, local_id: null }));
         return;
       }
       setFilters((prev: any) => ({ ...prev, [type]: item.id }));
-    } else if (type === "canton_id") {
-      if (filters?.canton_id == item.id) {
-        setFilters((prev: any) => ({ ...prev, canton_id: null }));
+    } else if (type === "local_id") {
+      if (filters?.local_id == item.id) {
+        setFilters((prev: any) => ({ ...prev, local_id: null }));
         return;
       }
       setFilters((prev: any) => ({ ...prev, [type]: item.id }));

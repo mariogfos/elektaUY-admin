@@ -34,6 +34,13 @@ const Barrios = () => {
         list: { width: "430px" },
         form: { type: "select", optionsExtra: "dptos" },
       },
+      mun_id: {
+        rules: ["required"],
+        api: "ae",
+        label: "Municipio",
+        list: { width: "400px" },
+        form: { type: "select", optionsExtra: "muns" },
+      },
       local_id: {
         rules: ["required"],
         api: "ae",

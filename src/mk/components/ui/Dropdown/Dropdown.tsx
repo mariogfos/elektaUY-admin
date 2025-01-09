@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.css";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 type DropdownProps = {
   trigger: React.ReactNode;
@@ -12,6 +12,7 @@ const Dropdown = ({ trigger, items }: DropdownProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router: any = useRouter();
+  const path = usePathname();
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!dropdownOpen);
@@ -45,7 +46,7 @@ const Dropdown = ({ trigger, items }: DropdownProps) => {
       {dropdownOpen && (
         <div className={styles.dropdownMenu}>
           {items.map((item) => {
-            const isActive = router.pathname === item.route; // Verifica si está activo
+            const isActive = path === item.route; // Verifica si está activo
             return (
               <p
                 key={item.route}

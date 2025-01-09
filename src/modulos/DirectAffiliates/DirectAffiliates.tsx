@@ -18,7 +18,7 @@ import ModalSearchAff from "./ModalSearchAff";
 
 const DirectAffiliates = () => {
   const paramInitial: any = {
-    fullType: "L",
+    fullType: "LD",
   };
 
   const { setStore, userCan } = useAuth();
@@ -126,7 +126,7 @@ const DirectAffiliates = () => {
     }));
 
     execute("/affiliates", "GET", {
-      fullType: "L",
+      fullType: "LD",
       searchBy: affiliate_id,
     }).then((response: any) => {
       const newData = response.data.data;
@@ -411,13 +411,13 @@ const DirectAffiliates = () => {
             open={true}
           />
         )} */}
-        {/* {openModal && (
+        {openModal && (
           <ModalSearchAff
             open={openModal}
             close={onCloseModal}
             searchBy={params?.searchBy || ""}
           />
-        )} */}
+        )}
       </div>
     );
   }

@@ -4,6 +4,7 @@ export const lLevels = [
   "Sublema",
   "Lista",
   "Departamento",
+  "Municipo",
   "Localidad",
   "Barrio",
 ];
@@ -13,6 +14,7 @@ export const lEntity = [
   "sublema_id",
   "lista_id",
   "dpto_id",
+  "mun_id",
   "local_id",
   "barrio_id",
 ];

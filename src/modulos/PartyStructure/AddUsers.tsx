@@ -104,6 +104,12 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
       );
       return item?.name || "";
     }
+    if (entidad == "mun") {
+      let item = datos?.data?.muns.find(
+        (item: any) => item.id == user.datos.mun_id
+      );
+      return item?.name || "";
+    }
     if (entidad == "local") {
       let item = datos?.data?.locals.find(
         (item: any) => item.id == user.datos.local_id
@@ -163,7 +169,8 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
                   {user?.role?.level > 1 && ` ${getDatos("sublema")}`}
                   {user?.role?.level > 2 && ` / ${getDatos("lista")}`}
                   {user?.role?.level > 3 && ` / ${getDatos("dpto")}`}
-                  {user?.role?.level > 4 && ` / ${getDatos("local")}`}
+                  {user?.role?.level > 4 && ` / ${getDatos("mun")}`}
+                  {user?.role?.level > 5 && ` / ${getDatos("local")}`}
                   {user?.role?.level > 5 && ` / ${getDatos("barrio")}`}
                 </span>
               </p>

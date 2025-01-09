@@ -2,7 +2,7 @@
 "use client";
 import useCrud from "@/mk/hooks/useCrud/useCrud";
 import NotAccess from "@/components/auth/NotAccess/NotAccess";
-import styles from "./Locals.module.css";
+import styles from "./Muns.module.css";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
 import useCrudUtils from "../shared/useCrudUtils";
 import { useEffect, useMemo, useState } from "react";
@@ -11,10 +11,10 @@ import ImportDataModal from "@/mk/components/data/ImportDataModal/ImportDataModa
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 
 const mod = {
-  modulo: "locals",
-  singular: "localidad",
-  plural: "localidades",
-  permiso: "locals",
+  modulo: "muns",
+  singular: "municipio",
+  plural: "municipios",
+  permiso: "muns",
   extraData: true,
   import: true,
   hideActions: { edit: true, del: true, add: true },
@@ -27,7 +27,7 @@ const paramsInitial = {
   searchBy: "",
 };
 
-const Locals = () => {
+const Muns = () => {
   const fields = useMemo(
     () => ({
       id: { rules: [], api: "e" },
@@ -38,17 +38,10 @@ const Locals = () => {
         list: { width: "300px" },
         form: { type: "select", optionsExtra: "dptos" },
       },
-      mun_id: {
-        rules: ["required"],
-        api: "ae",
-        label: "Municipio",
-        list: { width: "300px" },
-        form: { type: "select", optionsExtra: "muns" },
-      },
       name: {
         rules: ["required"],
         api: "ae",
-        label: "Localidad",
+        label: "Municipio",
         list: true,
         form: { type: "text" },
       },
@@ -143,4 +136,4 @@ const Locals = () => {
   );
 };
 
-export default Locals;
+export default Muns;

@@ -1,8 +1,8 @@
-import PartyStructure from "@/modulos/PartyStructure/PartyStructure";
+import Users from "@/modulos/Users/Users";
 import React from "react";
 
 const page = () => {
-  return <PartyStructure />;
+  return <Users />;
 };
 
 export default page;

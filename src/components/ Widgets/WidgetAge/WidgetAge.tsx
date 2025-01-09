@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import WidgetBase from "../WidgetBase/WidgetBase";
@@ -40,12 +41,12 @@ const WidgetAge = ({ widget2, title }: WidgetAgeProps) => {
         "rgba(170, 183, 184, 1)",
       ];
 
-      const categories = Object.keys(widget2).map((key) =>
+      const categories = Object.keys(widget2)?.map((key) =>
         key === "0" ? "No indicado" : key
       );
       const data = Object.values(widget2);
 
-      const dataLabelColors = data.map((val) =>
+      const dataLabelColors = data?.map((val) =>
         val === 0 ? "#858a8f" : "#858a8f"
       );
 

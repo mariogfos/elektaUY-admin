@@ -5,6 +5,7 @@ import AxiosInstanceProvider from "@/mk/contexts/AxiosInstanceProvider";
 import axiosInterceptors from "@/mk/interceptors/axiosInterceptors";
 import AuthProvider from "@/mk/contexts/AuthProvider";
 import Layout from "@/components/layout/Layout";
+import { Viewport } from "next";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -19,7 +20,12 @@ import Layout from "@/components/layout/Layout";
 export const metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME || "Default App Name",
   description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || "Default Description",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+};
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
   themeColor: "#00000",
 };
 
@@ -30,12 +36,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* <link rel="icon" href="/public/images/favicon.ico" /> */}
+      {/* <head>
+        <link rel="icon" href="/public/images/favicon.ico" />
         <link rel="apple-touch-icon" href="/icon.png" />
-      </head>
+      </head> */}
       {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
-      <body>
+      <body cz-shortcut-listen="false">
         <AxiosInstanceProvider interceptors={axiosInterceptors}>
           <AuthProvider>
             <div
