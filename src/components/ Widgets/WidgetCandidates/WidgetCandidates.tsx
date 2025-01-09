@@ -19,7 +19,7 @@ const WidgetCandidates = ({ data, params }: any) => {
             {params?.level === 1
               ? "Candidatos a Asambleístas Nacionales"
               : params?.level >= 2
-              ? "Candidatos a Asambleístas por provincia"
+              ? "Candidatos a Asambleístas por departamento"
               : "Sin Candidatos"}
           </span>
         }
