@@ -253,7 +253,7 @@ const Maps = ({
                   color: "#656F78",
                 }}
               >
-                <p>Distritos: </p>
+                <p>Municipios: </p>
                 <p style={{ color: "#101111" }}>
                   {formatNumber(item?.distritosCount || item?.distritos, 0)}
                 </p>
