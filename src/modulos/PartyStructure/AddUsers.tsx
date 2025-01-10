@@ -50,6 +50,17 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
   // const { data: locals } = useAxios("/locals", "GET", {});
   // const { data: dptos } = useAxios("/dptos", "GET", {});
   // const { data: barrios } = useAxios("/barrios", "GET", {});
+  const getMuns = () => {
+    let data: any = [];
+    if (listsApi?.data?.muns.length > 0) {
+      listsApi?.data.muns.find((item: any) => {
+        if (item.mun_id == formState.mun_id) {
+          data.push(item);
+        }
+      });
+    }
+    return data;
+  };
 
   const getLocals = () => {
     let data: any = [];
@@ -239,6 +250,22 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
             user?.role?.level <= 4 &&
             level > 4 && (
               <Select
+                label="Municipio"
+                name="mun_id"
+                disabled={precarga?.mun_id}
+                error={errorsUsers}
+                required={level > 4}
+                value={formState["mun_id"]}
+                onChange={handleChangeInput}
+                options={getMuns() || []}
+                className="appearance-none"
+              />
+            )}
+
+          {formState.role_id !== null &&
+            user?.role?.level <= 5 &&
+            level > 5 && (
+              <Select
                 label="Localidad"
                 name="local_id"
                 disabled={precarga?.local_id}
@@ -252,8 +279,8 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
             )}
 
           {formState.role_id !== null &&
-            user?.role?.level <= 5 &&
-            level > 5 && (
+            user?.role?.level <= 6 &&
+            level > 6 && (
               <>
                 <Select
                   label="Barrios"

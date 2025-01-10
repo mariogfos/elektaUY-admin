@@ -60,6 +60,11 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
     } else {
       obj = { ...obj, dpto_id: user?.datos?.dpto_id };
     }
+    if (precarga?.mun_id) {
+      obj = { ...obj, mun_id: precarga.mun_id };
+    } else {
+      obj = { ...obj, sublema_id: user?.datos?.mun_id };
+    }
     if (precarga?.local_id) {
       obj = { ...obj, local_id: precarga.local_id };
     } else {
@@ -284,11 +289,16 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
       }
     }
     if (level > 4) {
+      if ((field == "" || field == "mun_id") && !formState.mun_id) {
+        errors = { ...errors, mun_id: "El campo es requerido" };
+      }
+    }
+    if (level > 5) {
       if ((field == "" || field == "local_id") && !formState.local_id) {
         errors = { ...errors, local_id: "El campo es requerido" };
       }
     }
-    if (level > 5) {
+    if (level > 6) {
       if ((field == "" || field == "barrio_id") && !formState.barrio_id) {
         errors = { ...errors, barrio_id: "El campo es requerido" };
       }
