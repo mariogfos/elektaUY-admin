@@ -26,7 +26,7 @@
         stroke-width: 1px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -62,12 +62,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -79,7 +78,7 @@
   }
 }
 
-.BolivarMap {
+.CerroLargoMap {
   position: relative; /* Ensure the container is relative */
   max-width: 100%;
   height: auto;
@@ -103,12 +102,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -144,12 +142,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
         &:hover {
           cursor: auto;
           stroke-width: 1px;
@@ -184,12 +181,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -225,12 +221,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -266,12 +261,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -307,12 +301,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -348,12 +341,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -389,12 +381,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -430,12 +421,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -471,12 +461,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -488,7 +477,7 @@
   }
 }
 
-.RioMap {
+.DuraznoMap {
   position: relative; /* Ensure the container is relative */
   max-width: 100%;
   height: auto;
@@ -512,12 +501,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -553,12 +541,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -594,12 +581,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -635,12 +621,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -676,12 +661,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
         &:hover {
           cursor: auto;
           stroke-width: 1px;
@@ -716,12 +700,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -757,12 +740,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -798,12 +780,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -838,12 +819,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -878,12 +858,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -918,12 +897,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -958,12 +936,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -999,12 +976,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
@@ -1040,12 +1016,11 @@
 
     & > a {
       & > path {
-        fill: #212529;
         stroke: #3a9ed9;
         stroke-width: 0.4px;
         transition: fill 0.3s, strokeWidth 0.3s;
         animation: fadeIn 0.5s;
-        fill: var(--cHover);
+        fill: #212529;
 
         &:hover {
           cursor: auto;
