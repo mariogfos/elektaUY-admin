@@ -109,7 +109,7 @@ const Maps = ({
       case "18":
         path = pathsSanJose;
         break;
-      case "17":
+      case "19":
         path = pathsTreintaTres;
         break;
     }
@@ -146,30 +146,30 @@ const Maps = ({
 
   const getStyle = () => {
     switch (param?.code) {
-      case "01":
-        return styles.AzuzayMap;
-      case "02":
-        return styles.BolivarMap;
-      case "03":
+      case "1":
+        return styles.CerroLargoMap;
+      case "2":
+        return styles.CerroLargoMap;
+      case "3":
         return styles.CañarMap;
-      case "04":
-        return styles.CarchiMap;
-      case "05":
+      case "4":
+        return styles.CerroLargoMap;
+      case "5":
         return styles.CotopaxiMap;
-      case "06":
+      case "6":
         return styles.ChimborazoMap;
-      case "07":
+      case "7":
         return styles.ElOroMap;
       case "8":
         return styles.SaltoMap;
-      case "09":
+      case "9":
         return styles.GuayasMap;
       case "10":
         return styles.ImbaduraMap;
       case "11":
         return styles.LojaMap;
       case "12":
-        return styles.RioMap;
+        return styles.DuraznoMap;
       case "13":
         return styles.ManabiMap;
       case "14":
@@ -184,16 +184,6 @@ const Maps = ({
         return styles.TunguaruMap;
       case "19":
         return styles.ZamoraMap;
-      case "20":
-        return styles.GalapagoMap;
-      case "21":
-        return styles.Sucumbios;
-      case "22":
-        return styles.Orellana;
-      case "23":
-        return styles.SantoDomingo;
-      case "24":
-        return styles.SantaElena;
       default:
         return styles.mapa;
     }
@@ -289,13 +279,11 @@ const Maps = ({
   };
 
   return (
-    <div className={
-      param?.level == 1
-        ? styles.mapa
-        : param?.level == 2
-        ? getStyle()
-        : styles.mapa
-    }>
+    <div
+      className={
+        param?.level == 1 ? styles.mapa : param?.level == 2 ? getStyle() : ""
+      }
+    >
       <svg ref={svgRef} viewBox={path[0]?.vb}>
         {path.map((path: any, index: number) => {
           if (path.title === "rect") {
@@ -331,28 +319,24 @@ const Maps = ({
               <path
                 key={path.id || index}
                 style={{
-                  fill:
-                    path.title === "map"
-                      ? "#F58220"
-                      : path.title === "salar"
-                      ? "#656F78"
-                      : "",
+                  fill: path.title === "salar" ? "#393c3f" : "",
+                  strokeWidth:
+                    path.title === "salar" ? 0 : paramLevel === 2 ? 0.5 : 1,
                   stroke:
                     path.title === "value"
                       ? "#000"
                       : path.title === "line"
                       ? "#fff"
                       : "",
-                  cursor:
-                    path.title === "map" ||
-                    path.title === "line" ||
-                    param?.level < 2
-                      ? "pointer"
-                      : "default",
+                  cursor: param?.level < 2 ? "pointer" : "default",
                 }}
                 d={path.d}
-                onMouseEnter={(e) => path.title !== "salar" && onTooltip(e, path?.code)}
-                onMouseLeave={() => path.title !== "salar" && onTooltip(null, path?.code, false)}
+                onMouseEnter={(e) =>
+                  path.title !== "salar" && onTooltip(e, path?.code)
+                }
+                onMouseLeave={() =>
+                  path.title !== "salar" && onTooltip(null, path?.code, false)
+                }
               />
             </Link>
           );

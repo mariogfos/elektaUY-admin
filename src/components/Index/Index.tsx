@@ -180,9 +180,9 @@ const HomePage = () => {
           <section style={{justifyContent: 'right'}}>
             <p>
               Fuentes: Instituto Nacional de Estadística y Censos (INEC),
-              Ecuador
+              Uruguay
             </p>
-            <p>Consejo Nacional Electoral (CNE), Ecuador</p>
+            <p>Consejo Nacional Electoral (CNE), Uruguay</p>
           </section>
         </>
       )}
