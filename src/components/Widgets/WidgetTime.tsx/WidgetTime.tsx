@@ -40,6 +40,12 @@ const WidgetTime = ({ data }: any) => {
   const meses = generateMonths(countFrom, countTo);
 
   const getPercentage = (mes: any, dias: any) => {
+    if (getDaysFaltantes() == 1) {
+      return 50;
+    }
+    if (getDaysFaltantes() <= 0) {
+      return 100;
+    }
     if (mes === currentMonth) {
       return (currentDay / dias) * 100;
     }
@@ -56,12 +62,45 @@ const WidgetTime = ({ data }: any) => {
     return diasFaltantes;
   };
 
+  // const fechaFin = () => {
+  //   // let year = new Date().getFullYear();
+  //   // let day = new Date().getDay();
+  //   // let month = new Date().getMonth();
+  //   let date = new Date().toISOString();
+  //   let dateCountTo = new Date(data?.count_to).toISOString();
+  //   // const date =
+  //   //   new Date().getFullYear() +
+  //   //   "-" +
+  //   //   (new Date().getMonth() + 1) +
+  //   //   "-" +
+  //   //   new Date().getDay();
+
+  //   console.log(date, dateCountTo);
+  //   if (date <= dateCountTo) {
+  //     console.log("entro false");
+  //     return false;
+  //   }
+  //   console.log("entro true");
+  //   return true;
+  // };
+
+  // console.log(fechaFin());
+
   return (
     <div className={styles.container}>
-      <p>
-        Faltan <span>{getDaysFaltantes()}</span> días para las elecciones del{" "}
-        {getDateStrMes(data?.count_to)}
-      </p>
+      {getDaysFaltantes() > 0 ? (
+        <p>
+          {`${getDaysFaltantes() == 1 ? "Falta" : "Faltan"}`}{" "}
+          <span>{getDaysFaltantes()}</span>{" "}
+          {`${getDaysFaltantes() == 1 ? "día" : "días"}`} para las elecciones
+          del {getDateStrMes(data?.count_to)}
+        </p>
+      ) : getDaysFaltantes() == 0 ? (
+        <p>Llegó el día de las elecciones 🗳️</p>
+      ) : (
+        <p>Las elecciones terminaron 🏁</p>
+      )}
+
       <div>
         {meses?.map((item, index) => {
           return (
