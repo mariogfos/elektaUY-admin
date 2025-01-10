@@ -70,7 +70,7 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
     } else {
       obj = { ...obj, barrio_id: user?.datos?.barrio_id };
     }
-    setFormState({ ...formState, ...obj, prefix_phone: "593" });
+    setFormState({ ...formState, ...obj, prefix_phone: "598" });
   };
 
   useEffect(() => {

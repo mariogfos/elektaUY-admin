@@ -26,9 +26,9 @@ const paramsInitial = {
 };
 
 const lLevels = [
-  { id: 1, name: "Provincial" },
-  { id: 2, name: "Cantonal" },
-  { id: 3, name: "Parroquial" },
+  { id: 1, name: "Departamental" },
+  { id: 2, name: "Municipal" },
+  // { id: 3, name: "Parroquial" },
 ];
 
 const Goals = () => {
@@ -72,9 +72,9 @@ const Goals = () => {
   };
 
   const lLevelPlantilla = [
-    { id: 1, name: "Plantilla Provincial" },
-    { id: 2, name: "Plantilla Cantonal" },
-    { id: 3, name: "Plantilla parroquial" },
+    { id: 1, name: "Plantilla departamental" },
+    { id: 2, name: "Plantilla municipal" },
+    // { id: 3, name: "Plantilla parroquial" },
   ];
 
   const [plantilla, setPlantilla] = useState(0);
