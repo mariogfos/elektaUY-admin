@@ -10,7 +10,7 @@ const WidgetProgresiveBar = ({ data, poblacion }: any) => {
     <div className={styles["WidgetProgresiveBar"]}>
       <div>
         Esta barra refleja la cantidad de afiliados a nivel{" "}
-        {level == 1 ? "nacional" : level == 2 ? "provincia" : "cantón"} con
+        {level == 1 ? "nacional" : "departamento"} con
         relación a los {poblacion?.label} para votar
       </div>
       <ProgresiveBar
