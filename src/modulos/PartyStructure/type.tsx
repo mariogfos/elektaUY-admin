@@ -4,7 +4,7 @@ export const lLevels = [
   "Sublema",
   "Lista",
   "Departamento",
-  "Municipo",
+  "Municipio",
   "Localidad",
   "Barrio",
 ];

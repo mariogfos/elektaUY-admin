@@ -46,19 +46,19 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
     let data: any = [];
     if (listsApi?.data?.muns.length > 0) {
       listsApi?.data.muns.find((item: any) => {
-        if (item.mun_id == formState.mun_id) {
+        if (item.dpto_id == formState.dpto_id) {
           data.push(item);
         }
       });
     }
     return data;
   };
-
+  console.log(getMuns());
   const getLocals = () => {
     let data: any = [];
     if (listsApi?.data?.locals.length > 0) {
       listsApi?.data.locals.find((item: any) => {
-        if (item.dpto_id == formState.dpto_id) {
+        if (item.mun_id == formState.mun_id) {
           data.push(item);
         }
       });
@@ -147,6 +147,7 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
 
     return rolesFil;
   };
+  console.log(precarga);
   return (
     <DataModal
       open={open}
