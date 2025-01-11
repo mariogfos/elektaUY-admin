@@ -38,7 +38,6 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
     page: 1,
     searchBy: "",
   });
-
   const prechargeListsData = () => {
     let obj = {};
     if (precarga?.level) {
@@ -63,7 +62,7 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
     if (precarga?.mun_id) {
       obj = { ...obj, mun_id: precarga.mun_id };
     } else {
-      obj = { ...obj, sublema_id: user?.datos?.mun_id };
+      obj = { ...obj, mun_id: user?.datos?.mun_id };
     }
     if (precarga?.local_id) {
       obj = { ...obj, local_id: precarga.local_id };

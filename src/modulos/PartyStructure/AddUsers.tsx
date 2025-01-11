@@ -5,11 +5,8 @@ import Select from "@/mk/components/forms/Select/Select";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import { useUsers } from "./useUsers";
 import styles from "./users.module.css";
-import InputPassword from "@/mk/components/forms/InputPassword/InputPassword";
 import useAxios from "@/mk/hooks/useAxios";
-
 import { PREFIX_COUNTRY } from "@/mk/utils/string";
-import { useEffect, useState } from "react";
 import NotAccess from "@/components/auth/NotAccess/NotAccess";
 
 type PropsType = {
@@ -45,11 +42,6 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
     todos: 1,
   });
 
-  // const { data: sublemas } = useAxios("/sublemas", "GET", {});
-  // const { data: listas } = useAxios("/listas", "GET", {});
-  // const { data: locals } = useAxios("/locals", "GET", {});
-  // const { data: dptos } = useAxios("/dptos", "GET", {});
-  // const { data: barrios } = useAxios("/barrios", "GET", {});
   const getMuns = () => {
     let data: any = [];
     if (listsApi?.data?.muns.length > 0) {
@@ -136,26 +128,25 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
   };
   const isMac = navigator.platform.toUpperCase().includes("MAC");
 
-  // const filterRoles = (type: any) => {
-  //   let rolesFil: any = [];
-  //   const userLevel = user?.role?.level;
-  //   if (userLevel) {
-  //     if (type == "A") {
-  //       rolesFil = roles?.data?.filter(
-  //         (item: any) =>
-  //           (item.level == userLevel || item.level == userLevel + 1) &&
-  //           item.is_fixed == 1
-  //       );
-  //     } else {
-  //       rolesFil = roles?.data?.filter((item: any) => item.level == userLevel);
-  //     }
-  //   } else {
-  //     console.log("El usuario no tiene nivel definido");
-  //   }
+  const filterRoles = (type: any) => {
+    let rolesFil: any = [];
+    const userLevel = user?.role?.level;
+    if (userLevel) {
+      if (type == "A") {
+        rolesFil = roles?.data?.filter(
+          (item: any) =>
+            (item.level == userLevel || item.level == userLevel + 1) &&
+            item.is_fixed == 1
+        );
+      } else {
+        rolesFil = roles?.data?.filter((item: any) => item.level == userLevel);
+      }
+    } else {
+      console.log("El usuario no tiene nivel definido");
+    }
 
-  //   return rolesFil;
-  // };
-
+    return rolesFil;
+  };
   return (
     <DataModal
       open={open}
@@ -194,8 +185,8 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
             disabled={precarga?.level && precarga.line == 2}
             value={formState["role_id"]}
             onChange={handleChangeInput}
-            // options={filterRoles(precarga.line == 1 ? "G" : "A") || []}
-            options={roles?.data || []}
+            options={filterRoles(precarga.line == 1 ? "G" : "A") || []}
+            // options={roles?.data || []}
             optionLabel="name"
             optionValue="id"
             className="appearance-none"

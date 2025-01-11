@@ -3,14 +3,6 @@ import styles from "./Users.module.css";
 import { getUrlImages } from "@/mk/utils/string";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import { getFullName } from "../../mk/utils/string";
-import useAxios from "@/mk/hooks/useAxios";
-import {
-  IconBorn,
-  IconCandidates,
-  IconProfession,
-} from "@/components/layout/icons/IconsBiblioteca";
-import { Card } from "@/mk/components/ui/Card/Card";
-import KeyValue from "@/mk/components/ui/KeyValue/KeyValue";
 
 const RenderView = (props: {
   open: boolean;
@@ -27,10 +19,10 @@ const RenderView = (props: {
   //   console.log(typeCant);
   // console.log(props.item);
   // console.log(props?.extraData);
-  let entidades = ["", "", "Provincia", "Cantón", "Parroquia", "Barrio"];
+  let entidades = ["", "", "Departamento", "Municipio", "Locallidad", "Barrio"];
 
   const getEntidad = () => {
-    let entidad = ["", "", "prov", "canton", "parish", "barrio"];
+    let entidad = ["", "", "dpto", "mun", "local", "barrio"];
     let data: any = [];
     if (props.item?.level) {
       data =
@@ -64,7 +56,7 @@ const RenderView = (props: {
             <p className={styles.title}>{getFullName(props.item)}</p>
             <p style={{ color: "var(--cWhiteV1)", fontSize: "var(--sL)" }}>
               {
-                props.extraData.roles.find(
+                props.extraData?.roles?.find(
                   (e: any) => e.id == props.item.role_id
                 ).name
               }
