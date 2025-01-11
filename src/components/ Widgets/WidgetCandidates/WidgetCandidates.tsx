@@ -17,7 +17,7 @@ const WidgetCandidates = ({ data, params }: any) => {
         title={
           <span className={styles.widgetTitle}>
             {params?.level === 1
-              ? "Candidatos a Asambleístas Nacionales"
+              ? "Candidatos para intendentes departamentales"
               : params?.level >= 2
               ? "Candidatos a Asambleístas por departamento"
               : "Sin Candidatos"}

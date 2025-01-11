@@ -127,6 +127,7 @@ const WidgetTable = ({ data, level, onClickLevel, title }: any) => {
       label: "Nº",
       width: "50px",
       responsive: "",
+      style: { justifyContent: "flex-end", textAlign: "right" },
       onRender: (item: any) => {
         return item.i;
       },
@@ -138,8 +139,8 @@ const WidgetTable = ({ data, level, onClickLevel, title }: any) => {
     },
     {
       key: "habitantes",
-      label: "Población total",
-      width: "120px",
+      label: "Población Censo 2023",
+      width: "180px",
       responsive: "onlyDesktop",
       style: { justifyContent: "flex-end", textAlign: "right" },
       onRender: (item: any) => {
@@ -149,8 +150,8 @@ const WidgetTable = ({ data, level, onClickLevel, title }: any) => {
     },
     {
       key: "habilitados",
-      label: "Habilitados totales",
-      width: "150px",
+      label: "Votantes habilitados 2023",
+      width: "200px",
       responsive: "",
       sumarize: true,
       style: { justifyContent: "flex-end", textAlign: "right" },
@@ -160,8 +161,8 @@ const WidgetTable = ({ data, level, onClickLevel, title }: any) => {
     },
     {
       key: "affiliate_count",
-      label: "Afiliados totales",
-      width: "130px",
+      label: "Afiliados registrados en Elekta",
+      width: "200px",
       responsive: "",
       style: { justifyContent: "flex-end", textAlign: "right" },
       onRender: (item: any) => {
@@ -183,7 +184,7 @@ const WidgetTable = ({ data, level, onClickLevel, title }: any) => {
 
     {
       key: "percentage_hab",
-      label: "Porcentaje de afiliación",
+      label: "Porcentaje de afiliados",
       width: "220px",
       responsive: "onlyDesktop",
       style: { textAlign: "right", display: "block" },
