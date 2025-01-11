@@ -34,8 +34,8 @@ const MainMenuHeader: React.FC<MainMenuHeaderProps> = ({ user, collapsed }) => {
       {!collapsed && (
         <div>
           <p>{getFullName(user)}</p>
-          <p>{user?.role?.name}</p>
-          <p>{user?.entidad?.name}</p>
+          <p style={{color: "var(--cBlackV2)"}}>{user?.role?.name}</p>
+          <p style={{color: "var(--cBlackV2)"}}>{user?.entidad?.name}</p>
         </div>
       )}
     </div>
