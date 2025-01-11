@@ -31,6 +31,8 @@
   & > div:nth-child(1) {
     & > svg {
       cursor: pointer;
+      /* background-color: aqua; */
+      height: 80px;
     }
   }
 
