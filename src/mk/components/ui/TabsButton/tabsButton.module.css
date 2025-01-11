@@ -32,7 +32,6 @@
   }
 } */
 
-
 .tabsButton {
   display: flex;
   justify-content: space-between;
@@ -57,11 +56,9 @@
       border: var(--bWidth) solid var(--cAccent);
       transition: color 0.3s ease-in-out;
       border-width: 2px 2px 0px 2px;
-      border-style: solid; 
-      border-color: var(--Principales-cAccent, #F58220);
+      border-style: solid;
+      border-color: var(--cAccent);
       background-color: transparent;
-      
-      
     }
     & > span {
       position: absolute;
