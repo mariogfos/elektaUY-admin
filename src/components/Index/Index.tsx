@@ -180,9 +180,8 @@ const HomePage = () => {
           <section style={{justifyContent: 'right'}}>
             <p>
               Fuentes: Instituto Nacional de Estadística y Censos (INEC),
-              Uruguay
+              Uruguay <br /> Consejo Nacional Electoral (CNE), Uruguay
             </p>
-            <p>Consejo Nacional Electoral (CNE), Uruguay</p>
           </section>
         </>
       )}
