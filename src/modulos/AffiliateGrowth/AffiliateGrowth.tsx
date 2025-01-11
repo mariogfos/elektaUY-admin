@@ -207,7 +207,7 @@ const AffiliateGrowth: React.FC = () => {
         <div>
           <h1>Resumen general</h1>
           <p>
-            Elecciones Nacionales Ecuador 2025
+            Elecciones Nacionales Uruguay 2025
             {/* <span>Campaña activa</span> */}
           </p>
         </div>

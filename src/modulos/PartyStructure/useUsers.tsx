@@ -37,6 +37,7 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
     perPage: -1,
     page: 1,
     searchBy: "",
+    fullType: "L",
   });
   const prechargeListsData = () => {
     let obj = {};

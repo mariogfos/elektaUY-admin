@@ -17,7 +17,7 @@ const WidgetVolunteers = ({ widget1 }: PropsType) => {
     >
       <h1>{formatNumber(widget1?.cant, 0)}</h1>
       <div></div>
-      <p>Ecuador</p>
+      <p>Uruguay</p>
     </WidgetBase>
   );
 };

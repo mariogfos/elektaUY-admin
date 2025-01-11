@@ -41,31 +41,31 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
           }}
         >
           <Avatar
-            name={getFullName(data?.data?.user)}
+            name={getFullName(data?.data?.user?.[0])}
             src={getUrlImages(
               "/ADM-" +
-                data?.data?.user?.id +
+                data?.data?.user?.[0]?.id +
                 ".webp?d=" +
-                data?.data?.user?.updated_at
+                data?.data?.user?.[0]?.updated_at
             )}
             h={88}
             w={88}
           />
           <div>
             {/* <div style={{ fontSize: "var(--sL)", color: "var(--cWhite)" }}>
-              {getFullName(data?.data?.user)}
+              {getFullName(data?.data?.user?.[0])}
             </div>
             <div style={{ color: "var(--cWhiteV1)" }}>
-              {data?.data?.user?.role[0]?.name}{" "}
-              {data?.data?.user?.role[0]?.level > 1 && " del "}
-              {data?.data?.user?.role[0]?.level === 2
-                ? data?.data?.user?.prov
-                : data?.data?.user?.role[0]?.level === 3
-                ? data?.data?.user?.canton
-                : data?.data?.user?.role[0]?.level === 4
-                ? data?.data?.user?.parish
-                : data?.data?.user?.role[0]?.level === 5
-                ? data?.data?.user?.barrio
+              {data?.data?.user?.[0]?.role[0]?.name}{" "}
+              {data?.data?.user?.[0]?.role[0]?.level > 1 && " del "}
+              {data?.data?.user?.[0]?.role[0]?.level === 2
+                ? data?.data?.user?.[0]?.prov
+                : data?.data?.user?.[0]?.role[0]?.level === 3
+                ? data?.data?.user?.[0]?.canton
+                : data?.data?.user?.[0]?.role[0]?.level === 4
+                ? data?.data?.user?.[0]?.parish
+                : data?.data?.user?.[0]?.role[0]?.level === 5
+                ? data?.data?.user?.[0]?.barrio
                 : ""}
             </div> */}
           </div>
@@ -83,7 +83,9 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
             }}
           >
             <p>Cédula de identidad</p>
-            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.ci}</p>
+            <p style={{ color: "var(--cWhite)" }}>
+              {data?.data?.user?.[0]?.ci}
+            </p>
           </div>
           <div
             style={{
@@ -95,7 +97,9 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
             }}
           >
             <p>Correo electrónico</p>
-            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.email}</p>
+            <p style={{ color: "var(--cWhite)" }}>
+              {data?.data?.user?.[0]?.email}
+            </p>
           </div>
           <div
             style={{
@@ -106,7 +110,9 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
             }}
           >
             <p>Número de Whatsapp</p>
-            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.phone}</p>
+            <p style={{ color: "var(--cWhite)" }}>
+              {data?.data?.user?.[0]?.phone}
+            </p>
           </div>
           {/* <div
             style={{
@@ -118,7 +124,7 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
             }}
           >
             <p>Provincia</p>
-            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.prov}</p>
+            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.[0]?.prov}</p>
           </div>
           <div
             style={{
@@ -130,7 +136,7 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
             }}
           >
             <p>Cantón</p>
-            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.canton}</p>
+            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.[0]?.canton}</p>
           </div>
           <div
             style={{
@@ -142,7 +148,7 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
             }}
           >
             <p>Parroquia</p>
-            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.parish}</p>
+            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.[0]?.parish}</p>
           </div>
           <div
             style={{
@@ -153,7 +159,7 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
             }}
           >
             <p>Barrio</p>
-            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.barrio}</p>
+            <p style={{ color: "var(--cWhite)" }}>{data?.data?.user?.[0]?.barrio}</p>
           </div> */}
         </Card>
       </LoadingScreen>

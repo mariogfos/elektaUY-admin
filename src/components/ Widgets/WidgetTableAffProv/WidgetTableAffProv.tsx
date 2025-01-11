@@ -32,7 +32,7 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
     });
     const d = widget[0];
     newData.push({
-      name: "Afiliados sin provincia",
+      name: "Afiliados sin departamento",
       afiliados: d[0],
       distribucion: d[1] ? (d[0] * 100) / d[1] : 0,
       habilitados: d[1],

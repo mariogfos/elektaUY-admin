@@ -128,25 +128,25 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
   };
   const isMac = navigator.platform.toUpperCase().includes("MAC");
 
-  // const filterRoles = (type: any) => {
-  //   let rolesFil: any = [];
-  //   const userLevel = user?.role?.level;
-  //   if (userLevel) {
-  //     if (type == "A") {
-  //       rolesFil = roles?.data?.filter(
-  //         (item: any) =>
-  //           (item.level == userLevel || item.level == userLevel + 1) &&
-  //           item.is_fixed == 1
-  //       );
-  //     } else {
-  //       rolesFil = roles?.data?.filter((item: any) => item.level == userLevel);
-  //     }
-  //   } else {
-  //     console.log("El usuario no tiene nivel definido");
-  //   }
+  const filterRoles = (type: any) => {
+    let rolesFil: any = [];
+    const userLevel = user?.role?.level;
+    if (userLevel) {
+      if (type == "A") {
+        rolesFil = roles?.data?.filter(
+          (item: any) =>
+            (item.level == userLevel || item.level == userLevel + 1) &&
+            item.is_fixed == 1
+        );
+      } else {
+        rolesFil = roles?.data?.filter((item: any) => item.level == userLevel);
+      }
+    } else {
+      console.log("El usuario no tiene nivel definido");
+    }
 
-  //   return rolesFil;
-  // };
+    return rolesFil;
+  };
   return (
     <DataModal
       open={open}
@@ -185,8 +185,8 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
             disabled={precarga?.level && precarga.line == 2}
             value={formState["role_id"]}
             onChange={handleChangeInput}
-            // options={filterRoles(precarga.line == 1 ? "G" : "A") || []}
-            options={roles?.data || []}
+            options={filterRoles(precarga.line == 1 ? "G" : "A") || []}
+            // options={roles?.data || []}
             optionLabel="name"
             optionValue="id"
             className="appearance-none"
