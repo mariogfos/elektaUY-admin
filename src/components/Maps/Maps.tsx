@@ -48,6 +48,8 @@ const Maps = ({
     item: null,
   });
 
+  console.log("data: ", data);
+
   let path: any = [];
 
   if ((param?.level || 1) == 1) {
@@ -128,7 +130,7 @@ const Maps = ({
     const svgRect = svgRef.current.getBoundingClientRect();
     const item = data?.find((d: any) => d.code == id) || {
       id: id || itemSelected?.id,
-      name: itemSelected?.name,
+      name: itemSelected?.name || "Sin municipio",
       habitantes: itemSelected?.habitantes || 0,
       habilitados: itemSelected?.habilitados || 0,
       afiliados: itemSelected?.affiliate_count || 0,

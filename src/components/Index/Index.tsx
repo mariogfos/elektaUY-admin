@@ -22,7 +22,12 @@ const HomePage = () => {
   ]);
 
   const paramInitial: any = {
-    level: user?.role?.level,
+    level:
+      user?.role?.level === 4
+        ? 2
+        : user?.role?.level <= 3
+        ? 1
+        : user?.role?.level,
     code: user?.entidad?.code?.toString(),
     searchBy: user?.role?.level > 1 ? user?.entidad?.id : "",
   };
@@ -177,7 +182,7 @@ const HomePage = () => {
               />
             </div>
           </section>
-          <section style={{justifyContent: 'right'}}>
+          <section style={{ justifyContent: "right" }}>
             <p>
               Fuentes: Instituto Nacional de Estadística y Censos (INEC),
               Uruguay <br /> Consejo Nacional Electoral (CNE), Uruguay
