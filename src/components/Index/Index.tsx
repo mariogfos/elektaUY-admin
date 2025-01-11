@@ -169,8 +169,8 @@ const HomePage = () => {
             <div>
               <WidgetTable
                 data={dashboard?.data.entidad}
-                title={`Resumen general a nivel ${
-                  params?.level === 1 ? "Nacional" : "Departamento"
+                title={`Resumen de afiliados por ${
+                  params?.level === 1 ? "Departamento" : "Municipio"
                 }`}
                 level={params?.level}
                 onClickLevel={onClick}

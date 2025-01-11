@@ -11,7 +11,6 @@ import styles from "./styles.module.css";
 import useScreenSize from "@/mk/hooks/useScreenSize";
 import { formatNumber } from "@/mk/utils/numbers";
 import useScrollbarWidth from "@/mk/hooks/useScrollbarWidth";
-import { get } from "http";
 
 export type RenderColType = {
   value: any;
