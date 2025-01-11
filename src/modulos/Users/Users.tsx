@@ -165,32 +165,32 @@ const Users = () => {
         form: { type: "text" },
         list: false,
       },
-      // role_id: {
-      //   rules: ["required"],
-      //   api: "ae",
-      //   label: "Rol",
-      //   form: {
-      //     type: "select",
-      //     optionsExtra: "roles",
-      //     optionLabel: "name",
-      //   },
-      //   list: { width: "150px" },
-      //   filter: {
-      //     label: "Filtrar por Rol",
-      //     width: "200px",
-      //     options: (extraData: any) => {
-      //       console.log(extraData, "extraData");
-      //       let data: any = [{ id: "T", name: "Todos" }];
-      //       extraData?.roles?.map((c: any) => {
-      //         data.push({
-      //           id: c.id,
-      //           name: c.name,
-      //         });
-      //       });
-      //       return data;
-      //     },
-      //   },
-      // },
+      role_id: {
+        rules: ["required"],
+        api: "ae",
+        label: "Rol",
+        form: {
+          type: "select",
+          optionsExtra: "roles",
+          optionLabel: "name",
+        },
+        list: { width: "150px" },
+        filter: {
+          label: "Filtrar por Rol",
+          width: "200px",
+          options: (extraData: any) => {
+            // console.log(extraData, "extraData");
+            let data: any = [{ id: "T", name: "Todos" }];
+            extraData?.roles?.map((c: any) => {
+              data.push({
+                id: c.id,
+                name: c.name,
+              });
+            });
+            return data;
+          },
+        },
+      },
 
       ci: {
         rules: ["required"],
