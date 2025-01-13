@@ -53,7 +53,6 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
     }
     return data;
   };
-  console.log(getMuns());
   const getLocals = () => {
     let data: any = [];
     if (listsApi?.data?.locals.length > 0) {
@@ -147,7 +146,6 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
 
     return rolesFil;
   };
-  console.log(precarga);
   return (
     <DataModal
       open={open}
