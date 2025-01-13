@@ -275,7 +275,7 @@ const LeadershipHierarchy = ({
                   </Card>
                 </div>
               ))}
-              {level == 4 && user?.role?.level == 4 && (
+              {level == 7 && user?.role?.level == 7 && (
                 <Card className={styles.card}>
                   <div
                     style={{
