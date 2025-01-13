@@ -48,8 +48,6 @@ const Maps = ({
     item: null,
   });
 
-  console.log("data: ", data);
-
   let path: any = [];
 
   if ((param?.level || 1) == 1) {

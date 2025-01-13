@@ -1,0 +1,16 @@
+.levels {
+    width: 100%;
+    position: relative;
+    padding-left: var(--spL);
+    padding-right: var(--spL);
+    padding-bottom: 70px;
+  }
+
+  .renderView{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > div{
+        flex-direction: column;
+    }
+  }
