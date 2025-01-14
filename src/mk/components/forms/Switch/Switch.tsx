@@ -34,7 +34,7 @@ const Switch = ({
 }: PropsType) => {
   const clase = classDiv || "";
   return (
-    <div className="">
+    <div className={styles.switch}>
       <div
         className={`${clase} ${styles["center-content"]} `}
         style={{ cursor: "pointer" }}
@@ -52,7 +52,7 @@ const Switch = ({
             <Input
               type="checkbox"
               name={name}
-              className={styles["sr-only"]}
+              className={styles.srOnly}
               required={required}
               disabled={disabled}
               readOnly={readOnly}

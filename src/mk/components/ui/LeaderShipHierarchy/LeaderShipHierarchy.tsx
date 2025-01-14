@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import { Avatar } from "../Avatar/Avatar";
@@ -93,7 +92,6 @@ const LeadershipHierarchy = ({
   // const handleMouseLeave = () => {
   //   setActiveTooltipIndex(null);
   // };
-
   return (
     <>
       <TagLabel
@@ -113,7 +111,8 @@ const LeadershipHierarchy = ({
         {level < 5 && (
           <>
             <TagLabel
-              label={lLevels[level + 1] + (level + 1 == 6 ? "es" : "s")}
+              // label={lLevels[level + 1] + (level + 1 == 6 ? "es" : "s")}
+              label={lLevels[level + 1] + "s"}
               styles={{ display: "flex", alignSelf: "flex-start" }}
             />
             <div className={styles["carouselCards"]}>

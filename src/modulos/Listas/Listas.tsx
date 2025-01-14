@@ -29,15 +29,21 @@ const paramsInitial = {
 };
 
 const Listas = () => {
+  const onTop = () => {
+    return (
+      <p>Selecciona el sublema al que pertenece la lista (si corresponde)</p>
+    );
+  };
   const fields = useMemo(
     () => ({
       id: { rules: [], api: "e" },
       sublema_id: {
-        rules: ["required"],
+        rules: [""],
+
         api: "ae",
         label: "Sublema",
         list: { width: "350px" },
-        form: { type: "select", optionsExtra: "sublemas" },
+        form: { type: "select", optionsExtra: "sublemas", onTop: onTop },
       },
       name: {
         rules: ["required"],

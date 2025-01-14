@@ -45,7 +45,7 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
     return newData;
   };
 
-  const dataFormattedLocal = () => {
+  const dataFormattedMun = () => {
     let locals = data?.filter(
       (item: any) => item?.dpto_id === filters?.dpto_idV
     );
@@ -73,8 +73,8 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
     if (type == "dpto") {
       dataFormattedDpto();
     }
-    if (type == "local") {
-      dataFormattedLocal();
+    if (type == "mun") {
+      dataFormattedMun();
     }
   }, [orden]);
 
@@ -169,7 +169,7 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
       }
     >
       <Table
-        data={type == "dpto" ? dataFormattedDpto() : dataFormattedLocal()}
+        data={type == "dpto" ? dataFormattedDpto() : dataFormattedMun()}
         header={header}
         className="striped"
         sumarize={true}

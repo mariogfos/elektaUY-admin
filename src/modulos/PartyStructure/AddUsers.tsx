@@ -31,8 +31,8 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
     level,
     inputBarr,
     waiting,
-    focusDisabled,
-    setFocusDisabled,
+    // focusDisabled,
+    // setFocusDisabled,
     validate,
     userCan,
     setFormState,
@@ -53,17 +53,17 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
     }
     return data;
   };
-  const getLocals = () => {
-    let data: any = [];
-    if (listsApi?.data?.locals.length > 0) {
-      listsApi?.data.locals.find((item: any) => {
-        if (item.mun_id == formState.mun_id) {
-          data.push(item);
-        }
-      });
-    }
-    return data;
-  };
+  // const getLocals = () => {
+  //   let data: any = [];
+  //   if (listsApi?.data?.locals.length > 0) {
+  //     listsApi?.data.locals.find((item: any) => {
+  //       if (item.mun_id == formState.mun_id) {
+  //         data.push(item);
+  //       }
+  //     });
+  //   }
+  //   return data;
+  // };
   const getBarrios = () => {
     let data: any = [{ id: -1, name: "Otro" }];
     if (listsApi?.data?.barrios.length > 0) {
@@ -75,17 +75,17 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
     }
     return data;
   };
-  const getListas = () => {
-    let data: any = [];
-    if (listsApi?.data?.listas.length > 0) {
-      listsApi?.data.listas.find((item: any) => {
-        if (item.sublema_id == formState.sublema_id) {
-          data.push(item);
-        }
-      });
-    }
-    return data;
-  };
+  // const getListas = () => {
+  //   let data: any = [];
+  //   if (listsApi?.data?.listas.length > 0) {
+  //     listsApi?.data.listas.find((item: any) => {
+  //       if (item.sublema_id == formState.sublema_id) {
+  //         data.push(item);
+  //       }
+  //     });
+  //   }
+  //   return data;
+  // };
 
   const getDatos = (entidad: any) => {
     if (entidad == "sublema") {
@@ -112,12 +112,12 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
       );
       return item?.name || "";
     }
-    if (entidad == "local") {
-      let item = datos?.data?.locals.find(
-        (item: any) => item.id == user.datos.local_id
-      );
-      return item?.name || "";
-    }
+    // if (entidad == "local") {
+    //   let item = datos?.data?.locals.find(
+    //     (item: any) => item.id == user.datos.local_id
+    //   );
+    //   return item?.name || "";
+    // }
     if (entidad == "barrio") {
       let item = datos?.data?.barrios.find(
         (item: any) => item.id == user.datos.barrio_id
@@ -126,19 +126,18 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
     }
   };
   const isMac = navigator.platform.toUpperCase().includes("MAC");
-
   const filterRoles = (type: any) => {
     let rolesFil: any = [];
     const userLevel = user?.role?.level;
     if (userLevel) {
       if (type == "A") {
-        rolesFil = roles?.data?.filter(
+        rolesFil = roles?.filter(
           (item: any) =>
             (item.level == userLevel || item.level == userLevel + 1) &&
             item.is_fixed == 1
         );
       } else {
-        rolesFil = roles?.data?.filter((item: any) => item.level == userLevel);
+        rolesFil = roles?.filter((item: any) => item.level == userLevel);
       }
     } else {
       console.log("El usuario no tiene nivel definido");
@@ -167,12 +166,12 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
               <p className={styles["tSubtitle"]}>
                 Estas registrando en
                 <span>
-                  {user?.role?.level > 1 && ` ${getDatos("sublema")}`}
-                  {user?.role?.level > 2 && ` / ${getDatos("lista")}`}
-                  {user?.role?.level > 3 && ` / ${getDatos("dpto")}`}
-                  {user?.role?.level > 4 && ` / ${getDatos("mun")}`}
-                  {user?.role?.level > 5 && ` / ${getDatos("local")}`}
-                  {user?.role?.level > 5 && ` / ${getDatos("barrio")}`}
+                  {/* {user?.role?.level > 1 && ` ${getDatos("sublema")}`} */}
+                  {user?.role?.level > 1 && ` / ${getDatos("lista")}`}
+                  {user?.role?.level > 2 && ` / ${getDatos("dpto")}`}
+                  {user?.role?.level > 3 && ` / ${getDatos("mun")}`}
+                  {/* {user?.role?.level > 5 && ` / ${getDatos("local")}`} */}
+                  {user?.role?.level > 4 && ` / ${getDatos("barrio")}`}
                 </span>
               </p>
             ))}
@@ -191,7 +190,7 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
             className="appearance-none"
           />
 
-          {formState.role_id !== null &&
+          {/* {formState.role_id !== null &&
             user?.role?.level <= 1 &&
             level > 1 && (
               <Select
@@ -205,10 +204,10 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
                 options={listsApi?.data?.sublemas || []}
                 className="appearance-none"
               />
-            )}
+            )} */}
           {formState.role_id !== null &&
-            user?.role?.level <= 2 &&
-            level > 2 && (
+            user?.role?.level <= 1 &&
+            level > 1 && (
               <Select
                 label="Lista"
                 name="lista_id"
@@ -217,13 +216,14 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
                 required={true}
                 value={formState["lista_id"]}
                 onChange={handleChangeInput}
-                options={getListas() || []}
+                // options={getListas() || []}
+                options={listsApi?.data?.listas || []}
                 className="appearance-none"
               />
             )}
           {formState.role_id !== null &&
-            user?.role?.level <= 3 &&
-            level > 3 && (
+            user?.role?.level <= 2 &&
+            level > 2 && (
               <Select
                 label="Departamento"
                 name="dpto_id"
@@ -237,8 +237,8 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
               />
             )}
           {formState.role_id !== null &&
-            user?.role?.level <= 4 &&
-            level > 4 && (
+            user?.role?.level <= 3 &&
+            level > 3 && (
               <Select
                 label="Municipio"
                 name="mun_id"
@@ -252,9 +252,9 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
               />
             )}
 
-          {formState.role_id !== null &&
-            user?.role?.level <= 5 &&
-            level > 5 && (
+          {/* {formState.role_id !== null &&
+            user?.role?.level <= 4 &&
+            level > 4 && (
               <Select
                 label="Localidad"
                 name="local_id"
@@ -266,11 +266,11 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
                 options={getLocals() || []}
                 className="appearance-none"
               />
-            )}
+            )} */}
 
           {formState.role_id !== null &&
-            user?.role?.level <= 6 &&
-            level > 6 && (
+            user?.role?.level <= 4 &&
+            level > 4 && (
               <>
                 <Select
                   label="Barrios"

@@ -23,22 +23,23 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
   const [inputBarr, setInputBarr] = useState(false);
   const [barrios, setBarrios]: any = useState([]);
   const [focusDisabled, setFocusDisabled] = useState(false);
-  const {
-    data: admins,
-    // reLoad,
-    execute,
-  }: any = useAxios("/users", "GET", { page: 1, perPage: -1 });
-  const { data: listsApi }: any = useAxios("/users", "GET", {
+  const [roles, setRoles]: any = useState([]);
+  // const {
+  //   data: admins,
+  //   // reLoad,
+  //   execute,
+  // }: any = useAxios("/users", "GET", { page: 1, perPage: -1 });
+  const { data: listsApi, execute }: any = useAxios("/users", "GET", {
     page: 1,
     perPage: -1,
     fullType: "EXTRA",
   });
-  const { data: roles } = useAxios("/roles", "GET", {
-    perPage: -1,
-    page: 1,
-    searchBy: "",
-    fullType: "L",
-  });
+  // const { data: roles } = useAxios("/roles", "GET", {
+  //   perPage: -1,
+  //   page: 1,
+  //   searchBy: "",
+  //   fullType: "L",
+  // });
   const prechargeListsData = () => {
     let obj = {};
     if (precarga?.level) {
@@ -50,11 +51,11 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
     } else {
       obj = { ...obj, lista_id: user?.datos?.lista_id };
     }
-    if (precarga?.sublema_id) {
-      obj = { ...obj, sublema_id: precarga.sublema_id };
-    } else {
-      obj = { ...obj, sublema_id: user?.datos?.sublema_id };
-    }
+    // if (precarga?.sublema_id) {
+    //   obj = { ...obj, sublema_id: precarga.sublema_id };
+    // } else {
+    //   obj = { ...obj, sublema_id: user?.datos?.sublema_id };
+    // }
     if (precarga?.dpto_id) {
       obj = { ...obj, dpto_id: precarga.dpto_id };
     } else {
@@ -65,11 +66,11 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
     } else {
       obj = { ...obj, mun_id: user?.datos?.mun_id };
     }
-    if (precarga?.local_id) {
-      obj = { ...obj, local_id: precarga.local_id };
-    } else {
-      obj = { ...obj, local_id: user?.datos?.local_id };
-    }
+    // if (precarga?.local_id) {
+    //   obj = { ...obj, local_id: precarga.local_id };
+    // } else {
+    //   obj = { ...obj, local_id: user?.datos?.local_id };
+    // }
     if (precarga?.barrio_id) {
       obj = { ...obj, barrio_id: precarga.barrio_id };
     } else {
@@ -81,6 +82,10 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
   useEffect(() => {
     prechargeListsData();
   }, [user?.datos]);
+
+  useEffect(() => {
+    setRoles(listsApi?.data?.roles);
+  }, [listsApi]);
 
   useEffect(() => {
     const newOption = { id: -1, name: "new" };
@@ -273,32 +278,32 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
       });
     }
 
+    // if (level > 1) {
+    //   if ((field == "" || field == "sublema_id") && !formState.sublema_id) {
+    //     errors = { ...errors, sublema_id: "El campo es requerido" };
+    //   }
+    // }
     if (level > 1) {
-      if ((field == "" || field == "sublema_id") && !formState.sublema_id) {
-        errors = { ...errors, sublema_id: "El campo es requerido" };
-      }
-    }
-    if (level > 2) {
       if ((field == "" || field == "lista_id") && !formState.lista_id) {
         errors = { ...errors, lista_id: "El campo es requerido" };
       }
     }
-    if (level > 3) {
+    if (level > 2) {
       if ((field == "" || field == "dpto_id") && !formState.dpto_id) {
         errors = { ...errors, dpto_id: "El campo es requerido" };
       }
     }
-    if (level > 4) {
+    if (level > 3) {
       if ((field == "" || field == "mun_id") && !formState.mun_id) {
         errors = { ...errors, mun_id: "El campo es requerido" };
       }
     }
-    if (level > 5) {
-      if ((field == "" || field == "local_id") && !formState.local_id) {
-        errors = { ...errors, local_id: "El campo es requerido" };
-      }
-    }
-    if (level > 6) {
+    // if (level > 5) {
+    //   if ((field == "" || field == "local_id") && !formState.local_id) {
+    //     errors = { ...errors, local_id: "El campo es requerido" };
+    //   }
+    // }
+    if (level > 4) {
       if ((field == "" || field == "barrio_id") && !formState.barrio_id) {
         errors = { ...errors, barrio_id: "El campo es requerido" };
       }
@@ -337,7 +342,7 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
 
   useEffect(() => {
     if (!precarga?.level) {
-      const role = roles?.data.find((role: any) => {
+      const role = roles?.find((role: any) => {
         return role.id === formState.role_id;
       });
       setLevel(role?.level);
@@ -375,7 +380,7 @@ export const useUsers = ({ onClose, precarga, reLoad }: PropsType) => {
     openDetail,
     item,
     setOpenDetail,
-    admins,
+    // admins,
     isTablet,
     reLoad,
     level,

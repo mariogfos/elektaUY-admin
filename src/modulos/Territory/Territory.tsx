@@ -19,7 +19,7 @@ const Territory = () => {
             { value: "L", text: "Listas" },
             { value: "D", text: "Departamentos" },
             { value: "M", text: "Municipios" },
-            { value: "O", text: "Localidades" },
+            // { value: "O", text: "Localidades" },
             { value: "B", text: "Barrios" },
             // { value: "A", text: "Afiliados" },
           ]}
@@ -31,7 +31,7 @@ const Territory = () => {
       {typeSearch === "L" && <Listas />}
       {typeSearch === "D" && <Dptos />}
       {typeSearch === "M" && <Muns />}
-      {typeSearch === "O" && <Locals />}
+      {/* {typeSearch === "O" && <Locals />} */}
       {typeSearch === "B" && <Barrios />}
       {/* {typeSearch === "A" && <Afiliados />} */}
       {/* {typeSearch === "C" && <Candidates />} */}

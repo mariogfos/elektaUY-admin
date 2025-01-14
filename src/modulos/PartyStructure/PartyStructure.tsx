@@ -110,7 +110,7 @@ const PartyStructure = () => {
                 {dataUsers?.data?.resumen?.map((item: any, i: number) => (
                   <div key={i} className={styles["cardInfo"]}>
                     <div>
-                      {waiting > 0 ? (
+                      {!loaded ? (
                         <p style={{ fontSize: 16 }}>Cargando...</p>
                       ) : (
                         formatNumber(item.cant, 0) +
@@ -135,7 +135,7 @@ const PartyStructure = () => {
               <div className={styles["cardInfoContainer"]}>
                 <div className={styles["cardInfo"]}>
                   <div>
-                    {waiting > 0 ? (
+                    {!loaded ? (
                       <p style={{ fontSize: 16 }}>Cargando...</p>
                     ) : (
                       formatNumber(
@@ -150,7 +150,7 @@ const PartyStructure = () => {
 
                 <div className={styles["cardInfo"]}>
                   <div>
-                    {waiting > 0 ? (
+                    {!loaded ? (
                       <p style={{ fontSize: 16 }}>Cargando...</p>
                     ) : (
                       formatNumber(dataUsers?.data?.demografico?.afiliados, 0)

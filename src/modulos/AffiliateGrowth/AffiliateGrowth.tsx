@@ -75,7 +75,7 @@ const AffiliateGrowth: React.FC = () => {
   // if (!userCan("metrics", "R")) return <NotAccess />;
   if (waiting > 0) return <WidgetSkeleton />;
 
-  const getCantons = () => {
+  const getMuns = () => {
     if (filters.dpto_id > 0) {
       return extraData?.locals?.filter(
         (item: any) => item.dpto_id === filters.dpto_id
@@ -106,11 +106,10 @@ const AffiliateGrowth: React.FC = () => {
         extraData?.dptos?.find((dpto: any) => dpto.id === filters[item])?.name
       );
     }
-    if (item === "local_id") {
+    if (item === "mun_id") {
       return (
         "Localidad: " +
-        extraData?.locals?.find((local: any) => local.id === filters[item])
-          ?.name
+        extraData?.muns?.find((mun: any) => mun.id === filters[item])?.name
       );
     }
     if (item === "gender") {
@@ -163,12 +162,12 @@ const AffiliateGrowth: React.FC = () => {
       type: "dpto_id",
     },
     {
-      title: "Localidades",
-      data: getCantons(),
-      msgEmpty: "Selecciona un departamento para mostrar sus cantones.",
+      title: "Municipios",
+      data: getMuns(),
+      msgEmpty: "Selecciona un departamento para mostrar sus municipios.",
       filters: filters,
       setFilters: setFilters,
-      type: "local_id",
+      type: "munl_id",
     },
     {
       title: "Género",
@@ -289,8 +288,8 @@ const AffiliateGrowth: React.FC = () => {
             ) : (
               <WidgetTableAffProv
                 widget={metrics?.data?.widget7}
-                data={extraData?.locals}
-                type="local"
+                data={extraData?.muns}
+                type="mun"
                 filters={filters}
               />
             )}

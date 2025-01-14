@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import useCrud from "@/mk/hooks/useCrud/useCrud";
 import NotAccess from "@/components/auth/NotAccess/NotAccess";
 import styles from "./Barrios.module.css";
@@ -41,13 +40,13 @@ const Barrios = () => {
         list: { width: "400px" },
         form: { type: "select", optionsExtra: "muns" },
       },
-      local_id: {
-        rules: ["required"],
-        api: "ae",
-        label: "Localidad",
-        list: { width: "400px" },
-        form: { type: "select", optionsExtra: "locals" },
-      },
+      // local_id: {
+      //   rules: ["required"],
+      //   api: "ae",
+      //   label: "Localidad",
+      //   list: { width: "400px" },
+      //   form: { type: "select", optionsExtra: "locals" },
+      // },
       name: {
         rules: ["required"],
         api: "ae",

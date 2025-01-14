@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import useCrud, { ModCrudType } from "@/mk/hooks/useCrud/useCrud";
 import NotAccess from "@/components/auth/NotAccess/NotAccess";
@@ -59,14 +58,14 @@ const lDestinies = (data: {
   if (level == 1 || level == 0) {
     r.push({ id: 0, name: "Todos" });
   }
-  if (level == 2) r.push({ id: 0, name: "Mi departamento" });
-  if (level == 3) r.push({ id: 0, name: "Mi municipio" });
-  if (level == 4) r.push({ id: 0, name: "Mi localidad" });
+  if (level == 3) r.push({ id: 0, name: "Mi departamento" });
+  if (level == 4) r.push({ id: 0, name: "Mi municipio" });
+  // if (level == 4) r.push({ id: 0, name: "Mi localidad" });
   if (level == 5) r.push({ id: 0, name: "Mi barrio" });
 
-  if (level <= 1) r.push({ id: 2, name: "Departamento" });
-  if (level <= 2) r.push({ id: 3, name: "Municipo" });
-  if (level <= 3) r.push({ id: 4, name: "Localidad" });
+  if (level <= 2) r.push({ id: 3, name: "Departamento" });
+  if (level <= 3) r.push({ id: 4, name: "Municipo" });
+  if (level <= 4) r.push({ id: 5, name: "Localidad" });
   // if (level <= 5) r.push({ id: 5, name: "Barrio" });
   return r;
 };
@@ -131,8 +130,8 @@ const Contents = () => {
       return;
     }
     let selDestinies = [];
-    if (data?.item?.destiny == 2) selDestinies = extraData.dptos;
-    if (data?.item?.destiny == 3) selDestinies = extraData.muns;
+    if (data?.item?.destiny == 3) selDestinies = extraData.dptos;
+    if (data?.item?.destiny == 4) selDestinies = extraData.muns;
     if (data?.item?.destiny == 4) selDestinies = extraData.locals;
     // if (data?.item?.destiny == 5) selDestinies = extraData.barrios;
     let lDestinies: any = data?.item?.lDestiny || [];
@@ -140,15 +139,15 @@ const Contents = () => {
     //   data?.action == "edit" ? data?.item?.cdestinies : data?.item?.lDestiny;
     if (data?.action == "edit" && !data?.item?.lDestiny) {
       data?.item?.cdestinies?.map((d: any) => {
-        if (data?.item?.destiny == 2) {
+        if (data?.item?.destiny == 3) {
           lDestinies.push(d.dpto_id);
         }
-        if (data?.item?.destiny == 3) {
+        if (data?.item?.destiny == 4) {
           lDestinies.push(d.mun_id);
         }
-        if (data?.item?.destiny == 4) {
-          lDestinies.push(d.local_id);
-        }
+        // if (data?.item?.destiny == 5) {
+        //   lDestinies.push(d.local_id);
+        // }
       });
     }
 
@@ -184,15 +183,15 @@ const Contents = () => {
             if (item?.item?.destiny == 0 || item?.item?.destiny == 1) {
               return "Todos";
             }
-            if (user?.role.level == 2 && item?.item?.destiny == 2) {
+            if (user?.role.level == 3 && item?.item?.destiny == 3) {
               return "Mi departamento";
             }
-            if (user?.role.level == 3 && item?.item?.destiny == 3) {
+            if (user?.role.level == 4 && item?.item?.destiny == 4) {
               return "Mi municipio";
             }
-            if (user?.role.level == 4 && item?.item?.destiny == 4) {
-              return "Mi localidad";
-            }
+            // if (user?.role.level == 4 && item?.item?.destiny == 4) {
+            //   return "Mi localidad";
+            // }
             if (user?.role.level == 5 && item?.item?.destiny == 5) {
               return "Mi barrio";
             }
@@ -356,29 +355,28 @@ const Contents = () => {
     let lDestiny = item.lDestiny || [];
     if (action == "edit") {
       item?.cdestinies?.map((d: any) => {
-        if (item?.destiny == 2) {
+        if (item?.destiny == 3) {
           lDestiny.push(d.dpto_id);
         }
-        if (item?.destiny == 3) {
+        if (item?.destiny == 4) {
           lDestiny.push(d.mun_id);
         }
-        if (item?.destiny == 4) {
-          lDestiny.push(d.local_id);
-        }
+        // if (item?.destiny == 4) {
+        //   lDestiny.push(d.local_id);
+        // }
       });
     }
     if (name == "destiny") {
       selDestinies = null;
-      if (value == 2) selDestinies = extraData.dptos;
-      if (value == 3) selDestinies = extraData.muns;
-      if (value == 4) selDestinies = extraData.locals;
-      if (value == 5) selDestinies = extraData.barrios;
+      if (value == 3) selDestinies = extraData.dptos;
+      if (value == 4) selDestinies = extraData.muns;
+      // if (value == 4) selDestinies = extraData.locals;
+      // if (value == 5) selDestinies = extraData.barrios;
 
       if (value != item.destiny) {
         setItem({ ...item, lDestiny: [] });
         lDestiny = [];
       }
-      console.log(lDestiny);
 
       if (selDestinies)
         setShowExtraModal(
