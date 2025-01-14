@@ -12,7 +12,6 @@ import DetailAffiliate from "@/components/AffiliatesOld/DetailAffiliate";
 
 const RankingProvincial = ({ extraData }: any) => {
   const { user } = useAuth();
-  console.log("uzser", user);
   const [index, setIndex] = useState(0);
   const { execute, waiting, error, loaded } = useAxios();
   const [dataProv, setDataProv]: any = useState([]);
@@ -33,7 +32,6 @@ const RankingProvincial = ({ extraData }: any) => {
       setDataProv(rankingProv);
     }
   };
-  // console.log(extraData, "sss");
 
   useEffect(() => {
     getRankingProv();
@@ -80,7 +78,7 @@ const RankingProvincial = ({ extraData }: any) => {
             <RankingTop3Banner
               data={top3Data}
               image={bgSylver.src}
-              emptyMsg="El ranking para esta provincia aún no ha sido procesada"
+              emptyMsg="El ranking para esta departamento aún no ha sido procesada"
             />
             <RankingTopTable
               data={tableData}
