@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import styles from './horizontalProgresiveBar.module.css';
-import { formatNumberWithComma } from '@/mk/utils/numbers';
+"use client";
+import React, { useEffect, useState } from "react";
+import styles from "./horizontalProgresiveBar.module.css";
+import { formatNumberWithComma } from "@/mk/utils/numbers";
 
 interface Props {
   total: number;
@@ -15,7 +16,7 @@ interface Props {
 const HorizontalProgresiveBar = ({
   total,
   current,
-  color = 'var(--cAccent)',
+  color = "var(--cAccent)",
   className,
   height,
   goal = [],
@@ -51,43 +52,50 @@ const HorizontalProgresiveBar = ({
   return (
     <div
       className={`${styles.horizontalProgresiveBar} ${className}`}
-      style={{ height: height, position: 'relative' }}
+      style={{ height: height, position: "relative" }}
     >
-      <div style={{ width: '100%', backgroundColor: 'var(--cWhiteV3)', position: 'relative', overflow: 'visible' }}>
+      <div
+        style={{
+          width: "100%",
+          backgroundColor: "var(--cWhiteV3)",
+          position: "relative",
+          overflow: "visible",
+        }}
+      >
         {goalPercentages.map((g, index) => (
           <div
             key={index}
             // onMouseEnter={() => setHoveredGoal(index)}
             // onMouseLeave={() => setHoveredGoal(null)}
             style={{
-              position: 'absolute',
+              position: "absolute",
               left: `${g}%`,
-              height: '100%',
-              width: '1px',
+              height: "100%",
+              width: "1px",
               backgroundColor: exceededGoals[index]
-                ? 'var(--cBlackV1)'
-                : goalColors[index] || 'var(--cSuccess)',
+                ? "var(--cBlackV1)"
+                : goalColors[index] || "var(--cSuccess)",
               zIndex: 1,
-              cursor: 'pointer',
+              cursor: "pointer",
             }}
           >
             {hoveredGoal === index && (
               <div
                 style={{
-                  position: 'absolute',
-                  top: '-40px',
-                  left: '50%',
-                  minWidth: 'max-content',
-                  transform: 'translateX(-50%)',
-                  padding: '5px 10px',
-                  backgroundColor: 'var(--cWhiteV1)',
-                  color: 'var(--cBlackV2)',
-                  borderRadius: '4px',
-                  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
-                  whiteSpace: 'nowrap',
+                  position: "absolute",
+                  top: "-40px",
+                  left: "50%",
+                  minWidth: "max-content",
+                  transform: "translateX(-50%)",
+                  padding: "5px 10px",
+                  backgroundColor: "var(--cWhiteV1)",
+                  color: "var(--cBlackV2)",
+                  borderRadius: "4px",
+                  boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+                  whiteSpace: "nowrap",
                   zIndex: 10,
-                  border: '1px solid var(--cBlackV2)',
-                  overflow: 'visible',
+                  border: "1px solid var(--cBlackV2)",
+                  overflow: "visible",
                 }}
               >
                 Meta: {formatNumberWithComma(goal[index])}
@@ -97,25 +105,27 @@ const HorizontalProgresiveBar = ({
         ))}
         <div
           style={{
-            height: '100%',
+            height: "100%",
             width: `${percentage}%`,
-            minWidth: '1px',
+            minWidth: "1px",
           }}
         >
           <div
             style={{
-              height: '100%',
-              width: '100%',
+              height: "100%",
+              width: "100%",
               backgroundColor: color,
-              minWidth: '3px',
-              position: 'relative',
+              minWidth: "3px",
+              position: "relative",
               zIndex: 0,
             }}
           ></div>
         </div>
       </div>
       <span>
-        {percentage !== null ? `${formatNumberWithComma(percentage.toFixed(2))} %` : '0 %'}
+        {percentage !== null
+          ? `${formatNumberWithComma(percentage.toFixed(2))} %`
+          : "0 %"}
       </span>
     </div>
   );
