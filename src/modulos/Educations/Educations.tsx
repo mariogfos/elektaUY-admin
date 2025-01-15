@@ -1,24 +1,23 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 import useCrud, { ModCrudType } from "@/mk/hooks/useCrud/useCrud";
 import NotAccess from "@/components/auth/NotAccess/NotAccess";
-import styles from "./Listas.module.css";
+import styles from "./Educations.module.css";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
 import useCrudUtils from "../shared/useCrudUtils";
 import { useMemo } from "react";
 import RenderItem from "../shared/RenderItem";
 
-const onHideActions = (item: any) => {
-  let r = { hideEdit: false, hideDel: false };
-  if (item?.affiliates_count > 0) r = { hideEdit: false, hideDel: true };
-  return r;
-};
 const mod: ModCrudType = {
-  modulo: "listas",
-  singular: "lista",
-  plural: "listas",
-  permiso: "listas",
-  extraData: true,
-  onHideActions,
+  modulo: "educations",
+  singular: "Nivel educativo",
+  plural: "Niveles educativos",
+  permiso: "",
+  onHideActions: (item: any) => {
+    return {
+      hideEdit: item.is_assigned == "1",
+      hideDel: item.is_assigned == "1",
+    };
+  },
 };
 
 const paramsInitial = {
@@ -28,56 +27,34 @@ const paramsInitial = {
   searchBy: "",
 };
 
-const Listas = () => {
-  const onTop = () => {
-    return (
-      <p>Selecciona el sublema al que pertenece la lista (si corresponde)</p>
-    );
-  };
-  const fields = useMemo(
-    () => ({
+const Educations = () => {
+  const fields = useMemo(() => {
+    return {
       id: { rules: [], api: "e" },
-      sublema_id: {
-        rules: [""],
-
-        api: "ae",
-        label: "Sublema",
-        list: { width: "350px" },
-        form: { type: "select", optionsExtra: "sublemas", onTop: onTop },
-      },
       name: {
         rules: ["required"],
         api: "ae",
-        label: "Lista",
-        list: { width: "350px" },
-        form: { type: "text" },
-      },
-      description: {
-        rules: [],
-        api: "ae",
-        label: "Descripción",
+        label: "Nivel de educativo",
         list: true,
         form: { type: "text" },
       },
-    }),
-    []
-  );
+      // description: {
+      //   rules: [],
+      //   api: "ae",
+      //   label: "Descripción",
+      //   list: true,
+      //   form: { type: "text" },
+      // },
+    };
+  }, []);
 
-  const {
-    userCan,
-    List,
-    setStore,
-    onSearch,
-    searchs,
-    onEdit,
-    onDel,
-    extraData,
-    findOptions,
-  } = useCrud({
-    paramsInitial,
-    mod,
-    fields,
-  });
+  const { userCan, List, setStore, onSearch, searchs, onEdit, onDel } = useCrud(
+    {
+      paramsInitial,
+      mod,
+      fields,
+    }
+  );
   const { onLongPress, selItem } = useCrudUtils({
     onSearch,
     searchs,
@@ -96,7 +73,7 @@ const Listas = () => {
       <RenderItem item={item} onClick={onClick} onLongPress={onLongPress}>
         <ItemList
           title={item?.name}
-          subtitle={findOptions(item.sublema_id, extraData?.sublemas)}
+          subtitle={item?.description}
           variant="V1"
           active={selItem && selItem.id == item.id}
         />
@@ -112,4 +89,4 @@ const Listas = () => {
   );
 };
 
-export default Listas;
+export default Educations;

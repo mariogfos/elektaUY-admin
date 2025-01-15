@@ -1,0 +1,8 @@
+.gameActions {
+  & > div {
+    & > section {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

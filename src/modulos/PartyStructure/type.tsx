@@ -1,20 +1,20 @@
 export const lLevels = [
   "FOS",
   "Partido",
-  "Sublema",
+  // "Sublema",
   "Lista",
   "Departamento",
   "Municipio",
-  "Localidad",
+  // "Localidad",
   "Barrio",
 ];
 
 export const lEntity = [
   "client_id",
-  "sublema_id",
+  // "sublema_id",
   "lista_id",
   "dpto_id",
   "mun_id",
-  "local_id",
+  // "local_id",
   "barrio_id",
 ];

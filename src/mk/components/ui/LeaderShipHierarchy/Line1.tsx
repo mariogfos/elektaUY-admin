@@ -180,11 +180,11 @@ const Line1 = ({
                   marginLeft: 8,
                 }}
               >
-                <div className={styles["addButton"]}>
-                  <IconAdd
-                    size={16}
-                    onClick={() => addClick({ id: params.searchBy }, 1)}
-                  />
+                <div
+                  className={styles["addButton"]}
+                  onClick={() => addClick({ id: params.searchBy }, 1)}
+                >
+                  <IconAdd size={16} />
                 </div>
               </div>
             )}
