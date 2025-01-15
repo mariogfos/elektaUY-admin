@@ -72,8 +72,8 @@ export const AvatarV2 = ({
           cy={svgSize / 2}
           r={radius}
           strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={progressOffset}
+          strokeDasharray={circumference || 0}
+          strokeDashoffset={progressOffset || 0}
         />
       </svg>
       {pin && <span className="spin"></span>}

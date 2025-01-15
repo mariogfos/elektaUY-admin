@@ -27,8 +27,6 @@ export const DashboardMap = ({
     0
   );
 
-  console.log("entidadData: ", entidadData);
-
   return (
     <div className={styles.WidgetMaps}>
       <>
@@ -50,11 +48,18 @@ export const DashboardMap = ({
             //   })
             // }
           >
-            <p>Población Censo <br />2023</p>
+            <p>
+              Población Censo <br />
+              2023
+            </p>
             {params[0]?.level == entidadData?.role?.level ? (
-              <p style={{fontSize: 20}}>{formatNumber(entidadData?.entidad?.habitantes, 0)}</p>
+              <p style={{ fontSize: 20 }}>
+                {formatNumber(entidadData?.entidad?.habitantes, 0)}
+              </p>
             ) : (
-              <p style={{fontSize: 20}}>{formatNumber(data?.population?.habitantes, 0)}</p>
+              <p style={{ fontSize: 20 }}>
+                {formatNumber(data?.population?.habitantes, 0)}
+              </p>
             )}
           </Card>
           <Card
@@ -69,11 +74,18 @@ export const DashboardMap = ({
               })
             }
           >
-            <p>Votantes habilitados <br/>2024</p>
+            <p>
+              Votantes habilitados <br />
+              2024
+            </p>
             {params[0]?.level == entidadData?.role?.level ? (
-              <p style={{fontSize: 20}}>{formatNumber(entidadData?.entidad?.habilitados, 0)}</p>
+              <p style={{ fontSize: 20 }}>
+                {formatNumber(entidadData?.entidad?.habilitados, 0)}
+              </p>
             ) : (
-              <p style={{fontSize: 20}}>{formatNumber(data?.population?.habilitados)}</p>
+              <p style={{ fontSize: 20 }}>
+                {formatNumber(data?.population?.habilitados)}
+              </p>
             )}
           </Card>
           {/* <Card
@@ -98,8 +110,11 @@ export const DashboardMap = ({
               </Card> */}
 
           <Card style={{ textAlign: "right", fontSize: 16 }}>
-            <p>Afiliados registrados en <br/>Elekta</p>
-            <p style={{fontSize: 20}}>{formatNumber(totalAfiliados, 0)}</p>
+            <p>
+              Afiliados registrados en <br />
+              Elekta
+            </p>
+            <p style={{ fontSize: 20 }}>{formatNumber(totalAfiliados, 0)}</p>
           </Card>
         </div>
       </>
