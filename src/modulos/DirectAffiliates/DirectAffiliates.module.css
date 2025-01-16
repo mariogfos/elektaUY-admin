@@ -1,8 +1,20 @@
 .directAffiliates {
   width: 100%;
   padding: 24px;
+  & > div:first-of-type {
+    & > div {
+      display: flex;
+      gap: 8px;
+    }
+  }
 }
-
+/* .selectOptions {
+  & > ul {
+    & li {
+      padding: 8px 0px;
+    }
+  }
+} */
 .affiliatesList {
   display: flex;
   flex-direction: column;
