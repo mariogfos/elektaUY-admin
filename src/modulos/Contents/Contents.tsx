@@ -64,7 +64,7 @@ const lDestinies = (data: {
   // if (level == 4) r.push({ id: 0, name: "Mi localidad" });
   if (level == 5) r.push({ id: 0, name: "Mi barrio" });
 
-  if (level <= 1) r.push({ id: 3, name: "Lista" });
+  if (level <= 1) r.push({ id: 2, name: "Lista" });
   if (level <= 2) r.push({ id: 3, name: "Departamento" });
   if (level <= 3) r.push({ id: 4, name: "Municipo" });
   // if (level <= 4) r.push({ id: 5, name: "Localidad" });
@@ -386,7 +386,7 @@ const Contents = () => {
     }
     if (name == "destiny") {
       selDestinies = null;
-      if (value == 2) selDestinies = extraData.litas;
+      if (value == 2) selDestinies = extraData.listas;
       if (value == 3) selDestinies = extraData.dptos;
       if (value == 4) selDestinies = extraData.muns;
       // if (value == 4) selDestinies = extraData.locals;

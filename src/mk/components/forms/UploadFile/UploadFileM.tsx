@@ -174,7 +174,7 @@ export const UploadFileM = ({
   };
 
   useEffect(() => {
-    console.log(selectedFiles?.name, "selectedFiles?.name");
+    // console.log(selectedFiles?.name, "selectedFiles?.name");
     if (!selectedFiles?.name && autoOpen) {
       const fileUpload = document.getElementById(props.name);
       if (fileUpload) {

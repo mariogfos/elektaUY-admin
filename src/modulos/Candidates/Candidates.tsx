@@ -238,7 +238,19 @@ const Candidates = () => {
         label: "Tipo de candidato",
         form: {
           type: "select",
-          optionsExtra: "typeCands",
+          // optionsExtra: "typeCands",
+          options: ({ extraData, item }: any) => {
+            let data: any = [];
+            extraData?.typeCands.map((c: any) => {
+              if (c.status == "A") {
+                data.push({
+                  id: c.id,
+                  name: c?.name,
+                });
+              }
+            });
+            return data;
+          },
         },
         list: {
           width: "200px",
