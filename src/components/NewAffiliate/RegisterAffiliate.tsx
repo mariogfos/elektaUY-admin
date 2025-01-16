@@ -109,7 +109,7 @@ const RegisterAffiliate = ({
   useEffect(() => {
     let obj: any = {};
     const defaultCountry = PREFIX_COUNTRY.find(
-      (country) => country.id === "593"
+      (country) => country.id === "598"
     );
     if (defaultCountry) {
       obj.prefix_phone = defaultCountry.id;

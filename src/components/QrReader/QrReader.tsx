@@ -69,6 +69,29 @@ const QrReader = ({ open, close, eventId, onMsg = () => {} }: PropsType) => {
     }
   };
 
+  const checkResultScannerQr = (decodedText: string, scanner: any) => {
+    const parts = decodedText.split("|");
+    if (
+      parts.length === 4 &&
+      parts[0] === "elekta" &&
+      parts[1] === "qr" &&
+      parts[2] === "O"
+    ) {
+      const id = parts[3].slice(0, -12);
+      setUserId(id);
+      setScanResult(decodedText);
+      setError(null);
+      scanner.clear(); // Detener el escáner si es válido
+    } else {
+      onMsg("¡QR no válido!", "Asegúrate de que el afiliado tenga el QR correcto o regístralo manualmente.","Q");
+      // setError("QR no válido. Por favor, inténtelo nuevamente.");
+      // showToast("QR no válido. Por favor, inténtelo nuevamente.2222", "error");
+      close();
+      // // Reanudar el escáner
+      // scanner.resume();
+    }
+  };
+
   useEffect(() => {
     const scanner = new Html5QrcodeScanner(
       "reader",
@@ -104,28 +127,7 @@ const QrReader = ({ open, close, eventId, onMsg = () => {} }: PropsType) => {
     };
   }, []);
 
-  const checkResultScannerQr = (decodedText: string, scanner: any) => {
-    const parts = decodedText.split("|");
-    if (
-      parts.length === 4 &&
-      parts[0] === "elekta" &&
-      parts[1] === "qr" &&
-      parts[2] === "O"
-    ) {
-      const id = parts[3].slice(0, -12);
-      setUserId(id);
-      setScanResult(decodedText);
-      setError(null);
-      scanner.clear(); // Detener el escáner si es válido
-    } else {
-      onMsg("¡QR no válido!", "Asegúrate de que el afiliado tenga el QR correcto o regístralo manualmente.","Q");
-      // setError("QR no válido. Por favor, inténtelo nuevamente.");
-      // showToast("QR no válido. Por favor, inténtelo nuevamente.2222", "error");
-      close();
-      // // Reanudar el escáner
-      // scanner.resume();
-    }
-  };
+
   const level =
     data?.affiliateLeague?.find((a: any) => a.status === "G")?.minlevel?.name ||
     "0";
@@ -244,7 +246,7 @@ const QrReader = ({ open, close, eventId, onMsg = () => {} }: PropsType) => {
                 width: "100%",
                 height: "100%",
                 margin: 0,
-                textAlign: "center",
+                // textAlign: "center",
               }}
             ></div>
           )}

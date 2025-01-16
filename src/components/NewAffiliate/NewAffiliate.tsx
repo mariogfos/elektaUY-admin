@@ -39,7 +39,12 @@ const NewAffiliate = ({ open, close, eventId }: PropsType) => {
       last_name: formState.last_name,
       fullType: "BP",
     });
-    if (data?.length > 0) {
+    if (data?.success == true) {
+      if (data?.length === 0)
+        showToast(
+          "Error al buscar el patrocinador. Intente nuevamente.",
+          "info"
+        );
       setData(data);
     } else {
       showToast("Error al buscar el patrocinador. Intente nuevamente.", "info");
