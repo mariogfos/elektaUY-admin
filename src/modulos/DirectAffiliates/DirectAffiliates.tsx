@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import styles from "./DirectAffiliates.module.css";
 import useAxios from "@/mk/hooks/useAxios";
@@ -15,6 +14,7 @@ import NotAccess from "@/components/layout/NotAccess/NotAccess";
 import { WidgetSkeleton } from "@/mk/components/ui/Skeleton/Skeleton";
 import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
 import ModalSearchAff from "./ModalSearchAff";
+import DetailAffiliate from "@/components/AffiliatesOld/DetailAffiliate";
 
 const DirectAffiliates = () => {
   const paramInitial: any = {
@@ -404,13 +404,13 @@ const DirectAffiliates = () => {
         <div className={styles.affiliatesList}>
           {renderLevel(affiliatesData, 1)}
         </div>
-        {/* {userId && (
+        {userId && (
           <DetailAffiliate
             id={userId}
             close={() => setUserId(null)}
             open={true}
           />
-        )} */}
+        )}
         {openModal && (
           <ModalSearchAff
             open={openModal}

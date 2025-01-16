@@ -1,53 +1,46 @@
 "use client";
 import useCrud, { ModCrudType } from "@/mk/hooks/useCrud/useCrud";
 import NotAccess from "@/components/auth/NotAccess/NotAccess";
-import styles from "./Contents.module.css";
-import ItemList from "@/mk/components/ui/ItemList/ItemList";
-import useCrudUtils from "../shared/useCrudUtils";
+import styles from "./EventsAdmin.module.css";
 import { useEffect, useMemo, useState } from "react";
-import RenderItem from "../shared/RenderItem";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
-import {
-  IconComment,
-  IconDocs,
-  IconDownload,
-  IconImage,
-  IconLike,
-  IconYoutube,
-} from "@/components/layout/icons/IconsBiblioteca";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import Check from "@/mk/components/forms/Check/Check";
-import RenderView from "./RenderView";
-import { getDateTimeStrMesShort } from "@/mk/utils/date";
+
 import ImportDataModal from "@/mk/components/data/ImportDataModal/ImportDataModal";
+import {
+  IconComment,
+  IconConfirm,
+  IconHealthWorkerForm,
+  IconLike,
+  IconPercentage,
+} from "@/components/layout/icons/IconsBiblioteca";
 import { formatNumber } from "@/mk/utils/numbers";
+import RenderView from "../RenderView/RenderView";
+import useCrudUtils from "@/modulos/shared/useCrudUtils";
+import RenderItem from "@/modulos/shared/RenderItem";
 import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
-import { useAuth } from "@/mk/contexts/AuthProvider";
 
 const paramsInitial = {
-  perPage: 19,
+  perPage: 12,
   page: 1,
   fullType: "L",
   searchBy: "",
 };
-
-const isType = (data: {
-  key: string;
-  user?: Record<string, any>;
-  item: Record<string, any>;
-}) => {
-  if (data.key == "url" && data.item.type == "V") return false;
-  if (data.key == "avatar" && data.item.type == "I") return false;
-  if (data.key == "file" && data.item.type == "D") return false;
-  return true;
-};
-
-const lType = [
-  { id: "I", name: "Imagen", ext: "png,jpg,jpeg,svg" },
-  { id: "V", name: "Video", ext: "mp4" },
-  { id: "D", name: "Documento", ext: "pdf,doc,docx" },
-];
-
+// const isHide = (data: {
+//   key: string;
+//   user?: Record<string, any>;
+//   item: Record<string, any>;
+// }) => {
+//   const level = data.user?.role.level;
+//   // const level = 3;
+//   if (data.key == "sublema_id") return level > 1;
+//   if (data.key == "lista_id") return level > 2;
+//   if (data.key == "dpto_id") return level > 4;
+//   if (data.key == "local_id") return level > 5;
+//   if (data.key == "barrio_id") return level > 6;
+//   return false;
+// };
 const lDestinies = (data: {
   key: string;
   user?: Record<string, any>;
@@ -64,7 +57,7 @@ const lDestinies = (data: {
   // if (level == 4) r.push({ id: 0, name: "Mi localidad" });
   if (level == 5) r.push({ id: 0, name: "Mi barrio" });
 
-  if (level <= 1) r.push({ id: 3, name: "Lista" });
+  if (level <= 1) r.push({ id: 2, name: "Lista" });
   if (level <= 2) r.push({ id: 3, name: "Departamento" });
   if (level <= 3) r.push({ id: 4, name: "Municipo" });
   // if (level <= 4) r.push({ id: 5, name: "Localidad" });
@@ -72,54 +65,34 @@ const lDestinies = (data: {
   return r;
 };
 
-const rigthFile = (data: {
-  key: string;
-  user?: Record<string, any>;
-  item: Record<string, any>;
-}) => {
-  if (!data.item.url) return null;
-  return (
-    <IconDownload
-      size={40}
-      color={"white"}
-      onClick={() => {
-        window.open(
-          getUrlImages(
-            "/CONT-" +
-              data.item.id +
-              "." +
-              data.item.url +
-              "?" +
-              data.item.updated_at
-          ),
-          "_blank"
-        );
-      }}
-    />
-  );
-};
-
-const Contents = () => {
+const EventsAdmin = () => {
+  // const { user } = useAuth();
   const mod: ModCrudType = {
-    modulo: "contents",
-    singular: "noticia",
-    plural: "Contenidos multimedia",
-    permiso: "contents",
-    // import: true,
+    modulo: "events",
+    singular: "evento",
+    plural: "Eventos",
+    permiso: "events",
     extraData: true,
-    saveMsg: {
-      add: "Noticia creada con éxito",
-      edit: "Noticia actualizada con éxito",
-      del: "Noticia eliminada con éxito",
+    onHideActions: (item: any) => {
+      return {
+        hideEdit: item?.attendance_count > 0,
+
+        hideDel: item?.attendance_count > 0,
+      };
     },
+    // import: true,
     renderView: (props: {
       open: boolean;
       onClose: any;
       item: Record<string, any>;
       onConfirm?: Function;
-      extraData: any;
     }) => <RenderView {...props} />,
-    loadView: { fullType: "DET" },
+    loadView: { fullType: "DET", extraData: 1 },
+    saveMsg: {
+      add: "Evento creado con éxito",
+      edit: "Evento actualizado con éxito",
+      del: "Evento eliminado con éxito",
+    },
   };
   const onTop = (data: {
     user?: Record<string, any>;
@@ -141,7 +114,7 @@ const Contents = () => {
     // let dataDestinies =
     //   data?.action == "edit" ? data?.item?.cdestinies : data?.item?.lDestiny;
     if (data?.action == "edit" && !data?.item?.lDestiny) {
-      data?.item?.cdestinies?.map((d: any) => {
+      data?.item?.edestinies?.map((d: any) => {
         if (data?.item?.destiny == 2) {
           lDestinies.push(d.lista_id);
         }
@@ -177,39 +150,50 @@ const Contents = () => {
       </div>
     );
   };
-  const { user } = useAuth();
+
   const fields = useMemo(
     () => ({
       id: { rules: [], api: "e" },
+      date: {
+        // rules: ["required"],
+        api: "ae",
+        label: "Fecha",
+        list: false,
+        // list: { width: "420px" },
+        // onRender: (item: any) => {
+        //   return item?.item?.date_at;
+        // },
+      },
       destiny: {
         rules: ["required"],
         api: "ae",
         label: "Destino",
-        list: {
-          width: "100px",
-          onRender: (item: any) => {
-            let destinys = ["", "", "Lista", "Departamento", "Municipio"];
-            if (item?.item?.destiny == 0 || item?.item?.destiny == 1) {
-              return "Todos";
-            }
-            if (user?.role.level == 3 && item?.item?.destiny == 2) {
-              return "Mi lista";
-            }
-            if (user?.role.level == 3 && item?.item?.destiny == 3) {
-              return "Mi departamento";
-            }
-            if (user?.role.level == 4 && item?.item?.destiny == 4) {
-              return "Mi municipio";
-            }
-            // if (user?.role.level == 4 && item?.item?.destiny == 4) {
-            //   return "Mi localidad";
-            // }
-            if (user?.role.level == 5 && item?.item?.destiny == 5) {
-              return "Mi barrio";
-            }
-            return destinys[item?.item?.destiny];
-          },
-        },
+        // list: {
+        //   width: "100px",
+        //   onRender: (item: any) => {
+        //     let destinys = ["", "", "Lista", "Departamento", "Municipio"];
+        //     if (item?.item?.destiny == 0 || item?.item?.destiny == 1) {
+        //       return "Todos";
+        //     }
+        //     if (user?.role.level == 3 && item?.item?.destiny == 2) {
+        //       return "Mi lista";
+        //     }
+        //     if (user?.role.level == 3 && item?.item?.destiny == 3) {
+        //       return "Mi departamento";
+        //     }
+        //     if (user?.role.level == 4 && item?.item?.destiny == 4) {
+        //       return "Mi municipio";
+        //     }
+        //     // if (user?.role.level == 4 && item?.item?.destiny == 4) {
+        //     //   return "Mi localidad";
+        //     // }
+        //     if (user?.role.level == 5 && item?.item?.destiny == 5) {
+        //       return "Mi barrio";
+        //     }
+        //     return destinys[item?.item?.destiny];
+        //   },
+        // },
+        list: false,
         form: {
           type: "select",
           options: lDestinies,
@@ -229,109 +213,250 @@ const Contents = () => {
         rules: ["required"],
         api: "ae",
         label: "Candidato",
-        list: {
-          width: "250px",
-          // optionsExtra: "candidates",
-          options: ({ extraData }: any) => {
-            let data: any = [];
-            extraData?.candidates?.map((c: any) => {
-              data.push({
-                id: c.id,
-                name: getFullName(c),
-              });
-            });
-            return data;
-          },
-          // options: ({ extraData }: any) => {
-          //   console.log(extraData);
-          // },
-        },
+        list: false,
         form: {
           type: "select",
           filter: true,
-          options: ({ extraData, item }: any) => {
+          options: ({ extraData }: any) => {
             let data: any = [];
             extraData?.candidates.map((c: any) => {
-              if (c.status == "A") {
+              if (c.status == "A")
                 data.push({
                   id: c.id,
                   name:
                     getFullName(c) +
                     " - " +
-                    extraData?.typeCands.find((t: any) => t.id == c.typecand_id)
-                      ?.name,
+                    extraData?.typeCands?.find(
+                      (t: any) => t.id == c.typecand_id
+                    )?.name,
                 });
-              }
             });
             return data;
           },
         },
       },
-      type: {
+      // sublema_id: {
+      //   rules: ["required"],
+      //   api: "ae",
+      //   label: "Sublema",
+      //   onHide: isHide,
+      //   list: false,
+      //   form: {
+      //     type: "select",
+      //     addOptions: [{ id: 0, name: "Todos" }],
+      //     optionsExtra: "sublemas",
+      //     precarga: user.datos?.sublema_id,
+      //   },
+      // },
+      date_at: {
+        rules: ["required", "date"],
+        api: "ae",
+        label: "Fecha evento",
+        // onHide: isHide,
+        list: { width: "160px" },
+        onRender: (item: any) => {
+          return item?.item?.date_at;
+        },
+        form: {
+          type: "datetime-local",
+        },
+      },
+      name: {
         rules: ["required"],
         api: "ae",
-        label: "Tipo",
-        list: { width: "100px" },
-        form: { type: "select", options: lType, precarga: "I" },
+        label: "Nombre del evento",
+        list: true,
+        form: { type: "text" },
       },
       description: {
         rules: ["required"],
         api: "ae",
-        label: "¿Qué deseas publicar hoy?",
-        list: true,
+        label: "Descripción",
+        list: false,
         form: { type: "textArea", lines: 6, isLimit: true, maxLength: 5000 },
       },
       reaction: {
         api: "ae",
         label: "Interacciones",
         list: { width: "120px" },
-        onHide: isType,
-        form: {},
+        style: { display: "flex", justifyContent: "center" },
+        form: false,
         onRender: (item: any) => {
           return (
             <div
-              style={{ display: "flex", alignItems: "center", fontSize: 14 }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: 14,
+                gap: 24,
+              }}
             >
-              <IconLike color={"var(--cInfo)"} size={24} />
-              {formatNumber(item?.item?.likes, 0)} <IconComment size={24} />
-              {formatNumber(item?.item?.comments_count, 0)}
+              <section
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: 14,
+                  }}
+                >
+                  <IconLike size={24} color={"var(--cInfo)"} />
+                </div>
+                {formatNumber(item?.item?.likes, 0)}
+              </section>
+              <section
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: 14,
+                  }}
+                >
+                  <IconComment size={24} />
+                </div>
+                {formatNumber(item?.item?.comments_count, 0)}
+              </section>
             </div>
           );
         },
       },
-      url: {
-        rules: ["requiredIf:type,V"],
-        api: "a*e*",
-        label: "Link del video",
-        list: false,
-        onHide: isType,
-        form: { type: "text" },
-      },
-      avatar: {
-        // rules: ["requiredFileIf:type,I*add"],
-        api: "a*e*",
-        label: "Suba una imagen",
-        list: false,
-        onHide: isType,
-        form: {
-          type: "imageUploadMultiple",
-          prefix: "CONT",
-          maxFiles: 10,
-          images: "images",
-          // onRigth: rigthAvatar,
-          style: { width: "100%" },
+      attendance_count: {
+        api: "",
+        label: "Desempeño",
+        list: { width: "260" },
+        // list: true,
+        style: { display: "flex", justifyContent: "center" },
+        form: false,
+        onRender: (item: any) => {
+          const percentage =
+            item?.item?.assists > 0
+              ? (item?.item?.attendance_count / item?.item?.assists) * 100
+              : 0;
+
+          return (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                alignSelf: "center",
+                fontSize: 14,
+                gap: 24,
+              }}
+            >
+              <section
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: 14,
+                  }}
+                >
+                  <IconConfirm color={"var(--cSuccess)"} />
+                </div>
+                <div style={{ fontSize: "var(--sS)", marginBottom: 4 }}>
+                  {formatNumber(item?.item?.assists, 0)}
+                </div>
+                <div>Asistirán</div>
+              </section>{" "}
+              <section
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: 14,
+                  }}
+                >
+                  <IconHealthWorkerForm size={24} color={"var(--cAccent)"} />
+                </div>
+                <div style={{ fontSize: "var(--sS)", marginBottom: 4 }}>
+                  {formatNumber(item?.item?.attendance_count, 0)}{" "}
+                </div>
+                <div>Asistieron</div>
+              </section>
+              <section
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: 14,
+                  }}
+                >
+                  <IconPercentage size={24} />
+                </div>
+                <div style={{ fontSize: "var(--sS)", marginBottom: 4 }}>
+                  {formatNumber(percentage.toFixed(2), 0)}
+                </div>
+                <div>Asistencia</div>
+              </section>
+            </div>
+          );
         },
       },
-      file: {
-        rules: ["requiredFileIf:type,D"],
-        api: "a*e*",
-        label: "Suba un Documento",
+      address: {
+        rules: ["required"],
+        api: "ae",
+        label: "Lugar del evento",
         list: false,
-        onHide: isType,
         form: {
-          type: "fileUpload",
-          onRigth: rigthFile,
+          type: "text",
+          label: "Lugar del evento",
+        },
+      },
+      location: {
+        rules: ["required", "googleMapsLink"],
+        api: "ae",
+        label: "Link de ubicación",
+        list: false,
+        form: {
+          type: "text",
+          label: "Link de ubicación",
+        },
+      },
+      avatar: {
+        rules: ["requiredFile*a"],
+        api: "a*e*",
+        label: "Suba una Imagen",
+        list: false,
+        form: {
+          type: "imageUpload",
+          prefix: "EVENT",
           style: { width: "100%" },
+          // onRigth: rigthAvatar,
         },
       },
     }),
@@ -363,10 +488,10 @@ const Contents = () => {
 
       return true;
     }
-    // console.log(action);
+
     let lDestiny = item.lDestiny || [];
     if (action == "edit") {
-      item?.cdestinies?.map((d: any) => {
+      item?.edestinies?.map((d: any) => {
         if (item?.destiny == 2) {
           lDestiny.push(d.lista_id);
         }
@@ -410,7 +535,6 @@ const Contents = () => {
     }
     return false;
   };
-
   const ModalDestiny = ({
     item,
     setItem,
@@ -429,10 +553,10 @@ const Contents = () => {
     useEffect(() => {
       setSel(item?.lDestiny || []);
     }, [item]);
-
     const setOnSearch = (e: any) => {
       setSearch(e);
     };
+
     const normalizeText = (text: string) =>
       text
         .normalize("NFD")
@@ -449,9 +573,8 @@ const Contents = () => {
       );
       setDestiniesFiltered(filtered);
     }, [search]);
-
     const _onSave = () => {
-      if (sel <= 0) {
+      if (sel.length <= 0) {
         showToast("Debe seleccionar al menos un destino", "error");
         return;
       }
@@ -499,8 +622,8 @@ const Contents = () => {
             key={"check" + i}
             name={"destiny_" + d.id}
             label={d.name}
-            checked={sel.includes(d.id)}
             reverse
+            checked={sel.includes(d.id)}
             onChange={(e: any) => {
               const { name, checked } = e.target;
               const id: any = parseInt(name.replace("destiny_", ""));
@@ -532,6 +655,7 @@ const Contents = () => {
     onEdit,
     onDel,
     extraData,
+    findOptions,
     showToast,
     execute,
     reLoad,
@@ -550,7 +674,7 @@ const Contents = () => {
     mod,
     onEdit,
     onDel,
-    title: "Noticias",
+    title: "Eventos",
   });
 
   const [openImport, setOpenImport] = useState(false);
@@ -563,44 +687,39 @@ const Contents = () => {
     i: number,
     onClick: Function
   ) => {
-    let icon = <IconImage size={48} circle color="var(--cWhite)" />;
-    if (item.type == "D")
-      icon = <IconDocs size={48} circle color="var(--cWhite)" />;
-    if (item.type == "V")
-      icon = <IconYoutube size={48} circle color="var(--cWhite" />;
-
     return (
       <RenderItem item={item} onClick={onClick} onLongPress={onLongPress}>
-        <ItemList
-          title={item?.description.substring(0, 80) + "..."}
-          subtitle={
-            "Creado por: " +
-            getFullName(item.user) +
-            ", en Fecha: " +
-            getDateTimeStrMesShort(item.created_at)
-          }
-          variant="V1"
-          active={selItem && selItem.id == item.id}
-          left={icon}
-        />
+        <div className={styles["cardEventContainer"]}>
+          <div>
+            <img
+              style={{ width: 156, height: 156, borderRadius: 8 }}
+              src={getUrlImages(
+                "/EVENT-" + item?.id + "." + item?.ext + "?" + item?.updated_at
+              )}
+            />
+          </div>
+          <div>
+            <div className="tTitle">{item?.name} Hola</div>
+            <div className="tSubtitle">{item?.description}</div>
+            <div>{item?.assists} asistiran</div>
+          </div>
+        </div>
       </RenderItem>
     );
   };
-  // const onResponse = async () => {
-  //   // const { data } = await execute("/optimizeImages", "POST", {});
-  //   const { data } = await execute("/contents-automatic", "POST", {});
-  //   if (data?.success) {
-  //     showToast("success", "Se han enviado las encuestas");
-  //     console.log("data", data);
-  //   } else {
-  //     showToast("error", "No se han podido enviar las encuestas");
-  //   }
-  // };
+  const onResponse = async () => {
+    const { data } = await execute("/events-automatic", "POST", {});
+    if (data?.success) {
+      showToast("success", "Se han enviado las encuestas");
+    } else {
+      showToast("error", "No se han podido enviar las encuestas");
+    }
+  };
   if (!userCan(mod.permiso, "R")) return <NotAccess />;
   return (
     <div className={styles.roles}>
       {/* <IconLike onClick={() => onResponse()} /> */}
-      <List onTabletRow={renderItem} actionsWidth="140px" />
+      <List onTabletRow={renderItem} actionsWidth="300px" />
       {openImport && (
         <ImportDataModal
           open={openImport}
@@ -620,4 +739,4 @@ const Contents = () => {
   );
 };
 
-export default Contents;
+export default EventsAdmin;

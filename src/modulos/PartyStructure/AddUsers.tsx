@@ -167,7 +167,7 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
                 Estas registrando en
                 <span>
                   {/* {user?.role?.level > 1 && ` ${getDatos("sublema")}`} */}
-                  {user?.role?.level > 1 && ` / ${getDatos("lista")}`}
+                  {user?.role?.level > 1 && ` ${getDatos("lista")}`}
                   {user?.role?.level > 2 && ` / ${getDatos("dpto")}`}
                   {user?.role?.level > 3 && ` / ${getDatos("mun")}`}
                   {/* {user?.role?.level > 5 && ` / ${getDatos("local")}`} */}
