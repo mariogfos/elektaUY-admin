@@ -954,9 +954,9 @@ export const IconCustomShape = ({ width = "366", height = "70", ...props }) => {
           width="366"
           height="70"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -2750,7 +2750,7 @@ export const IconLevel = (props: IconType) => {
       <path
         d="M5.18618 2.96549L1.88315 10.2322C1.50054 11.0739 1.61376 12.0581 2.17751 12.7909L13.0184 26.8842C14.0192 28.1851 15.9808 28.1851 16.9816 26.8842L27.845 12.7617C28.3787 12.0679 28.5107 11.1455 28.1929 10.3298L25.3731 3.09242C24.999 2.13227 24.0741 1.5 23.0437 1.5H7.4621C6.48174 1.5 5.59185 2.07301 5.18618 2.96549Z"
         stroke="#212529"
-        stroke-width="3"
+        strokeWidth="3"
       />
       <defs>
         <filter
@@ -2760,9 +2760,9 @@ export const IconLevel = (props: IconType) => {
           width="29.7041"
           height="29.3599"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -2797,13 +2797,13 @@ export const IconLocation = (props: IconType) => {
     <IconWrap {...props} reverse={true}>
       <path
         d="M11.9998 11.8747C13.3308 11.8747 14.4098 10.7957 14.4098 9.46469C14.4098 8.13368 13.3308 7.05469 11.9998 7.05469C10.6688 7.05469 9.58984 8.13368 9.58984 9.46469C9.58984 10.7957 10.6688 11.8747 11.9998 11.8747Z"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12.0011 22.415C12.2161 22.415 12.6311 22.36 12.6311 21.545C12.6311 18.975 16.2661 16.155 17.9161 12.97C18.5366 11.9255 18.8695 10.7353 18.8808 9.52036C18.8921 8.30547 18.5815 7.10923 17.9806 6.0533C17.3797 4.99736 16.5099 4.11939 15.4596 3.50864C14.4093 2.8979 13.216 2.57617 12.0011 2.57617C10.7861 2.57617 9.59286 2.8979 8.54258 3.50864C7.4923 4.11939 6.62248 4.99736 6.02156 6.0533C5.42064 7.10923 5.11006 8.30547 5.12139 9.52036C5.13273 10.7353 5.46558 11.9255 6.08609 12.97C7.73609 16.155 11.3711 18.97 11.3711 21.545C11.3711 22.36 11.7861 22.415 12.0011 22.415Z"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </IconWrap>
   );
@@ -2899,9 +2899,9 @@ export const IconScanLine = (props: IconType) => {
     <IconWrap {...props} viewBox="0 0 24 24" reverse={true}>
       <path
         d="M3 7V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H7M17 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V7M21 17V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H17M7 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V17M7 12H17"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </IconWrap>
   );
@@ -3106,20 +3106,20 @@ export const IconAlertCircle = (props: IconType) => {
     <IconWrap {...props} viewBox="0 0 80 80" reverse={true}>
       <path
         d="M40 10.0005C56.5685 10.0005 70 23.4319 70 40.0005C70 56.569 56.5685 70.0005 40 70.0005C23.4315 70.0005 10 56.569 10 40.0005C10 23.4319 23.4315 10.0005 40 10.0005Z"
-        stroke-width="6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M40 53.334H40.0333V53.3006H40V53.334Z"
-        stroke-width="4"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinejoin="round"
       />
       <path
         d="M40 40.0005V26.6672"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </IconWrap>
   );

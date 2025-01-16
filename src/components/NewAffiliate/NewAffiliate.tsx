@@ -6,6 +6,7 @@ import { PREFIX_COUNTRY } from "@/mk/utils/string";
 import Input from "@/mk/components/forms/Input/Input";
 import useAxios from "@/mk/hooks/useAxios";
 import ListAffiliates from "./ListAffiliates";
+import { useAuth } from "@/mk/contexts/AuthProvider";
 
 type PropsType = {
   open: boolean;
@@ -19,6 +20,7 @@ const NewAffiliate = ({ open, close, eventId }: PropsType) => {
   const isMac = navigator.platform.toUpperCase().includes("MAC");
   const { execute } = useAxios();
   const [data, setData]: any = useState({});
+  const { showToast } = useAuth();
 
   const handleChangeInput = (e: any) => {
     let value = e.target.value;
@@ -37,10 +39,15 @@ const NewAffiliate = ({ open, close, eventId }: PropsType) => {
       last_name: formState.last_name,
       fullType: "BP",
     });
-    if (data.success === true) {
+    if (data?.success == true) {
+      if (data?.length === 0)
+        showToast(
+          "Error al buscar el patrocinador. Intente nuevamente.",
+          "info"
+        );
       setData(data);
     } else {
-      setErrors("Error al buscar el patrocinador. Intente nuevamente.");
+      showToast("Error al buscar el patrocinador. Intente nuevamente.", "info");
     }
   };
 

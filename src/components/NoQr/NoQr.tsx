@@ -71,7 +71,7 @@ const NoQr = ({ open, onClose, idEvent }: any) => {
       setFormState({});
       showToast(data?.message, "success");
     } else {
-      showToast(data?.message, "error");
+      showToast(data?.message, "info");
     }
   };
 
