@@ -22,7 +22,7 @@ const HomePage = () => {
   ]);
 
   const paramInitial: any = {
-    level: user?.role?.level <= 3 ? 2 : user?.role?.level == 4 ? 3 : 1,
+    level: user?.role?.level <= 2 ? 1 : user?.role?.level == 4 ? 3 : 2,
     code: user?.entidad?.code?.toString(),
     searchBy: user?.role?.level > 1 ? user?.entidad?.id : "",
   };
