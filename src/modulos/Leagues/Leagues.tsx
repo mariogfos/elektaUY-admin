@@ -64,6 +64,7 @@ const Leagues = () => {
         api: "",
         label: "Avatar",
         list: {
+          width: "100",
           onRender: (item: any) => {
             return (
               <Avatar
@@ -81,7 +82,7 @@ const Leagues = () => {
           },
         },
         form: false,
-        style: { width: 200 },
+        // style: { width: 50 },
       },
       name: {
         rules: ["required"],
