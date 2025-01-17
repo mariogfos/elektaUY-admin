@@ -51,7 +51,7 @@ const Dptos = () => {
         api: "ae",
         label: "Habitantes",
         list: {
-          width: "400px",
+          width: "200px",
           onRender: (item: any) => {
             return (
               <div style={{ width: "100%" }}>{formatNumber(item.value, 0)}</div>
@@ -66,7 +66,7 @@ const Dptos = () => {
         api: "ae",
         label: "Habilitados para votar",
         list: {
-          width: "400px",
+          width: "200px",
           onRender: (item: any) => {
             return (
               <div style={{ width: "100%" }}>{formatNumber(item.value, 0)}</div>
