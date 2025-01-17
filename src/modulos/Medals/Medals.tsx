@@ -231,7 +231,7 @@ const Medals = () => {
   if (!userCan(mod.permiso, "R")) return <NotAccess />;
 
   return (
-    <div className={styles.levels}>
+    <div className={styles.medals}>
       <List onTabletRow={renderItem} actionsWidth="200px" />
       {openImport && (
         <ImportDataModal
