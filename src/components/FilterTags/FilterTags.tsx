@@ -26,9 +26,9 @@ const FilterTags = ({
         return;
       }
       setFilters((prev: any) => ({ ...prev, [type]: item.id }));
-    } else if (type === "local_id") {
-      if (filters?.local_id == item.id) {
-        setFilters((prev: any) => ({ ...prev, local_id: null }));
+    } else if (type === "mun_id") {
+      if (filters?.mun_id == item.id) {
+        setFilters((prev: any) => ({ ...prev, mun_id: null }));
         return;
       }
       setFilters((prev: any) => ({ ...prev, [type]: item.id }));

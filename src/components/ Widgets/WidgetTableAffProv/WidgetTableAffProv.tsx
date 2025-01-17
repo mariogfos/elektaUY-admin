@@ -10,7 +10,6 @@ const colors = ["#F08080", "#F7B267", "#F8DDA4", "#A2D2BF", "#00AF90"];
 
 const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
   const [orden, setOrden] = useState("name");
-
   // Formatear los datos de los departamentos
   const dataFormattedDpto = () => {
     let newData: any = [];

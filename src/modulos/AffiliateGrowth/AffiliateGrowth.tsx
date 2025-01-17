@@ -77,7 +77,7 @@ const AffiliateGrowth: React.FC = () => {
 
   const getMuns = () => {
     if (filters.dpto_id > 0) {
-      return extraData?.locals?.filter(
+      return extraData?.muns?.filter(
         (item: any) => item.dpto_id === filters.dpto_id
       );
     } else {
@@ -167,7 +167,7 @@ const AffiliateGrowth: React.FC = () => {
       msgEmpty: "Selecciona un departamento para mostrar sus municipios.",
       filters: filters,
       setFilters: setFilters,
-      type: "munl_id",
+      type: "mun_id",
     },
     {
       title: "Género",
