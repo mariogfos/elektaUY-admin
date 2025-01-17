@@ -63,7 +63,7 @@ const Medals = () => {
         label: "Liga",
 
         list: {
-          width: "150",
+          width: "180",
           optionsExtra: "leagues",
         },
         filter: {
@@ -105,7 +105,7 @@ const Medals = () => {
             </div>
           );
         },
-        list: { width: 400 },
+        list: true,
         form: { type: "text" },
       },
       description: {
@@ -116,11 +116,11 @@ const Medals = () => {
       },
       points: {
         rules: ["required"],
-        style: { width: 200 },
+        // style: { width: 50 },
         api: "ae",
         label: "Puntos",
         list: {
-          width: 180,
+          width: "120",
           onRender: (item: any) => {
             return (
               <div style={{ width: "100%", textAlign: "right" }}>
@@ -143,8 +143,10 @@ const Medals = () => {
         rules: ["required"],
         api: "ae",
         label: "Estado",
-        style: { width: 200 },
-        list: true,
+        // style: { width: 210 },
+        list: {
+          width: "120",
+        },
         form: {
           type: "select",
           options: [

@@ -10,7 +10,7 @@ const Gamification = () => {
   const [typeSearch, setTypeSearch] = useState("L");
   return (
     <div>
-      <div style={{ marginTop: 20 }}>
+      <div>
         <TabsButtons
           tabs={[
             { value: "L", text: "Ligas" },
