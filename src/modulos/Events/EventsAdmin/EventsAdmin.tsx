@@ -511,7 +511,7 @@ const EventsAdmin = () => {
     }
     if (name == "destiny") {
       selDestinies = null;
-      if (value == 2) selDestinies = extraData.litas;
+      if (value == 2) selDestinies = extraData.listas;
       if (value == 3) selDestinies = extraData.dptos;
       if (value == 4) selDestinies = extraData.muns;
       // if (value == 4) selDestinies = extraData.locals;

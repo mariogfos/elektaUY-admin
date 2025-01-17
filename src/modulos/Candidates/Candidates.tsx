@@ -164,7 +164,7 @@ const Candidates = () => {
           },
         },
         // style: { width: "300px" },
-        list: { order: 1, width: "80" },
+        list: { order: 1, width: "200" },
       },
       position: {
         rules: ["required"],
@@ -191,7 +191,7 @@ const Candidates = () => {
         onRender: (item: any) => {
           return getFullName(item?.item);
         },
-        list: { width: "300px" },
+        list: true,
       },
       name: {
         rules: ["required"],
@@ -238,10 +238,23 @@ const Candidates = () => {
         label: "Tipo de candidato",
         form: {
           type: "select",
-          optionsExtra: "typeCands",
+          // optionsExtra: "typeCands",
+          options: ({ extraData, item }: any) => {
+            let data: any = [];
+            extraData?.typeCands.map((c: any) => {
+              if (c.status == "A") {
+                data.push({
+                  id: c.id,
+                  name: c?.name,
+                });
+              }
+            });
+            return data;
+          },
         },
         list: {
           width: "200px",
+          optionsExtra: "typeCands",
         },
       },
       profession: {
@@ -267,8 +280,7 @@ const Candidates = () => {
           onTop: () => (
             <OnTop
               title="Redes sociales"
-              subtitle="Agrega los enlaces de las redes sociales del candidato para que sus seguidores puedan seguirlo
-          "
+              subtitle="Agrega los enlaces de las redes sociales del candidato para que sus seguidores puedan seguirlo"
             />
           ),
         },

@@ -76,8 +76,10 @@ const DetailAffiliate = ({ open, close, item, id }: PropsDetailUsers) => {
           style={{ backgroundColor: "var(--cHover)", color: "var(--cWhiteV2)" }}
         >
           <div className={style.cardContent}>
-            <p>Provincia</p>
-            <p style={{ color: "var(--cWhite)" }}>{data?.data?.data?.prov}</p>
+            <p>Departamento</p>
+            <p style={{ color: "var(--cWhite)" }}>
+              {data?.data?.data?.dpto || "No proporcionado"}
+            </p>
           </div>
           {/* <div className={style.cardContent}>
             <p>Cédula de identidad</p>
@@ -100,12 +102,12 @@ const DetailAffiliate = ({ open, close, item, id }: PropsDetailUsers) => {
             >
               {data?.data?.data?.prefix_phone && (
                 <p style={{ color: "var(--cWhite)" }}>
-                  + {data?.data?.data?.prefix_phone}
+                  +{data?.data?.data?.prefix_phone}
                 </p>
               )}
               {data?.data?.data?.phone && (
                 <p style={{ color: "var(--cWhite)", marginLeft: 8 }}>
-                  {data?.data?.data?.phone}
+                  {data?.data?.data?.phone || "No proporcionado"}
                 </p>
               )}
             </div>

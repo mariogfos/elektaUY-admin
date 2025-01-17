@@ -1,5 +1,6 @@
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import styles from "./button.module.css";
+import { CSSProperties } from "react";
 
 type PropsType = {
   variant?: "primary" | "secondary" | "terciary" | "accent" | "small";
@@ -8,7 +9,7 @@ type PropsType = {
   className?: string;
   small?: boolean;
   disabled?: boolean;
-  style?: any;
+  style?: CSSProperties;
 };
 
 const Button = ({

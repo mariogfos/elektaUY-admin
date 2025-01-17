@@ -281,7 +281,7 @@ const RenderView = (props: {
           </div>
           <div>
             <p className={styles.title}>Plan de gobierno</p>
-            <p className={styles.subtitle} style={{ marginTop: 12 }}>
+            <div className={styles.subtitle} style={{ marginTop: 12 }}>
               <a
                 href={getUrlImages(
                   "/PLAN-" +
@@ -324,7 +324,7 @@ const RenderView = (props: {
                   </span>
                 </div>
               </a>
-            </p>
+            </div>
           </div>
         </div>
       </div>

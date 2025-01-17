@@ -15,13 +15,15 @@ import { WidgetSkeleton } from "@/mk/components/ui/Skeleton/Skeleton";
 import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
 import ModalSearchAff from "./ModalSearchAff";
 import DetailAffiliate from "@/components/AffiliatesOld/DetailAffiliate";
+import Button from "@/mk/components/forms/Button/Button";
+import AddLeader from "./AddLeader";
 
 const DirectAffiliates = () => {
   const paramInitial: any = {
     fullType: "LD",
   };
 
-  const { setStore, userCan } = useAuth();
+  const { setStore, userCan, showToast } = useAuth();
   const [affiliatesData, setAffiliatesData] = useState<any[]>([]);
   const [activeAccordions, setActiveAccordions] = useState<any>({});
   const [nestedData, setNestedData] = useState<any>({});
@@ -31,6 +33,7 @@ const DirectAffiliates = () => {
   const [userId, setUserId]: any = useState(null);
   const [params, setParams] = useState(paramInitial);
   const [openModal, setOpenModal] = useState(false);
+  const [openAddLeader, setOpenAddLeader] = useState(false);
 
   // const defaultLevel = 5;
 
@@ -390,7 +393,7 @@ const DirectAffiliates = () => {
               marginBottom: 16,
             }}
           >
-            Líderes de barrio
+            Líderes de red
           </h1>
           <div>
             <DataSearch
@@ -399,6 +402,12 @@ const DirectAffiliates = () => {
               value={params?.searchBy || ""}
               label=""
             />
+            <Button
+              style={{ width: "320px" }}
+              onClick={() => setOpenAddLeader(true)}
+            >
+              Agregar líder de red
+            </Button>
           </div>
         </div>
         <div className={styles.affiliatesList}>
@@ -416,6 +425,15 @@ const DirectAffiliates = () => {
             open={openModal}
             close={onCloseModal}
             searchBy={params?.searchBy || ""}
+          />
+        )}
+        {openAddLeader && (
+          <AddLeader
+            open={openAddLeader}
+            onClose={() => setOpenAddLeader(false)}
+            execute={execute}
+            showToast={showToast}
+            reLoad={reLoad}
           />
         )}
       </div>
