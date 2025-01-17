@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 import Table from "@/mk/components/ui/Table/Table";
 import style from "./WidgetTable.module.css";
-import {
-  IconArrowDown,
-  IconArrowUp,
-  IconExport,
-} from "@/components/layout/icons/IconsBiblioteca";
 import { formatNumber } from "@/mk/utils/numbers";
-import ProgresiveBar from "@/mk/components/ui/ProgresiveBar/ProgresiveBar";
 import HorizontalProgresiveBar from "@/mk/components/ui/HorizontalProgresiveBar/HorizontalProgresiveBar";
 import { RandomsColors } from "@/mk/utils/utils";
 import ColoredCircle from "@/mk/components/ui/ColoredCircle/ColoredCircle";
 import Select from "@/mk/components/forms/Select/Select";
-import Button from "@/mk/components/forms/Button/Button";
 
 // let _goals = [
 //   { title: '', color: "var(--cSuccess)" },
@@ -46,7 +39,7 @@ const colorPalette = [
 const WidgetTable = ({ data, level, onClickLevel, title }: any) => {
   // console.log(level,'lv')
   const titleFirstColumnLabel =
-    level === 1 ? "Departamento" : "Municipio";
+    level === 1 ? "Departamento" : level === 2 ? "Municipio" : "Barrio";
   const [goals, setGoals]: any = useState([]);
   const [sortConfig, setSortConfig] = useState({
     key: "percentage_hab",
