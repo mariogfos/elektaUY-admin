@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import {
   IconArrowLeft,
@@ -41,11 +40,11 @@ export const UploadFile = ({
     console.log("reader error", err);
   };
 
-  useEffect(() => {
-    if (value == "" || item[props.name]?.file == "delete") {
-      // setSelectedFiles({});
-    }
-  }, [value, item]);
+  // useEffect(() => {
+  //   if (value == "" || item[props.name]?.file == "delete") {
+  //     // setSelectedFiles({});
+  //   }
+  // }, [value, item]);
 
   const [editedImage, setEditedImage]: any = useState(null);
   const [loadedImage, setLoadedImage]: any = useState(false);
@@ -166,7 +165,20 @@ export const UploadFile = ({
   const deleteImg = (del = true) => {
     props.setError({ ...props.error, [props.name]: "" });
 
-    if (!selectedFiles?.name) {
+    // if (!selectedFiles?.name) {
+    // console.log("deleteImg", del, selectedFiles?.name, "value:", value, {
+    //   ext: "",
+    //   file: del == false ? "" : "delete",
+    // });
+
+    if (value && value.file != "") {
+      onChange({
+        target: {
+          name: props.name,
+          value: null,
+        },
+      });
+    } else {
       onChange({
         target: {
           name: props.name,
@@ -174,6 +186,7 @@ export const UploadFile = ({
         },
       });
     }
+    // }
     setSelectedFiles({});
     // onChange &&
     //   onChange({
@@ -237,6 +250,7 @@ export const UploadFile = ({
                 }
               }}
             >
+              {/* value:({value}) */}
               {img ? (
                 <IconImage size={40} color={"var(--cWhite)"} />
               ) : (
@@ -249,6 +263,7 @@ export const UploadFile = ({
             </div>
           ) : (
             <div style={{ position: "relative" }}>
+              {/* value2 :({value}) */}
               {/* {(value || selectedFiles?.type?.startsWith("image/")) && img ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -283,7 +298,13 @@ export const UploadFile = ({
                   }}
                 />
               ) : selectedFiles.type === "application/pdf" ? (
-                <IconPDF size={80} color={"var(--cWhite)"} />
+                <>
+                  <IconPDF size={80} color={"var(--cWhite)"} />
+                  <p>
+                    Archivo seleccionado: <br />
+                    <span>{selectedFiles.name}</span>
+                  </p>
+                </>
               ) : (
                 <IconDocs size={80} color={"var(--cWhite)"} />
               )}
@@ -319,52 +340,53 @@ export const UploadFile = ({
                   }
                 }}
               />
-              {item[props.name]?.file == "delete" ? (
-                <>
-                  <IconTrash
-                    size={100}
-                    style={{
-                      cursor: "",
-                      padding: "2px",
-                      position: "absolute",
-                      color: "red",
-                      top: 0,
-                      left: 0,
-                    }}
-                  />
-                  <IconArrowLeft
-                    size={20}
-                    circle={true}
-                    color="var(--cSuccess)"
-                    style={{
-                      position: "absolute",
-                      top: 2,
-                      left: 2,
-                      padding: 2,
-                      backgroundColor: "var(--cBlack)",
-                    }}
-                    onClick={() => {
-                      deleteImg(false);
-                    }}
-                  />
-                </>
-              ) : (
-                <IconTrash
-                  size={20}
-                  style={{
-                    position: "absolute",
-                    top: 2,
-                    left: 2,
-                    padding: 2,
-                    backgroundColor: "var(--cBlack)",
-                  }}
-                  color={"var(--cError)"}
-                  circle
-                  onClick={() => {
-                    deleteImg();
-                  }}
-                />
-              )}
+              {
+                item[props.name]?.file == "delete" ? (
+                  <>
+                    <IconTrash
+                      size={100}
+                      style={{
+                        cursor: "",
+                        padding: "2px",
+                        position: "absolute",
+                        color: "red",
+                        top: 0,
+                        left: 0,
+                      }}
+                    />
+                    <IconArrowLeft
+                      size={20}
+                      circle={true}
+                      color="var(--cSuccess)"
+                      style={{
+                        position: "absolute",
+                        top: 2,
+                        left: 2,
+                        padding: 2,
+                        backgroundColor: "var(--cBlack)",
+                      }}
+                      onClick={() => {
+                        deleteImg(false);
+                      }}
+                    />
+                  </>
+                ) : null
+                // <IconTrash
+                //   size={20}
+                //   style={{
+                //     position: "absolute",
+                //     top: 2,
+                //     left: 2,
+                //     padding: 2,
+                //     backgroundColor: "var(--cBlack)",
+                //   }}
+                //   color={"var(--cError)"}
+                //   circle
+                //   onClick={() => {
+                //     deleteImg();
+                //   }}
+                // />
+              }
             </div>
           )
         }

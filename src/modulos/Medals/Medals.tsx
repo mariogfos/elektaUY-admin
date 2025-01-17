@@ -61,9 +61,9 @@ const Medals = () => {
         rules: ["required"],
         api: "ae",
         label: "Liga",
-    
+
         list: {
-          width:"150",
+          width: "150",
           optionsExtra: "leagues",
         },
         filter: {
@@ -71,7 +71,6 @@ const Medals = () => {
           label: "Filtrar por Liga",
           width: "200px",
           options: (extraData: any) => {
-            console.log(extraData, "extraData");
             let data: any = [{ id: "T", name: "Todas" }];
             extraData?.leagues?.map((c: any) => {
               data.push({
@@ -106,7 +105,7 @@ const Medals = () => {
             </div>
           );
         },
-        list: {width: 400},
+        list: { width: 400 },
         form: { type: "text" },
       },
       description: {

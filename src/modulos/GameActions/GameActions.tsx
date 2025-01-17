@@ -45,7 +45,6 @@ const GameActions = () => {
           label: "Filtrar por Liga",
           width: "200px",
           options: (extraData: any) => {
-            console.log(extraData, "extraData");
             let data: any = [{ id: "T", name: "Todas" }];
             extraData?.leagues?.map((c: any) => {
               data.push({

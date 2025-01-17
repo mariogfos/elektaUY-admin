@@ -18,7 +18,7 @@ const RankingProvincial = ({ extraData }: any) => {
   const [userId, setUserId]: any = useState(null);
   const [formState, setFormState]: any = useState({
     year_week: extraData?.year_weeks?.[0]?.id,
-    prov_id: user?.datos?.prov_id,
+    dpto_id: user?.datos?.dpto_id,
   });
   const [top3Data, setTop3Data] = useState([]);
   const [tableData, setTableData] = useState([]);
@@ -60,7 +60,7 @@ const RankingProvincial = ({ extraData }: any) => {
           <div>
             <RankingHeader
               type={"P"}
-              provs={extraData?.provs}
+              dptos={extraData?.dptos}
               formState={formState}
               setFormState={setFormState}
             />

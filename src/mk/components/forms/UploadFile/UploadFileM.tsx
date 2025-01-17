@@ -37,11 +37,12 @@ export const UploadFileM = ({
   const [isDraggingFile, setIsDraggingFile] = useState(false);
   // console.log(props, "props");
   const { showToast } = useAuth();
-  const [editedImage, setEditedImage]: any = useState(null);
+  const [editedImage, setEditedImage]: any = useState(value);
   const [loadedImage, setLoadedImage]: any = useState(false);
 
   const handleImageProcessed = (imageBase64: string) => {
     // setEditedImage(imageBase64);
+
     const partes = selectedFiles.name.split(".");
     let base64String = imageBase64.replace("data:", "").replace(/^.+,/, "");
     base64String = encodeURIComponent(base64String);
@@ -174,13 +175,15 @@ export const UploadFileM = ({
   };
 
   useEffect(() => {
-    // console.log(selectedFiles?.name, "selectedFiles?.name");
     if (!selectedFiles?.name && autoOpen) {
       const fileUpload = document.getElementById(props.name);
       if (fileUpload) {
         fileUpload.click();
       }
     }
+    // if (value?.indexOf("data:") == 0) {
+    //   setEditedImage(value);
+    // }
   }, []);
 
   return (
@@ -225,7 +228,9 @@ export const UploadFileM = ({
             //   <span>{props.ext.join(", ")}</span>
             // </>
             // ):
-            (!selectedFiles?.name || selectedFiles?.name == "") && !fileName ? (
+            (!selectedFiles?.name || selectedFiles?.name == "") &&
+            !fileName &&
+            !value ? (
               <div
                 onClick={() => {
                   const fileUpload = document.getElementById(props.name);
@@ -260,13 +265,18 @@ export const UploadFileM = ({
                   alignItems: "center",
                 }}
               >
-                {editedImage ||
+                {/* {JSON.stringify(value)} */}
+                {(value && value != "delete"
+                  ? "data:image/webp;base64," + value
+                  : editedImage) ||
                 selectedFiles?.type?.startsWith("image/") ||
                 fileName ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={
-                      editedImage ||
+                      (value && value != "delete"
+                        ? "data:image/webp;base64," + value
+                        : editedImage) ||
                       (selectedFiles?.name
                         ? URL.createObjectURL(selectedFiles)
                         : fileName || "")
@@ -282,24 +292,26 @@ export const UploadFileM = ({
                   <IconDocs size={80} color={"var(--cWhite)"} />
                 )}
 
-                <IconEdit
-                  size={20}
-                  style={{
-                    position: "absolute",
-                    top: 2,
-                    right: 2,
-                    padding: 2,
-                    backgroundColor: "var(--cBlack)",
-                  }}
-                  color={"var(--cWarning)"}
-                  circle
-                  onClick={() => {
-                    const fileUpload = document.getElementById(props.name);
-                    if (fileUpload) {
-                      fileUpload.click();
-                    }
-                  }}
-                />
+                {value != "delete" && (
+                  <IconEdit
+                    size={20}
+                    style={{
+                      position: "absolute",
+                      top: 2,
+                      right: 2,
+                      padding: 2,
+                      backgroundColor: "var(--cBlack)",
+                    }}
+                    color={"var(--cWarning)"}
+                    circle
+                    onClick={() => {
+                      const fileUpload = document.getElementById(props.name);
+                      if (fileUpload) {
+                        fileUpload.click();
+                      }
+                    }}
+                  />
+                )}
                 {value == "delete" ? (
                   <>
                     <IconTrash
@@ -350,6 +362,17 @@ export const UploadFileM = ({
             )
           }
         </section>
+        {/* <div style={{ border: "1px solid red" }}>
+          <img
+            src={value ? "data:image/webp;base64," + value : ""}
+            alt={selectedFiles?.name}
+            style={{
+              objectFit: "cover",
+              width: sizePreview?.width || "100px",
+              height: sizePreview?.height || "100px",
+            }}
+          />
+        </div> */}
       </div>
       {loadedImage && (
         <ImageEditor

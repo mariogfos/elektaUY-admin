@@ -7,14 +7,14 @@ import Select from "@/mk/components/forms/Select/Select";
 
 interface InputCodeProps {
   type: string;
-  provs?: any;
+  dptos?: any;
   formState?: any;
   setFormState?: any;
 }
 
 const RankingHeader = ({
   type,
-  provs,
+  dptos,
   formState,
   setFormState,
 }: InputCodeProps) => {
@@ -52,11 +52,11 @@ const RankingHeader = ({
           {type === "P" && (
             <div>
               <Select
-                label="Provincias"
+                label="Departamentos"
                 name="prov_id"
-                options={provs}
+                options={dptos}
                 onChange={handleChange}
-                value={formState?.prov_id}
+                value={formState?.dpto_id}
               />
             </div>
           )}

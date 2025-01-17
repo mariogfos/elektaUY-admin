@@ -55,13 +55,11 @@ const Levels = () => {
         label: "Avatar",
         list: {
           onRender: (item: any) => {
+            let updated_at = new Date().toISOString();
             return (
               <Avatar
                 src={getUrlImages(
-                  "/LEAGUE-" +
-                    item?.item.league_id +
-                    ".webp?d=" +
-                    item?.item.updated_at
+                  "/LEAGUE-" + item?.item.league_id + ".webp?d=" + updated_at
                 )}
                 name={item?.item.name}
                 w={48}
@@ -79,7 +77,6 @@ const Levels = () => {
         label: "liga",
         style: { width: 300 },
         list: {
-         
           optionsExtra: "leagues",
         },
         filter: {
@@ -87,7 +84,6 @@ const Levels = () => {
           label: "Filtrar por Liga",
           width: "200px",
           options: (extraData: any) => {
-            console.log(extraData, "extraData");
             let data: any = [{ id: "T", name: "Todas" }];
             extraData?.leagues?.map((c: any) => {
               data.push({
@@ -108,7 +104,8 @@ const Levels = () => {
         rules: ["required"],
         api: "ae",
         label: "Nombre del nivel",
-        list: {width:"150",
+        list: {
+          width: "150",
           onRender: (item: any) => {
             return (
               <div style={{ width: "100%", textAlign: "right" }}>
@@ -125,13 +122,13 @@ const Levels = () => {
         label: "Puntos del nivel",
         list: {
           width: "200px",
-            onRender: (item: any) => {
-                      return (
-                        <div style={{ width: "100%", textAlign: "right" }}>
-                          {formatNumber(item.value, 0)}
-                        </div>
-                      );
-                    },
+          onRender: (item: any) => {
+            return (
+              <div style={{ width: "100%", textAlign: "right" }}>
+                {formatNumber(item.value, 0)}
+              </div>
+            );
+          },
         },
         form: { type: "number" },
       },
