@@ -22,7 +22,7 @@ const HomePage = () => {
   ]);
 
   const paramInitial: any = {
-    level: user?.role?.level >= 3 ? 2 : 1,
+    level: user?.role?.level <= 3 ? 2 : user?.role?.level == 4 ? 3 : 1,
     code: user?.entidad?.code?.toString(),
     searchBy: user?.role?.level > 1 ? user?.entidad?.id : "",
   };
@@ -170,7 +170,11 @@ const HomePage = () => {
               <WidgetTable
                 data={dashboard?.data.entidad}
                 title={`Resumen de afiliados por ${
-                  params?.level === 1 ? "Departamento" : "Municipio"
+                  params?.level === 1
+                    ? "departamento"
+                    : params?.level === 2
+                    ? "municipios"
+                    : "barrios"
                 }`}
                 level={params?.level}
                 onClickLevel={onClick}
