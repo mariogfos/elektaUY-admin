@@ -1,11 +1,10 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import ViewSurveys from "../ViewSurvey/ViewSurveys";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import useAxios from "@/mk/hooks/useAxios";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@/components/layout/icons/IconsBiblioteca";
-import LoadingScreen from "@/mk/components/ui/LoadingScreen/LoadingScreen";
-import { DetailSurveySkeleton } from "@/mk/components/ui/Skeleton/Skeleton";
 
 type Params = {
   page: number;
@@ -21,10 +20,10 @@ type Params = {
 };
 
 const DetailSurvey = () => {
-  const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const router: any = useRouter();
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
   const paramInitial: any = {
     page: 1,
     perPage: 1,
@@ -38,10 +37,7 @@ const DetailSurvey = () => {
 
   const { user } = useAuth();
   const onBack = () => {
-    router.push({
-      pathname: "/surveys",
-      // query: { type: "S" },
-    });
+    router.push("/surveys");
   };
   useEffect(() => {
     reLoad(params);

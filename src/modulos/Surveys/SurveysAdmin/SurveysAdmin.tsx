@@ -2,9 +2,7 @@ import useCrud, { ModCrudType } from "@/mk/hooks/useCrud/useCrud";
 import NotAccess from "@/components/auth/NotAccess/NotAccess";
 import styles from "./SurveysAdmin.module.css";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
-
 import { useEffect, useMemo, useState } from "react";
-
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import Input from "@/mk/components/forms/Input/Input";
@@ -13,15 +11,12 @@ import {
   IconInfoApp,
   IconTrash,
 } from "@/components/layout/icons/IconsBiblioteca";
-import { useAuth } from "@/mk/contexts/AuthProvider";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import Check from "@/mk/components/forms/Check/Check";
-// import RenderView from "./RenderView/RenderView";
 import {
   compareDate,
   differenceInDays,
   getDateStrMes,
-  getDateTimeStrMes,
   getDateTimeStrMesShort,
 } from "@/mk/utils/date";
 import Switch from "@/mk/components/forms/Switch/Switch";
@@ -886,11 +881,9 @@ const SurveysAdmin = () => {
   }, [searchState]);
 
   const onClickDetail = (row: any) => {
-    console.log(row);
-    router.push({
-      pathname: "/detailSurveys",
-      query: { id: row.id },
-    });
+    const url = `/detailSurveys?id=${row.id}`;
+
+    window.location.href = url;
   };
   const renderItem = (
     item: Record<string, any>,

@@ -28,7 +28,7 @@ const RenderView = (props: {
   const { data } = props?.item;
   const extraData = props?.extraData;
   const [idOpenAff, setIdOpenAff]: any = useState({ open: false, id: "" });
-  const entidad = ["", "", "Provincia", "Cantón", "Parroquia", "Barrio"];
+  const entidad = ["", "", "Lista", "Departamento", "Municipio", "Barrio"];
   const { user } = useAuth();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -72,25 +72,22 @@ const RenderView = (props: {
     data.cdestinies.map((item: any, index: number) => {
       if (data.destiny == 2) {
         lEntidad.push({
-          id: item.prov_id,
-          name: extraData.provs.find((prov: any) => prov.id == item.prov_id)
+          id: item.lista_id,
+          name: extraData.listas.find((lista: any) => lista.id == item.lista_id)
             ?.name,
         });
       }
       if (data.destiny == 3) {
         lEntidad.push({
-          id: item.canton_id,
-          name: extraData.cantons.find(
-            (canton: any) => canton.id == item.canton_id
-          )?.name,
+          id: item.dpto_id,
+          name: extraData.dptos.find((dpto: any) => dpto.id == item.dpto_id)
+            ?.name,
         });
       }
       if (data.destiny == 4) {
         lEntidad.push({
-          id: item.parish_id,
-          name: extraData.parishes.find(
-            (parish: any) => parish.id == item.parish_id
-          )?.name,
+          id: item.mun_id,
+          name: extraData.muns.find((mun: any) => mun.id == item.mun_id)?.name,
         });
       }
       if (data.destiny == 5) {

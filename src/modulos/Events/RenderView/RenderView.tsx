@@ -32,7 +32,7 @@ const RenderView = (props: {
 }) => {
   const { data } = props?.item;
   const extraData = props?.extraData;
-  const entidad = ["", "", "Provincia", "Cantón", "Parroquia", "Barrio"];
+  const entidad = ["", "", "Lista", "Departamento", "Municipio", "Barrio"];
 
   let hoy: any = new Date();
   hoy.setHours(hoy.getHours() + 4);
@@ -66,7 +66,7 @@ const RenderView = (props: {
     },
     {
       key: "name",
-      label: "Provincia",
+      label: "Departamento",
     },
     {
       key: "afiliados",
@@ -81,7 +81,7 @@ const RenderView = (props: {
       style: { textAlign: "right", display: "block" },
 
       onRender: (item: any) => {
-        const totalAfiliados = getTotalAfiliados(data, props?.item?.provs);
+        const totalAfiliados = getTotalAfiliados(data, props?.item?.dptos);
         return (
           <HorizontalProgresiveBar
             total={totalAfiliados}
@@ -133,22 +133,22 @@ const RenderView = (props: {
       setAssistGraphData(newAssistGraphData);
     }
   }, [props.item]);
-  const getTotalAfiliados = (data: any, _provs: any) => {
+  const getTotalAfiliados = (data: any, _dptos: any) => {
     let total = 0;
 
-    const provs = props?.item?.data?.provs || props.item?.provs;
-    if (provs?.forEach) {
-      provs?.data?.forEach((item: any) => {
-        const d = props?.item?.data?.provs[item?.id];
+    const dptos = props?.item?.data?.dptos || props.item?.dptos;
+    if (dptos?.forEach) {
+      dptos?.data?.forEach((item: any) => {
+        const d = props?.item?.data?.dptos[item?.id];
         if (d !== undefined) {
           total += d;
         }
       });
     } else {
-      for (const key in provs) {
-        if (Object.hasOwnProperty.call(provs, key)) {
-          const element = provs[key];
-          const name = props?.extraData?.provs?.find(
+      for (const key in dptos) {
+        if (Object.hasOwnProperty.call(dptos, key)) {
+          const element = dptos[key];
+          const name = props?.extraData?.dptos?.find(
             (p: any) => p.id == key
           )?.name;
 
@@ -161,15 +161,15 @@ const RenderView = (props: {
 
     return total;
   };
-  const dataFormattedProvs = () => {
+  const dataFormattedDptos = () => {
     let newData: any = [];
-    const provs = props?.item?.data?.provs || props.item?.provs;
-    if (provs?.forEach) {
-      provs?.forEach((item: any, i: number) => {
-        const d = provs[item?.id];
+    const dptos = props?.item?.data?.dptos || props.item?.dptos;
+    if (dptos?.forEach) {
+      dptos?.forEach((item: any, i: number) => {
+        const d = dptos[item?.id];
         const name =
           item?.name ||
-          props?.extraData?.provs?.find((p: any) => p.id == item?.id)?.name;
+          props?.extraData?.dptos?.find((p: any) => p.id == item?.id)?.name;
 
         newData.push({
           id: item?.id,
@@ -178,10 +178,10 @@ const RenderView = (props: {
         });
       });
     } else {
-      for (const key in provs) {
-        if (Object.hasOwnProperty.call(provs, key)) {
-          const element = provs[key];
-          const name = props?.extraData?.provs?.find(
+      for (const key in dptos) {
+        if (Object.hasOwnProperty.call(dptos, key)) {
+          const element = dptos[key];
+          const name = props?.extraData?.dptos?.find(
             (p: any) => p.id == key
           )?.name;
           newData.push({
@@ -203,28 +203,25 @@ const RenderView = (props: {
 
   const getDestinys = () => {
     let lEntidad: any = [];
-    data?.edestinies?.map((item: any, index: number) => {
+    data.edestinies.map((item: any, index: number) => {
       if (data.destiny == 2) {
         lEntidad.push({
-          id: item.prov_id,
-          name: extraData.provs.find((prov: any) => prov.id == item.prov_id)
+          id: item.lista_id,
+          name: extraData.listas.find((lista: any) => lista.id == item.lista_id)
             ?.name,
         });
       }
       if (data.destiny == 3) {
         lEntidad.push({
-          id: item.canton_id,
-          name: extraData.cantons.find(
-            (canton: any) => canton.id == item.canton_id
-          )?.name,
+          id: item.dpto_id,
+          name: extraData.dptos.find((dpto: any) => dpto.id == item.dpto_id)
+            ?.name,
         });
       }
       if (data.destiny == 4) {
         lEntidad.push({
-          id: item.parish_id,
-          name: extraData.parishes.find(
-            (parish: any) => parish.id == item.parish_id
-          )?.name,
+          id: item.mun_id,
+          name: extraData.muns.find((mun: any) => mun.id == item.mun_id)?.name,
         });
       }
       if (data.destiny == 5) {
@@ -542,7 +539,7 @@ const RenderView = (props: {
                 style={{ marginBottom: "var(--sL)" }}
               >
                 <Table
-                  data={dataFormattedProvs()}
+                  data={dataFormattedDptos()}
                   header={header}
                   className="striped"
                   sumarize={true}
