@@ -96,7 +96,7 @@ const ViewSurveys = ({
     {
       key: "name",
       // label: type == "prov" ? "Provincia" : "Canton",
-      label: "Provincia",
+      label: "Departamento",
     },
     {
       key: "afiliados",
@@ -138,7 +138,7 @@ const ViewSurveys = ({
     },
   ];
 
-  const { data: provs } = useAxios("/provs", "GET", {
+  const { data: provs } = useAxios("/dptos", "GET", {
     fullType: "L",
     perPage: -1,
   });
@@ -150,7 +150,7 @@ const ViewSurveys = ({
     let newData: any = [];
 
     provs?.data?.forEach((item: any, i: number) => {
-      const d = data?.provs[item?.id];
+      const d = data?.dpto?.[item?.id];
       //     // if (d) {
       newData.push({
         id: item?.id,
@@ -166,7 +166,7 @@ const ViewSurveys = ({
     let total = 0;
 
     provs?.data?.forEach((item: any) => {
-      const d = data?.provs[item?.id];
+      const d = data?.dpto?.[item?.id];
       if (d !== undefined) {
         total += d;
       }
@@ -254,10 +254,6 @@ const ViewSurveys = ({
   }
 
   const getNameTag = (item: string) => {
-    console.log(
-      dataFormatted.find((option: any) => option.id === filters[item])?.name,
-      "dtfs"
-    );
     if (item === "gender") {
       return (
         "Sexo: " +
@@ -274,7 +270,7 @@ const ViewSurveys = ({
         (education: any) => education.id === filters[item]
       )?.name;
     }
-    if (item === "prov_id") {
+    if (item === "dpto_id") {
       return provs?.data.find((prov: any) => prov.id === filters[item])?.name;
     }
     if (item === "soption_id") {
@@ -307,7 +303,7 @@ const ViewSurveys = ({
       params.ages = filters.ages;
     }
     if (filters.provs) {
-      params.prov_id = filters.prov_id;
+      params.dpto_id = filters.dpto_id;
     }
     if (filters.soption_id) {
       params.soption_id = filters.soption_id;
@@ -365,7 +361,10 @@ const ViewSurveys = ({
     <div>
       <div className={styles.headerViewSurveys}>
         <div>
-          <div className="tSubtitle" style={{marginBottom: 4, color: "var(--cInfo)"}}>
+          <div
+            className="tSubtitle"
+            style={{ marginBottom: 4, color: "var(--cInfo)" }}
+          >
             {differenceInDays(hoy, data?.data?.begin_at) > 0 &&
             hoy !== data?.data?.begin_at
               ? "Se publicará " + getDateStrMes(data?.data?.begin_at)
@@ -469,7 +468,7 @@ const ViewSurveys = ({
                 <div>
                   Alcance real <IconInterrogation size={24} />
                 </div>
-                <div>{formatNumber(data?.alcanceReal,0)}</div>
+                <div>{formatNumber(data?.alcanceReal, 0)}</div>
               </div>
               <div className={styles["cardInfo"]}>
                 <div>
@@ -621,11 +620,11 @@ const ViewSurveys = ({
             type: "education",
           },
           {
-            title: "Provincias",
+            title: "Departamento",
             data: dataFormattedProvs() || [],
             filters: filters,
             setFilters: setFilters,
-            type: "prov_id",
+            type: "dpto_id",
           },
           {
             title: "Opciones",
