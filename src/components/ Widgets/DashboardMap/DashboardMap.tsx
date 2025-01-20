@@ -36,18 +36,7 @@ export const DashboardMap = ({
         </div>
 
         <div className={styles.stats}>
-          <Card
-            style={{ textAlign: "right", fontSize: 16 }}
-            // onClick={() =>
-            //   setPoblacion({
-            //     total:
-            //       params[0]?.level == entidadData?.role?.level
-            //         ? entidadData?.entidad?.habitantes
-            //         : data?.population?.habitantes,
-            //     label: "Censo 2022",
-            //   })
-            // }
-          >
+          <Card style={{ textAlign: "right", fontSize: 16 }}>
             <p>
               Población Censo <br />
               2023
@@ -88,26 +77,6 @@ export const DashboardMap = ({
               </p>
             )}
           </Card>
-          {/* <Card
-                style={{ textAlign: "right", fontSize: 16, cursor: "pointer" }}
-                onClick={() =>
-                  setPoblacion({
-                    total:
-                      params[0]?.level == entidadData?.role?.level
-                        ? entidadData?.entidad?.pid
-                        : data?.population?.pib,
-                    label: "Votos obtenidos PID 2023",
-                  })
-                }
-                
-              >
-                <p>Votos obtenidos PID 2023</p>
-                {params[0]?.level == entidadData?.role?.level ? (
-                  <p>{formatNumber(entidadData?.entidad?.pid, 0)}</p>
-                ) : (
-                  <p>{formatNumber(data?.population?.pib)}</p>
-                )}
-              </Card> */}
 
           <Card style={{ textAlign: "right", fontSize: 16 }}>
             <p>
@@ -130,7 +99,7 @@ export const DashboardMap = ({
           <div>
             <Image
               src="/images/uruguayBandera.png"
-              alt="Ecuador"
+              alt="Uruguay"
               width={190}
               height={40}
             />

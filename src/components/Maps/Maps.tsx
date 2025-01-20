@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import styles from "./Maps.module.css";
 import {
   pathsArtigas,
+  pathsBellaUnion,
   pathsCanelones,
   pathsCerroLargo,
   pathsColonia,
@@ -59,10 +60,10 @@ const Maps = ({
         path = pathsMontevideo;
         break;
       case "2":
-        path = pathsCanelones;
+        path = pathsArtigas;
         break;
       case "3":
-        path = pathsMaldonado;
+        path = pathsCanelones;
         break;
       case "4":
         path = pathsCerroLargo;
@@ -71,46 +72,53 @@ const Maps = ({
         path = pathsColonia;
         break;
       case "6":
-        path = pathsPaysandu;
-        break;
-      case "7":
-        path = pathsRivera;
-        break;
-      case "8":
-        path = pathsSalto;
-        break;
-      case "9":
-        path = pathsSoriano;
-        break;
-      case "10":
-        path = pathsTacuarembo;
-        break;
-      case "11":
-        path = pathsArtigas;
-        break;
-      case "12":
         path = pathsDurazno;
         break;
-      case "13":
+      case "7":
         path = pathsFlores;
         break;
-      case "14":
+      case "8":
         path = pathsFlorida;
         break;
-      case "15":
+      case "9":
         path = pathsLaValleja;
         break;
-      case "16":
+      case "10":
+        path = pathsMaldonado;
+        break;
+      case "11":
+        path = pathsPaysandu;
+        break;
+      case "12":
         path = pathsRioNegro;
         break;
-      case "17":
+      case "13":
+        path = pathsRivera;
+        break;
+      case "14":
         path = pathsRocha;
         break;
-      case "18":
+      case "15":
+        path = pathsSalto;
+        break;
+      case "16":
         path = pathsSanJose;
+        break;
+      case "17":
+        path = pathsSoriano;
+        break;
+      case "18":
+        path = pathsTacuarembo;
         break;
       case "19":
         path = pathsTreintaTres;
+        break;
+    }
+  }
+  if (param?.level == 3) {
+    switch (param?.code) {
+      case "0":
+        path = pathsBellaUnion;
         break;
     }
   }
@@ -140,7 +148,7 @@ const Maps = ({
       visible: id || item != null ? true : false,
       x: rect.left - svgRect.left + rect.width / 2,
       y: rect.top - svgRect.top,
-      item: paramLevel <= 2 ? item : null,
+      item: paramLevel <= 3 ? item : null,
     });
   };
 
@@ -259,19 +267,6 @@ const Maps = ({
                 </p>
               </div>
             )}
-
-            {/* <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                color: "#656F78",
-              }}
-            >
-              <p>Parroquias: </p>
-              <p style={{ color: "#101111" }}>
-                {formatNumber(item?.parishesCount || item?.parroquias, 0)}
-              </p>
-            </div> */}
           </div>
         </div>
       )
@@ -308,7 +303,7 @@ const Maps = ({
                 path.title !== "map" &&
                 path.title !== "line" &&
                 path.title !== "salar" &&
-                param?.level != 3 &&
+                param?.level != 4 &&
                 path.title !== "disabled" &&
                 path.code
                   ? _onClick(path?.code)
@@ -328,7 +323,7 @@ const Maps = ({
                       : path.title === "line"
                       ? "#fff"
                       : "",
-                  cursor: param?.level < 2 ? "pointer" : "default",
+                  cursor: param?.level < 3 ? "pointer" : "default",
                 }}
                 d={path.d}
                 onMouseEnter={(e) =>

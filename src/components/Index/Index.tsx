@@ -52,7 +52,9 @@ const HomePage = () => {
       return;
     }
 
-    const item: any = dashboard?.data?.entidad.find((d: any) => d.id == row.id);
+    const item: any = dashboard?.data?.entidad.find(
+      (d: any) => d.id == row.id
+    );
 
     setHistParams((prev) => [...prev, params]);
     setHistTitulos((prev) => [...prev, item?.name]);
@@ -120,7 +122,7 @@ const HomePage = () => {
         </>
       )}
       <section>
-        {params?.level <= 2 && (
+        {params?.level <= 3 && (
           <div>
             <DashboardMap
               data={dashboard?.data}
