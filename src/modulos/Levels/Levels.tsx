@@ -132,13 +132,13 @@ const Levels = () => {
         },
         form: { type: "number" },
       },
-      description: {
-        rules: [""],
-        api: "ae",
-        label: "Descripción",
-        list: false,
-        form: { type: "textArea", lines: 5 },
-      },
+      // description: {
+      //   rules: [""],
+      //   api: "ae",
+      //   label: "Descripción",
+      //   list: false,
+      //   form: { type: "textArea", lines: 5 },
+      // },
     }),
     []
   );

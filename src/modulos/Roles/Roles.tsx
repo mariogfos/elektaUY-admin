@@ -9,7 +9,7 @@ import styles from "./Rol.module.css";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
 import { RenderColType } from "@/mk/components/ui/Table/Table";
 import useCrudUtils from "../shared/useCrudUtils";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import RenderItem from "../shared/RenderItem";
 import Permisos from "./Permisos";

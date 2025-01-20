@@ -20,8 +20,8 @@ const paramsInitial = {
 
 let levelCand = [
   { id: "0", name: "Partido" },
-  { id: "1", name: "Nacional - Asambleísta Nacional" },
-  { id: "2", name: "Departamental - Asambleísta Departamental" },
+  { id: "1", name: "Asambleísta Nacional" },
+  { id: "2", name: "Asambleísta Departamental" },
 ];
 
 const Candidates = () => {
@@ -128,6 +128,30 @@ const Candidates = () => {
           style: { width: "100%" },
         },
       },
+      status: {
+        rules: ["required"],
+        api: "ae",
+        label: "Estado",
+        // style: { width: 210 },
+        list: {
+          width: "140",
+        },
+        form: {
+          onTop: () => {
+            return (
+              <OnTop
+                title="Estado"
+                subtitle="Hablita y deshabilita a los candiadtos"
+              />
+            );
+          },
+          type: "select",
+          options: [
+            { id: "A", name: "Habilitado" },
+            { id: "X", name: "Deshabilitado" },
+          ],
+        },
+      },
       level: {
         rules: ["required"],
         api: "ae",
@@ -144,7 +168,29 @@ const Candidates = () => {
             );
           },
         },
-        list: { order: 2, width: "250" },
+        list: {
+          order: 2,
+          options: ({ item, extraData }: any) => {
+            let levelCand = [];
+
+            if (item?.item?.level == 0) {
+              levelCand.push({ id: "0", name: "Partido" });
+            }
+            if (item?.item?.level == 1) {
+              levelCand.push({ id: "1", name: "Asambleísta Nacional" });
+            }
+            if (item?.item?.level == 2) {
+              levelCand.push({
+                id: "2",
+                name:
+                  "Asambleísta Departamental - " +
+                  extraData.dptos.find((e: any) => e.id == item?.item?.dpto_id)
+                    .name,
+              });
+            }
+            return levelCand;
+          },
+        },
       },
       dpto_id: {
         rules: ["requiredIf:level,2"],
@@ -164,7 +210,7 @@ const Candidates = () => {
           },
         },
         // style: { width: "300px" },
-        list: { order: 1, width: "200" },
+        list: false,
       },
       position: {
         rules: ["required"],
@@ -262,7 +308,7 @@ const Candidates = () => {
         api: "ae",
         label: "Profesión",
         form: { type: "text" },
-        list: true,
+        list: false,
       },
       born: {
         rules: ["required"],
@@ -398,21 +444,6 @@ const Candidates = () => {
           style: { width: "100%" },
         },
         list: false,
-      },
-      status: {
-        rules: [""],
-        api: "",
-        label: "Estado",
-        form: false,
-        list: false,
-        // list: {
-        //   width: "180px",
-        //   type: "select",
-        //   options: [
-        //     { id: "A", name: "Activo" },
-        //     { id: "X", name: "Inactivo" },
-        //   ],
-        // },
       },
     };
   }, []);
