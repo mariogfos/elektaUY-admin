@@ -18,19 +18,28 @@ import ModalDestiny from "./ModalDestiny";
 import UploadFileMultiple from "@/mk/components/forms/UploadFile/UploadFileMultiple";
 import { checkRules, hasErrors } from "@/mk/utils/validate/Rules";
 
-const AddContent = () => {
-  const router = useRouter();
-  const { store, setStore, user, showToast } = useAuth();
-  const [errors, setErrors] = useState({});
+const AddContent = ({
+  onClose,
+  open,
+  item,
+  setItem,
+  errors,
+  extraData,
+  user,
+  execute,
+  setErrors,
+  reLoad,
+  action,
+}: any) => {
+  const { store, setStore, showToast } = useAuth();
+  // const [errors, setErrors] = useState({});
   const [ldestinys, setLdestinys]: any = useState([]);
   const [openDestiny, setOpenDestiny] = useState(false);
-  const [formState, setFormState]: any = useState({ type: "N" });
-  const { data: extraData, execute } = useAxios("/contents", "GET", {
-    fullType: "EXTRA",
-  });
-  useEffect(() => {
-    setStore({ ...store, title: "Publicaciones" });
-  }, []);
+  const [formState, setFormState]: any = useState({ ...item, type: "N" });
+  // const { data: extraData, execute } = useAxios("/contents", "GET", {
+  //   fullType: "EXTRA",
+  // });
+
   const handleChangeInput = (e: any) => {
     let value = e.target.value;
     if (e.target.type == "checkbox") {
@@ -56,15 +65,14 @@ const AddContent = () => {
   };
   const getCandidates = () => {
     let data: any = [];
-    extraData?.data?.candidates.map((c: any) => {
+    extraData?.candidates.map((c: any) => {
       if (c.status == "A") {
         data.push({
           id: c.id,
           name:
             getFullName(c) +
             " - " +
-            extraData?.data?.typeCands.find((t: any) => t.id == c.typecand_id)
-              ?.name,
+            extraData?.typeCands.find((t: any) => t.id == c.typecand_id)?.name,
         });
       }
     });
@@ -91,9 +99,9 @@ const AddContent = () => {
   };
   const selDestinies = (value: any) => {
     let selDestinies = [];
-    if (value == 2) selDestinies = extraData?.data?.listas;
-    if (value == 3) selDestinies = extraData?.data?.dptos;
-    if (value == 4) selDestinies = extraData?.data?.muns;
+    if (value == 2) selDestinies = extraData?.listas;
+    if (value == 3) selDestinies = extraData?.dptos;
+    if (value == 4) selDestinies = extraData?.muns;
     // if (value == 5) selDestinies = extraData.barrios;
 
     return selDestinies;
@@ -101,7 +109,7 @@ const AddContent = () => {
 
   useEffect(() => {
     let lDestinies: any = formState.lDestiny || [];
-    if (!formState.lDestiny) {
+    if (action == "edit" && !formState.lDestiny) {
       formState?.cdestinies?.map((d: any) => {
         if (formState?.destiny == 2) {
           lDestinies.push(d.lista_id);
@@ -118,7 +126,9 @@ const AddContent = () => {
       });
     }
     setLdestinys(lDestinies);
-  }, [formState.lDestiny]);
+  }, [action, formState.lDestiny]);
+
+  console.log(formState);
 
   const getDestinysNames = () => {
     let des: any = [];
@@ -187,8 +197,8 @@ const AddContent = () => {
     );
 
     if (data?.success == true) {
-      router.push("/contents");
-
+      onClose();
+      reLoad();
       showToast(data.message, "success");
     } else {
       showToast(data.message, "error");
@@ -205,135 +215,139 @@ const AddContent = () => {
   // console.log(errors);
 
   return (
-    <section className={styles.AddContent}>
-      <div className={styles.containerForm}>
-        <div>
-          <p onClick={() => router.push("/contents")}>Volver</p>
-          <IconArrowLeft />
-          <p>Crear nueva publicacion</p>
-        </div>
-        <CardContent
-          title="Publicar como"
-          subtitle=" El perfil que selecciones aparecerá como la cuenta creadora del post"
-        >
-          <Select
-            name="candidate_id"
-            label="Candidato"
-            onChange={handleChangeInput}
-            value={formState.candidate_id}
-            options={getCandidates()}
-            error={errors}
-          />
-        </CardContent>
-
-        <CardContent
-          title="Destino"
-          destinys={getDestinysNames().toString()}
-          subtitle={
-            formState?.affCount > 0
-              ? `Tu publicación tendrá un alcance estimado de ${formState?.affCount} afiliados`
-              : "Selecciona quienes pueden ver esta publicación"
-          }
-          style={{ display: "flex" }}
-        >
-          <Select
-            style={{ width: 200 }}
-            name="destiny"
-            label="Público objetivo"
-            onChange={handleChangeInput}
-            value={formState.destiny}
-            options={lDestinies()}
-            error={errors}
-          />
-        </CardContent>
-
-        <CardContent title="Tipo de publicación">
-          <div style={{ display: "flex", width: "100%" }}>
-            <Radio
-              checked={formState?.type == "N"}
-              label="Noticia"
-              subtitle="Ideal para informar con mayor detalle sobre un acontecimiento importante."
-              onChange={() => setFormState({ ...formState, type: "N" })}
-            />
-            <Radio
-              checked={formState?.type == "P"}
-              label="Post"
-              subtitle="Publicación más informal, ideal para publicar eventos cotidianos."
-              onChange={() => setFormState({ ...formState, type: "P" })}
-            />
+    open && (
+      <div className={styles.AddContent}>
+        <div className={styles.containerForm}>
+          <div>
+            <p onClick={() => onClose()}>Volver</p>
+            <IconArrowLeft />
+            <p>Crear nueva publicacion</p>
           </div>
-        </CardContent>
-        {formState?.type == "N" && (
           <CardContent
-            title="Título de la publicación"
-            subtitle="Coloca un titular que impacte"
+            title="Publicar como"
+            subtitle=" El perfil que selecciones aparecerá como la cuenta creadora del post"
           >
-            <Input
-              name="title"
-              label="Titulo"
-              value={formState?.title}
+            <Select
+              name="candidate_id"
+              label="Candidato"
+              onChange={handleChangeInput}
+              value={formState.candidate_id}
+              options={getCandidates()}
+              error={errors}
+            />
+          </CardContent>
+
+          <CardContent
+            title="Destino"
+            destinys={getDestinysNames().toString()}
+            subtitle={
+              formState?.affCount > 0
+                ? `Tu publicación tendrá un alcance estimado de ${formState?.affCount} afiliados`
+                : "Selecciona quienes pueden ver esta publicación"
+            }
+            style={{ display: "flex" }}
+          >
+            <Select
+              style={{ width: 200 }}
+              name="destiny"
+              label="Público objetivo"
+              onChange={handleChangeInput}
+              value={formState.destiny}
+              options={lDestinies()}
+              error={errors}
+            />
+          </CardContent>
+
+          <CardContent title="Tipo de publicación">
+            <div style={{ display: "flex", width: "100%" }}>
+              <Radio
+                checked={formState?.type == "N"}
+                label="Noticia"
+                subtitle="Ideal para informar con mayor detalle sobre un acontecimiento importante."
+                onChange={() => setFormState({ ...formState, type: "N" })}
+              />
+              <Radio
+                checked={formState?.type == "P"}
+                label="Post"
+                subtitle="Publicación más informal, ideal para publicar eventos cotidianos."
+                onChange={() => setFormState({ ...formState, type: "P" })}
+              />
+            </div>
+          </CardContent>
+          {formState?.type == "N" && (
+            <CardContent
+              title="Título de la publicación"
+              subtitle="Coloca un titular que impacte"
+            >
+              <Input
+                name="title"
+                label="Titulo"
+                value={formState?.title}
+                onChange={handleChangeInput}
+                error={errors}
+              />
+            </CardContent>
+          )}
+
+          <CardContent
+            title="Detalle de la publicación"
+            subtitle="¿Qué quieres publicar hoy?"
+          >
+            <TextArea
+              name="description"
+              label="Descripción"
+              value={formState?.description}
               onChange={handleChangeInput}
               error={errors}
             />
           </CardContent>
-        )}
-
-        <CardContent
-          title="Detalle de la publicación"
-          subtitle="¿Qué quieres publicar hoy?"
-        >
-          <TextArea
-            name="description"
-            label="Descripción"
-            value={formState?.description}
-            onChange={handleChangeInput}
-            error={errors}
-          />
-        </CardContent>
-        <CardContent
-          title="Tipo de contenido"
-          subtitle="Selecciona el tipo de contenido que quieras publicar"
-        >
-          <UploadFileMultiple
-            name="avatar"
-            value={formState?.avatar}
-            onChange={handleChangeInput}
-            label={"Subir una imagen"}
-            error={errors}
-            ext={["jpg", "png", "jpeg"]}
-            setError={setErrors}
-            img={true}
-            maxFiles={5}
-            prefix={"CONT"}
-            images={formState?.images}
-            item={formState}
-            // editor={}
-            // sizePreview={_field.sizePreview}
-            // autoOpen={data?.action == "add"}
-          />
-        </CardContent>
-        <section>
-          <Button onClick={onSave}>Publicar</Button>
-        </section>
-      </div>
-      <div className={styles.containerPreview}>
-        <p>Vista previa</p>
-        <div>
-          <Preview formState={formState} extraData={extraData?.data} />
+          <CardContent
+            title="Tipo de contenido"
+            subtitle="Selecciona el tipo de contenido que quieras publicar"
+          >
+            <UploadFileMultiple
+              name="avatar"
+              value={formState?.avatar}
+              onChange={handleChangeInput}
+              label={"Subir una imagen"}
+              error={errors}
+              ext={["jpg", "png", "jpeg"]}
+              setError={setErrors}
+              img={true}
+              maxFiles={5}
+              prefix={"CONT"}
+              images={formState?.images}
+              item={formState}
+              // editor={}
+              // sizePreview={_field.sizePreview}
+              // autoOpen={data?.action == "add"}
+            />
+          </CardContent>
+          <section>
+            <Button onClick={onSave}>
+              {formState?.id ? "Actualizar" : "Publicar"}
+            </Button>
+          </section>
         </div>
+        <div className={styles.containerPreview}>
+          <p>Vista previa</p>
+          <div>
+            <Preview formState={formState} extraData={extraData} />
+          </div>
+        </div>
+        {openDestiny && (
+          <ModalDestiny
+            open={openDestiny}
+            onClose={() => setOpenDestiny(false)}
+            selDestinies={selDestinies(formState?.destiny)}
+            formState={{ ...formState, lDestiny: ldestinys }}
+            setFormState={setFormState}
+            showToast={showToast}
+            execute={execute}
+          />
+        )}
       </div>
-      {openDestiny && (
-        <ModalDestiny
-          open={openDestiny}
-          onClose={() => setOpenDestiny(false)}
-          selDestinies={selDestinies(formState?.destiny)}
-          formState={{ ...formState, lDestiny: ldestinys }}
-          setFormState={setFormState}
-          showToast={showToast}
-          execute={execute}
-        />
-      )}
-    </section>
+    )
   );
 };
 

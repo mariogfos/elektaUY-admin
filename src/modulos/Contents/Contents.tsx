@@ -24,6 +24,7 @@ import { formatNumber } from "@/mk/utils/numbers";
 import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import Button from "@/mk/components/forms/Button/Button";
+import AddContent from "./AddContent/AddContent";
 
 const paramsInitial = {
   perPage: 19,
@@ -121,12 +122,40 @@ const Contents = () => {
       extraData: any;
     }) => <RenderView {...props} />,
     loadView: { fullType: "DET" },
-    hideActions: { add: true },
-    buttonExtra: (
-      <Button onClick={() => (window.location.href = "/addContent")}>
-        Crear noticia
-      </Button>
-    ),
+    // hideActions: { add: true },
+    // buttonExtra: (
+    //   <Button onClick={() => (window.location.href = "/addContent")}>
+    //     Crear noticia
+    //   </Button>
+    // ),
+    renderForm: (props: {
+      item: any;
+      setItem: any;
+      errors: any;
+      extraData: any;
+      open: boolean;
+      onClose: any;
+      user: any;
+      execute: any;
+      setErrors: any;
+      action: any;
+    }) => {
+      return (
+        <AddContent
+          onClose={props.onClose}
+          open={props.open}
+          item={props.item}
+          setItem={props.setItem}
+          errors={props.errors}
+          extraData={props.extraData}
+          user={props.user}
+          execute={props.execute}
+          setErrors={props.setErrors}
+          reLoad={reLoad}
+          action={props.action}
+        />
+      );
+    },
   };
   const onTop = (data: {
     user?: Record<string, any>;

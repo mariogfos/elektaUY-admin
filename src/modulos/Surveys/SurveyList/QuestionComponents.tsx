@@ -9,7 +9,7 @@ import styles from "./SurveyList.module.css";
 import {
   IconCheckOff,
   IconEdit,
-  IconRatio,
+  IconRatioOn,
   IconTrash,
 } from "@/components/layout/icons/IconsBiblioteca";
 import TextArea from "@/mk/components/forms/TextArea/TextArea";
@@ -59,7 +59,7 @@ export const SingleChoiceQuestionComponent: React.FC<{
       <div>
         {question.options.map((option) => (
           <div key={option.id}>
-            <IconRatio color="var(--cBlackV2)" size={20} />
+            <IconRatioOn color="var(--cBlackV2)" size={20} />
             <p>{option.name}</p>
           </div>
         ))}
