@@ -23,6 +23,7 @@ import ImportDataModal from "@/mk/components/data/ImportDataModal/ImportDataModa
 import { formatNumber } from "@/mk/utils/numbers";
 import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
 import { useAuth } from "@/mk/contexts/AuthProvider";
+import Button from "@/mk/components/forms/Button/Button";
 
 const paramsInitial = {
   perPage: 19,
@@ -120,6 +121,12 @@ const Contents = () => {
       extraData: any;
     }) => <RenderView {...props} />,
     loadView: { fullType: "DET" },
+    // hideActions: { add: true },
+    // buttonExtra: (
+    //   <Button onClick={() => (window.location.href = "/addContent")}>
+    //     Crear noticia
+    //   </Button>
+    // ),
   };
   const onTop = (data: {
     user?: Record<string, any>;
@@ -273,6 +280,13 @@ const Contents = () => {
         label: "Tipo",
         list: { width: "100px" },
         form: { type: "select", options: lType, precarga: "I" },
+      },
+      title: {
+        rules: [""],
+        api: "ae",
+        label: "Titulo",
+        list: false,
+        form: { type: "text" },
       },
       description: {
         rules: ["required"],

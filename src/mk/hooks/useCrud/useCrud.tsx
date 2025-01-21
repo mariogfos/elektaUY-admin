@@ -51,6 +51,7 @@ export type ModCrudType = {
   };
   onHideActions?: Function;
   saveMsg?: { add?: string; edit?: string; del?: string };
+  buttonExtra?: any;
 };
 
 export type TypeRenderForm = {
@@ -707,6 +708,7 @@ const useCrud = ({
               <Button onClick={onClick || onAdd}>Crear {mod.singular}</Button>
             </div>
           )}
+          {mod?.buttonExtra && <div>{mod.buttonExtra}</div>}
         </nav>
       );
     }

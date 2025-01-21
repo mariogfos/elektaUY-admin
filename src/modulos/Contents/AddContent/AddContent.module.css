@@ -1,0 +1,32 @@
+.AddContent {
+  display: flex;
+  /* & > div:nth-child(1) {
+    background-color: red;
+    width: 60%;
+  }
+  & > div:nth-child(2) {
+    background-color: blue;
+    width: 40%;
+  } */
+
+  .containerForm {
+    flex-grow: 1;
+
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      & > p:nth-child(1) {
+        cursor: pointer;
+      }
+    }
+  }
+  .containerPreview {
+    & > div {
+      border: 8px solid var(--cBlackV2);
+      height: 829px;
+      border-radius: 24px;
+      width: 420px;
+    }
+  }
+}

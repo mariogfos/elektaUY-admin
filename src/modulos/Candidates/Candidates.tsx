@@ -22,6 +22,7 @@ let levelCand = [
   { id: "0", name: "Partido" },
   { id: "1", name: "Asambleísta Nacional" },
   { id: "2", name: "Asambleísta Departamental" },
+  { id: "3", name: "Asambleísta Municipal" },
 ];
 
 const Candidates = () => {
@@ -74,12 +75,21 @@ const Candidates = () => {
     );
   };
 
-  const isType = (data: {
+  const isHidenMun = (data: {
     key: string;
     user?: Record<string, any>;
     item: Record<string, any>;
   }) => {
-    if (data.item.level == "2") return false;
+    if (data.item.level == "3") return false;
+
+    return true;
+  };
+  const isHidenDpto = (data: {
+    key: string;
+    user?: Record<string, any>;
+    item: Record<string, any>;
+  }) => {
+    if (data.item.level == "2" || data.item.level == "3") return false;
 
     return true;
   };
@@ -193,8 +203,8 @@ const Candidates = () => {
         },
       },
       dpto_id: {
-        rules: ["requiredIf:level,2"],
-        onHide: isType,
+        rules: ["requiredIf:level,2", "requiredIf:level,3"],
+        onHide: isHidenDpto,
         api: "ae",
         label: "Departamento",
         form: {
@@ -204,7 +214,27 @@ const Candidates = () => {
             return (
               <OnTop
                 title="Departamento "
-                subtitle="Selecciona la provincia a la que pertenece el candidato"
+                subtitle="Selecciona la departamento a la que pertenece el candidato"
+              />
+            );
+          },
+        },
+        // style: { width: "300px" },
+        list: false,
+      },
+      mun_id: {
+        rules: ["requiredIf:level,3"],
+        onHide: isHidenMun,
+        api: "ae",
+        label: "Municipio",
+        form: {
+          type: "select",
+          optionsExtra: "muns",
+          onTop: () => {
+            return (
+              <OnTop
+                title="Municipio "
+                subtitle="Selecciona el municipio a la que pertenece el candidato"
               />
             );
           },
