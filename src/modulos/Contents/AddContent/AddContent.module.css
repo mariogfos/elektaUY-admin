@@ -1,18 +1,28 @@
 .AddContent {
   display: flex;
-  /* & > div:nth-child(1) {
-    background-color: red;
-    width: 60%;
+  gap: 40px;
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cWhite);
   }
-  & > div:nth-child(2) {
-    background-color: blue;
-    width: 40%;
-  } */
+  .subtitle {
+    font-size: 14px;
+    color: var(--cBlackV2);
+    font-weight: 400;
+  }
+  .card {
+    background-color: var(--cBlackV1);
+    padding: 12px;
+    border-radius: 16px;
+  }
 
   .containerForm {
     flex-grow: 1;
-
-    & > div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    & > div:nth-child(1) {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -20,13 +30,76 @@
         cursor: pointer;
       }
     }
+    & > section {
+      width: 100%;
+      display: flex;
+      justify-content: right;
+      & > button {
+        width: 128px;
+      }
+    }
   }
   .containerPreview {
+    width: 600px;
     & > div {
       border: 8px solid var(--cBlackV2);
+      background-color: var(--cBlack);
       height: 829px;
       border-radius: 24px;
       width: 420px;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .Preview {
+    background-color: var(--cBlackV1);
+    width: 100%;
+    & > div:nth-child(1) {
+      padding: 12px;
+      & > section {
+        display: flex;
+        gap: 8px;
+
+        & > div:nth-child(1) {
+          & > p {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--cWhite);
+          }
+          & > span {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--cWhiteV1);
+            word-break: break-all;
+            overflow-wrap: break-word;
+          }
+        }
+        & > div:nth-child(2) {
+          & > div {
+            background-color: var(--cBlackV3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            width: 180px;
+            height: 100%;
+          }
+        }
+      }
+    }
+    & > div:nth-child(2) {
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid var(--cBlackV3);
+      & > div {
+        display: flex;
+        align-items: center;
+        padding: 8px 0px;
+        & > p {
+          color: var(--cBlackV2);
+          font-size: 12px;
+        }
+      }
     }
   }
 }

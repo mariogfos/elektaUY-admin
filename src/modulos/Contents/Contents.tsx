@@ -121,12 +121,12 @@ const Contents = () => {
       extraData: any;
     }) => <RenderView {...props} />,
     loadView: { fullType: "DET" },
-    // hideActions: { add: true },
-    // buttonExtra: (
-    //   <Button onClick={() => (window.location.href = "/addContent")}>
-    //     Crear noticia
-    //   </Button>
-    // ),
+    hideActions: { add: true },
+    buttonExtra: (
+      <Button onClick={() => (window.location.href = "/addContent")}>
+        Crear noticia
+      </Button>
+    ),
   };
   const onTop = (data: {
     user?: Record<string, any>;
