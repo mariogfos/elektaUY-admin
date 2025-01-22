@@ -11,6 +11,7 @@ import styles from "./select.module.css";
 import { PropsTypeInputBase } from "../ControlLabel";
 import { createPortal } from "react-dom";
 import { useOnClickOutside } from "@/mk/hooks/useOnClickOutside";
+import { Avatar } from "../../ui/Avatar/Avatar";
 
 interface PropsType extends PropsTypeInputBase {
   multiSelect?: boolean;
@@ -290,15 +291,26 @@ const Select = ({
                         }
                   }
                 >
-                  {option[optionLabel] || option.label}
-                  {multiSelect ? (
-                    Array.isArray(selectValue) &&
-                    selectValue.includes(option[optionValue]) ? (
-                      <IconCheckSquare size={18} />
-                    ) : (
-                      <IconCheckOff size={18} />
-                    )
-                  ) : null}
+                  <div style={{ alignItems: "center", gap: "8px" }}>
+                    {option["img"] && (
+                      <Avatar
+                        className={styles.avatar}
+                        name={option[optionLabel] || option.label}
+                        src={option["img"]}
+                        h={32}
+                        w={32}
+                      />
+                    )}
+                    {option[optionLabel] || option.label}
+                    {multiSelect ? (
+                      Array.isArray(selectValue) &&
+                      selectValue.includes(option[optionValue]) ? (
+                        <IconCheckSquare size={18} />
+                      ) : (
+                        <IconCheckOff size={18} />
+                      )
+                    ) : null}
+                  </div>
                 </li>
               ))
             : Object.keys(_options).map((key) => (

@@ -24,6 +24,7 @@ import { formatNumber } from "@/mk/utils/numbers";
 import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import Button from "@/mk/components/forms/Button/Button";
+import { get } from "http";
 
 const paramsInitial = {
   perPage: 19,
@@ -261,6 +262,7 @@ const Contents = () => {
             extraData?.candidates.map((c: any) => {
               if (c.status == "A") {
                 data.push({
+                  img: getUrlImages("/CAND-" + c.id + ".webp?" + c.updated_at),
                   id: c.id,
                   name:
                     getFullName(c) +
