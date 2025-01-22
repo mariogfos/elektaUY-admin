@@ -3,27 +3,66 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import styles from "./Maps.module.css";
 import {
+  pathsAcegua,
+  pathsAnsina,
+  pathsArbolito,
+  pathsArevalo,
   pathsArtigas,
+  pathsBaltasarBrum,
+  pathsBarriadaMedina,
   pathsBellaUnion,
   pathsCanelones,
+  pathsCenturión,
+  pathsCerroDeLasCuentas,
   pathsCerroLargo,
+  pathsChapicuy,
   pathsColonia,
+  pathsColoniaLavalleja,
   pathsDurazno,
   pathsFlores,
   pathsFlorida,
+  pathsFMuerto,
+  pathsGuichón,
+  pathsIsodoro,
+  pathsLasCañas,
   pathsLaValleja,
+  pathsLorenzoGeyres,
   pathsMaldonado,
+  pathsMataojo,
+  pathsMelo,
+  pathsMinasCorrales,
   pathsMontevideo,
+  pathsNuevoBerlin,
   pathsPais,
+  pathsPasoDeLosToros,
   pathsPaysandu,
+  pathsPlácidoRosas,
+  pathsPorvenir,
+  pathsPuebloBelén,
+  pathsQuebracho,
+  pathsRamonTrigo,
+  pathsRinconValentin,
   pathsRioNegro,
   pathsRivera,
   pathsRocha,
+  pathsRíoBranco,
   pathsSalto,
+  pathsSanGregorio,
+  pathsSanJavier,
   pathsSanJose,
+  pathsSarandí,
   pathsSoriano,
   pathsTacuarembo,
+  pathsTambores,
+  pathsTomasGomensoro,
+  pathsTranqueras,
   pathsTreintaTres,
+  pathsTresIslas,
+  pathsTupambaé,
+  pathsVichadero,
+  pathsVillaConstitucion,
+  pathsVillaDelCarmen,
+  pathsYoung,
 } from "./pathMapas";
 
 type PropsType = {
@@ -56,75 +95,192 @@ const Maps = ({
   }
   if (param?.level == 2) {
     switch (param?.code) {
-      case "1":
+      case "Montevideo":
         path = pathsMontevideo;
         break;
-      case "2":
+      case "Artigas":
         path = pathsArtigas;
         break;
-      case "3":
+      case "Canelones":
         path = pathsCanelones;
         break;
-      case "4":
+      case "Cerro Largo":
         path = pathsCerroLargo;
         break;
-      case "5":
+      case "Colonia":
         path = pathsColonia;
         break;
-      case "6":
+      case "Durazno":
         path = pathsDurazno;
         break;
-      case "7":
+      case "Flores":
         path = pathsFlores;
         break;
-      case "8":
+      case "Florida":
         path = pathsFlorida;
         break;
-      case "9":
+      case "Lavalleja":
         path = pathsLaValleja;
         break;
-      case "10":
+      case "Maldonado":
         path = pathsMaldonado;
         break;
-      case "11":
+      case "Paysandú":
         path = pathsPaysandu;
         break;
-      case "12":
+      case "Río Negro":
         path = pathsRioNegro;
         break;
-      case "13":
+      case "Rivera":
         path = pathsRivera;
         break;
-      case "14":
+      case "Rocha":
         path = pathsRocha;
         break;
-      case "15":
+      case "Salto":
         path = pathsSalto;
         break;
-      case "16":
+      case "San José":
         path = pathsSanJose;
         break;
-      case "17":
+      case "Soriano":
         path = pathsSoriano;
         break;
-      case "18":
+      case "Tacuarembó":
         path = pathsTacuarembo;
         break;
-      case "19":
+      case "Treinta y Tres":
         path = pathsTreintaTres;
         break;
     }
   }
   if (param?.level == 3) {
     switch (param?.code) {
-      case "0":
+      case "Bella Unión":
         path = pathsBellaUnion;
+        break;
+      case "Tomás Gomensoro":
+        path = pathsTomasGomensoro;
+        break;
+      case "Baltasar Brum":
+        path = pathsBaltasarBrum;
+        break;
+      case "Villa Constitución":
+        path = pathsVillaConstitucion;
+        break;
+      case "Pueblo Belén":
+        path = pathsPuebloBelén;
+        break;
+      case "Colonia Lavalleja":
+        path = pathsColoniaLavalleja;
+        break;
+      case "Mataojo":
+        path = pathsMataojo;
+        break;
+      case "Rincón de Valentín":
+        path = pathsRinconValentin;
+        break;
+      case "Minas de Corrales":
+        path = pathsMinasCorrales;
+        break;
+      case "Tranqueras":
+        path = pathsTranqueras;
+        break;
+      case "Vichadero":
+        path = pathsVichadero;
+        break;
+      case "Arévalo":
+        path = pathsArevalo;
+        break;
+      case "Tupambaé":
+        path = pathsTupambaé;
+        break;
+      case "Melo":
+        path = pathsMelo;
+        break;
+      case "Tres Islas":
+        path = pathsTresIslas;
+        break;
+      case "Cerro de las Cuentas":
+        path = pathsCerroDeLasCuentas;
+        break;
+      case "Fraile Muerto":
+        path = pathsFMuerto;
+        break;
+      case "Ramón Trigo":
+        path = pathsRamonTrigo;
+        break;
+      case "Barriada de Medina":
+        path = pathsBarriadaMedina;
+        break;
+      case "Arbolito":
+        path = pathsArbolito;
+        break;
+      case "Aceguá":
+        path = pathsAcegua;
+        break;
+      case "Isidoro Noblía":
+        path = pathsIsodoro;
+        break;
+      case "Centurión":
+        path = pathsCenturión;
+        break;
+      case "Las Cañas":
+        path = pathsLasCañas;
+        break;
+      case "Plácido Rosas":
+        path = pathsPlácidoRosas;
+        break;
+      case "Río Branco":
+        path = pathsRíoBranco;
+        break;
+      case "Paso de los Toros":
+        path = pathsPasoDeLosToros;
+        break;
+      case "San Gregorio":
+        path = pathsSanGregorio;
+        break;
+      case "Ansina":
+        path = pathsAnsina;
+        break;
+      case "Chapicuy":
+        path = pathsChapicuy;
+        break;
+      case "Quebracho":
+        path = pathsQuebracho;
+        break;
+      case "Lorenzo Geyres":
+        path = pathsLorenzoGeyres;
+        break;
+      case "Porvenir":
+        path = pathsPorvenir;
+        break;
+      case "Guichón":
+        path = pathsGuichón;
+        break;
+      case "Tambores":
+        path = pathsTambores;
+        break;
+      case "San Javier":
+        path = pathsSanJavier;
+        break;
+      case "Young":
+        path = pathsYoung;
+        break;
+      case "Nuevo Berlín":
+        path = pathsNuevoBerlin;
+        break;
+      case "Villa del Carmen":
+        path = pathsVillaDelCarmen;
+        break;
+      case "Sarandí del Yí":
+        path = pathsSarandí;
         break;
     }
   }
 
   const _onClick = (code: string | number) => {
-    let row = data?.find((d: any) => d.code == code);
+    let row = data?.find((d: any) => d.name == code);
     onClick(row);
   };
 
@@ -134,7 +290,7 @@ const Maps = ({
     if (!show) return setTooltip({ visible: false, x: 0, y: 0, item: null });
     const rect = event.target.getBoundingClientRect();
     const svgRect = svgRef.current.getBoundingClientRect();
-    const item = data?.find((d: any) => d.code == id) || {
+    const item = data?.find((d: any) => d.name == id) || {
       id: id || itemSelected?.id,
       name: itemSelected?.name || "Sin municipio",
       habitantes: itemSelected?.habitantes || 0,
@@ -148,50 +304,52 @@ const Maps = ({
       visible: id || item != null ? true : false,
       x: rect.left - svgRect.left + rect.width / 2,
       y: rect.top - svgRect.top,
-      item: paramLevel <= 3 ? item : null,
+      item: paramLevel <= 2 ? item : null,
     });
   };
 
   const getStyle = () => {
     switch (param?.code) {
-      case "1":
+      case "Montevideo":
         return styles.CerroLargoMap;
-      case "2":
+      case "Artigas":
         return styles.CerroLargoMap;
-      case "3":
+      case "Canelones":
         return styles.CañarMap;
-      case "4":
+      case "Cerro Largo":
         return styles.CerroLargoMap;
-      case "5":
+      case "Colonia":
         return styles.CotopaxiMap;
-      case "6":
+      case "Durazno":
         return styles.ChimborazoMap;
-      case "7":
+      case "Flores":
         return styles.ElOroMap;
-      case "8":
+      case "Florida":
         return styles.SaltoMap;
-      case "9":
+      case "Lavalleja":
         return styles.GuayasMap;
-      case "10":
+      case "Maldonado":
         return styles.ImbaduraMap;
-      case "11":
+      case "Paysandú":
         return styles.LojaMap;
-      case "12":
+      case "Río Negro":
         return styles.DuraznoMap;
-      case "13":
+      case "Rivera":
         return styles.ManabiMap;
-      case "14":
+      case "Rocha":
         return styles.MoronaMap;
-      case "15":
+      case "Salto":
         return styles.NapoMap;
-      case "16":
+      case "San José":
         return styles.PastazaMap;
-      case "17":
+      case "Soriano":
         return styles.PichinchaMap;
-      case "17":
+      case "Tacuarembó":
         return styles.TunguaruMap;
-      case "19":
+      case "Treinta y Tres":
         return styles.ZamoraMap;
+      case "Bella Unión":
+        return styles.BellaUnionMap;
       default:
         return styles.mapa;
     }
@@ -274,11 +432,7 @@ const Maps = ({
   };
 
   return (
-    <div
-      className={
-        param?.level == 1 ? styles.mapa : param?.level == 2 ? getStyle() : ""
-      }
-    >
+    <div className={param?.level == 1 ? styles.mapa : getStyle()}>
       <svg ref={svgRef} viewBox={path[0]?.vb}>
         {path.map((path: any, index: number) => {
           if (path.title === "rect") {
@@ -303,7 +457,7 @@ const Maps = ({
                 path.title !== "map" &&
                 path.title !== "line" &&
                 path.title !== "salar" &&
-                param?.level != 4 &&
+                param?.level != 3 &&
                 path.title !== "disabled" &&
                 path.code
                   ? _onClick(path?.code)
@@ -316,14 +470,23 @@ const Maps = ({
                 style={{
                   fill: path.title === "salar" ? "#393c3f" : "",
                   strokeWidth:
-                    path.title === "salar" ? 0 : paramLevel === 2 ? 0.5 : 1,
+                    path.title === "salar"
+                      ? 0
+                      : paramLevel === 2
+                      ? 0.4
+                      : paramLevel === 3
+                      ? 0.1
+                      : 1,
                   stroke:
                     path.title === "value"
                       ? "#000"
                       : path.title === "line"
                       ? "#fff"
                       : "",
-                  cursor: param?.level < 3 ? "pointer" : "default",
+                  cursor:
+                    param?.level < 3 && path.title !== "salar"
+                      ? "pointer"
+                      : "default",
                 }}
                 d={path.d}
                 onMouseEnter={(e) =>

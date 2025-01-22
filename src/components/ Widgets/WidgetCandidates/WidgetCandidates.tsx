@@ -49,6 +49,7 @@ const WidgetCandidates = ({ data, params }: any) => {
                   <p>{candidate?.name}</p>
                   <p>{candidate?.last_name}</p>
                 </div>
+                {/* <div className={styles.professionInfo}>Montevideo</div> */}
                 <div className={styles.professionInfo}>{candidate?.profession}</div>
               </div>
             ))}
