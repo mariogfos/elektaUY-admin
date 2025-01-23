@@ -3,9 +3,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./AddContent.module.css";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import { IconArrowLeft } from "@/components/layout/icons/IconsBiblioteca";
-import { useRouter } from "next/navigation";
-import useAxios from "@/mk/hooks/useAxios";
-import { Card } from "@/mk/components/ui/Card/Card";
 import Select from "@/mk/components/forms/Select/Select";
 import { getFullName } from "@/mk/utils/string";
 import Radio from "@/mk/components/forms/Ratio/Radio";
@@ -27,19 +24,24 @@ const AddContent = ({
   extraData,
   user,
   execute,
+  openList,
+  setOpenList,
   setErrors,
   reLoad,
   action,
 }: any) => {
-  const { store, setStore, showToast } = useAuth();
+  const { showToast } = useAuth();
   // const [errors, setErrors] = useState({});
   const [ldestinys, setLdestinys]: any = useState([]);
   const [openDestiny, setOpenDestiny] = useState(false);
-  const [formState, setFormState]: any = useState({ ...item, type: "N" });
-  // const { data: extraData, execute } = useAxios("/contents", "GET", {
-  //   fullType: "EXTRA",
-  // });
+  const [formState, setFormState]: any = useState({ ...item, isType: "N" });
 
+  useEffect(() => {
+    setOpenList(false);
+    if (!formState?.title && action == "edit") {
+      setFormState({ ...formState, isType: "P" });
+    }
+  }, []);
   const handleChangeInput = (e: any) => {
     let value = e.target.value;
     if (e.target.type == "checkbox") {
@@ -128,8 +130,6 @@ const AddContent = ({
     setLdestinys(lDestinies);
   }, [action, formState.lDestiny]);
 
-  console.log(formState);
-
   const getDestinysNames = () => {
     let des: any = [];
     selDestinies(formState?.destiny)
@@ -153,7 +153,7 @@ const AddContent = ({
       key: "candidate_id",
       errors,
     });
-    if (formState?.type == "N") {
+    if (formState?.isType == "N") {
       errors = checkRules({
         value: formState?.title,
         rules: ["required"],
@@ -206,13 +206,10 @@ const AddContent = ({
   };
 
   useEffect(() => {
-    if (formState?.type == "P") {
+    if (formState?.isType == "P") {
       setFormState({ ...formState, title: null });
     }
-  }, [formState?.type]);
-
-  // console.log(formState);
-  // console.log(errors);
+  }, [formState?.isType]);
 
   return (
     open && (
@@ -261,20 +258,20 @@ const AddContent = ({
           <CardContent title="Tipo de publicación">
             <div style={{ display: "flex", width: "100%" }}>
               <Radio
-                checked={formState?.type == "N"}
+                checked={formState?.isType == "N"}
                 label="Noticia"
                 subtitle="Ideal para informar con mayor detalle sobre un acontecimiento importante."
-                onChange={() => setFormState({ ...formState, type: "N" })}
+                onChange={() => setFormState({ ...formState, isType: "N" })}
               />
               <Radio
-                checked={formState?.type == "P"}
+                checked={formState?.isType == "P"}
                 label="Post"
                 subtitle="Publicación más informal, ideal para publicar eventos cotidianos."
-                onChange={() => setFormState({ ...formState, type: "P" })}
+                onChange={() => setFormState({ ...formState, isType: "P" })}
               />
             </div>
           </CardContent>
-          {formState?.type == "N" && (
+          {formState?.isType == "N" && (
             <CardContent
               title="Título de la publicación"
               subtitle="Coloca un titular que impacte"
@@ -314,7 +311,7 @@ const AddContent = ({
               ext={["jpg", "png", "jpeg"]}
               setError={setErrors}
               img={true}
-              maxFiles={5}
+              maxFiles={10}
               prefix={"CONT"}
               images={formState?.images}
               item={formState}

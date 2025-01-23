@@ -139,6 +139,8 @@ const Contents = () => {
       execute: any;
       setErrors: any;
       action: any;
+      openList: any;
+      setOpenList: any;
     }) => {
       return (
         <AddContent
@@ -153,6 +155,8 @@ const Contents = () => {
           setErrors={props.setErrors}
           reLoad={reLoad}
           action={props.action}
+          openList={props.openList}
+          setOpenList={props.setOpenList}
         />
       );
     },

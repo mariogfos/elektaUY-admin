@@ -712,7 +712,9 @@ const useCrud = ({
           )}
           {mod.hideActions?.add ? null : (
             <div>
-              <Button onClick={onClick || onAdd}>Crear {mod.singular}</Button>
+              <Button onClick={onClick || onAdd}>
+                {"Crear " + mod.singular}
+              </Button>
             </div>
           )}
           {mod?.buttonExtra && <div>{mod.buttonExtra}</div>}

@@ -47,16 +47,24 @@ const Preview = ({ formState, extraData }: PropsType) => {
             )?.name || dataFake.subtitle
           }
         />
-        <section>
+        <section
+          style={{ flexDirection: formState?.isType == "N" ? "row" : "column" }}
+        >
           <div>
-            {formState?.type == "N" && (
+            {formState?.isType == "N" && (
               <p>{formState?.title || dataFake.title}</p>
             )}
             <span>{formState?.description || dataFake.description}</span>
           </div>
-          {formState?.type == "N" && (
+          {(formState?.isType == "N" ||
+            (formState?.isType == "P" && formState.avatar)) && (
             <div>
-              <div>
+              <div
+                style={{
+                  height: "184px",
+                  width: formState?.isType == "N" ? " 180px" : "100%",
+                }}
+              >
                 <IconGallery />
               </div>
             </div>
