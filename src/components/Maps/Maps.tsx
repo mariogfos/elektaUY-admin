@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import styles from "./Maps.module.css";
 import {
   pathsAcegua,
+  pathsAigua,
   pathsAnsina,
   pathsArbolito,
   pathsArevalo,
@@ -12,45 +13,72 @@ import {
   pathsBarriadaMedina,
   pathsBellaUnion,
   pathsCanelones,
+  pathsCardona,
+  pathsCastillos,
+  pathsCasupá,
   pathsCenturión,
+  pathsCerroChato,
   pathsCerroDeLasCuentas,
   pathsCerroLargo,
   pathsChapicuy,
+  pathsChuy,
   pathsColonia,
   pathsColoniaLavalleja,
+  pathsDolores,
   pathsDurazno,
   pathsFlores,
   pathsFlorida,
   pathsFMuerto,
+  pathsFray,
+  pathsGarzon,
+  pathsGeneral,
   pathsGuichón,
+  pathsIsmael,
   pathsIsodoro,
+  pathsJoseBattle,
+  pathsJoseEnrique,
+  pathsJosePedro,
+  pathsLaPaloma,
+  pathsLascano,
   pathsLasCañas,
   pathsLaValleja,
   pathsLorenzoGeyres,
+  pathsMaldo,
   pathsMaldonado,
+  pathsMariscala,
   pathsMataojo,
   pathsMelo,
   pathsMinasCorrales,
   pathsMontevideo,
   pathsNuevoBerlin,
   pathsPais,
+  pathsPalmitas,
+  pathsPanAzucar,
   pathsPasoDeLosToros,
   pathsPaysandu,
+  pathsPiriápolis,
   pathsPlácidoRosas,
   pathsPorvenir,
   pathsPuebloBelén,
+  pathsPuntaEste,
   pathsQuebracho,
   pathsRamonTrigo,
   pathsRinconValentin,
+  pathsRincón,
   pathsRioNegro,
   pathsRivera,
   pathsRocha,
   pathsRíoBranco,
   pathsSalto,
+  pathsSanCarlos,
   pathsSanGregorio,
   pathsSanJavier,
   pathsSanJose,
+  pathsSantaClara,
+  pathsSarandi,
   pathsSarandí,
+  pathsSolizGrande,
+  pathsSolizMataojo,
   pathsSoriano,
   pathsTacuarembo,
   pathsTambores,
@@ -59,6 +87,7 @@ import {
   pathsTreintaTres,
   pathsTresIslas,
   pathsTupambaé,
+  pathsVergara,
   pathsVichadero,
   pathsVillaConstitucion,
   pathsVillaDelCarmen,
@@ -275,6 +304,93 @@ const Maps = ({
         break;
       case "Sarandí del Yí":
         path = pathsSarandí;
+        break;
+      case "Cerro Chato":
+        path = pathsCerroChato;
+        break;
+      case "Santa Clara del Olimar":
+        path = pathsSantaClara;
+        break;
+      case "General Enrique Martínez (Charqueada)":
+        path = pathsGeneral;
+        break;
+      case "Vergara":
+        path = pathsVergara;
+        break;
+      case "Rincón":
+        path = pathsRincón;
+        break;
+      case "La Paloma":
+        path = pathsLaPaloma;
+        break;
+      case "Castillos":
+        path = pathsCastillos;
+        break;
+      case "Chuy":
+        path = pathsChuy;
+        break;
+      case "Solís de Mataojo":
+        path = pathsSolizMataojo;
+        break;
+      case "Mariscala":
+        path = pathsMariscala;
+        break;
+      case "José Batlle y Ordóñez":
+        path = pathsJoseBattle;
+        break;
+      case "José Pedro Varela":
+        path = pathsJosePedro;
+        break;
+      case "Sarandí Grande":
+        path = pathsSarandi;
+        break;
+      case "Fray Marcos":
+        path = pathsFray;
+        break;
+      case "Casupá":
+        path = pathsCasupá;
+        break;
+      case "Ismael Cortinas":
+        path = pathsIsmael;
+        break;
+      case "Dolores":
+        path = pathsDolores;
+        break;
+      case "Palmitas":
+        path = pathsPalmitas;
+        break;
+      case "José Enrique Rodó":
+        path = pathsJoseEnrique;
+        break;
+      case "Cardona":
+        path = pathsCardona;
+        break;
+      case "Lascano":
+        path = pathsLascano;
+        break;
+      case "Solis Grande":
+        path = pathsSolizGrande;
+        break;
+      case "Piriápolis":
+        path = pathsPiriápolis;
+        break;
+      case "Pan de Azúcar":
+        path = pathsPanAzucar;
+        break;
+      case "Punta del Este":
+        path = pathsPuntaEste;
+        break;
+      case "San Carlos":
+        path = pathsSanCarlos;
+        break;
+      case "Maldonado":
+        path = pathsMaldo;
+        break;
+      case "Garzón":
+        path = pathsGarzon;
+        break;
+      case "Aiguá":
+        path = pathsAigua;
         break;
     }
   }
