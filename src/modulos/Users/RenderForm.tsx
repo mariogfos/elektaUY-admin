@@ -15,7 +15,6 @@ const RenderForm = ({
   user,
   reLoad,
 }: any) => {
-  console.log(item);
   const [formState, setFormState] = useState({ ...item });
   const [errors, setErrors] = useState({});
   const [oldEmail, setOldEmail] = useState(formState.email);
@@ -117,6 +116,15 @@ const RenderForm = ({
       onClose();
     }
   };
+
+  // const getRoles = () => {
+  //   let roles = [];
+  //   console.log(item);
+  //   extraData?.roles?.map((rol:any)=>{})
+  //   if (item.level) {
+  //   }
+  //   console.log(extraData.roles);
+  // };
   return (
     <DataModal
       open={open}
@@ -156,7 +164,8 @@ const RenderForm = ({
         label="Rol"
         name="role_id"
         value={formState.role_id}
-        options={extraData.roles}
+        options={extraData?.roles}
+        disabled
         optionLabel="name"
         onChange={handleChange}
         error={errors}
