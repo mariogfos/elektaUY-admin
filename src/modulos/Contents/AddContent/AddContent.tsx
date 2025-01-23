@@ -2,7 +2,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddContent.module.css";
 import { useAuth } from "@/mk/contexts/AuthProvider";
-import { IconArrowLeft } from "@/components/layout/icons/IconsBiblioteca";
+import {
+  IconArrowLeft,
+  IconDocs,
+  IconGallery,
+  IconYoutube,
+} from "@/components/layout/icons/IconsBiblioteca";
 import Select from "@/mk/components/forms/Select/Select";
 import { getFullName } from "@/mk/utils/string";
 import Radio from "@/mk/components/forms/Ratio/Radio";
@@ -14,6 +19,7 @@ import Preview from "./Preview";
 import ModalDestiny from "./ModalDestiny";
 import UploadFileMultiple from "@/mk/components/forms/UploadFile/UploadFileMultiple";
 import { checkRules, hasErrors } from "@/mk/utils/validate/Rules";
+import TagContents from "./TagContents";
 
 const AddContent = ({
   onClose,
@@ -192,7 +198,7 @@ const AddContent = ({
         title: formState.title,
         description: formState.description,
         avatar: formState.avatar,
-        type: "I",
+        type: formState?.type,
       }
     );
 
@@ -302,23 +308,51 @@ const AddContent = ({
             title="Tipo de contenido"
             subtitle="Selecciona el tipo de contenido que quieras publicar"
           >
-            <UploadFileMultiple
-              name="avatar"
-              value={formState?.avatar}
-              onChange={handleChangeInput}
-              label={"Subir una imagen"}
-              error={errors}
-              ext={["jpg", "png", "jpeg"]}
-              setError={setErrors}
-              img={true}
-              maxFiles={10}
-              prefix={"CONT"}
-              images={formState?.images}
-              item={formState}
-              // editor={}
-              // sizePreview={_field.sizePreview}
-              // autoOpen={data?.action == "add"}
-            />
+            <div
+              style={{
+                display: "flex",
+                gap: "var(--spS)",
+                marginBottom: "var(--spL)",
+              }}
+            >
+              <TagContents
+                icon={<IconGallery size={16} />}
+                isActive={formState.type == "I"}
+                text="Contenido multimedia"
+                onClick={() => setFormState({ ...formState, type: "I" })}
+              />
+              <TagContents
+                isActive={formState.type == "V"}
+                icon={<IconYoutube size={16} />}
+                text={"Video"}
+                onClick={() => setFormState({ ...formState, type: "V" })}
+              />
+              <TagContents
+                isActive={formState.type == "D"}
+                icon={<IconDocs size={16} />}
+                text="Documento"
+                onClick={() => setFormState({ ...formState, type: "D" })}
+              />
+            </div>
+            {formState?.type == "I" && (
+              <UploadFileMultiple
+                name="avatar"
+                value={formState?.avatar}
+                onChange={handleChangeInput}
+                label={"Subir una imagen"}
+                error={errors}
+                ext={["jpg", "png", "jpeg"]}
+                setError={setErrors}
+                img={true}
+                maxFiles={10}
+                prefix={"CONT"}
+                images={formState?.images}
+                item={formState}
+                // editor={}
+                // sizePreview={_field.sizePreview}
+                // autoOpen={data?.action == "add"}
+              />
+            )}
           </CardContent>
           <section>
             <Button onClick={onSave}>

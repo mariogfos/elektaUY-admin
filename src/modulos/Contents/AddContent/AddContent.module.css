@@ -7,33 +7,33 @@
     color: var(--cWhite);
   }
   .subtitle {
-    font-size: 14px;
+    font-size: var(--sM);
     color: var(--cBlackV2);
     font-weight: 400;
   }
   .card {
     background-color: var(--cBlackV1);
-    padding: 12px;
-    border-radius: 16px;
+    padding: var(--spM);
+    border-radius: var(--bRadiusM);
   }
 
   .containerForm {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--spM);
     & > div:nth-child(1) {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: var(--spS);
       color: var(--cWhite);
-      font-size: 20px;
+      font-size: var(--sXl);
       font-weight: 700;
       & > p:nth-child(1) {
         cursor: pointer;
         color: var(--cBlackV2);
         font-weight: 600;
-        font-size: 16px;
+        font-size: var(--sL);
       }
     }
     & > section {
@@ -49,17 +49,17 @@
     width: 600px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--spM);
     & > p {
       color: var(--cWhite);
-      font-size: 20px;
+      font-size: var(--sXl);
       font-weight: 700;
     }
     & > div {
-      border: 8px solid var(--cBlackV2);
+      border: var(--spS) solid var(--cBlackV2);
       background-color: var(--cBlack);
       height: 829px;
-      border-radius: 24px;
+      border-radius: var(--bRadiusL);
       width: 420px;
       display: flex;
       align-items: center;
@@ -70,20 +70,20 @@
     width: 100%;
 
     & > div:nth-child(1) {
-      padding: 12px;
+      padding: var(--spM);
       & > section {
         display: flex;
-        gap: 8px;
+        gap: var(--spS);
         justify-content: space-between;
 
         & > div:nth-child(1) {
           & > p {
-            font-size: 20px;
+            font-size: var(--sXl);
             font-weight: 700;
             color: var(--cWhite);
           }
           & > span {
-            font-size: 14px;
+            font-size: var(--sM);
             font-weight: 300;
             color: var(--cWhiteV1);
             word-break: break-all;
@@ -96,7 +96,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 16px;
+            border-radius: var(--bRadiusM);
 
             /* min-height: 200px;
             max-height: 200px; */
@@ -107,16 +107,29 @@
     & > div:nth-child(2) {
       display: flex;
       justify-content: space-around;
-      border-top: 1px solid var(--cBlackV3);
+      border-top: var(--bWidth) solid var(--cBlackV3);
       & > div {
         display: flex;
         align-items: center;
-        padding: 8px 0px;
+        padding: var(--spS) 0px;
         & > p {
           color: var(--cBlackV2);
-          font-size: 12px;
+          font-size: var(--sS);
         }
       }
     }
+  }
+
+  .TagContents {
+    display: flex;
+    background-color: var(--cHover);
+    padding: var(--spS) var(--spM);
+    align-items: center;
+    border-radius: var(--bRadiusS);
+    border: var(--bWidth) solid var(--cBlackV2);
+    color: var(--cBlackV2);
+    font-size: var(--sM);
+    gap: var(--spXs);
+    cursor: pointer;
   }
 }
