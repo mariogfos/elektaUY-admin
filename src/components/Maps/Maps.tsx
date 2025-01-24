@@ -3,17 +3,22 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import styles from "./Maps.module.css";
 import {
+  paths18Mayo,
   pathsAcegua,
+  pathsAguasCorrientes,
   pathsAigua,
   pathsAnsina,
   pathsArbolito,
   pathsArevalo,
   pathsArtigas,
+  pathsAtlantida,
   pathsBaltasarBrum,
   pathsBarriadaMedina,
+  pathsBarrosBlancos,
   pathsBellaUnion,
   pathsCanelones,
   pathsCardona,
+  pathsCarmelo,
   pathsCastillos,
   pathsCasupá,
   pathsCenturión,
@@ -22,11 +27,19 @@ import {
   pathsCerroLargo,
   pathsChapicuy,
   pathsChuy,
+  pathsCiudadCosta,
+  pathsCiudadPlata,
   pathsColonia,
   pathsColoniaLavalleja,
+  pathsColoniaNicolich,
+  pathsColoniaValdense,
   pathsDolores,
   pathsDurazno,
+  pathsEcildaPaullier,
+  pathsEmpalme,
+  pathsFlorencioSanchez,
   pathsFlores,
+  pathsFloresta,
   pathsFlorida,
   pathsFMuerto,
   pathsFray,
@@ -38,27 +51,43 @@ import {
   pathsJoseBattle,
   pathsJoseEnrique,
   pathsJosePedro,
+  pathsJuanLacaze,
   pathsLaPaloma,
+  pathsLaPaz,
+  pathsLaPazCanelones,
   pathsLascano,
   pathsLasCañas,
+  pathsLavalle,
   pathsLaValleja,
+  pathsLibertad,
   pathsLorenzoGeyres,
+  pathsLosCerrillos,
   pathsMaldo,
   pathsMaldonado,
   pathsMariscala,
   pathsMataojo,
   pathsMelo,
+  pathsMiguelette,
+  pathsMigues,
   pathsMinasCorrales,
+  pathsMontes,
   pathsMontevideo,
+  pathsMunCanelones,
+  pathsNuevaHelvecia,
+  pathsNuevaPalmira,
   pathsNuevoBerlin,
   pathsPais,
   pathsPalmitas,
   pathsPanAzucar,
+  pathsPando,
+  pathsParqueDelPlata,
+  pathsPasoCarrasco,
   pathsPasoDeLosToros,
   pathsPaysandu,
   pathsPiriápolis,
   pathsPlácidoRosas,
   pathsPorvenir,
+  pathsProgreso,
   pathsPuebloBelén,
   pathsPuntaEste,
   pathsQuebracho,
@@ -68,20 +97,33 @@ import {
   pathsRioNegro,
   pathsRivera,
   pathsRocha,
+  pathsRodríguez,
+  pathsRosario,
   pathsRíoBranco,
+  pathsSalinas,
   pathsSalto,
+  pathsSanAntonio,
+  pathsSanBautista,
   pathsSanCarlos,
   pathsSanGregorio,
+  pathsSanJacinto,
   pathsSanJavier,
   pathsSanJose,
+  pathsSanRamon,
   pathsSantaClara,
+  pathsSantaLucia,
+  pathsSantaRosa,
   pathsSarandi,
   pathsSarandí,
+  pathsSauce,
+  pathsSoca,
   pathsSolizGrande,
   pathsSolizMataojo,
   pathsSoriano,
   pathsTacuarembo,
+  pathsTala,
   pathsTambores,
+  pathsTarariras,
   pathsTomasGomensoro,
   pathsTranqueras,
   pathsTreintaTres,
@@ -391,6 +433,138 @@ const Maps = ({
         break;
       case "Aiguá":
         path = pathsAigua;
+        break;
+      case "Nueva Palmira":
+        path = pathsNuevaPalmira;
+        break;
+      case "Carmelo":
+        path = pathsCarmelo;
+        break;
+      case "Ombúes de Lavalle":
+        path = pathsLavalle;
+        break;
+      case "Miguelete":
+        path = pathsMiguelette;
+        break;
+      case "Florencio Sánchez":
+        path = pathsFlorencioSanchez;
+        break;
+      case "Tarariras":
+        path = pathsTarariras;
+        break;
+      case "Juan Lacaze":
+        path = pathsJuanLacaze;
+        break;
+      case "Rosario":
+        path = pathsRosario;
+        break;
+      case "La paz":
+        path = pathsLaPaz;
+        break;
+      case "Nueva Helvecia":
+        path = pathsNuevaHelvecia;
+        break;
+      case "Nueva Helvecia":
+        path = pathsNuevaHelvecia;
+        break;
+      case "Colonia Valdense":
+        path = pathsColoniaValdense;
+        break;
+      case "Ecilda Paullier":
+        path = pathsEcildaPaullier;
+        break;
+      case "Libertad":
+        path = pathsLibertad;
+        break;
+      case "Ciudad del Plata":
+        path = pathsCiudadPlata;
+        break;
+      case "Rodríguez":
+        path = pathsRodríguez;
+        break;
+      case "Santa Lucía":
+        path = pathsSantaLucia;
+        break;
+      case "San Ramón":
+        path = pathsSanRamon;
+        break;
+      case "Tala":
+        path = pathsTala;
+        break;
+      case "Los Cerrillos":
+        path = pathsLosCerrillos;
+        break;
+      case "Aguas Corrientes":
+        path = pathsAguasCorrientes;
+        break;
+      case "Canelones":
+        path = pathsMunCanelones;
+        break;
+      case "San Antonio":
+        path = pathsSanAntonio;
+        break;
+      case "San Bautista":
+        path = pathsSanBautista;
+        break;
+      case "La Paz":
+        path = pathsLaPazCanelones;
+        break;
+      case "18 de Mayo":
+        path = paths18Mayo;
+        break;
+      case "Progreso":
+        path = pathsProgreso;
+        break;
+      case "Sauce":
+        path = pathsSauce;
+        break;
+      case "Santa Rosa":
+        path = pathsSantaRosa;
+        break;
+      case "Paso Carrasco":
+        path = pathsPasoCarrasco;
+        break;
+      case "Ciudad de la Costa":
+        path = pathsCiudadCosta;
+        break;
+      case "Colonia Nicolich":
+        path = pathsColoniaNicolich;
+        break;
+      case "Pando":
+        path = pathsPando;
+        break;
+      case "Barros Blancos":
+        path = pathsBarrosBlancos;
+        break;
+      case "Suárez":
+        path = pathsBarrosBlancos;
+        break;
+      case "Salinas":
+        path = pathsSalinas;
+        break;
+      case "Empalme Olmos":
+        path = pathsEmpalme;
+        break;
+      case "San Jacinto":
+        path = pathsSanJacinto;
+        break;
+      case "Atlántida":
+        path = pathsAtlantida;
+        break;
+      case "Parque del Plata":
+        path = pathsParqueDelPlata;
+        break;
+      case "La Floresta":
+        path = pathsFloresta;
+        break;
+      case "Soca":
+        path = pathsSoca;
+        break;
+      case "Migues":
+        path = pathsMigues;
+        break;
+      case "Montes":
+        path = pathsMontes;
         break;
     }
   }
