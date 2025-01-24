@@ -181,24 +181,29 @@ const Candidates = () => {
         list: {
           order: 2,
           options: ({ item, extraData }: any) => {
-            let levelCand = [];
+            let levelCandid = [];
 
             if (item?.item?.level == 0) {
-              levelCand.push({ id: "0", name: "Partido" });
+              levelCandid.push({ id: "0", name: "Partido" });
             }
+            const lLevel = levelCand[item?.item?.level]?.name;
             if (item?.item?.level == 1) {
-              levelCand.push({ id: "1", name: "Asambleísta Nacional" });
+              levelCandid.push({ id: "1", name: lLevel });
             }
             if (item?.item?.level == 2) {
-              levelCand.push({
+              levelCandid.push({
                 id: "2",
                 name:
-                  "Asambleísta Departamental - " +
+                  lLevel +
+                  " - " +
                   extraData.dptos.find((e: any) => e.id == item?.item?.dpto_id)
                     .name,
               });
             }
-            return levelCand;
+            if (item?.item?.level > 2) {
+              levelCandid.push({ id: item?.item?.level, name: lLevel });
+            }
+            return levelCandid;
           },
         },
       },
