@@ -28,7 +28,14 @@ const RenderView = (props: {
   const { data } = props?.item;
   const extraData = props?.extraData;
   const [idOpenAff, setIdOpenAff]: any = useState({ open: false, id: "" });
-  const entidad = ["", "", "Lista", "Departamento", "Municipio", "Barrio"];
+  const entidad = [
+    "",
+    "",
+    "Organizacion",
+    "Departamento",
+    "Municipio",
+    "Barrio",
+  ];
   const { user } = useAuth();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -183,7 +190,7 @@ const RenderView = (props: {
                 {entidad[data.destiny] +
                   `${
                     getDestinys().length > 1
-                      ? data.destiny == 3
+                      ? data.destiny == 2
                         ? "es"
                         : "s"
                       : ""

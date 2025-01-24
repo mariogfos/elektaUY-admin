@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./SurveySingleChoice.module.css";
 import Input from "@/mk/components/forms/Input/Input";
 import Button from "@/mk/components/forms/Button/Button";
-import { IconRatio, IconX } from "@/components/layout/icons/IconsBiblioteca";
+import { IconRatioOn, IconX } from "@/components/layout/icons/IconsBiblioteca";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import { checkRules, hasErrors } from "@/mk/utils/validate/Rules";
 import TextArea from "@/mk/components/forms/TextArea/TextArea";
@@ -157,7 +157,7 @@ const SurveySingleChoice = ({
                 onChange={handleChange}
                 label={"Opción " + (i + 1)}
                 error={errors}
-                iconLeft={<IconRatio color="var(--cWhite)" />}
+                iconLeft={<IconRatioOn color="var(--cWhite)" />}
                 iconRight={
                   i > formStateSingleChoice.nresp && (
                     <IconX

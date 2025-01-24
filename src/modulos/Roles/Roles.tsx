@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-"use client"
+"use client";
 import useCrud, {
   ModCrudType,
   TypeRenderForm,
@@ -9,12 +9,19 @@ import styles from "./Rol.module.css";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
 import { RenderColType } from "@/mk/components/ui/Table/Table";
 import useCrudUtils from "../shared/useCrudUtils";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import RenderItem from "../shared/RenderItem";
 import Permisos from "./Permisos";
 
-const lLevel = ["Fos", "Partido", "Departamento"];
+const lLevel = [
+  "Fos",
+  "Partido",
+  "Lista",
+  "Departamento",
+  "Municipio",
+  "Barrio",
+];
 
 const mod: ModCrudType = {
   modulo: "roles",
@@ -62,7 +69,7 @@ const Roles = () => {
     error,
     extraData,
   }: TypeRenderForm) => {
-    console.log("renderPermisos", extraData);
+    // console.log("renderPermisos", extraData);
     return (
       <Permisos
         data={item}

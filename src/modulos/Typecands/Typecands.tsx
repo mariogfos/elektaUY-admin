@@ -44,13 +44,22 @@ const Typecands = () => {
       //   form: { type: "text" },
       //   list: true,
       // },
-      // status: {
-      //   rules: ["required"],
-      //   api: "ae",
-      //   label: "Status",
-      //   form: { type: "text" },
-      //   list: true,
-      // },
+      status: {
+        rules: ["required"],
+        api: "ae",
+        label: "Estado",
+        // style: { width: 210 },
+        list: {
+          width: "140",
+        },
+        form: {
+          type: "select",
+          options: [
+            { id: "A", name: "Habilitado" },
+            { id: "X", name: "Deshabilitado" },
+          ],
+        },
+      },
     };
   }, []);
 

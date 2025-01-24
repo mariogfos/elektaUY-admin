@@ -39,6 +39,7 @@ const WidgetAge = ({ widget2, title }: WidgetAgeProps) => {
         "rgba(174, 214, 241, 1)",
         "rgba(247, 220, 111, 1)",
         "rgba(170, 183, 184, 1)",
+        "rgba(247, 220, 111, 1)",
       ];
 
       const categories = Object.keys(widget2)?.map((key) =>

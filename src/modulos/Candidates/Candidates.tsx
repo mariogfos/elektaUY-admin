@@ -19,9 +19,10 @@ const paramsInitial = {
 };
 
 let levelCand = [
-  { id: "0", name: "Partido" },
-  { id: "1", name: "Nacional - Asambleísta Nacional" },
-  { id: "2", name: "Departamental - Asambleísta Departamental" },
+  { id: "0", name: "Partido - no aparece en mapa" },
+  { id: "1", name: "Candidato Nacional" },
+  { id: "2", name: "Candidato Departamental" },
+  { id: "3", name: "Candidato Municipal" },
 ];
 
 const Candidates = () => {
@@ -74,12 +75,21 @@ const Candidates = () => {
     );
   };
 
-  const isType = (data: {
+  const isHidenMun = (data: {
     key: string;
     user?: Record<string, any>;
     item: Record<string, any>;
   }) => {
-    if (data.item.level == "2") return false;
+    if (data.item.level == "3") return false;
+
+    return true;
+  };
+  const isHidenDpto = (data: {
+    key: string;
+    user?: Record<string, any>;
+    item: Record<string, any>;
+  }) => {
+    if (data.item.level == "2" || data.item.level == "3") return false;
 
     return true;
   };
@@ -128,6 +138,30 @@ const Candidates = () => {
           style: { width: "100%" },
         },
       },
+      status: {
+        rules: ["required"],
+        api: "ae",
+        label: "Estado",
+        // style: { width: 210 },
+        list: {
+          width: "140",
+        },
+        form: {
+          onTop: () => {
+            return (
+              <OnTop
+                title="Estado"
+                subtitle="Hablita y deshabilita a los candiadtos"
+              />
+            );
+          },
+          type: "select",
+          options: [
+            { id: "A", name: "Habilitado" },
+            { id: "X", name: "Deshabilitado" },
+          ],
+        },
+      },
       level: {
         rules: ["required"],
         api: "ae",
@@ -144,11 +178,38 @@ const Candidates = () => {
             );
           },
         },
-        list: { order: 2, width: "250" },
+        list: {
+          order: 2,
+          options: ({ item, extraData }: any) => {
+            let levelCandid = [];
+
+            if (item?.item?.level == 0) {
+              levelCandid.push({ id: "0", name: "Partido" });
+            }
+            const lLevel = levelCand[item?.item?.level]?.name;
+            if (item?.item?.level == 1) {
+              levelCandid.push({ id: "1", name: lLevel });
+            }
+            if (item?.item?.level == 2) {
+              levelCandid.push({
+                id: "2",
+                name:
+                  lLevel +
+                  " - " +
+                  extraData.dptos.find((e: any) => e.id == item?.item?.dpto_id)
+                    .name,
+              });
+            }
+            if (item?.item?.level > 2) {
+              levelCandid.push({ id: item?.item?.level, name: lLevel });
+            }
+            return levelCandid;
+          },
+        },
       },
       dpto_id: {
-        rules: ["requiredIf:level,2"],
-        onHide: isType,
+        rules: ["requiredIf:level,2", "requiredIf:level,3"],
+        onHide: isHidenDpto,
         api: "ae",
         label: "Departamento",
         form: {
@@ -158,13 +219,33 @@ const Candidates = () => {
             return (
               <OnTop
                 title="Departamento "
-                subtitle="Selecciona la provincia a la que pertenece el candidato"
+                subtitle="Selecciona la departamento a la que pertenece el candidato"
               />
             );
           },
         },
         // style: { width: "300px" },
-        list: { order: 1, width: "200" },
+        list: false,
+      },
+      mun_id: {
+        rules: ["requiredIf:level,3"],
+        onHide: isHidenMun,
+        api: "ae",
+        label: "Municipio",
+        form: {
+          type: "select",
+          optionsExtra: "muns",
+          onTop: () => {
+            return (
+              <OnTop
+                title="Municipio "
+                subtitle="Selecciona el municipio a la que pertenece el candidato"
+              />
+            );
+          },
+        },
+        // style: { width: "300px" },
+        list: false,
       },
       position: {
         rules: ["required"],
@@ -262,7 +343,7 @@ const Candidates = () => {
         api: "ae",
         label: "Profesión",
         form: { type: "text" },
-        list: true,
+        list: false,
       },
       born: {
         rules: ["required"],
@@ -398,21 +479,6 @@ const Candidates = () => {
           style: { width: "100%" },
         },
         list: false,
-      },
-      status: {
-        rules: [""],
-        api: "",
-        label: "Estado",
-        form: false,
-        list: false,
-        // list: {
-        //   width: "180px",
-        //   type: "select",
-        //   options: [
-        //     { id: "A", name: "Activo" },
-        //     { id: "X", name: "Inactivo" },
-        //   ],
-        // },
       },
     };
   }, []);

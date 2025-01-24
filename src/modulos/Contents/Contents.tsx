@@ -23,6 +23,9 @@ import ImportDataModal from "@/mk/components/data/ImportDataModal/ImportDataModa
 import { formatNumber } from "@/mk/utils/numbers";
 import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
 import { useAuth } from "@/mk/contexts/AuthProvider";
+import Button from "@/mk/components/forms/Button/Button";
+import AddContent from "./AddContent/AddContent";
+import { get } from "http";
 
 const paramsInitial = {
   perPage: 19,
@@ -120,6 +123,44 @@ const Contents = () => {
       extraData: any;
     }) => <RenderView {...props} />,
     loadView: { fullType: "DET" },
+    // hideActions: { add: true },
+    // buttonExtra: (
+    //   <Button onClick={() => (window.location.href = "/addContent")}>
+    //     Crear noticia
+    //   </Button>
+    // ),
+    renderForm: (props: {
+      item: any;
+      setItem: any;
+      errors: any;
+      extraData: any;
+      open: boolean;
+      onClose: any;
+      user: any;
+      execute: any;
+      setErrors: any;
+      action: any;
+      openList: any;
+      setOpenList: any;
+    }) => {
+      return (
+        <AddContent
+          onClose={props.onClose}
+          open={props.open}
+          item={props.item}
+          setItem={props.setItem}
+          errors={props.errors}
+          extraData={props.extraData}
+          user={props.user}
+          execute={props.execute}
+          setErrors={props.setErrors}
+          reLoad={reLoad}
+          action={props.action}
+          openList={props.openList}
+          setOpenList={props.setOpenList}
+        />
+      );
+    },
   };
   const onTop = (data: {
     user?: Record<string, any>;
@@ -188,12 +229,18 @@ const Contents = () => {
         list: {
           width: "100px",
           onRender: (item: any) => {
-            let destinys = ["", "", "Lista", "Departamento", "Municipio"];
+            let destinys = [
+              "",
+              "",
+              "Organización",
+              "Departamento",
+              "Municipio",
+            ];
             if (item?.item?.destiny == 0 || item?.item?.destiny == 1) {
               return "Todos";
             }
             if (user?.role.level == 3 && item?.item?.destiny == 2) {
-              return "Mi lista";
+              return "Mi organización";
             }
             if (user?.role.level == 3 && item?.item?.destiny == 3) {
               return "Mi departamento";
@@ -238,6 +285,7 @@ const Contents = () => {
               data.push({
                 id: c.id,
                 name: getFullName(c),
+                img: getUrlImages("/CAND-" + c.id + ".webp?" + c.updated_at),
               });
             });
             return data;
@@ -254,6 +302,7 @@ const Contents = () => {
             extraData?.candidates.map((c: any) => {
               if (c.status == "A") {
                 data.push({
+                  img: getUrlImages("/CAND-" + c.id + ".webp?" + c.updated_at),
                   id: c.id,
                   name:
                     getFullName(c) +
@@ -272,7 +321,18 @@ const Contents = () => {
         api: "ae",
         label: "Tipo",
         list: { width: "100px" },
-        form: { type: "select", options: lType, precarga: "I" },
+        form: {
+          type: "select",
+          options: lType,
+          // precarga: "I"
+        },
+      },
+      title: {
+        rules: [""],
+        api: "ae",
+        label: "Titulo",
+        list: false,
+        form: { type: "text" },
       },
       description: {
         rules: ["required"],

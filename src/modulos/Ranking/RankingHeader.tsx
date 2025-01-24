@@ -53,7 +53,7 @@ const RankingHeader = ({
             <div>
               <Select
                 label="Departamentos"
-                name="prov_id"
+                name="dpto_id"
                 options={dptos}
                 onChange={handleChange}
                 value={formState?.dpto_id}

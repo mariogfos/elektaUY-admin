@@ -96,4 +96,5 @@ export let lIdeologies = [
   { id: "22", name: "Feminismo" },
   { id: "23", name: "Monarquismo" },
   { id: "24", name: "Republicanismo" },
+  { id: "25", name: "Herrerismo" },
 ];

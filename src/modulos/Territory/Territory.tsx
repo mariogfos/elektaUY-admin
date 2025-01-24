@@ -16,7 +16,7 @@ const Territory = () => {
         <TabsButtons
           tabs={[
             { value: "S", text: "Sublemas" },
-            { value: "L", text: "Listas" },
+            { value: "L", text: "Organización" },
             { value: "D", text: "Departamentos" },
             { value: "M", text: "Municipios" },
             // { value: "O", text: "Localidades" },

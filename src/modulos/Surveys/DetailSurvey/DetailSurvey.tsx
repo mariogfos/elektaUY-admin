@@ -23,6 +23,7 @@ const DetailSurvey = () => {
   const router: any = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const { store, setStore } = useAuth();
 
   const paramInitial: any = {
     page: 1,
@@ -48,7 +49,9 @@ const DetailSurvey = () => {
       ...newParams,
     }));
   };
-
+  useEffect(() => {
+    setStore({ ...store, title: "Eventos" });
+  }, []);
   // if (!loaded) return <DetailSurveySkeleton />;
   return (
     <div style={{ paddingLeft: "var(--spL)", paddingRight: "var(--spL)" }}>

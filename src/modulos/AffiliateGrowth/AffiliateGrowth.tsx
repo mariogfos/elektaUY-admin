@@ -108,7 +108,7 @@ const AffiliateGrowth: React.FC = () => {
     }
     if (item === "mun_id") {
       return (
-        "Localidad: " +
+        "Municipio: " +
         extraData?.muns?.find((mun: any) => mun.id === filters[item])?.name
       );
     }

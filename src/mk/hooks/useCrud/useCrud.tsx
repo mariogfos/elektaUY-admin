@@ -38,6 +38,7 @@ export type ModCrudType = {
   extraData?: boolean;
   renderView?: Function;
   renderForm?: Function;
+  renderDel?: Function;
   loadView?: Record<string, any>;
   import?: boolean;
   filter?: boolean;
@@ -51,6 +52,7 @@ export type ModCrudType = {
   };
   onHideActions?: Function;
   saveMsg?: { add?: string; edit?: string; del?: string };
+  buttonExtra?: any;
 };
 
 export type TypeRenderForm = {
@@ -102,6 +104,8 @@ type UseCrudType = {
   onChangePerPage: Function;
   getTotalPages: Function;
   onChange: Function;
+  openList: boolean;
+  setOpenList: Function;
   open: boolean;
   setOpen: Function;
   openView: boolean;
@@ -142,6 +146,7 @@ const useCrud = ({
   const [formState, setFormState]: any = useState({});
   const [errors, setErrors]: any = useState({});
 
+  const [openList, setOpenList] = useState(true);
   const [open, setOpen] = useState(false);
   const [openView, setOpenView] = useState(false);
   const [openDel, setOpenDel] = useState(false);
@@ -257,9 +262,11 @@ const useCrud = ({
   );
 
   const onCloseCrud = () => {
+    if (!openList) setOpenList(true);
     setOpen(false);
   };
   const onCloseView = () => {
+    if (!openList) setOpenList(true);
     setOpenView(false);
   };
 
@@ -345,6 +352,7 @@ const useCrud = ({
   };
 
   const onCloseDel = () => {
+    if (!openList) setOpenList(true);
     setOpenDel(false);
   };
 
@@ -704,9 +712,12 @@ const useCrud = ({
           )}
           {mod.hideActions?.add ? null : (
             <div>
-              <Button onClick={onClick || onAdd}>Crear {mod.singular}</Button>
+              <Button onClick={onClick || onAdd}>
+                {"Crear " + mod.singular}
+              </Button>
             </div>
           )}
+          {mod?.buttonExtra && <div>{mod.buttonExtra}</div>}
         </nav>
       );
     }
@@ -877,116 +888,149 @@ const useCrud = ({
     // console.log(data?.data.length, params.perPage, params.page);
     return (
       <div className={styles.useCrud}>
-        <AddMenu filters={lFilter} />
-        <LoadingScreen type="TableSkeleton">
-          <section style={{}}>
-            {data?.data.length > 0 ? (
-              <Table
-                data={data?.data}
-                onRowClick={mod.hideActions?.view ? props.onRowClick : onView}
-                header={header}
-                onTabletRow={props.onTabletRow}
-                onRenderBody={props.onRenderBody}
-                onRenderFoot={props.onRenderFoot}
-                onRenderHead={props.onRenderHead}
-                onButtonActions={
-                  mod.hideActions?.edit && mod.hideActions?.del
-                    ? undefined
-                    : onButtonActions
-                }
-                className="striped"
-                // actionsWidth={props.actionsWidth}
-                actionsWidth={"170px"}
-                sumarize={props.sumarize}
-                extraData={extraData}
-              />
-            ) : (
-              <section>
-                <IconTableEmpty size={180} color="var(--cBlackV2)" />
-                <p>No existen datos en este momento.</p>
-              </section>
-            )}
-          </section>
-          {((data?.data.length == params.perPage &&
-            data?.message?.total > data?.data.length) ||
-            params.page > 1) && (
-            <div style={{ marginTop: 12 }}>
-              <Pagination
-                currentPage={params.page}
-                onPageChange={onChangePage}
-                totalPages={Math.ceil(
-                  (data?.message?.total || 1) / (params.perPage || 1)
+        {openList && (
+          <>
+            <AddMenu filters={lFilter} />
+            <LoadingScreen type="TableSkeleton">
+              <section style={{}}>
+                {data?.data.length > 0 ? (
+                  <Table
+                    data={data?.data}
+                    onRowClick={
+                      mod.hideActions?.view ? props.onRowClick : onView
+                    }
+                    header={header}
+                    onTabletRow={props.onTabletRow}
+                    onRenderBody={props.onRenderBody}
+                    onRenderFoot={props.onRenderFoot}
+                    onRenderHead={props.onRenderHead}
+                    onButtonActions={
+                      mod.hideActions?.edit && mod.hideActions?.del
+                        ? undefined
+                        : onButtonActions
+                    }
+                    className="striped"
+                    // actionsWidth={props.actionsWidth}
+                    actionsWidth={"170px"}
+                    sumarize={props.sumarize}
+                    extraData={extraData}
+                  />
+                ) : (
+                  <section>
+                    <IconTableEmpty size={180} color="var(--cBlackV2)" />
+                    <p>No existen datos en este momento.</p>
+                  </section>
                 )}
-                previousLabel=""
-                nextLabel=""
-              />
-            </div>
-          )}
+              </section>
+              {((data?.data.length == params.perPage &&
+                data?.message?.total > data?.data.length) ||
+                params.page > 1) && (
+                <div style={{ marginTop: 12 }}>
+                  <Pagination
+                    currentPage={params.page}
+                    onPageChange={onChangePage}
+                    totalPages={Math.ceil(
+                      (data?.message?.total || 1) / (params.perPage || 1)
+                    )}
+                    previousLabel=""
+                    nextLabel=""
+                  />
+                </div>
+              )}
+            </LoadingScreen>
+          </>
+        )}
 
-          {openView && (
-            <>
-              {mod.renderView ? (
-                mod.renderView({
-                  open: openView,
-                  onClose: onCloseView,
-                  item: formState,
-                  onConfirm: onSave,
-                  extraData,
-                  execute,
-                  onEdit,
-                  onDel,
-                  onAdd,
-                })
-              ) : (
-                <Detail
-                  open={openView}
-                  onClose={onCloseView}
-                  item={formState}
-                  onConfirm={onSave}
-                />
-              )}
-            </>
-          )}
-          {open && (
-            <>
-              {mod.renderForm ? (
-                mod.renderForm({
-                  open: open,
-                  onClose: onCloseCrud,
-                  item: formState,
-                  setItem: setFormState,
-                  onSave: onSave,
-                  extraData,
-                  execute,
-                  errors,
-                  setErrors,
-                  reLoad,
-                  user,
-                  onEdit,
-                  onDel,
-                  onAdd,
-                  action,
-                })
-              ) : (
-                <Form
-                  open={open}
-                  onClose={onCloseCrud}
-                  item={formState}
-                  onConfirm={onSave}
-                />
-              )}
-            </>
-          )}
-          {openDel && (
-            <FormDelete
-              open={openDel}
-              onClose={onCloseDel}
-              item={formState}
-              onConfirm={onSave}
-              message={mod.messageDel}
-            />
-          )}
-        </LoadingScreen>
+        {openView && (
+          <>
+            {mod.renderView ? (
+              mod.renderView({
+                open: openView,
+                onClose: onCloseView,
+                item: formState,
+                onConfirm: onSave,
+                extraData,
+                execute,
+                onEdit,
+                onDel,
+                onAdd,
+                openList,
+                setOpenList,
+              })
+            ) : (
+              <Detail
+                open={openView}
+                onClose={onCloseView}
+                item={formState}
+                onConfirm={onSave}
+              />
+            )}
+          </>
+        )}
+        {open && (
+          <>
+            {mod.renderForm ? (
+              mod.renderForm({
+                open: open,
+                onClose: onCloseCrud,
+                item: formState,
+                setItem: setFormState,
+                onSave: onSave,
+                extraData,
+                execute,
+                errors,
+                setErrors,
+                reLoad,
+                user,
+                onEdit,
+                onDel,
+                onAdd,
+                action,
+                openList,
+                setOpenList,
+              })
+            ) : (
+              <Form
+                open={open}
+                onClose={onCloseCrud}
+                item={formState}
+                onConfirm={onSave}
+              />
+            )}
+          </>
+        )}
+        {openDel && (
+          <>
+            {mod.renderDel ? (
+              mod.renderDel({
+                open: openDel,
+                onClose: onCloseDel,
+                item: formState,
+                setItem: setFormState,
+                onSave: onSave,
+                extraData,
+                execute,
+                errors,
+                setErrors,
+                reLoad,
+                user,
+                onEdit,
+                onDel,
+                onAdd,
+                openList,
+                setOpenList,
+              })
+            ) : (
+              <FormDelete
+                open={openDel}
+                onClose={onCloseDel}
+                item={formState}
+                onConfirm={onSave}
+                message={mod.messageDel}
+              />
+            )}
+          </>
+        )}
       </div>
     );
   });
@@ -1012,6 +1056,8 @@ const useCrud = ({
     onChangePerPage,
     getTotalPages,
     onChange,
+    openList,
+    setOpenList,
     open,
     setOpen,
     openView,
