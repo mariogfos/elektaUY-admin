@@ -278,6 +278,7 @@ const Contents = () => {
               data.push({
                 id: c.id,
                 name: getFullName(c),
+                img: getUrlImages("/CAND-" + c.id + ".webp?" + c.updated_at),
               });
             });
             return data;
