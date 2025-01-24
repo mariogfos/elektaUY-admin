@@ -45,6 +45,7 @@ const AddContent = ({
   });
 
   useEffect(() => {
+    console.log("item useefefect", item);
     setOpenList(false);
     if (!formState?.title && action == "edit") {
       setFormState({ ...formState, isType: "P" });
@@ -89,10 +90,15 @@ const AddContent = ({
   }, [formState.destiny]);
 
   const handleChangeInput = (e: any) => {
+    if (e.target.nane == "avatar") {
+      console.log("avatar", e.target.value);
+      return;
+    }
     let value = e.target.value;
-    if (e.target.type == "checkbox") {
+    if (e.target?.type == "checkbox") {
       value = e.target.checked ? "Y" : "N";
     }
+
     setFormState({ ...formState, [e.target.name]: value });
     if (e.target.name == "destiny" && value > 0) {
       setOpenDestiny(true);
@@ -379,25 +385,25 @@ const AddContent = ({
                 onClick={() => setFormState({ ...formState, type: "D" })}
               />
             </div>
-            {formState?.type == "I" && (
-              <UploadFileMultiple
-                name="avatar"
-                value={formState?.avatar}
-                onChange={handleChangeInput}
-                label={"Subir una imagen"}
-                error={errors}
-                ext={["jpg", "png", "jpeg"]}
-                setError={setErrors}
-                img={true}
-                maxFiles={10}
-                prefix={"CONT"}
-                images={formState?.images}
-                item={formState}
-                // editor={}
-                // sizePreview={_field.sizePreview}
-                // autoOpen={data?.action == "add"}
-              />
-            )}
+            {/* {formState?.type == "I" && ( */}
+            <UploadFileMultiple
+              name="avatar"
+              value={formState?.avatar}
+              onChange={handleChangeInput}
+              label={"Subir una imagen"}
+              error={{}}
+              ext={["jpg", "png", "jpeg", "webp"]}
+              setError={() => {}}
+              img={true}
+              maxFiles={10}
+              prefix={"CONT"}
+              images={formState?.images}
+              item={formState}
+              // editor={}
+              // sizePreview={_field.sizePreview}
+              // autoOpen={data?.action == "add"}
+            />
+            {/* )} */}
             {formState?.type == "V" && (
               <Input
                 name="url"
