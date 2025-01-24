@@ -148,6 +148,7 @@ type PropsType = {
   data: any;
   onClick?: any;
   params?: any;
+  showBarrios?: any;
   itemSelected: any;
 };
 
@@ -156,6 +157,7 @@ const Maps = ({
   onClick = () => {},
   params = [{}, () => {}],
   itemSelected,
+  showBarrios = false,
 }: PropsType) => {
   const svgRef: any = useRef(null);
   const [param] = params;
@@ -175,7 +177,7 @@ const Maps = ({
   if (param?.level == 2) {
     switch (param?.code) {
       case "Montevideo":
-        path = pathsMontevideo;
+        path = showBarrios ? pathsMontevideo : pathsArtigas;
         break;
       case "Artigas":
         path = pathsArtigas;

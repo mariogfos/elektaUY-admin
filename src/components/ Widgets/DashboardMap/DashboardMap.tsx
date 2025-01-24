@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./DashboardMap.module.css";
 import Image from "next/image";
 import { Card } from "@/mk/components/ui/Card/Card";
 import { formatNumber } from "@/mk/utils/numbers";
 import Maps from "@/components/Maps/Maps";
+import Switch from "@/mk/components/forms/Switch/Switch";
 
 type TypeProps = {
   data: any;
@@ -27,70 +28,94 @@ export const DashboardMap = ({
     0
   );
 
+  const [isMontevideoLevel2, setIsMontevideoLevel2] = useState(false);
+
+  console.log("monte: ", isMontevideoLevel2);
+
+  useEffect(() => {
+    if (params[0]?.level === 2 && itemSelected?.name === "Montevideo") {
+      setIsMontevideoLevel2(true);
+    } else {
+      setIsMontevideoLevel2(false);
+    }
+  }, [params[0]?.level, itemSelected?.name]);
+
+  const handleSwitchChange = (value: string) => {
+    setIsMontevideoLevel2(value === "N"); // Sincroniza el estado con el Switch
+  };
+
   return (
     <div className={styles.WidgetMaps}>
-      <>
-        <div>
-          Resumen de afiliados a nivel{" "}
-          {params[0]?.level === 1
-            ? "Nacional"
-            : params[0]?.level === 2
-            ? "Departamento"
-            : "Municipio"}
-        </div>
+      <div>
+        Resumen de afiliados a nivel{" "}
+        {params[0]?.level === 1
+          ? "Nacional"
+          : params[0]?.level === 2
+          ? "Departamento"
+          : "Municipio"}
+      </div>
 
-        <div className={styles.stats}>
-          <Card style={{ textAlign: "right", fontSize: 16 }}>
-            <p>
-              Población Censo <br />
-              2023
-            </p>
-            {params[0]?.level == entidadData?.role?.level ? (
-              <p style={{ fontSize: 20 }}>
-                {formatNumber(entidadData?.entidad?.habitantes, 0)}
-              </p>
-            ) : (
-              <p style={{ fontSize: 20 }}>
-                {formatNumber(data?.population?.habitantes, 0)}
-              </p>
-            )}
-          </Card>
-          <Card
-            style={{ textAlign: "right", fontSize: 16, cursor: "pointer" }}
-            onClick={() =>
-              setPoblacion({
-                total:
-                  params[0]?.level == entidadData?.role?.level
-                    ? entidadData?.entidad?.habilitados
-                    : data?.population?.habilitados,
-                label: "Habilitados",
-              })
-            }
-          >
-            <p>
-              Votantes habilitados <br />
-              2024
-            </p>
-            {params[0]?.level == entidadData?.role?.level ? (
-              <p style={{ fontSize: 20 }}>
-                {formatNumber(entidadData?.entidad?.habilitados, 0)}
-              </p>
-            ) : (
-              <p style={{ fontSize: 20 }}>
-                {formatNumber(data?.population?.habilitados)}
-              </p>
-            )}
-          </Card>
+      {params[0]?.level === 2 && itemSelected?.name === "Montevideo" && (
+        <Switch
+          name="showBarrios"
+          optionValue={["Y", "N"]}
+          value={isMontevideoLevel2 ? "N" : "Y"}
+          onChange={handleSwitchChange}
+          label="Mostrar barrios"
+        />
+      )}
 
-          <Card style={{ textAlign: "right", fontSize: 16 }}>
-            <p>
-              Afiliados registrados en <br />
-              Elekta
+      <div className={styles.stats}>
+        <Card style={{ textAlign: "right", fontSize: 16 }}>
+          <p>
+            Población Censo <br />
+            2023
+          </p>
+          {params[0]?.level === entidadData?.role?.level ? (
+            <p style={{ fontSize: 20 }}>
+              {formatNumber(entidadData?.entidad?.habitantes, 0)}
             </p>
-            <p style={{ fontSize: 20 }}>{formatNumber(totalAfiliados, 0)}</p>
-          </Card>
-        </div>
-      </>
+          ) : (
+            <p style={{ fontSize: 20 }}>
+              {formatNumber(data?.population?.habitantes, 0)}
+            </p>
+          )}
+        </Card>
+        <Card
+          style={{ textAlign: "right", fontSize: 16, cursor: "pointer" }}
+          onClick={() =>
+            setPoblacion({
+              total:
+                params[0]?.level === entidadData?.role?.level
+                  ? entidadData?.entidad?.habilitados
+                  : data?.population?.habilitados,
+              label: "Habilitados",
+            })
+          }
+        >
+          <p>
+            Votantes habilitados <br />
+            2024
+          </p>
+          {params[0]?.level === entidadData?.role?.level ? (
+            <p style={{ fontSize: 20 }}>
+              {formatNumber(entidadData?.entidad?.habilitados, 0)}
+            </p>
+          ) : (
+            <p style={{ fontSize: 20 }}>
+              {formatNumber(data?.population?.habilitados)}
+            </p>
+          )}
+        </Card>
+
+        <Card style={{ textAlign: "right", fontSize: 16 }}>
+          <p>
+            Afiliados registrados en <br />
+            Elekta
+          </p>
+          <p style={{ fontSize: 20 }}>{formatNumber(totalAfiliados, 0)}</p>
+        </Card>
+      </div>
 
       <div className={styles.ecuador}>
         <Maps
@@ -98,8 +123,9 @@ export const DashboardMap = ({
           params={params}
           onClick={onClick}
           itemSelected={itemSelected}
+          showBarrios={isMontevideoLevel2}
         />
-        {params[0]?.level == 1 && (
+        {params[0]?.level === 1 && (
           <div>
             <Image
               src="/images/uruguayBandera.png"
