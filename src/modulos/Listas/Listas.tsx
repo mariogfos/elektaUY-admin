@@ -39,14 +39,14 @@ const Listas = () => {
   const fields = useMemo(
     () => ({
       id: { rules: [], api: "e" },
-      sublema_id: {
-        rules: [""],
+      // sublema_id: {
+      //   rules: [""],
 
-        api: "ae",
-        label: "Sublema",
-        list: { width: "350px" },
-        form: { type: "select", optionsExtra: "sublemas", onTop: onTop },
-      },
+      //   api: "ae",
+      //   label: "Sublema",
+      //   list: { width: "350px" },
+      //   form: { type: "select", optionsExtra: "sublemas", onTop: onTop },
+      // },
       name: {
         rules: ["required"],
         api: "ae",
