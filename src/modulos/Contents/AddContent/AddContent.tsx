@@ -40,7 +40,11 @@ const AddContent = ({
   // const [errors, setErrors] = useState({});
   const [ldestinys, setLdestinys]: any = useState([]);
   const [openDestiny, setOpenDestiny] = useState(false);
-  const [formState, setFormState]: any = useState({ ...item, isType: "N" });
+  const [formState, setFormState]: any = useState({
+    ...item,
+    isType: "N",
+    type: "I",
+  });
 
   useEffect(() => {
     setOpenList(false);
@@ -48,6 +52,40 @@ const AddContent = ({
       setFormState({ ...formState, isType: "P" });
     }
   }, []);
+
+  useEffect(() => {
+    let lDestinies: any = formState.lDestiny || [];
+    if (action == "edit" && !formState.lDestiny) {
+      formState?.cdestinies?.map((d: any) => {
+        if (formState?.destiny == 2) {
+          lDestinies.push(d.lista_id);
+        }
+        if (formState?.destiny == 3) {
+          lDestinies.push(d.dpto_id);
+        }
+        if (formState?.destiny == 4) {
+          lDestinies.push(d.mun_id);
+        }
+        if (formState?.destiny == 5) {
+          lDestinies.push(d.barrio_id);
+        }
+      });
+    }
+    setLdestinys(lDestinies);
+  }, [action, formState.lDestiny]);
+
+  useEffect(() => {
+    if (formState?.isType == "P") {
+      setFormState({ ...formState, title: null });
+    }
+  }, [formState?.isType]);
+
+  useEffect(() => {
+    if (formState?.destiny == 0) {
+      getMeta([]);
+    }
+  }, [formState.destiny]);
+
   const handleChangeInput = (e: any) => {
     let value = e.target.value;
     if (e.target.type == "checkbox") {
@@ -63,12 +101,6 @@ const AddContent = ({
           [e.target.name]: value,
         });
       }
-    } else if (e.target.name == "destiny" && value == 0) {
-      setFormState({
-        ...formState,
-        lDestiny: null,
-        [e.target.name]: value,
-      });
     }
   };
   const getCandidates = () => {
@@ -115,32 +147,17 @@ const AddContent = ({
     return selDestinies;
   };
 
-  useEffect(() => {
-    let lDestinies: any = formState.lDestiny || [];
-    if (action == "edit" && !formState.lDestiny) {
-      formState?.cdestinies?.map((d: any) => {
-        if (formState?.destiny == 2) {
-          lDestinies.push(d.lista_id);
-        }
-        if (formState?.destiny == 3) {
-          lDestinies.push(d.dpto_id);
-        }
-        if (formState?.destiny == 4) {
-          lDestinies.push(d.mun_id);
-        }
-        if (formState?.destiny == 5) {
-          lDestinies.push(d.barrio_id);
-        }
-      });
-    }
-    setLdestinys(lDestinies);
-  }, [action, formState.lDestiny]);
-
   const getDestinysNames = () => {
     let des: any = [];
-    selDestinies(formState?.destiny)
-      .filter((d: any) => ldestinys?.includes(d.id))
-      .map((d: any) => des.push(d.name));
+    if (formState?.destiny == 0) {
+      return (des = ["Todos"]);
+    }
+    if (formState?.destiny > 0) {
+      selDestinies(formState?.destiny)
+        .filter((d: any) => ldestinys?.includes(d.id))
+        .map((d: any) => des.push(d.name));
+      return des;
+    }
     return des;
   };
 
@@ -179,6 +196,14 @@ const AddContent = ({
       key: "description",
       errors,
     });
+    if (formState?.type == "V") {
+      errors = checkRules({
+        value: formState?.url,
+        rules: ["required"],
+        key: "url",
+        errors,
+      });
+    }
 
     setErrors(errors);
     return errors;
@@ -211,12 +236,25 @@ const AddContent = ({
     }
   };
 
-  useEffect(() => {
-    if (formState?.isType == "P") {
-      setFormState({ ...formState, title: null });
-    }
-  }, [formState?.isType]);
+  const getMeta = async (sel: any) => {
+    const { data } = await execute(
+      "/contents",
+      "GET",
+      {
+        destiny: formState.destiny,
+        fullType: "DES",
+        lDestiny: sel,
+      },
+      false,
+      true
+    );
 
+    setFormState({
+      ...formState,
+      lDestiny: sel,
+      affCount: data?.data?.affCount,
+    });
+  };
   return (
     open && (
       <div className={styles.AddContent}>
@@ -246,6 +284,8 @@ const AddContent = ({
             subtitle={
               formState?.affCount > 0
                 ? `Tu publicación tendrá un alcance estimado de ${formState?.affCount} afiliados`
+                : formState?.affCount == 0
+                ? "No existen afiliados en el destino seleccionado"
                 : "Selecciona quienes pueden ver esta publicación"
             }
             style={{ display: "flex" }}
@@ -353,6 +393,15 @@ const AddContent = ({
                 // autoOpen={data?.action == "add"}
               />
             )}
+            {formState?.type == "V" && (
+              <Input
+                name="url"
+                label="Link del video"
+                value={formState?.url}
+                onChange={handleChangeInput}
+                error={errors}
+              />
+            )}
           </CardContent>
           <section>
             <Button onClick={onSave}>
@@ -375,6 +424,7 @@ const AddContent = ({
             setFormState={setFormState}
             showToast={showToast}
             execute={execute}
+            onSave={getMeta}
           />
         )}
       </div>

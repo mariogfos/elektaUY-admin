@@ -11,6 +11,7 @@ type PropsType = {
   setFormState: any;
   execute: any;
   showToast: any;
+  onSave: any;
 };
 
 const ModalDestiny = ({
@@ -20,6 +21,7 @@ const ModalDestiny = ({
   formState,
   setFormState,
   execute,
+  onSave,
   showToast,
 }: PropsType) => {
   const [sel, setSel]: any = useState([]);
@@ -34,7 +36,6 @@ const ModalDestiny = ({
       .toUpperCase();
 
   useEffect(() => {
-    console.log(!formState?.searchDestiny);
     if (!formState?.searchDestiny) {
       setDestiniesFiltered(selDestinies);
       return;
@@ -45,33 +46,42 @@ const ModalDestiny = ({
     );
     setDestiniesFiltered(filtered);
   }, [formState?.searchDestiny]);
+  // const _onSave = async () => {
+  //   // getMeta();
+  //   if (sel <= 0) {
+  //     showToast("Debe seleccionar al menos un destino", "error");
+  //     return;
+  //   }
+  //   const { data } = await execute(
+  //     "/contents",
+  //     "GET",
+  //     {
+  //       destiny: formState?.destiny,
+  //       fullType: "DES",
+  //       lDestiny: sel,
+  //     },
+  //     false,
+  //     true
+  //   );
+  //   if (data?.success == true) {
+  //     setFormState({
+  //       ...formState,
+  //       lDestiny: sel,
+  //       affCount: data?.data?.affCount,
+  //     });
+  //     onClose();
+  //   } else {
+  //     console.error("error");
+  //   }
+  // };
   const _onSave = async () => {
     // getMeta();
     if (sel <= 0) {
       showToast("Debe seleccionar al menos un destino", "error");
       return;
     }
-    const { data } = await execute(
-      "/contents",
-      "GET",
-      {
-        destiny: formState?.destiny,
-        fullType: "DES",
-        lDestiny: sel,
-      },
-      false,
-      true
-    );
-    if (data?.success == true) {
-      setFormState({
-        ...formState,
-        lDestiny: sel,
-        affCount: data?.data?.affCount,
-      });
-      onClose();
-    } else {
-      console.error("error");
-    }
+    onSave(sel);
+    onClose();
   };
 
   const _onClose = () => {
