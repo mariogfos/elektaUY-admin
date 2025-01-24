@@ -48,13 +48,15 @@ const AddContent = ({
     setOpenList(false);
     if (!formState?.title && action == "edit") {
       setFormState({ ...formState, isType: "P" });
+    } else {
+      setFormState({ ...formState, isType: "N" });
     }
 
     if (!formState.isType && !formState.type) {
       setFormState({ ...formState, isType: "N", type: "I" });
     }
   }, []);
-
+  console.log(formState);
   useEffect(() => {
     let lDestinies: any = formState.lDestiny || [];
     if (action == "edit" && !formState.lDestiny) {
@@ -83,7 +85,7 @@ const AddContent = ({
   }, [formState?.isType]);
 
   useEffect(() => {
-    if (formState?.destiny == 0) {
+    if (formState?.destiny == 0 && action == "add") {
       getMeta([]);
     }
   }, [formState.destiny]);
