@@ -312,7 +312,11 @@ const Contents = () => {
         api: "ae",
         label: "Tipo",
         list: { width: "100px" },
-        // form: { type: "select", options: lType, precarga: "I" },
+        form: {
+          type: "select",
+          options: lType,
+          // precarga: "I"
+        },
       },
       title: {
         rules: [""],

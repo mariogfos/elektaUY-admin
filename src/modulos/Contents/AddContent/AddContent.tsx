@@ -42,14 +42,16 @@ const AddContent = ({
   const [openDestiny, setOpenDestiny] = useState(false);
   const [formState, setFormState]: any = useState({
     ...item,
-    isType: "N",
-    type: "I",
   });
 
   useEffect(() => {
     setOpenList(false);
     if (!formState?.title && action == "edit") {
       setFormState({ ...formState, isType: "P" });
+    }
+
+    if (!formState.isType && !formState.type) {
+      setFormState({ ...formState, isType: "N", type: "I" });
     }
   }, []);
 
@@ -210,19 +212,22 @@ const AddContent = ({
   };
 
   const onSave = async () => {
+    setItem({ ...formState });
     if (hasErrors(validate())) return;
     let method = formState.id ? "PUT" : "POST";
+
     const { data } = await execute(
       "/contents" + (formState.id ? "/" + formState.id : ""),
       method,
       {
-        candidate_id: formState.candidate_id,
+        candidate_id: formState?.candidate_id,
         lDestiny: ldestinys,
-        destiny: formState.destiny,
+        destiny: formState?.destiny,
         // affCount: formState.affCount,
-        title: formState.title,
-        description: formState.description,
-        avatar: formState.avatar,
+        url: formState?.url,
+        title: formState?.title,
+        description: formState?.description,
+        avatar: formState?.avatar,
         type: formState?.type,
       }
     );
