@@ -129,13 +129,13 @@ const AddContent = ({
     if (level == 1 || level == 0) {
       r.push({ id: 0, name: "Todos" });
     }
-    if (level == 2) r.push({ id: 0, name: "Mi lista" });
+    if (level == 2) r.push({ id: 0, name: "Mi organización" });
     if (level == 3) r.push({ id: 0, name: "Mi departamento" });
     if (level == 4) r.push({ id: 0, name: "Mi municipio" });
     // if (level == 4) r.push({ id: 0, name: "Mi localidad" });
     if (level == 5) r.push({ id: 0, name: "Mi barrio" });
 
-    if (level <= 1) r.push({ id: 2, name: "Lista" });
+    if (level <= 1) r.push({ id: 2, name: "Organización" });
     if (level <= 2) r.push({ id: 3, name: "Departamento" });
     if (level <= 3) r.push({ id: 4, name: "Municipo" });
     // if (level <= 4) r.push({ id: 5, name: "Localidad" });

@@ -14,8 +14,8 @@ const onHideActions = (item: any) => {
 };
 const mod: ModCrudType = {
   modulo: "listas",
-  singular: "lista",
-  plural: "listas",
+  singular: "Organización",
+  plural: "Organizaciones",
   permiso: "listas",
   extraData: true,
   onHideActions,
@@ -31,7 +31,9 @@ const paramsInitial = {
 const Listas = () => {
   const onTop = () => {
     return (
-      <p>Selecciona el sublema al que pertenece la lista (si corresponde)</p>
+      <p>
+        Selecciona el sublema al que pertenece la organización (si corresponde)
+      </p>
     );
   };
   const fields = useMemo(
@@ -48,7 +50,7 @@ const Listas = () => {
       name: {
         rules: ["required"],
         api: "ae",
-        label: "Lista",
+        label: "Organización",
         list: { width: "350px" },
         form: { type: "text" },
       },

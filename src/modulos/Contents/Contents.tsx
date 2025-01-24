@@ -229,12 +229,18 @@ const Contents = () => {
         list: {
           width: "100px",
           onRender: (item: any) => {
-            let destinys = ["", "", "Lista", "Departamento", "Municipio"];
+            let destinys = [
+              "",
+              "",
+              "Organización",
+              "Departamento",
+              "Municipio",
+            ];
             if (item?.item?.destiny == 0 || item?.item?.destiny == 1) {
               return "Todos";
             }
             if (user?.role.level == 3 && item?.item?.destiny == 2) {
-              return "Mi lista";
+              return "Mi organización";
             }
             if (user?.role.level == 3 && item?.item?.destiny == 3) {
               return "Mi departamento";

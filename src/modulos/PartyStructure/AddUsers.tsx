@@ -209,7 +209,7 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
             user?.role?.level <= 1 &&
             level > 1 && (
               <Select
-                label="Lista"
+                label="Organización"
                 name="lista_id"
                 error={errorsUsers}
                 disabled={precarga?.lista_id}
