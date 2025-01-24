@@ -26,7 +26,7 @@ const WidgetCandidates = ({ data, params }: any) => {
         className={styles.widgetCandidates}
       >
         {candidates && candidates.length > 0 ? (
-          <div style={{ paddingLeft: 0, paddingRight: 0}}>
+          <div style={{ paddingLeft: 0, paddingRight: 0 }}>
             {candidates.map((candidate: any, index: number) => (
               <div
                 key={candidate.id}
@@ -49,7 +49,12 @@ const WidgetCandidates = ({ data, params }: any) => {
                   <p>{candidate?.name}</p>
                   <p>{candidate?.last_name}</p>
                 </div>
-                <div className={styles.professionInfo}>{candidate?.profession}</div>
+                <div className={styles.professionInfo}>
+                  {candidate?.profession}
+                </div>
+                {/* <div className={styles.professionInfo}>
+                  Candidato a: <br /> {candidate?.typecand?.name}
+                </div> */}
               </div>
             ))}
           </div>
