@@ -17,7 +17,7 @@ import Permisos from "./Permisos";
 const lLevel = [
   "Fos",
   "Partido",
-  "Lista",
+  "Organización",
   "Departamento",
   "Municipio",
   "Barrio",
