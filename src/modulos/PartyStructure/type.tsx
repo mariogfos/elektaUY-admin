@@ -2,7 +2,7 @@ export const lLevels = [
   "FOS",
   "Partido",
   // "Sublema",
-  "Lista",
+  "Organización",
   "Departamento",
   "Municipio",
   // "Localidad",

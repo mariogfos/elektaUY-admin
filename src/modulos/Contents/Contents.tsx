@@ -25,6 +25,7 @@ import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import Button from "@/mk/components/forms/Button/Button";
 import AddContent from "./AddContent/AddContent";
+import { get } from "http";
 
 const paramsInitial = {
   perPage: 19,
@@ -228,12 +229,18 @@ const Contents = () => {
         list: {
           width: "100px",
           onRender: (item: any) => {
-            let destinys = ["", "", "Lista", "Departamento", "Municipio"];
+            let destinys = [
+              "",
+              "",
+              "Organización",
+              "Departamento",
+              "Municipio",
+            ];
             if (item?.item?.destiny == 0 || item?.item?.destiny == 1) {
               return "Todos";
             }
             if (user?.role.level == 3 && item?.item?.destiny == 2) {
-              return "Mi lista";
+              return "Mi organización";
             }
             if (user?.role.level == 3 && item?.item?.destiny == 3) {
               return "Mi departamento";
@@ -295,6 +302,7 @@ const Contents = () => {
             extraData?.candidates.map((c: any) => {
               if (c.status == "A") {
                 data.push({
+                  img: getUrlImages("/CAND-" + c.id + ".webp?" + c.updated_at),
                   id: c.id,
                   name:
                     getFullName(c) +

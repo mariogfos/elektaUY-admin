@@ -49,13 +49,15 @@ const AddContent = ({
     setOpenList(false);
     if (!formState?.title && action == "edit") {
       setFormState({ ...formState, isType: "P" });
+    } else {
+      setFormState({ ...formState, isType: "N" });
     }
 
     if (!formState.isType && !formState.type) {
       setFormState({ ...formState, isType: "N", type: "I" });
     }
   }, []);
-
+  console.log(formState);
   useEffect(() => {
     let lDestinies: any = formState.lDestiny || [];
     if (action == "edit" && !formState.lDestiny) {
@@ -84,7 +86,7 @@ const AddContent = ({
   }, [formState?.isType]);
 
   useEffect(() => {
-    if (formState?.destiny == 0) {
+    if (formState?.destiny == 0 && action == "add") {
       getMeta([]);
     }
   }, [formState.destiny]);
@@ -116,8 +118,8 @@ const AddContent = ({
     extraData?.candidates.map((c: any) => {
       if (c.status == "A") {
         data.push({
-          id: c.id,
-          img: getUrlImages("/CAND-" + c.id + ".webp?" + c.updated_at),
+          img: getUrlImages("/CAND-" + c?.id + ".webp?d=" + c?.updated_at),
+          id: c?.id,
           name:
             getFullName(c) +
             " - " +
@@ -133,13 +135,13 @@ const AddContent = ({
     if (level == 1 || level == 0) {
       r.push({ id: 0, name: "Todos" });
     }
-    if (level == 2) r.push({ id: 0, name: "Mi lista" });
+    if (level == 2) r.push({ id: 0, name: "Mi organización" });
     if (level == 3) r.push({ id: 0, name: "Mi departamento" });
     if (level == 4) r.push({ id: 0, name: "Mi municipio" });
     // if (level == 4) r.push({ id: 0, name: "Mi localidad" });
     if (level == 5) r.push({ id: 0, name: "Mi barrio" });
 
-    if (level <= 1) r.push({ id: 2, name: "Lista" });
+    if (level <= 1) r.push({ id: 2, name: "Organización" });
     if (level <= 2) r.push({ id: 3, name: "Departamento" });
     if (level <= 3) r.push({ id: 4, name: "Municipo" });
     // if (level <= 4) r.push({ id: 5, name: "Localidad" });
