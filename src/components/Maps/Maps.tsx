@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import styles from "./Maps.module.css";
 import {
   paths18Mayo,
+  pathsA,
   pathsAcegua,
   pathsAguasCorrientes,
   pathsAigua,
@@ -12,10 +13,12 @@ import {
   pathsArevalo,
   pathsArtigas,
   pathsAtlantida,
+  pathsB,
   pathsBaltasarBrum,
   pathsBarriadaMedina,
   pathsBarrosBlancos,
   pathsBellaUnion,
+  pathsC,
   pathsCanelones,
   pathsCardona,
   pathsCarmelo,
@@ -25,6 +28,7 @@ import {
   pathsCerroChato,
   pathsCerroDeLasCuentas,
   pathsCerroLargo,
+  pathsCH,
   pathsChapicuy,
   pathsChuy,
   pathsCiudadCosta,
@@ -33,16 +37,20 @@ import {
   pathsColoniaLavalleja,
   pathsColoniaNicolich,
   pathsColoniaValdense,
+  pathsD,
   pathsDolores,
   pathsDurazno,
+  pathsE,
   pathsEcildaPaullier,
   pathsEmpalme,
+  pathsF,
   pathsFlorencioSanchez,
   pathsFlores,
   pathsFloresta,
   pathsFlorida,
   pathsFMuerto,
   pathsFray,
+  pathsG,
   pathsGarzon,
   pathsGeneral,
   pathsGuichón,
@@ -565,6 +573,30 @@ const Maps = ({
         break;
       case "Montes":
         path = pathsMontes;
+        break;
+      case "A":
+        path = pathsA;
+        break;
+      case "G":
+        path = pathsG;
+        break;
+      case "B":
+        path = pathsB;
+        break;
+      case "C":
+        path = pathsC;
+        break;
+      case "D":
+        path = pathsD;
+        break;
+      case "CH":
+        path = pathsCH;
+        break;
+      case "E":
+        path = pathsE;
+        break;
+      case "F":
+        path = pathsF;
         break;
     }
   }

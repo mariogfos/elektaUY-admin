@@ -32,7 +32,11 @@ export const DashboardMap = ({
       <>
         <div>
           Resumen de afiliados a nivel{" "}
-          {params[0]?.level === 1 ? "Nacional" : "Departamento"}
+          {params[0]?.level === 1
+            ? "Nacional"
+            : params[0]?.level === 2
+            ? "Departamento"
+            : "Municipio"}
         </div>
 
         <div className={styles.stats}>
