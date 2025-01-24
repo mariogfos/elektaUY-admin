@@ -28,6 +28,7 @@ const Preview = ({ formState, extraData }: PropsType) => {
   const candidate = extraData?.candidates?.find(
     (can: any) => formState?.candidate_id == can.id
   );
+
   return (
     <div className={styles.Preview}>
       <div>
@@ -63,17 +64,40 @@ const Preview = ({ formState, extraData }: PropsType) => {
                 style={{
                   height: "184px",
                   width: formState?.isType == "N" ? " 180px" : "100%",
+                  overflow: "hidden",
+                  position: "relative",
                 }}
               >
-                <img
-                  src={
-                    "data:image/webp;base64," + formState?.avatar?.avatar0?.file
-                  }
-                  alt="avatar"
-                  width="100%"
-                  height="100%"
-                />
-                <IconGallery />
+                {formState.avatar ? (
+                  <>
+                    {Object?.keys(formState?.avatar).length > 1 && (
+                      <p
+                        style={{
+                          position: "absolute",
+                          right: 8,
+                          top: 12,
+                          backgroundColor: "var(--cWhite)",
+                          color: "var(--cBlack)",
+                          borderRadius: 8,
+                          padding: "2px 6px",
+                        }}
+                      >
+                        +{Object.keys(formState?.avatar).length}
+                      </p>
+                    )}
+                    <img
+                      src={
+                        "data:image/webp;base64," +
+                        formState?.avatar?.avatar0?.file
+                      }
+                      alt="avatar"
+                      width="auto"
+                      height="100%"
+                    />
+                  </>
+                ) : (
+                  <IconGallery />
+                )}
               </div>
             </div>
           )}
