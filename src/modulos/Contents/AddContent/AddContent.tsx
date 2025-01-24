@@ -9,7 +9,7 @@ import {
   IconYoutube,
 } from "@/components/layout/icons/IconsBiblioteca";
 import Select from "@/mk/components/forms/Select/Select";
-import { getFullName } from "@/mk/utils/string";
+import { getFullName, getUrlImages } from "@/mk/utils/string";
 import Radio from "@/mk/components/forms/Ratio/Radio";
 import Input from "@/mk/components/forms/Input/Input";
 import TextArea from "@/mk/components/forms/TextArea/TextArea";
@@ -110,7 +110,8 @@ const AddContent = ({
     extraData?.candidates.map((c: any) => {
       if (c.status == "A") {
         data.push({
-          id: c.id,
+          img: getUrlImages("/CAND-" + c?.id + ".webp?d=" + c?.updated_at),
+          id: c?.id,
           name:
             getFullName(c) +
             " - " +
