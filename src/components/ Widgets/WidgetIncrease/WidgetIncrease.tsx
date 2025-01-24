@@ -36,7 +36,7 @@ const WidgetIncrease = ({ widget8 }: PropsType) => {
         >
           <Tooltip
             position="right"
-            title="Crecimiento porcentual en relación a la anterior semana"
+            title="Este porcentaje indica el crecimiento de los afiliados en relación a los últimos 7 días"
             style={{
               display: "flex",
               justifyContent: "center",

@@ -52,7 +52,7 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
             w={88}
           />
           <div>
-            {/* <div style={{ fontSize: "var(--sL)", color: "var(--cWhite)" }}>
+            <div style={{ fontSize: "var(--sL)", color: "var(--cWhite)" }}>
               {getFullName(data?.data?.user?.[0])}
             </div>
             <div style={{ color: "var(--cWhiteV1)" }}>
@@ -67,7 +67,7 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
                 : data?.data?.user?.[0]?.role[0]?.level === 5
                 ? data?.data?.user?.[0]?.barrio
                 : ""}
-            </div> */}
+            </div>
           </div>
         </div>
         <Card

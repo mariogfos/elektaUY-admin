@@ -202,9 +202,9 @@ const ViewSurveys = ({
           percentage: formattedPercentage,
         });
       });
-      formattedData = formattedData.sort(
-        (a: any, b: any) => b.sanswers_count - a.sanswers_count
-      );
+      // formattedData = formattedData.sort(
+      //   (a: any, b: any) => b.sanswers_count - a.sanswers_count
+      // );
       const newGraphData = {
         labels: labels,
         values: values,
