@@ -19,10 +19,10 @@ const paramsInitial = {
 };
 
 let levelCand = [
-  { id: "0", name: "Partido" },
-  { id: "1", name: "Asambleísta Nacional" },
-  { id: "2", name: "Asambleísta Departamental" },
-  { id: "3", name: "Asambleísta Municipal" },
+  { id: "0", name: "Partido - no aparece en mapa" },
+  { id: "1", name: "Candidato Nacional" },
+  { id: "2", name: "Candidato Departamental" },
+  { id: "3", name: "Candidato Municipal" },
 ];
 
 const Candidates = () => {
