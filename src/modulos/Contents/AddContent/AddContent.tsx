@@ -90,10 +90,10 @@ const AddContent = ({
   }, [formState.destiny]);
 
   const handleChangeInput = (e: any) => {
-    if (e.target.nane == "avatar") {
-      console.log("avatar", e.target.value);
-      return;
-    }
+    // if (e.target.name == "avatar") {
+    //   console.log("avatar", formState);
+    //   // return;
+    // }
     let value = e.target.value;
     if (e.target?.type == "checkbox") {
       value = e.target.checked ? "Y" : "N";

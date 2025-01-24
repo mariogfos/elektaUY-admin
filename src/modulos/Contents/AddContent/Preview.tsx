@@ -65,6 +65,14 @@ const Preview = ({ formState, extraData }: PropsType) => {
                   width: formState?.isType == "N" ? " 180px" : "100%",
                 }}
               >
+                <img
+                  src={
+                    "data:image/webp;base64," + formState?.avatar?.avatar0?.file
+                  }
+                  alt="avatar"
+                  width="100%"
+                  height="100%"
+                />
                 <IconGallery />
               </div>
             </div>
