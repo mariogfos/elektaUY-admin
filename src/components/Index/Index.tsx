@@ -29,9 +29,9 @@ const HomePage = () => {
         ? 1
         : user?.role?.level == 4
         ? 3
-        : user?.role?.level == 2
+        : user?.role?.level < 4
         ? 2
-        : user?.role,
+        : user?.role?.level,
     code: user?.entidad?.name,
     searchBy: user?.role?.level === 1 ? 1 : user?.entidad?.id,
   };
