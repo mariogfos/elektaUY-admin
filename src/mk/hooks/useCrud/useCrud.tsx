@@ -874,6 +874,7 @@ const useCrud = ({
           order: field.list.order || field.order || 1000,
           style: field.list.style || field.style || {},
           sumarize: field.list.sumarize || field.sumarize || false,
+          sortabled: field.list.sortabled || field.sortabled || false,
         };
         head.push(col);
       }

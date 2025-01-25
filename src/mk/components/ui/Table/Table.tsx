@@ -31,6 +31,7 @@ type PropsType = {
     style?: any;
     sumarize?: number | boolean;
     sumDec?: number;
+    sortabled?: boolean;
   }[];
   data: any;
   footer?: any;
@@ -51,6 +52,8 @@ type PropsType = {
   height?: string;
   showHeader?: boolean;
   extraData?: any;
+  sortCol?: { col: string; asc: boolean };
+  onSort?: (col: string, asc: boolean) => void;
 };
 
 const getWidth = (width: any) => {
@@ -79,6 +82,8 @@ const Table = ({
   height,
   showHeader = true,
   extraData = null,
+  sortCol,
+  onSort,
 }: PropsType) => {
   const { isMobile } = useScreenSize();
   const [scrollbarWidth, setScrollbarWidth] = useState();
@@ -95,6 +100,8 @@ const Table = ({
           onButtonActions={onButtonActions}
           scrollbarWidth={scrollbarWidth}
           extraData={extraData}
+          sortCol={sortCol}
+          onSort={onSort}
         />
       )}
       <div style={height ? { height: height, overflowY: "auto" } : {}}>
@@ -135,6 +142,8 @@ const Head = memo(function Head({
   onButtonActions,
   scrollbarWidth,
   extraData,
+  onSort,
+  sortCol,
 }: {
   header: any;
   actionsWidth: any;
@@ -142,9 +151,35 @@ const Head = memo(function Head({
   onButtonActions: any;
   scrollbarWidth?: number;
   extraData?: any;
+  onSort?: (col: string, asc: boolean) => void;
+  sortCol?: { col: string; asc: boolean };
 }) {
-  // const { store } = useStore();
   if (onRenderHead === false) return null;
+  const renderLabelTitle = (
+    item: any,
+    index: number,
+    onSort: any,
+    sortCol: any
+  ) => {
+    return (
+      <span
+        onClick={() => {
+          if (item.sortabled) {
+            if (sortCol?.col === item.key) {
+              onSort?.(item.key, !sortCol.asc);
+            } else {
+              onSort?.(item.key, true);
+            }
+          }
+        }}
+      >
+        {item.label}
+        {item.sortabled && sortCol?.col === item.key && (
+          <span>{sortCol.asc ? "▲" : "▼"}</span>
+        )}
+      </span>
+    );
+  };
   return (
     <header style={{ width: `calc(100% - ${scrollbarWidth || 0}px)` }}>
       {header.map((item: any, index: number) => (
@@ -156,9 +191,15 @@ const Head = memo(function Head({
             overflow: "hidden",
             ...getWidth(item.width),
           }}
-          title={onRenderHead ? onRenderHead(item, index) : item.label}
+          title={
+            onRenderHead
+              ? onRenderHead(item, index, onSort, sortCol, true)
+              : item.label
+          }
         >
-          {onRenderHead ? onRenderHead(item, index) : item.label}
+          {onRenderHead
+            ? onRenderHead(item, index, onSort, sortCol)
+            : renderLabelTitle(item, index, onSort, sortCol)}
         </div>
       ))}
 
