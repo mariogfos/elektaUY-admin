@@ -161,6 +161,8 @@ const Head = memo(function Head({
     onSort: any,
     sortCol: any
   ) => {
+    if (!item.sortabled) return item.label;
+
     return (
       <span
         onClick={() => {
@@ -173,10 +175,17 @@ const Head = memo(function Head({
           }
         }}
       >
-        {item.label}
         {item.sortabled && sortCol?.col === item.key && (
-          <span>{sortCol.asc ? "▲" : "▼"}</span>
+          <>
+            <span>{sortCol.asc ? "▲" : "▼"}</span>{" "}
+          </>
         )}
+        {item.sortabled && sortCol?.col !== item.key && (
+          <>
+            <span style={{ opacity: 0.1 }}>{sortCol?.asc ? "▲" : "▼"}</span>{" "}
+          </>
+        )}
+        {item.label}
       </span>
     );
   };
