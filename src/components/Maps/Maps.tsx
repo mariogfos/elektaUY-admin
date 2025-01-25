@@ -177,7 +177,8 @@ const Maps = ({
   if (param?.level == 2) {
     switch (param?.code) {
       case "Montevideo":
-        path = showBarrios ? pathsMontevideo : pathsArtigas;
+        // path = showBarrios ? pathsMontevideo : pathsArtigas;
+        path = pathsMontevideo;
         break;
       case "Artigas":
         path = pathsArtigas;
