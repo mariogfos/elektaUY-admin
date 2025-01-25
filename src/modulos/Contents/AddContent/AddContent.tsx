@@ -196,12 +196,14 @@ const AddContent = ({
         key: "title",
         errors,
       });
-      errors = checkRules({
-        value: formState?.avatar,
-        rules: ["required"],
-        key: "avatar",
-        errors,
-      });
+      // if (action == "add") {
+      //   errors = checkRules({
+      //     value: formState?.avatar,
+      //     rules: ["required"],
+      //     key: "avatar",
+      //     errors,
+      //   });
+      // }
       errors = checkRules({
         value: formState?.description,
         rules: ["required"],
@@ -232,8 +234,13 @@ const AddContent = ({
   };
 
   const onSave = async () => {
-    // setItem({ ...formState });
+    setItem({ ...formState });
     if (hasErrors(validate())) return;
+    if (formState.isType == "N" && !formState.avatar && action == "add") {
+      showToast("Debe cargar una imagen", "error");
+      return;
+    }
+
     let method = formState.id ? "PUT" : "POST";
 
     const { data } = await execute(
@@ -280,6 +287,7 @@ const AddContent = ({
       affCount: data?.data?.affCount,
     });
   };
+  console.log(errors);
   return (
     open && (
       <div className={styles.AddContent}>
@@ -458,7 +466,10 @@ const AddContent = ({
         {openDestiny && (
           <ModalDestiny
             open={openDestiny}
-            onClose={() => setOpenDestiny(false)}
+            onClose={() => {
+              setOpenDestiny(false);
+              setFormState({ ...formState, destiny: item.destiny });
+            }}
             selDestinies={selDestinies(formState?.destiny)}
             formState={{ ...formState, lDestiny: ldestinys }}
             setFormState={setFormState}
