@@ -9,25 +9,25 @@ import Barrios from "../Barrios/Barrios";
 import Muns from "../Muns/Muns";
 
 const Territory = () => {
-  const [typeSearch, setTypeSearch] = useState("S");
+  const [typeSearch, setTypeSearch] = useState("L");
   return (
     <div>
       <div>
         <TabsButtons
           tabs={[
-            { value: "S", text: "Sublemas" },
+            // { value: "S", text: "Sublemas" },
             { value: "L", text: "Organización" },
             { value: "D", text: "Departamentos" },
             { value: "M", text: "Municipios" },
             // { value: "O", text: "Localidades" },
-            { value: "B", text: "Barrios" },
             // { value: "A", text: "Afiliados" },
+            { value: "B", text: "Barrios" },
           ]}
           sel={typeSearch}
           setSel={setTypeSearch}
         />
       </div>
-      {typeSearch === "S" && <Sublemas />}
+      {/* {typeSearch === "S" && <Sublemas />} */}
       {typeSearch === "L" && <Listas />}
       {typeSearch === "D" && <Dptos />}
       {typeSearch === "M" && <Muns />}

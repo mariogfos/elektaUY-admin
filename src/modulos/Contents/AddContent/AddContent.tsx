@@ -6,6 +6,7 @@ import {
   IconArrowLeft,
   IconDocs,
   IconGallery,
+  IconVideo,
   IconYoutube,
 } from "@/components/layout/icons/IconsBiblioteca";
 import Select from "@/mk/components/forms/Select/Select";
@@ -20,24 +21,25 @@ import ModalDestiny from "./ModalDestiny";
 import UploadFileMultiple from "@/mk/components/forms/UploadFile/UploadFileMultiple";
 import { checkRules, hasErrors } from "@/mk/utils/validate/Rules";
 import TagContents from "./TagContents";
+import { UploadFile } from "@/mk/components/forms/UploadFile/UploadFile";
 
 const AddContent = ({
   onClose,
   open,
   item,
   setItem,
-  errors,
+  // errors,
   extraData,
   user,
   execute,
   openList,
   setOpenList,
-  setErrors,
+  // setErrors,
   reLoad,
   action,
 }: any) => {
   const { showToast } = useAuth();
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const [ldestinys, setLdestinys]: any = useState([]);
   const [openDestiny, setOpenDestiny] = useState(false);
   const [formState, setFormState]: any = useState({
@@ -57,7 +59,7 @@ const AddContent = ({
       setFormState({ ...formState, isType: "N", type: "I" });
     }
   }, []);
-  console.log(formState);
+
   useEffect(() => {
     let lDestinies: any = formState.lDestiny || [];
     if (action == "edit" && !formState.lDestiny) {
@@ -194,24 +196,33 @@ const AddContent = ({
         key: "title",
         errors,
       });
-      // errors = checkRules({
-      //   value: formState?.avatar,
-      //   rules: ["required"],
-      //   key: "avatar",
-      //   errors,
-      // });
+      errors = checkRules({
+        value: formState?.avatar,
+        rules: ["required"],
+        key: "avatar",
+        errors,
+      });
+      errors = checkRules({
+        value: formState?.description,
+        rules: ["required"],
+        key: "description",
+        errors,
+      });
     }
-    errors = checkRules({
-      value: formState?.description,
-      rules: ["required"],
-      key: "description",
-      errors,
-    });
+
     if (formState?.type == "V") {
       errors = checkRules({
         value: formState?.url,
         rules: ["required"],
         key: "url",
+        errors,
+      });
+    }
+    if (formState?.type == "D") {
+      errors = checkRules({
+        value: formState?.file,
+        rules: ["required"],
+        key: "file",
         errors,
       });
     }
@@ -221,7 +232,7 @@ const AddContent = ({
   };
 
   const onSave = async () => {
-    setItem({ ...formState });
+    // setItem({ ...formState });
     if (hasErrors(validate())) return;
     let method = formState.id ? "PUT" : "POST";
 
@@ -375,38 +386,42 @@ const AddContent = ({
                 text="Contenido multimedia"
                 onClick={() => setFormState({ ...formState, type: "I" })}
               />
-              <TagContents
-                isActive={formState.type == "V"}
-                icon={<IconYoutube size={16} />}
-                text={"Video"}
-                onClick={() => setFormState({ ...formState, type: "V" })}
-              />
-              <TagContents
-                isActive={formState.type == "D"}
-                icon={<IconDocs size={16} />}
-                text="Documento"
-                onClick={() => setFormState({ ...formState, type: "D" })}
-              />
+              {formState.isType == "P" && (
+                <>
+                  <TagContents
+                    isActive={formState.type == "V"}
+                    icon={<IconVideo size={16} />}
+                    text={"Video"}
+                    onClick={() => setFormState({ ...formState, type: "V" })}
+                  />
+                  <TagContents
+                    isActive={formState.type == "D"}
+                    icon={<IconDocs size={16} />}
+                    text="Documento"
+                    onClick={() => setFormState({ ...formState, type: "D" })}
+                  />
+                </>
+              )}
             </div>
-            {/* {formState?.type == "I" && ( */}
-            <UploadFileMultiple
-              name="avatar"
-              value={formState?.avatar}
-              onChange={handleChangeInput}
-              label={"Subir una imagen"}
-              error={{}}
-              ext={["jpg", "png", "jpeg", "webp"]}
-              setError={() => {}}
-              img={true}
-              maxFiles={10}
-              prefix={"CONT"}
-              images={formState?.images}
-              item={formState}
-              // editor={}
-              // sizePreview={_field.sizePreview}
-              // autoOpen={data?.action == "add"}
-            />
-            {/* )} */}
+            {formState?.type == "I" && (
+              <UploadFileMultiple
+                name="avatar"
+                value={formState?.avatar}
+                onChange={handleChangeInput}
+                label={"Subir una imagen"}
+                error={errors}
+                ext={["jpg", "png", "jpeg", "webp"]}
+                setError={setErrors}
+                img={true}
+                maxFiles={10}
+                prefix={"CONT"}
+                images={formState?.images}
+                item={formState}
+                // editor={}
+                // sizePreview={_field.sizePreview}
+                // autoOpen={data?.action == "add"}
+              />
+            )}
             {formState?.type == "V" && (
               <Input
                 name="url"
@@ -414,6 +429,17 @@ const AddContent = ({
                 value={formState?.url}
                 onChange={handleChangeInput}
                 error={errors}
+              />
+            )}
+            {formState?.type == "D" && (
+              <UploadFile
+                name={"file"}
+                value={formState?.file}
+                onChange={handleChangeInput}
+                label={"Subir documento"}
+                error={errors}
+                ext={["pdf", "doc", "docx", "xls", "xlsx"]}
+                setError={setErrors}
               />
             )}
           </CardContent>
