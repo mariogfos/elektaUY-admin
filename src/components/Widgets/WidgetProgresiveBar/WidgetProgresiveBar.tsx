@@ -4,8 +4,7 @@ import { formatNumber } from "@/mk/utils/numbers";
 
 const WidgetProgresiveBar = ({ data, poblacion }: any) => {
   const { totalAfiliados, totalHabilitados, level }: any = data;
-  // console.log(totalAfiliados,totalHabilitados,'totales')
-  // console.log(poblacion);
+
   return (
     <div className={styles["WidgetProgresiveBar"]}>
       <div>

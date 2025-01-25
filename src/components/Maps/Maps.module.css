@@ -1032,6 +1032,46 @@
   }
 }
 
+.BellaUnionMap {
+  position: relative; /* Ensure the container is relative */
+  max-width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & svg {
+    width: 100%;
+    height: auto;
+    /* max-height: 250px; Ajusta la altura máxima inicial para pantallas pequeñas */
+    height: auto;
+
+    @media (min-width: 768px) {
+      min-height: 380px; /* Aumenta la altura máxima para pantallas medianas */
+    }
+
+    @media (min-width: 1600px) {
+      max-height: 600px; /* Aumenta la altura máxima para la resolución 1440x900px */
+    }
+
+    & > a {
+      & > path {
+        stroke: #3a9ed9;
+        stroke-width: 0.4px;
+        transition: fill 0.3s, strokeWidth 0.3s;
+        animation: fadeIn 0.5s;
+        fill: #212529;
+
+        &:hover {
+          cursor: auto;
+          stroke-width: 1px;
+          fill: var(--cAccent);
+        }
+      }
+    }
+  }
+}
+
 .tooltip {
   position: absolute;
   background: #fff;

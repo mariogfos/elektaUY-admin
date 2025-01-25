@@ -3,7 +3,7 @@
   border: none;
 
   & > div:nth-child(2) {
-    height: 450px;
+    /* height: 450px; */
     display: flex;
     flex-wrap: wrap; /* Permite que los elementos salten a la siguiente fila */
     gap: 16px; /* Espaciado uniforme entre tarjetas */
@@ -46,6 +46,35 @@
   color: var(--cWhite);
   font-weight: 600;
   font-size: 18px;
+}
+
+.filtersContainer {
+  display: flex;
+  /* justify-content: center; Centra los botones horizontalmente */
+  gap: 12px; /* Espaciado entre los botones */
+  border-radius: var(--bRadiusL); /* Bordes redondeados */
+}
+
+.filterButton {
+  padding: 8px 16px; /* Tamaño del botón */
+  background-color: var(--cGray); /* Color de fondo predeterminado */
+  border: none;
+  border-radius: var(--bRadiusS); /* Bordes redondeados pequeños */
+  color: var(--cWhite); /* Color de texto */
+  font-size: var(--sM); /* Tamaño de fuente */
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.filterButton:hover {
+  background-color: var(--cHover); /* Color de fondo al pasar el cursor */
+  transform: scale(1.05); /* Animación de escala */
+}
+
+.filterButton.active {
+  background-color: var(--cSuccess); /* Color de fondo activo */
+  color: var(--cWhite); /* Asegura que el texto sea legible */
+  font-weight: bold; /* Destaca el botón activo */
 }
 
 .candidateCard {
@@ -92,7 +121,7 @@
   font-size: 14px;
   font-weight: 400;
   color: var(--cBlackV2);
-  margin-top:  8px;
+  margin-top: 8px;
 }
 
 .noCandidates {
