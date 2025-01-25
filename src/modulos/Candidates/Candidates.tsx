@@ -274,6 +274,23 @@ const Candidates = () => {
         },
         list: true,
       },
+      nickname: {
+        rules: ["required"],
+        api: "ae",
+        label: "Nombre de Elekta",
+        form: {
+          type: "text",
+          onTop: () => {
+            return (
+              <OnTop
+                title="Nombre de Elekta"
+                subtitle="Este podría ser el nombre o un apodo del candidato"
+              />
+            );
+          },
+        },
+        list: false,
+      },
       name: {
         rules: ["required"],
         api: "ae",
