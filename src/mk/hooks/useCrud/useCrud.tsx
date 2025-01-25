@@ -842,6 +842,12 @@ const useCrud = ({
     return render;
   };
 
+  const [sortCol, setSortCol] = useState({ col: "", asc: true });
+  const onSort = (col: string, asc: boolean) => {
+    const nAsc: boolean = sortCol.col === col ? !sortCol.asc : asc;
+    setSortCol({ col, asc: nAsc });
+    setParams({ ...params, sortBy: col, orderBy: nAsc ? "asc" : "desc" });
+  };
   const List = memo((props: any) => {
     const getHeader = () => {
       const head: Object[] = [];
@@ -919,6 +925,8 @@ const useCrud = ({
                     actionsWidth={"170px"}
                     sumarize={props.sumarize}
                     extraData={extraData}
+                    onSort={onSort}
+                    sortCol={sortCol}
                   />
                 ) : (
                   <section>
