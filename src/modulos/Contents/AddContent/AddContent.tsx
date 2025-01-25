@@ -446,7 +446,7 @@ const AddContent = ({
                 onChange={handleChangeInput}
                 label={"Subir documento"}
                 error={errors}
-                ext={["pdf", "doc", "docx", "xls", "xlsx"]}
+                ext={["pdf"]}
                 setError={setErrors}
               />
             )}
