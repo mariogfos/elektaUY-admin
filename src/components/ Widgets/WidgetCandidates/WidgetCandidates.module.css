@@ -1,17 +1,9 @@
 .widgetCandidates {
   height: 508px;
+  /* flex: 1; */
   border: none;
-
-  & > div:nth-child(2) {
-    /* height: 450px; */
-    display: flex;
-    flex-wrap: wrap; /* Permite que los elementos salten a la siguiente fila */
-    gap: 16px; /* Espaciado uniforme entre tarjetas */
-    align-content: flex-start; /* Alinea las filas al inicio vertical */
-    padding-top: 24px;
-    padding-bottom: 24px;
-    overflow-y: auto; /* Permite scroll si hay demasiados elementos */
-  }
+  
+  overflow: auto;
 
   & > p {
     display: flex;
@@ -49,10 +41,10 @@
 }
 
 .filtersContainer {
+  margin-top: 8px;
   display: flex;
-  /* justify-content: center; Centra los botones horizontalmente */
-  gap: 12px; /* Espaciado entre los botones */
-  border-radius: var(--bRadiusL); /* Bordes redondeados */
+  gap: 12px;
+  border-radius: var(--bRadiusL);
 }
 
 .filterButton {

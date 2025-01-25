@@ -13,10 +13,10 @@ const WidgetCandidates = ({ data, params }: any) => {
   // Filtrar candidatos basados en el filtro seleccionado
   const filteredCandidates = candidates.filter((candidate: any) => {
     if (filter === "Intendentes") {
-      return candidate.mun === null
+      return candidate.mun === null;
     }
     if (filter === "Alcaldes") {
-      return candidate.mun !== null
+      return candidate.mun !== null;
     }
     return true;
   });
@@ -59,7 +59,18 @@ const WidgetCandidates = ({ data, params }: any) => {
 
         {/* Lista de candidatos */}
         {filteredCandidates && filteredCandidates.length > 0 ? (
-          <div style={{ paddingLeft: 0, paddingRight: 0 }}>
+          <div
+            style={{
+              paddingLeft: 0,
+              paddingRight: 0,
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 16,
+              alignContent: "center",
+              paddingTop: 24,
+              paddingBottom: 24,
+            }}
+          >
             {filteredCandidates.map((candidate: any, index: number) => (
               <div
                 key={candidate.id}
