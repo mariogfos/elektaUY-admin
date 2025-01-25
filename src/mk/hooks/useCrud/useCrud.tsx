@@ -29,6 +29,7 @@ import {
 import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
 import FormElement from "./FormElement";
 import Pagination from "@/mk/components/ui/Pagination/Pagination";
+import ImportDataModal from "@/mk/components/data/ImportDataModal/ImportDataModal";
 
 export type ModCrudType = {
   modulo: string;
@@ -106,6 +107,8 @@ type UseCrudType = {
   onChange: Function;
   openList: boolean;
   setOpenList: Function;
+  openImport: boolean;
+  setOpenImport: Function;
   open: boolean;
   setOpen: Function;
   openView: boolean;
@@ -146,6 +149,7 @@ const useCrud = ({
   const [formState, setFormState]: any = useState({});
   const [errors, setErrors]: any = useState({});
 
+  const [openImport, setOpenImport] = useState(false);
   const [openList, setOpenList] = useState(true);
   const [open, setOpen] = useState(false);
   const [openView, setOpenView] = useState(false);
@@ -870,6 +874,7 @@ const useCrud = ({
           order: field.list.order || field.order || 1000,
           style: field.list.style || field.style || {},
           sumarize: field.list.sumarize || field.sumarize || false,
+          sortabled: field.list.sortabled || field.sortabled || false,
         };
         head.push(col);
       }
@@ -888,10 +893,10 @@ const useCrud = ({
     // console.log(data?.data.length, params.perPage, params.page);
     return (
       <div className={styles.useCrud}>
-        {openList && (
-          <>
-            <AddMenu filters={lFilter} />
-            <LoadingScreen type="TableSkeleton">
+        {openList && <AddMenu filters={lFilter} />}
+        <LoadingScreen type="TableSkeleton">
+          {openList && (
+            <>
               <section style={{}}>
                 {data?.data.length > 0 ? (
                   <Table
@@ -937,100 +942,117 @@ const useCrud = ({
                   />
                 </div>
               )}
-            </LoadingScreen>
-          </>
-        )}
+            </>
+          )}
 
-        {openView && (
-          <>
-            {mod.renderView ? (
-              mod.renderView({
-                open: openView,
-                onClose: onCloseView,
-                item: formState,
-                onConfirm: onSave,
-                extraData,
-                execute,
-                onEdit,
-                onDel,
-                onAdd,
-                openList,
-                setOpenList,
-              })
-            ) : (
-              <Detail
-                open={openView}
-                onClose={onCloseView}
-                item={formState}
-                onConfirm={onSave}
-              />
-            )}
-          </>
-        )}
-        {open && (
-          <>
-            {mod.renderForm ? (
-              mod.renderForm({
-                open: open,
-                onClose: onCloseCrud,
-                item: formState,
-                setItem: setFormState,
-                onSave: onSave,
-                extraData,
-                execute,
-                errors,
-                setErrors,
-                reLoad,
-                user,
-                onEdit,
-                onDel,
-                onAdd,
-                action,
-                openList,
-                setOpenList,
-              })
-            ) : (
-              <Form
-                open={open}
-                onClose={onCloseCrud}
-                item={formState}
-                onConfirm={onSave}
-              />
-            )}
-          </>
-        )}
-        {openDel && (
-          <>
-            {mod.renderDel ? (
-              mod.renderDel({
-                open: openDel,
-                onClose: onCloseDel,
-                item: formState,
-                setItem: setFormState,
-                onSave: onSave,
-                extraData,
-                execute,
-                errors,
-                setErrors,
-                reLoad,
-                user,
-                onEdit,
-                onDel,
-                onAdd,
-                openList,
-                setOpenList,
-              })
-            ) : (
-              <FormDelete
-                open={openDel}
-                onClose={onCloseDel}
-                item={formState}
-                onConfirm={onSave}
-                message={mod.messageDel}
-              />
-            )}
-          </>
-        )}
+          {openView && (
+            <>
+              {mod.renderView ? (
+                mod.renderView({
+                  open: openView,
+                  onClose: onCloseView,
+                  item: formState,
+                  onConfirm: onSave,
+                  extraData,
+                  execute,
+                  onEdit,
+                  onDel,
+                  onAdd,
+                  openList,
+                  setOpenList,
+                })
+              ) : (
+                <Detail
+                  open={openView}
+                  onClose={onCloseView}
+                  item={formState}
+                  onConfirm={onSave}
+                />
+              )}
+            </>
+          )}
+          {open && (
+            <>
+              {mod.renderForm ? (
+                mod.renderForm({
+                  open: open,
+                  onClose: onCloseCrud,
+                  item: formState,
+                  setItem: setFormState,
+                  onSave: onSave,
+                  extraData,
+                  execute,
+                  errors,
+                  setErrors,
+                  reLoad,
+                  user,
+                  onEdit,
+                  onDel,
+                  onAdd,
+                  action,
+                  openList,
+                  setOpenList,
+                })
+              ) : (
+                <Form
+                  open={open}
+                  onClose={onCloseCrud}
+                  item={formState}
+                  onConfirm={onSave}
+                />
+              )}
+            </>
+          )}
+          {openImport && (
+            <ImportDataModal
+              open={openImport}
+              onClose={() => {
+                if (mod.onCloseImport) mod.onCloseImport();
+                setOpenImport(false);
+              }}
+              mod={mod}
+              showToast={showToast}
+              reLoad={reLoad}
+              execute={execute}
+              //getExtraData={getExtraData}
+              extraData={extraData}
+              requiredCols={mod.importRequiredCols || null}
+              client_id={store?.client?.id}
+            />
+          )}
+          {openDel && (
+            <>
+              {mod.renderDel ? (
+                mod.renderDel({
+                  open: openDel,
+                  onClose: onCloseDel,
+                  item: formState,
+                  setItem: setFormState,
+                  onSave: onSave,
+                  extraData,
+                  execute,
+                  errors,
+                  setErrors,
+                  reLoad,
+                  user,
+                  onEdit,
+                  onDel,
+                  onAdd,
+                  openList,
+                  setOpenList,
+                })
+              ) : (
+                <FormDelete
+                  open={openDel}
+                  onClose={onCloseDel}
+                  item={formState}
+                  onConfirm={onSave}
+                  message={mod.messageDel}
+                />
+              )}
+            </>
+          )}
+        </LoadingScreen>
       </div>
     );
   });
@@ -1058,6 +1080,8 @@ const useCrud = ({
     onChange,
     openList,
     setOpenList,
+    openImport,
+    setOpenImport,
     open,
     setOpen,
     openView,

@@ -35,7 +35,7 @@ const Typecands = () => {
         label: "Tipo de candidato",
 
         form: { type: "text" },
-        list: true,
+        list: { sortabled: true },
       },
       // description: {
       //   rules: [""],

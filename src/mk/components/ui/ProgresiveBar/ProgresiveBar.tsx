@@ -31,7 +31,7 @@ const ProgresiveBar = ({
       return 0;
     }
     const percentage = (actualValue / total) * 100;
-    return Math.round(percentage * 10) / 10;
+    return isFinite(percentage) ? Math.round(percentage * 10) / 10 : 0;
   };
 
   useEffect(() => {
@@ -46,30 +46,7 @@ const ProgresiveBar = ({
           style={{ alignItems: "flex-end" }}
         >
           <div>
-            {/* <div
-              style={{ left: `${percentage}%` }}
-              className={
-                titleTotal && titleActualValue ? styles["lineBar"] : ""
-              }
-            >
-              
-            </div> */}
-            <div
-              // style={
-              //   percentage < 15
-              //     ? { width: `${percentage}`, position: "absolute", left: 4}
-              //     : {
-              //         position: "absolute",
-              //         marginRight: 4,
-              //         width: `${percentage}`,
-              //         right: 10,
-              //       }
-              // }
-              style={{ color: "var(--cAccent)" }}
-            >
-              {titleActualValue}
-            </div>
-            0
+            <div style={{ color: "var(--cAccent)" }}>{titleActualValue}</div>0
           </div>
           <div>{formatNumber(total / 2, 0)}</div>
           <div>
@@ -87,9 +64,7 @@ const ProgresiveBar = ({
             width: `${percentage}%`,
             position: "relative",
             backgroundColor: colorVar,
-            // cursor: "pointer",
           }}
-          // title={`${percentage} %`}
         >
           <div style={{ width: `${percentage}%` }}>
             {percentage > 0 && (

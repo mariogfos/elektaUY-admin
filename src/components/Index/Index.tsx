@@ -21,10 +21,19 @@ const HomePage = () => {
     "Mapa de " + (user?.entidad?.name || "Uruguay"),
   ]);
 
+  // console.log("user: ", user);
+
   const paramInitial: any = {
-    level: user?.role?.level <= 2 ? 1 : user?.role?.level == 4 ? 3 : 2,
-    code: user?.entidad?.code?.toString(),
-    searchBy: user?.role?.level > 1 ? user?.entidad?.id : "",
+    level:
+      user?.role?.level <= 2
+        ? 1
+        : user?.role?.level == 4
+        ? 3
+        : user?.role?.level == 2
+        ? 2
+        : user?.role,
+    code: user?.entidad?.name,
+    searchBy: user?.role?.level === 1 ? 1 : user?.entidad?.id,
   };
   // console.log(user?.role.level);
   const [params, setParams] = useState(paramInitial);
@@ -48,11 +57,13 @@ const HomePage = () => {
   }, [params]);
 
   const onClick = (row: any) => {
-    if (params?.level === 2) {
+    if (params?.level === 3) {
       return;
     }
 
-    const item: any = dashboard?.data?.entidad.find((d: any) => d.id == row.id);
+    const item: any = dashboard?.data?.entidad.find(
+      (d: any) => d.name == row?.name
+    );
 
     setHistParams((prev) => [...prev, params]);
     setHistTitulos((prev) => [...prev, item?.name]);
@@ -62,7 +73,7 @@ const HomePage = () => {
       ...params,
       searchBy: item?.id,
       level: (params?.level || 0) + 1,
-      code: item?.code.toString(),
+      code: item?.name,
     });
   };
 
@@ -84,14 +95,17 @@ const HomePage = () => {
       // Obtiene el nivel anterior
       const item = newHistParams[index];
 
+      console.log("item anterior: ", item);
+
       if (item) {
         setParams({
           ...item,
           // level: item?.level,
-          code: item?.code?.toString(), // Asegura que el código sea una cadena
         });
+        console.log("params: ", params);
       } else {
         // Si no hay datos en el historial, usa los parámetros iniciales
+        console.log("entro aqui:");
         setParams(paramInitial);
       }
     }
@@ -120,7 +134,7 @@ const HomePage = () => {
         </>
       )}
       <section>
-        {params?.level <= 2 && (
+        {params?.level <= 4 && (
           <div>
             <DashboardMap
               data={dashboard?.data}
@@ -163,7 +177,7 @@ const HomePage = () => {
           />
         </div>
       </section>
-      {dashboard?.data?.entidad && (
+      {dashboard?.data?.entidad?.length > 0 && (
         <>
           <section>
             <div>
