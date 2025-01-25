@@ -89,7 +89,7 @@ const DetailCandidate = ({ open, close, id }: PropsDetailCandidate) => {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div>
-              <p
+              <div
                 style={{
                   marginTop: 60,
                   color: "var(--cWhite)",
@@ -98,31 +98,33 @@ const DetailCandidate = ({ open, close, id }: PropsDetailCandidate) => {
                 }}
               >
                 {getFullName(candidate?.data[0])}
-              </p>
-              <p className={styles.description}>{candidate?.data[0].title}</p>
+              </div>
+              <div className={styles.description}>
+                {candidate?.data[0].title}
+              </div>
             </div>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <IconCandidates color="var(--cBlackV2)" />
-                <p className={styles.subtitle}>
+                <div className={styles.subtitle}>
                   {
                     extraData?.data?.typeCands?.find(
                       (e: any) => e.id == candidate?.data[0]?.typecand_id
                     )?.name
                   }
-                </p>
+                </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <IconProfession color="var(--cBlackV2)" />
-                <p className={styles.subtitle}>
+                <div className={styles.subtitle}>
                   {candidate?.data[0].profession}
-                </p>
+                </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <IconBorn color="var(--cBlackV2)" />
-                <p className={styles.subtitle}>
+                <div className={styles.subtitle}>
                   {"Nació en " + candidate?.data[0].born}
-                </p>
+                </div>
               </div>
             </div>
             {candidate?.data[0].facebook?.length > 0 ||
@@ -130,7 +132,7 @@ const DetailCandidate = ({ open, close, id }: PropsDetailCandidate) => {
             candidate?.data[0].linkedin?.length > 0 ||
             candidate?.data[0].twitter?.length > 0 ? (
               <>
-                <p
+                <div
                   style={{
                     fontSize: "var(--sL)",
                     marginBottom: 0,
@@ -139,7 +141,7 @@ const DetailCandidate = ({ open, close, id }: PropsDetailCandidate) => {
                   }}
                 >
                   Redes sociales
-                </p>
+                </div>
                 <div
                   style={{
                     display: "flex",
@@ -271,37 +273,40 @@ const DetailCandidate = ({ open, close, id }: PropsDetailCandidate) => {
                 </div>
               </>
             ) : null}
-            <div style={{}}>
+            <div>
               <div>
-                <p className={styles.titleDetail}>Ideología política</p>
-                <p
+                <div className={styles.titleDetail}>Ideología política</div>
+                <div
                   className={styles.subtitleDetail}
                   style={{ marginBottom: 12 }}
                 >
                   {lIdeologies[candidate?.data[0].ideology]?.name}
-                </p>
+                </div>
               </div>
               <div>
-                <p className={styles.titleDetail}>Biografía</p>
-                <p
+                <div className={styles.titleDetail}>Biografía</div>
+                <div
                   style={{ marginBottom: 12 }}
                   className={styles.subtitleDetail}
                 >
                   {candidate?.data[0].biography}
-                </p>
+                </div>
               </div>
               <div>
-                <p className={styles.titleDetail}>Experiencia política</p>
-                <p
+                <div className={styles.titleDetail}>Experiencia política</div>
+                <div
                   className={styles.subtitleDetail}
                   style={{ marginBottom: 12 }}
                 >
                   {candidate?.data[0].experience}
-                </p>
+                </div>
               </div>
               <div>
-                <p className={styles.titleDetail}>Plan de gobierno</p>
-                <p className={styles.subtitleDetail} style={{ marginTop: 12 }}>
+                <div className={styles.titleDetail}>Plan de gobierno</div>
+                <div
+                  className={styles.subtitleDetail}
+                  style={{ marginTop: 12 }}
+                >
                   <a
                     href={getUrlImages(
                       "/PLAN-" +
@@ -346,7 +351,7 @@ const DetailCandidate = ({ open, close, id }: PropsDetailCandidate) => {
                       </span>
                     </div>
                   </a>
-                </p>
+                </div>
               </div>
             </div>
           </div>

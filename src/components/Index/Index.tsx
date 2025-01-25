@@ -177,7 +177,7 @@ const HomePage = () => {
           />
         </div>
       </section>
-      {dashboard?.data?.entidad && (
+      {dashboard?.data?.entidad?.length > 0 && (
         <>
           <section>
             <div>

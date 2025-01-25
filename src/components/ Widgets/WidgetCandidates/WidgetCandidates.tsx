@@ -8,8 +8,18 @@ import DetailCandidate from "./DetailCantidate";
 const WidgetCandidates = ({ data, params }: any) => {
   const candidates = data;
   const [userId, setUserId]: any = useState(null);
+  const [filter, setFilter] = useState("Intendentes"); // Estado para gestionar el filtro
 
-  // console.log("candidates: ", candidates);
+  // Filtrar candidatos basados en el filtro seleccionado
+  const filteredCandidates = candidates.filter((candidate: any) => {
+    if (filter === "Intendentes") {
+      return candidate.mun === null
+    }
+    if (filter === "Alcaldes") {
+      return candidate.mun !== null
+    }
+    return true;
+  });
 
   return (
     <>
@@ -17,17 +27,40 @@ const WidgetCandidates = ({ data, params }: any) => {
         title={
           <span className={styles.widgetTitle}>
             {params?.level === 1
-              ? "Candidatos para intendentes departamentales"
+              ? "Candidatos a nivel nacional"
               : params?.level == 2
-              ? "Candidatos a Asambleístas por departamento"
-              : "Candidatos a Asambleístas por municipio"}
+              ? "Candidatos a nivel departamental"
+              : "Candidatos a nivel municipal"}
           </span>
         }
         className={styles.widgetCandidates}
       >
-        {candidates && candidates.length > 0 ? (
-          <div style={{ paddingLeft: 0, paddingRight: 0}}>
-            {candidates.map((candidate: any, index: number) => (
+        {/* Controles de filtro */}
+        {params?.level <= 2 && (
+          <div className={styles.filtersContainer}>
+            <button
+              className={`${styles.filterButton} ${
+                filter === "Intendentes" ? styles.active : ""
+              }`}
+              onClick={() => setFilter("Intendentes")}
+            >
+              Intendentes
+            </button>
+            <button
+              className={`${styles.filterButton} ${
+                filter === "Alcaldes" ? styles.active : ""
+              }`}
+              onClick={() => setFilter("Alcaldes")}
+            >
+              Alcaldes
+            </button>
+          </div>
+        )}
+
+        {/* Lista de candidatos */}
+        {filteredCandidates && filteredCandidates.length > 0 ? (
+          <div style={{ paddingLeft: 0, paddingRight: 0 }}>
+            {filteredCandidates.map((candidate: any, index: number) => (
               <div
                 key={candidate.id}
                 className={styles.candidateCard}
@@ -49,8 +82,12 @@ const WidgetCandidates = ({ data, params }: any) => {
                   <p>{candidate?.name}</p>
                   <p>{candidate?.last_name}</p>
                 </div>
-                {/* <div className={styles.professionInfo}>Montevideo</div> */}
-                <div className={styles.professionInfo}>{candidate?.profession}</div>
+                <div className={styles.professionInfo}>
+                  {candidate?.dpto?.name}
+                </div>
+                <div className={styles.professionInfo}>
+                  {candidate?.profession}
+                </div>
               </div>
             ))}
           </div>
@@ -58,6 +95,8 @@ const WidgetCandidates = ({ data, params }: any) => {
           <p className={styles.noCandidates}>No tienes candidatos</p>
         )}
       </WidgetBase>
+
+      {/* Detalle del candidato */}
       {userId && (
         <DetailCandidate
           id={userId}
