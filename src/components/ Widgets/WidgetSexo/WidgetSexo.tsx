@@ -13,6 +13,7 @@ type Widget3Data = {
   cant_m: number;
   cant_f: number;
   cant_x: number;
+  cant_n: number;
 };
 
 type WidgetSexoProps = {
@@ -35,7 +36,7 @@ const WidgetSexo = ({ widget3 }: WidgetSexoProps) => {
         series: [
           {
             name: "Cantidad",
-            data: [widget3?.cant_m, widget3?.cant_f, widget3?.cant_x],
+            data: [widget3?.cant_m, widget3?.cant_f, widget3?.cant_n],
           },
         ],
         chart: {
