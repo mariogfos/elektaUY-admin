@@ -895,8 +895,6 @@ const useCrud = ({
       setHeader(getHeader());
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fields]);
-
-    // console.log(data?.data.length, params.perPage, params.page);
     return (
       <div className={styles.useCrud}>
         {openList && <AddMenu filters={lFilter} />}
