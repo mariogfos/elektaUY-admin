@@ -34,6 +34,7 @@ const RenderView = (props: {
   //     (e: any) => e.id == props.item?.[entidad[props.item.level] + "_id"]
   //   )?.name;
   // };
+  console.log(props.item);
   return (
     <DataModal
       open={props.open}

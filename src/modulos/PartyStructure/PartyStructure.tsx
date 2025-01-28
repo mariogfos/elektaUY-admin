@@ -18,7 +18,7 @@ import NotAccess from "@/components/auth/NotAccess/NotAccess";
 
 const PartyStructure = () => {
   const { user, setStore, userCan } = useAuth();
-  const [currentList, setCurrentList] = useState(0);
+  // const [currentList, setCurrentList] = useState(0);
   const [precarga, setPrecarga] = useState({});
   const [params, setParams]: any = useState({
     fullType: "DATA",
@@ -45,9 +45,9 @@ const PartyStructure = () => {
 
   useEffect(() => {
     reLoad(params);
-    if (params?.level == 3) {
-      setCurrentList(params.searchBy);
-    }
+    // if (params?.level == 3) {
+    //   setCurrentList(params.searchBy);
+    // }
   }, [params]);
 
   const {
@@ -173,7 +173,7 @@ const PartyStructure = () => {
                   setParams={setParams}
                   params={params}
                   addClick={addClick}
-                  listaActual={currentList}
+                  // listaActual={currentList}
                   level={level}
                   paramsHist={paramsHist}
                   setLevel={setLevel}

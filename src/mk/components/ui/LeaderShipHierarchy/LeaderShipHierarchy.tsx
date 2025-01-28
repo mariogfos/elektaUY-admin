@@ -20,7 +20,7 @@ interface Props {
   params: any;
   setParams: Function;
   addClick?: any;
-  listaActual: any;
+  // listaActual: any;
   level: number;
   setLevel: Function;
   setParamsHist: Function;
@@ -36,7 +36,7 @@ const LeadershipHierarchy = ({
   params,
   setParams,
   addClick,
-  listaActual,
+  // listaActual,
   level,
   setLevel,
   setParamsHist,
@@ -45,25 +45,26 @@ const LeadershipHierarchy = ({
   userCan = () => false,
 }: Props) => {
   const handleButtonPress = (props: any) => {
+    // console.log(props.entity);
     setParamsHist([...paramsHist, params]);
     setParams({
       ...params,
       level: props.level + 1,
       searchBy: props.entity.id,
-      lista_id: listaActual,
+      lista_id: props.level == 2 ? 2 : 1,
     });
   };
   const [line2, setLine2] = useState([]);
   // const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   // const [activeTooltipIndex, setActiveTooltipIndex] = useState(null);
   const [userId, setUserId]: any = useState(null);
-  const charges: any = {
-    0: "Administrador de partido",
-    1: "Coordinador de provincia",
-    2: "Coordinador de cantón",
-    3: "Coordinador de parroquia",
-    4: "Líder de barrio",
-  };
+  // const charges: any = {
+  //   0: "Administrador de partido",
+  //   1: "Coordinador de provincia",
+  //   2: "Coordinador de cantón",
+  //   3: "Coordinador de parroquia",
+  //   4: "Líder de barrio",
+  // };
 
   useEffect(() => {
     //ordenar line2 por line2?.line3?.total en orden descendente
