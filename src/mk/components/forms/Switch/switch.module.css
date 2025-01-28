@@ -67,10 +67,12 @@
 
 .logo-label {
   display: flex;
-  gap: var(--sPs);
+  gap: var(--spS);
   font-size: var(--sS);
   color: var(--cWhiteV1);
+  cursor: pointer;
   margin-right: var(--sPs);
+  align-items: center;
 }
 
 .label-active {

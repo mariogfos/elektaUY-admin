@@ -30,40 +30,50 @@ export const DashboardMap = ({
 
   const [isMontevideoLevel2, setIsMontevideoLevel2] = useState(false);
 
-  // // UseEffect para sincronizar el estado de isMontevideoLevel2 según params y itemSelected
-  // useEffect(() => {
-  //   const shouldShowBarrios =
-  //     params[0]?.level === 2 && itemSelected?.name === "Montevideo";
-  //   if (shouldShowBarrios !== isMontevideoLevel2) {
-  //     setIsMontevideoLevel2(shouldShowBarrios);
-  //   }
-  // }, [params, itemSelected, isMontevideoLevel2]);
+  // UseEffect para sincronizar el estado de isMontevideoLevel2 según params y itemSelected
+  useEffect(() => {
+    const shouldShowBarrios =
+      params[0]?.level === 2 && itemSelected?.name === "Montevideo";
+    if (shouldShowBarrios !== isMontevideoLevel2) {
+      setIsMontevideoLevel2(shouldShowBarrios);
+    }
+  }, []);
 
-  // // Maneja el cambio del switch
-  // const handleSwitchChange = (value: string) => {
-  //   setIsMontevideoLevel2(value === "N"); // Sincroniza el estado con el Switch
-  // };
+  // Maneja el cambio del switch
+  const handleSwitchChange = (value: string) => {
+    setIsMontevideoLevel2(value === "N"); // Sincroniza el estado con el Switch
+  };
 
   return (
     <div className={styles.WidgetMaps}>
-      <div>
-        Resumen de afiliados a nivel{" "}
-        {params[0]?.level === 1
-          ? "Nacional"
-          : params[0]?.level === 2
-          ? "Departamento"
-          : "Municipio"}
+      <div
+        style={{
+          display: "flex",
+          justifyContent:
+            params[0]?.level === 2 && itemSelected?.name === "Montevideo"
+              ? "space-between"
+              : "normal",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          Resumen de afiliados a nivel{" "}
+          {params[0]?.level === 1
+            ? "Nacional"
+            : params[0]?.level === 2
+            ? "Departamento"
+            : "Municipio"}
+        </div>
+        {params[0]?.level === 2 && itemSelected?.name === "Montevideo" && (
+          <Switch
+            name="showBarrios"
+            optionValue={["Y", "N"]}
+            value={isMontevideoLevel2 ? "N" : "Y"}
+            onChange={handleSwitchChange}
+            label={"Ver barrios"}
+          />
+        )}
       </div>
-
-      {/* {params[0]?.level === 2 && itemSelected?.name === "Montevideo" && (
-        <Switch
-          name="showBarrios"
-          optionValue={["Y", "N"]}
-          value={isMontevideoLevel2 ? "N" : "Y"}
-          onChange={handleSwitchChange}
-          label={"Ver barrios"}
-        />
-      )} */}
 
       <div className={styles.stats}>
         <Card style={{ textAlign: "right", fontSize: 16 }}>

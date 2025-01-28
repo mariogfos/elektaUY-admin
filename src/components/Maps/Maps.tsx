@@ -16,6 +16,7 @@ import {
   pathsB,
   pathsBaltasarBrum,
   pathsBarriadaMedina,
+  pathsBarriosMontevideo,
   pathsBarrosBlancos,
   pathsBellaUnion,
   pathsC,
@@ -177,8 +178,8 @@ const Maps = ({
   if (param?.level == 2) {
     switch (param?.code) {
       case "Montevideo":
-        // path = showBarrios ? pathsMontevideo : pathsArtigas;
-        path = pathsMontevideo;
+        path = showBarrios ? pathsMontevideo : pathsBarriosMontevideo;
+        // path = pathsMontevideo;
         break;
       case "Artigas":
         path = pathsArtigas;
