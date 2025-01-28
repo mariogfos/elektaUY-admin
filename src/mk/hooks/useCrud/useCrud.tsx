@@ -229,7 +229,7 @@ const useCrud = ({
       let searchBy = item.id;
       if (mod.loadView.key_id) {
         searchBy = item[mod.loadView.key_id];
-        delete mod.loadView.key_id;
+        // delete mod.loadView.key_id;
       }
 
       const { data: view } = await execute("/" + mod.modulo, "GET", {
