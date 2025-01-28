@@ -85,6 +85,9 @@ const AddContent = ({
     if (formState?.isType == "P") {
       setFormState({ ...formState, title: null });
     }
+    if (formState?.isType == "N") {
+      setFormState({ ...formState, type: "I" });
+    }
   }, [formState?.isType]);
 
   useEffect(() => {
@@ -287,7 +290,7 @@ const AddContent = ({
       affCount: data?.data?.affCount,
     });
   };
-  console.log(errors);
+
   return (
     open && (
       <div className={styles.AddContent}>
@@ -468,7 +471,10 @@ const AddContent = ({
             open={openDestiny}
             onClose={() => {
               setOpenDestiny(false);
-              setFormState({ ...formState, destiny: item.destiny });
+              setFormState({
+                ...formState,
+                destiny: item.destiny || formState.destiny,
+              });
             }}
             selDestinies={selDestinies(formState?.destiny)}
             formState={{ ...formState, lDestiny: ldestinys }}

@@ -140,6 +140,7 @@ const Profile = () => {
     setFormState(user);
     setErrors({});
     setOpenProfileModal(false);
+    setPreview(null);
   };
 
   const onChangeFile = async (e: any) => {
@@ -148,17 +149,16 @@ const Profile = () => {
     try {
       const file = e.target.files[0];
       if (
-        !["png", "jpg", "jpeg"].includes(
+        !["png", "jpg", "jpeg", "PNG"].includes(
           file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2)
         )
       ) {
-        showToast("Solo se permiten imágenes", "error");
+        showToast("Solo se permiten imágenes png, jpg, jpeg", "error");
         return;
       }
       const image: any = await resizeImage(file, 720, 1024, 0.7);
       let base64String = image.replace("data:", "").replace(/^.+,/, "");
       base64String = encodeURIComponent(base64String);
-      console.log("base64String compress", base64String);
       setPreview(image);
       setFormState({ ...formState, avatar: base64String });
       // const reader = new FileReader();

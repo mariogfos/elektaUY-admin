@@ -57,13 +57,13 @@ const LeadershipHierarchy = ({
   // const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   // const [activeTooltipIndex, setActiveTooltipIndex] = useState(null);
   const [userId, setUserId]: any = useState(null);
-  const charges: any = {
-    0: "Administrador de partido",
-    1: "Coordinador de provincia",
-    2: "Coordinador de cantón",
-    3: "Coordinador de parroquia",
-    4: "Líder de barrio",
-  };
+  // const charges: any = {
+  //   0: "Administrador de partido",
+  //   1: "Coordinador de provincia",
+  //   2: "Coordinador de cantón",
+  //   3: "Coordinador de parroquia",
+  //   4: "Líder de barrio",
+  // };
 
   useEffect(() => {
     //ordenar line2 por line2?.line3?.total en orden descendente

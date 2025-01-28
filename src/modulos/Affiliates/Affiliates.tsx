@@ -67,6 +67,7 @@ const Affiliates = () => {
     }) => <RenderView {...props} />,
     extraData: true,
     hideActions: { add: true, edit: true, del: true },
+    loadView: { key_id: "affiliate_id" },
 
     // onHideActions: (item: any) => {
     //   return {

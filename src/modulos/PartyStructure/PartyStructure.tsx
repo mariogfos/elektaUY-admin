@@ -45,7 +45,7 @@ const PartyStructure = () => {
 
   useEffect(() => {
     reLoad(params);
-    if (params?.level == 3) {
+    if (params?.level == 2) {
       setCurrentList(params.searchBy);
     }
   }, [params]);
