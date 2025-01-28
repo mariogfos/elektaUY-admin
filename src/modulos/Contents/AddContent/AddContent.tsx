@@ -471,7 +471,10 @@ const AddContent = ({
             open={openDestiny}
             onClose={() => {
               setOpenDestiny(false);
-              setFormState({ ...formState, destiny: item.destiny });
+              setFormState({
+                ...formState,
+                destiny: item.destiny || formState.destiny,
+              });
             }}
             selDestinies={selDestinies(formState?.destiny)}
             formState={{ ...formState, lDestiny: ldestinys }}
