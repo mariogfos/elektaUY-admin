@@ -942,10 +942,12 @@ const useCrud = ({
               {((data?.data.length == params.perPage &&
                 data?.message?.total > data?.data.length) ||
                 params.page > 1) && (
-                <div style={{ marginTop: 12 }}>
+                <div>
                   <Pagination
                     currentPage={params.page}
                     onPageChange={onChangePage}
+                    setParams={setParams}
+                    params={params}
                     totalPages={Math.ceil(
                       (data?.message?.total || 1) / (params.perPage || 1)
                     )}

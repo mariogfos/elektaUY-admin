@@ -59,11 +59,11 @@ const DetailUsers = ({ open, close, item, id }: PropsDetailUsers) => {
               {data?.data?.user?.[0]?.role[0]?.name}{" "}
               {data?.data?.user?.[0]?.role[0]?.level > 1 && " del "}
               {data?.data?.user?.[0]?.role[0]?.level === 2
-                ? data?.data?.user?.[0]?.prov
+                ? data?.data?.user?.[0]?.lista
                 : data?.data?.user?.[0]?.role[0]?.level === 3
-                ? data?.data?.user?.[0]?.canton
+                ? data?.data?.user?.[0]?.dpto
                 : data?.data?.user?.[0]?.role[0]?.level === 4
-                ? data?.data?.user?.[0]?.parish
+                ? data?.data?.user?.[0]?.mun
                 : data?.data?.user?.[0]?.role[0]?.level === 5
                 ? data?.data?.user?.[0]?.barrio
                 : ""}
