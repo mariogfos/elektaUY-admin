@@ -29,19 +29,29 @@ export const DashboardMap = ({
   );
 
   const [isMontevideoLevel2, setIsMontevideoLevel2] = useState(false);
+  const [showBarrios, setShowBarrios] = useState("N");
 
   // UseEffect para sincronizar el estado de isMontevideoLevel2 según params y itemSelected
   useEffect(() => {
     const shouldShowBarrios =
-      params[0]?.level === 2 && itemSelected?.name === "Montevideo";
-    if (shouldShowBarrios !== isMontevideoLevel2) {
-      setIsMontevideoLevel2(shouldShowBarrios);
-    }
+      params[0]?.level === 2 &&
+      (params[0]?.code === "Montevideo" || params[0]?.name === "Montevideo");
+    // if (shouldShowBarrios !== isMontevideoLevel2) {
+    setIsMontevideoLevel2(shouldShowBarrios);
+    // }
+    console.log(
+      "useeffect",
+      params,
+      shouldShowBarrios,
+      isMontevideoLevel2,
+      itemSelected
+    );
   }, []);
 
   // Maneja el cambio del switch
-  const handleSwitchChange = (value: string) => {
-    setIsMontevideoLevel2(value === "N"); // Sincroniza el estado con el Switch
+  const handleSwitchChange = (value: any) => {
+    // console.log("handleSwitchChange", value);
+    setShowBarrios(value?.target.checked ? "Y" : "N"); // Sincroniza el estado con el Switch
   };
 
   return (
@@ -64,11 +74,11 @@ export const DashboardMap = ({
             ? "Departamento"
             : "Municipio"}
         </div>
-        {params[0]?.level === 2 && itemSelected?.name === "Montevideo" && (
+        {isMontevideoLevel2 && (
           <Switch
             name="showBarrios"
             optionValue={["Y", "N"]}
-            value={isMontevideoLevel2 ? "N" : "Y"}
+            value={showBarrios}
             onChange={handleSwitchChange}
             label={"Ver barrios"}
           />
@@ -133,7 +143,7 @@ export const DashboardMap = ({
           params={params}
           onClick={onClick}
           itemSelected={itemSelected}
-          showBarrios={isMontevideoLevel2}
+          showBarrios={showBarrios != "Y"}
         />
         {params[0]?.level === 1 && (
           <div>
