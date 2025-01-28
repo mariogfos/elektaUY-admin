@@ -1,14 +1,28 @@
 .pagination {
-    width: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: var(--spS);
+  /* background-color: var(--cBlackV1); */
+  padding: 12px;
+  /* border-radius: 0px 0px 16px 16px; */
+  & > span {
+    border-radius: var(--bRadiusS);
+    border: var(--bWidth) solid var(--cBlackV3);
+    padding: 6px;
+  }
+  & > section {
     display: flex;
-    justify-content: left;
+    justify-content: center;
+    width: 100%;
     align-items: center;
     gap: var(--spS);
-    & > span,
+
     & > div {
       width: 32px;
       height: 32px;
-      border: var(--bWidth) solid var(--cBlackV3);
+      /* border: var(--bWidth) solid var(--cBlackV3); */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,8 +30,12 @@
       color: var(--cWhiteV1);
       cursor: pointer;
     }
+  }
+
+  & > section {
     & > div.active {
       background-color: var(--cPrimary);
       color: var(--cBlack);
     }
   }
+}
