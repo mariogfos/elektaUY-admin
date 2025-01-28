@@ -10,6 +10,15 @@ import WidgetCandidates from "../ Widgets/WidgetCandidates/WidgetCandidates";
 import HistoryTitle from "../ Widgets/WidgetHistoryTitle/HistoryTitle";
 import { WidgetSkeleton } from "@/mk/components/ui/Skeleton/Skeleton";
 import DashboardMap from "../ Widgets/DashboardMap/DashboardMap";
+import { createClient } from "@supabase/supabase-js";
+const supabaseUrl = "https://ccdejfqjluxvelamywcs.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjZGVqZnFqbHV4dmVsYW15d2NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgwMDY4MjQsImV4cCI6MjA1MzU4MjgyNH0.ncDSl6Vo-KGSjIcV-TIWYwKGPvolmD9eifoDjIFxV50"; //process.env.SUPABASE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey, {
+  autoRefreshToken: true,
+  persistSession: true,
+  // debug: true,
+});
 
 const HomePage = () => {
   const { setStore, userCan } = useAuth();
@@ -21,6 +30,11 @@ const HomePage = () => {
     "Mapa de " + (user?.entidad?.name || "Uruguay"),
   ]);
 
+  const listUsers = async () => {
+    let { data: users, error } = await supabase.from("usersChat").select("*");
+    console.log("users: ", users, "error:", error);
+    return users;
+  };
   // console.log("user: ", user);
 
   const paramInitial: any = {
@@ -38,6 +52,16 @@ const HomePage = () => {
   // console.log(user?.role.level);
   const [params, setParams] = useState(paramInitial);
 
+  const channels = supabase
+    .channel("custom-insert-channel")
+    .on(
+      "postgres_changes",
+      { event: "INSERT", schema: "public", table: "usersChat" },
+      (payload) => {
+        console.log("Change received!", payload);
+      }
+    )
+    .subscribe();
   useEffect(() => {
     setStore({
       title: "Resumen",
@@ -203,6 +227,10 @@ const HomePage = () => {
           </section>
         </>
       )}
+      <div>
+        Users: <br />
+        {JSON.stringify(listUsers())}
+      </div>
     </div>
   );
 };

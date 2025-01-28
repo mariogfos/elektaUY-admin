@@ -226,11 +226,17 @@ const useCrud = ({
     if (!userCan(mod.permiso, "R"))
       return showToast("No tiene permisos para visualizar", "error");
     if (mod.loadView) {
+      let searchBy = item.id;
+      if (mod.loadView.key_id) {
+        searchBy = item[mod.loadView.key_id];
+        delete mod.loadView.key_id;
+      }
+
       const { data: view } = await execute("/" + mod.modulo, "GET", {
         page: 1,
         perPage: 1,
         fullType: "DET",
-        searchBy: item.id,
+        searchBy: searchBy,
         ...mod.loadView,
       });
       // const { data: d, ...rest } = view?.data ?? {};
