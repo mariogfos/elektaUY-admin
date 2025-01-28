@@ -101,25 +101,6 @@ const Switch = ({
           </div>
         </label>
       </div>
-      {/* <div>
-        {!props.error ? null : (
-          <p
-            style={
-              props.error[props.name] || props.message
-                ? {
-                    display: "block",
-                    color: props.error[props.name]
-                      ? "var(--cSuccess)"
-                      : "var(--cError)",
-                  }
-                : { display: "none" }
-            }
-            className="space-switch"
-          >
-            {props.error[props.name] || props.message || null} &nbsp;
-          </p>
-        )}
-      </div> */}
     </div>
   );
 };

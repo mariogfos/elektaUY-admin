@@ -606,6 +606,7 @@ const Maps = ({
   }
 
   const _onClick = (code: string | number) => {
+    if (!showBarrios) return;
     let row = data?.find((d: any) => d.name == code);
     onClick(row);
   };
@@ -627,7 +628,7 @@ const Maps = ({
     };
 
     setTooltip({
-      visible: id || item != null ? true : false,
+      visible: (id || item != null) && showBarrios ? true : false,
       x: rect.left - svgRect.left + rect.width / 2,
       y: rect.top - svgRect.top,
       item: paramLevel <= 2 ? item : null,
@@ -799,7 +800,9 @@ const Maps = ({
                     path.title === "salar"
                       ? 0
                       : paramLevel === 2
-                      ? 0.4
+                      ? !showBarrios
+                        ? 2
+                        : 0.4
                       : paramLevel === 3
                       ? 0.1
                       : 1,
@@ -810,7 +813,7 @@ const Maps = ({
                       ? "#fff"
                       : "",
                   cursor:
-                    param?.level < 3 && path.title !== "salar"
+                    param?.level < 3 && path.title !== "salar" && showBarrios
                       ? "pointer"
                       : "default",
                 }}

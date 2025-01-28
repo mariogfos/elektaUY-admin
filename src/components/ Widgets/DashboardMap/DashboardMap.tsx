@@ -60,7 +60,7 @@ export const DashboardMap = ({
         style={{
           display: "flex",
           justifyContent:
-            params[0]?.level === 2 && itemSelected?.name === "Montevideo"
+            params[0]?.level === 2 && params[0]?.code === "Montevideo"
               ? "space-between"
               : "normal",
           alignItems: "center",
