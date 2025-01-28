@@ -20,7 +20,7 @@ interface Props {
   params: any;
   setParams: Function;
   addClick?: any;
-  // listaActual: any;
+  listaActual: any;
   level: number;
   setLevel: Function;
   setParamsHist: Function;
@@ -36,7 +36,7 @@ const LeadershipHierarchy = ({
   params,
   setParams,
   addClick,
-  // listaActual,
+  listaActual,
   level,
   setLevel,
   setParamsHist,
@@ -45,13 +45,12 @@ const LeadershipHierarchy = ({
   userCan = () => false,
 }: Props) => {
   const handleButtonPress = (props: any) => {
-    // console.log(props.entity);
     setParamsHist([...paramsHist, params]);
     setParams({
       ...params,
       level: props.level + 1,
       searchBy: props.entity.id,
-      lista_id: props.level == 2 ? 2 : 1,
+      lista_id: listaActual,
     });
   };
   const [line2, setLine2] = useState([]);
