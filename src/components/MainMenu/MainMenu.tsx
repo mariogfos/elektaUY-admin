@@ -73,6 +73,7 @@ const MainMenu = ({
             items={[
               { href: "/contents", label: "Publicaciones" },
               { href: "/events", label: "Eventos" },
+              { href: "/activities", label: "Actividades" },
               { href: "/surveys", label: "Encuestas" },
             ]}
             collapsed={collapsed}
