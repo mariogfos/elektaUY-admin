@@ -71,7 +71,7 @@ const MainMenu = ({
             label="Comunicación"
             icon={<IconComunication />}
             items={[
-              { href: "/contents", label: "Noticias" },
+              { href: "/contents", label: "Publicaciones" },
               { href: "/events", label: "Eventos" },
               { href: "/surveys", label: "Encuestas" },
             ]}

@@ -35,7 +35,7 @@ const RankingHeader = ({
           />
         </div>
         <div>
-          <h1>{type === "N" ? "Ranking Nacional" : "Ranking Provincial"}</h1>
+          <h1>{type === "N" ? "Ranking Nacional" : "Ranking Departamental"}</h1>
           <p>
             {type === "N" ? (
               <>

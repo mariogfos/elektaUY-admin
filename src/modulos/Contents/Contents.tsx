@@ -105,15 +105,15 @@ const rigthFile = (data: {
 const Contents = () => {
   const mod: ModCrudType = {
     modulo: "contents",
-    singular: "noticia",
-    plural: "Contenidos multimedia",
+    singular: "publicación",
+    plural: "Publicaciones",
     permiso: "contents",
     // import: true,
     extraData: true,
     saveMsg: {
-      add: "Noticia creada con éxito",
-      edit: "Noticia actualizada con éxito",
-      del: "Noticia eliminada con éxito",
+      add: "Publicación creada con éxito",
+      edit: "Publicación actualizada con éxito",
+      del: "Publicación eliminada con éxito",
     },
     renderView: (props: {
       open: boolean;
@@ -610,7 +610,7 @@ const Contents = () => {
     mod,
     onEdit,
     onDel,
-    title: "Noticias",
+    title: "Publicaciones",
   });
 
   const [openImport, setOpenImport] = useState(false);
