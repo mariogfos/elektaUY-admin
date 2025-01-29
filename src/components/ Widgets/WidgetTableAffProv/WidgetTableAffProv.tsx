@@ -101,7 +101,7 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
     },
     {
       key: "name",
-      label: type == "dpto" ? "Departamento" : "Localidad",
+      label: type == "dpto" ? "Departamento" : "Municipio",
     },
     {
       key: "afiliados",
@@ -150,7 +150,7 @@ const WidgetTableAffProv = ({ widget, data, type, filters }: any) => {
     <WidgetBase
       title={
         <div className={styles.containerTitle}>
-          <p>Afiliados por {type == "dpto" ? "Departamento" : "localidad"}</p>
+          <p>Afiliados por {type == "dpto" ? "Departamento" : "Municipio"}</p>
           <div style={{ width: "200px" }}>
             <Select
               name="orden"
