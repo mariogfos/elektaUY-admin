@@ -1,8 +1,8 @@
 .metrics {
   width: 100%;
   height: 100vh;
-  padding-right: 24px;
-  padding-left: 24px;
+  /* padding-right: 24px;
+  padding-left: 24px; */
 
   & > div:nth-child(1) {
     display: flex;

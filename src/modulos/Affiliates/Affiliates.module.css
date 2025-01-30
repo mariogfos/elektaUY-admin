@@ -1,7 +1,6 @@
 .affiliates {
   position: relative;
-  padding-left: 24px;
-  padding-right: 24px;
+
   .title {
     font-size: var(--sXl);
     font-weight: 600;
