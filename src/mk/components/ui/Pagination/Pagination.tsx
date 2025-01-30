@@ -52,11 +52,11 @@ const Pagination = ({
       return { firstPage, lastPage, goToNextPage, goToPreviousPage, range };
     }, [currentPage, totalPages]);
 
-  // useEffect(() => {
-  //   if (perPage) {
-  //     setParams({ ...params, perPage: perPage });
-  //   }
-  // }, [perPage]);
+  useEffect(() => {
+    if (perPage) {
+      setParams({ ...params, perPage: perPage });
+    }
+  }, [perPage]);
 
   return (
     <div className={styles.pagination + " " + className}>
@@ -88,7 +88,7 @@ const Pagination = ({
       {/* <span>
         <IconArrowRight onClick={goToNextPage} />
       </span> */}
-      {/* <Select
+      <Select
         name="perPage"
         label="Nro"
         style={{ width: 100 }}
@@ -100,7 +100,7 @@ const Pagination = ({
         ]}
         value={perPage}
         onChange={(e) => setPerPage(e.target.value)}
-      /> */}
+      />
       {total && <p> Total items: {total}</p>}
     </div>
   );
