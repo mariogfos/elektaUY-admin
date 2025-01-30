@@ -7,6 +7,7 @@ import Radio from "@/mk/components/forms/Ratio/Radio";
 import TextArea from "@/mk/components/forms/TextArea/TextArea";
 import styles from "../Activities.module.css";
 import UploadFileMultiple from "@/mk/components/forms/UploadFile/UploadFileMultiple";
+import { UploadFile } from "@/mk/components/forms/UploadFile/UploadFile";
 
 const RenderForm = ({
   onClose,
@@ -188,7 +189,7 @@ const RenderForm = ({
         title="Imagen referencia"
         subtitle="Sube una imagen de la actividad"
       >
-        <UploadFileMultiple
+        <UploadFile
           name="avatar"
           value={formState?.avatar}
           onChange={handleChangeInput}
@@ -197,9 +198,6 @@ const RenderForm = ({
           ext={["jpg", "png", "jpeg", "webp"]}
           setError={setErrors}
           img={true}
-          maxFiles={10}
-          prefix={"CONT"}
-          images={formState?.images}
           item={formState}
           // editor={}
           // sizePreview={_field.sizePreview}
