@@ -28,7 +28,7 @@ import AddContent from "./AddContent/AddContent";
 import { get } from "http";
 
 const paramsInitial = {
-  perPage: 19,
+  perPage: 10,
   page: 1,
   fullType: "L",
   searchBy: "",

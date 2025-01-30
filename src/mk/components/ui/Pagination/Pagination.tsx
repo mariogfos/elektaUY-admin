@@ -29,7 +29,7 @@ const Pagination = ({
   params,
   total = null,
 }: PropsType) => {
-  const [perPage, setPerPage] = useState(null);
+  const [perPage, setPerPage] = useState(params?.perPage);
   const { firstPage, lastPage, goToNextPage, goToPreviousPage, range } =
     useMemo(() => {
       const firstPage = totalPages > 1 ? Math.max(1, currentPage - 3) : 1;
@@ -52,28 +52,32 @@ const Pagination = ({
       return { firstPage, lastPage, goToNextPage, goToPreviousPage, range };
     }, [currentPage, totalPages]);
 
-  useEffect(() => {
-    if (perPage) {
-      setParams({ ...params, perPage: perPage });
-    }
-  }, [perPage]);
+  // useEffect(() => {
+  //   if (perPage) {
+  //     setParams({ ...params, perPage: perPage });
+  //   }
+  // }, [perPage]);
 
   return (
     <div className={styles.pagination + " " + className}>
-      <span>
-        <IconArrowLeft
-          onClick={goToPreviousPage}
-          size={20}
-          color="var(--cBlackV2)"
-        />
-      </span>
-      <span>
-        <IconArrowRight
-          onClick={goToNextPage}
-          size={20}
-          color="var(--cBlackV2)"
-        />
-      </span>
+      {totalPages > 1 && (
+        <>
+          <span>
+            <IconArrowLeft
+              onClick={goToPreviousPage}
+              size={20}
+              color="var(--cBlackV2)"
+            />
+          </span>
+          <span>
+            <IconArrowRight
+              onClick={goToNextPage}
+              size={20}
+              color="var(--cBlackV2)"
+            />
+          </span>
+        </>
+      )}
       <section>
         {range(firstPage, lastPage).map((page: number) => (
           <div
@@ -84,24 +88,36 @@ const Pagination = ({
             {page}
           </div>
         ))}
+        {totalPages <= 1 && <div className={styles["active"]}>1</div>}
       </section>
       {/* <span>
         <IconArrowRight onClick={goToNextPage} />
       </span> */}
+      <div
+        style={{
+          fontSize: "var(--sS)",
+          color: "var(--cBlackV2)",
+          width: "170px",
+          textAlign: "right",
+        }}
+      >
+        Total {total} items{" "}
+      </div>
       <Select
         name="perPage"
-        label="Nro"
-        style={{ width: 100 }}
+        label=""
+        style={{ width: 120 }}
         options={[
           { id: 10, name: "10" },
           { id: 20, name: "20" },
           { id: 30, name: "30" },
           { id: 40, name: "40" },
         ]}
-        value={perPage}
-        onChange={(e) => setPerPage(e.target.value)}
+        value={params?.perPage}
+        onChange={(e) => setParams({ ...params, perPage: e.target.value })}
       />
-      {total && <p> Total items: {total}</p>}
+
+      {/* {total && <p> Total items: {total}</p>} */}
     </div>
   );
 };

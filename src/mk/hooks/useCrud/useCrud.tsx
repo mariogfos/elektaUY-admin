@@ -939,23 +939,24 @@ const useCrud = ({
                   </section>
                 )}
               </section>
-              {((data?.data.length == params.perPage &&
+              {/* {((data?.data.length == params.perPage &&
                 data?.message?.total > data?.data.length) ||
-                params.page > 1) && (
-                <div>
-                  <Pagination
-                    currentPage={params.page}
-                    onPageChange={onChangePage}
-                    setParams={setParams}
-                    params={params}
-                    totalPages={Math.ceil(
-                      (data?.message?.total || 1) / (params.perPage || 1)
-                    )}
-                    previousLabel=""
-                    nextLabel=""
-                  />
-                </div>
-              )}
+                params.page > 1) && ( */}
+              <div>
+                <Pagination
+                  currentPage={params.page}
+                  onPageChange={onChangePage}
+                  setParams={setParams}
+                  params={params}
+                  totalPages={Math.ceil(
+                    (data?.message?.total || 1) / (params.perPage || 1)
+                  )}
+                  previousLabel=""
+                  nextLabel=""
+                  total={data?.message?.total || 0}
+                />
+              </div>
+              {/* )} */}
             </>
           )}
 
