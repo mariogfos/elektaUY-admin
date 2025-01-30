@@ -166,6 +166,8 @@ const RenderForm = ({
           value={formState?.description}
           onChange={handleChangeInput}
           error={errors}
+          isLimit={true}
+          maxLength={5000}
         />
       </CardActivity>
       <CardActivity

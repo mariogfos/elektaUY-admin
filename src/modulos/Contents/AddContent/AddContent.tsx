@@ -237,8 +237,8 @@ const AddContent = ({
   };
 
   const onSave = async () => {
-    setItem({ ...formState });
     if (hasErrors(validate())) return;
+    setItem({ ...formState });
     if (formState.isType == "N" && !formState.avatar && action == "add") {
       showToast("Debe cargar una imagen", "error");
       return;
