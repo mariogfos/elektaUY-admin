@@ -19,7 +19,7 @@ const mod = {
 };
 
 const paramsInitial = {
-  perPage: -1,
+  perPage: 10,
   page: 1,
   fullType: "L",
   searchBy: "",

@@ -29,7 +29,7 @@ const validate = (item: any, user: any) => {
 };
 
 const paramsInitial = {
-  perPage: 12,
+  perPage: 10,
   page: 1,
   fullType: "L",
   searchBy: "",

@@ -15,7 +15,7 @@ import RenderForm from "./RenderForm/RenderForm";
 // import Pagination from "@/mk/components/ui/Pagination/Pagination";
 
 const paramsInitial = {
-  perPage: 14,
+  perPage: 10,
   page: 1,
   fullType: "L",
   searchBy: "",

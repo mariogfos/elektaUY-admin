@@ -52,6 +52,7 @@ const Select = ({
   const selectRef = useRef<HTMLDivElement>(null);
   const [selectedNames, setSelectedNames]: any = useState([]);
   const [position, setPosition]: any = useState(null);
+  const selectRef1 = useRef<HTMLDivElement>(null);
 
   const findParentWithClass = (element: any, className: string) => {
     while (element && element !== document) {
@@ -192,7 +193,7 @@ const Select = ({
   //   // }
   //   // return "";
   // };
-  const selectRef1 = useRef<HTMLDivElement>(null);
+
   const Section = () => {
     const [search, setSearch] = useState("");
     const [_options, setFilterOptions]: any = useState(options);

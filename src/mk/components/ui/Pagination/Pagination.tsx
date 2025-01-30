@@ -60,25 +60,27 @@ const Pagination = ({
 
   return (
     <div className={styles.pagination + " " + className}>
-      {totalPages > 1 && (
-        <>
-          <span>
-            <IconArrowLeft
-              onClick={goToPreviousPage}
-              size={20}
-              color="var(--cBlackV2)"
-            />
-          </span>
-          <span>
-            <IconArrowRight
-              onClick={goToNextPage}
-              size={20}
-              color="var(--cBlackV2)"
-            />
-          </span>
-        </>
-      )}
-      <section>
+      <div>
+        {totalPages > 1 && (
+          <>
+            <span>
+              <IconArrowLeft
+                onClick={goToPreviousPage}
+                size={20}
+                color="var(--cBlackV2)"
+              />
+            </span>
+            <span>
+              <IconArrowRight
+                onClick={goToNextPage}
+                size={20}
+                color="var(--cBlackV2)"
+              />
+            </span>
+          </>
+        )}
+      </div>
+      <div>
         {range(firstPage, lastPage).map((page: number) => (
           <div
             key={page}
@@ -89,33 +91,27 @@ const Pagination = ({
           </div>
         ))}
         {totalPages <= 1 && <div className={styles["active"]}>1</div>}
-      </section>
+      </div>
       {/* <span>
         <IconArrowRight onClick={goToNextPage} />
       </span> */}
-      <div
-        style={{
-          fontSize: "var(--sS)",
-          color: "var(--cBlackV2)",
-          width: "170px",
-          textAlign: "right",
-        }}
-      >
-        Total {total} items{" "}
+      <div>
+        <p>Total {total} items </p>
+        <Select
+          inputStyle={{ marginBottom: 0 }}
+          name="perPage"
+          label=""
+          style={{ width: 120 }}
+          options={[
+            { id: 10, name: "10" },
+            { id: 20, name: "20" },
+            { id: 30, name: "30" },
+            { id: 40, name: "40" },
+          ]}
+          value={params?.perPage}
+          onChange={(e) => setParams({ ...params, perPage: e.target.value })}
+        />
       </div>
-      <Select
-        name="perPage"
-        label=""
-        style={{ width: 120 }}
-        options={[
-          { id: 10, name: "10" },
-          { id: 20, name: "20" },
-          { id: 30, name: "30" },
-          { id: 40, name: "40" },
-        ]}
-        value={params?.perPage}
-        onChange={(e) => setParams({ ...params, perPage: e.target.value })}
-      />
 
       {/* {total && <p> Total items: {total}</p>} */}
     </div>

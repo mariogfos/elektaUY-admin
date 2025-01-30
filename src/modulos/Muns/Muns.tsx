@@ -21,7 +21,7 @@ const mod = {
 };
 
 const paramsInitial = {
-  perPage: 25,
+  perPage: 10,
   page: 1,
   fullType: "L",
   searchBy: "",
