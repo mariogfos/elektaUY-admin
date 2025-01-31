@@ -274,6 +274,17 @@ const DetailCandidate = ({ open, close, id }: PropsDetailCandidate) => {
               </>
             ) : null}
             <div>
+              {candidate?.data[0].profession && (
+                <div>
+                  <div className={styles.titleDetail}>Profesión:</div>
+                  <div
+                    className={styles.subtitleDetail}
+                    style={{ marginBottom: 12 }}
+                  >
+                    {candidate?.data[0].profession}
+                  </div>
+                </div>
+              )}
               <div>
                 <div className={styles.titleDetail}>Ideología política</div>
                 <div
@@ -283,24 +294,29 @@ const DetailCandidate = ({ open, close, id }: PropsDetailCandidate) => {
                   {lIdeologies[candidate?.data[0].ideology]?.name}
                 </div>
               </div>
-              <div>
-                <div className={styles.titleDetail}>Biografía</div>
-                <div
-                  style={{ marginBottom: 12 }}
-                  className={styles.subtitleDetail}
-                >
-                  {candidate?.data[0].biography}
+              {candidate?.data[0].biography && (
+                <div>
+                  <div className={styles.titleDetail}>Biografía</div>
+                  <div
+                    style={{ marginBottom: 12 }}
+                    className={styles.subtitleDetail}
+                  >
+                    {candidate?.data[0].biography}
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className={styles.titleDetail}>Experiencia política</div>
-                <div
-                  className={styles.subtitleDetail}
-                  style={{ marginBottom: 12 }}
-                >
-                  {candidate?.data[0].experience}
+              )}
+
+              {candidate?.data[0].experience && (
+                <div>
+                  <div className={styles.titleDetail}>Experiencia política</div>
+                  <div
+                    className={styles.subtitleDetail}
+                    style={{ marginBottom: 12 }}
+                  >
+                    {candidate?.data[0].experience}
+                  </div>
                 </div>
-              </div>
+              )}
               <div>
                 <div className={styles.titleDetail}>Plan de gobierno</div>
                 <div
