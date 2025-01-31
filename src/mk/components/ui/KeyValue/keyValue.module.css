@@ -1,16 +1,20 @@
 .keyValue {
   display: flex;
-  font-size: var(--sS);
+  /* font-size: var(--sS); */
+  font-size: 14px;
   margin-bottom: var(--spXs);
   gap: var(--spS);
   & > div:nth-child(1) {
     color: var(--cWhiteV1);
     flex: 1;
-    text-align: right;
+    text-align: left;
+    font-weight: 500;
+    margin-top: 8px;
   }
   & > div:nth-child(2) {
     color: var(--cWhite);
     flex: 1;
-    text-align: left;
+    text-align: right;
+    font-weight: 400;
   }
 }

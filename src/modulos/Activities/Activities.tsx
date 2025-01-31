@@ -12,6 +12,7 @@ import { getFullName, getUrlImages } from "@/mk/utils/string";
 // import { useAuth } from "@/mk/contexts/AuthProvider";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import RenderForm from "./RenderForm/RenderForm";
+import RenderView from "./RenderView/RenderView";
 // import Pagination from "@/mk/components/ui/Pagination/Pagination";
 
 const paramsInitial = {
@@ -23,18 +24,21 @@ const paramsInitial = {
 
 const Activities = () => {
   const mod: ModCrudType = {
-    modulo: "activities",
+    // modulo: "activities",
+    modulo: "affiliates",
     singular: "Actividad",
     plural: "Actividades",
     permiso: "",
     // import: true,
-    // renderView: (props: {
-    //   open: boolean;
-    //   onClose: any;
-    //   item: Record<string, any>;
-    //   onConfirm?: Function;
-    //   extraData?: Record<string, any>;
-    // }) => <RenderView {...props} />,
+    renderView: (props: {
+      open: boolean;
+      onClose: any;
+      item: Record<string, any>;
+      onConfirm?: Function;
+      extraData?: Record<string, any>;
+      openList: any;
+      setOpenList: any;
+    }) => <RenderView {...props} />,
     renderForm: (props: {
       item: any;
       setItem: any;
@@ -69,7 +73,7 @@ const Activities = () => {
     },
     extraData: true,
     hideActions: { edit: true, del: true },
-    loadView: { key_id: "affiliate_id" },
+    // loadView: { key_id: "affiliate_id" },
 
     // onHideActions: (item: any) => {
     //   return {
@@ -83,63 +87,6 @@ const Activities = () => {
   const fields = useMemo(() => {
     return {
       id: { rules: [], api: "e" },
-
-      fullName: {
-        // rules: ["required"],
-        api: "ae",
-        label: "Nombre del afiliado",
-        form: false,
-        onRender: ({ item, extraData }: any) => {
-          let entidad = "";
-          if (user?.role?.level == 1) {
-            entidad =
-              "Departamento - " +
-              extraData?.dptos?.find((dpto: any) => dpto?.id == item?.dpto_id)
-                ?.name;
-          }
-          if (user?.role?.level == 2) {
-            entidad =
-              "Municipio - " +
-              extraData?.muns?.find((mun: any) => mun?.id == item?.mun_id)
-                ?.name;
-          }
-          if (user?.role?.level == 3) {
-            entidad =
-              "localidad - " +
-              extraData?.locals?.find((lo: any) => lo?.id == item?.local_id)
-                ?.name;
-          }
-          if (user?.role?.level == 4) {
-            entidad =
-              "Barrio - " +
-              extraData?.barrios?.find((ba: any) => ba?.id == item?.barrio_id)
-                ?.name;
-          }
-          if (user?.role?.level == 5) {
-            entidad = "";
-          }
-          return (
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <Avatar
-                src={getUrlImages(
-                  "/AFF-" + item?.affiliate_id + ".webp?d=" + item?.updated_at
-                )}
-                name={getFullName(item)}
-              />
-              <p>
-                {getFullName(item)}
-                <br />
-                {entidad.includes("undefined") ? (
-                  ""
-                ) : (
-                  <p style={{ marginTop: 4 }}>{entidad}</p>
-                )}
-              </p>
-            </div>
-          );
-        },
-        list: true,
-      },
 
       name: {
         rules: ["required"],
