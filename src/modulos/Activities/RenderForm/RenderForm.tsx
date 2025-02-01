@@ -36,9 +36,26 @@ const RenderForm = ({
       setFormState({
         ...item,
         activity_mode: "P",
+        location: "",
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (formState?.activity_mode == "V") {
+      setFormState({
+        ...formState,
+        location: "",
+        address: "",
+      });
+    }
+    if (formState?.activity_mode == "P") {
+      setFormState({
+        ...formState,
+        location: "",
+      });
+    }
+  }, [formState?.activity_mode]);
   const { showToast } = useAuth();
   const [errors, setErrors]: any = useState({});
   const [openDestiny, setOpenDestiny] = useState(false);
