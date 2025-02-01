@@ -14,6 +14,7 @@ import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import RenderForm from "./RenderForm/RenderForm";
 import RenderView from "./RenderView/RenderView";
 // import Pagination from "@/mk/components/ui/Pagination/Pagination";
+import { getDateStrMes } from "../../mk/utils/date";
 
 const paramsInitial = {
   perPage: 10,
@@ -24,8 +25,8 @@ const paramsInitial = {
 
 const Activities = () => {
   const mod: ModCrudType = {
-    // modulo: "activities",
-    modulo: "affiliates",
+    modulo: "activities",
+    // modulo: "affiliates",
     singular: "Actividad",
     plural: "Actividades",
     permiso: "",
@@ -72,8 +73,8 @@ const Activities = () => {
       );
     },
     extraData: true,
-    hideActions: { edit: true, del: true },
-    // loadView: { key_id: "affiliate_id" },
+
+    loadView: {},
 
     // onHideActions: (item: any) => {
     //   return {
@@ -87,54 +88,121 @@ const Activities = () => {
   const fields = useMemo(() => {
     return {
       id: { rules: [], api: "e" },
+      created_at: {
+        rules: [],
+        api: "e",
+        label: "Fecha de creación",
+        form: {
+          type: "date",
+        },
+        list: {
+          width: "200px",
+          onRender: (item: any) => {
+            // return getDateStrMes(item.item.created_at);
+            // hacer que te diga hoy si la actividad se creo hoy con la hora
+            const date = new Date(item.item.created_at);
+            const today = new Date();
+            if (
+              date.getDate() == today.getDate() &&
+              date.getMonth() == today.getMonth() &&
+              date.getFullYear() == today.getFullYear()
+            ) {
+              return "Hoy";
+            } else {
+              return getDateStrMes(item.item.created_at);
+            }
+          },
+        },
+      },
 
       name: {
         rules: ["required"],
         api: "ae",
-        label: "Primer nombre",
+        label: "Nombre de la actividad",
         form: {
           type: "text",
         },
-        list: false,
-      },
-      middle_name: {
-        rules: [""],
-        api: "ae",
-        label: "Segundo nombre",
-        form: { type: "text" },
-        list: false,
-      },
-      last_name: {
-        rules: ["required"],
-        api: "ae",
-        label: "Apellido paterno",
-        form: { type: "text" },
-        list: false,
-      },
-      mother_last_name: {
-        rules: [""],
-        api: "ae",
-        label: "Apellido materno",
-        form: { type: "text" },
-        list: false,
-      },
-      level: {
-        rules: ["required"],
-        api: "ae",
-        label: "Nivel",
-        form: {
-          type: "text",
+        list: {
+          onRender: ({ item }: any) => {
+            return (
+              <div>
+                <p style={{ color: "var(--cWhite)" }}>{item.name}</p>
+                <p>{item.description}</p>
+              </div>
+            );
+          },
         },
-        list: { width: "100px" },
       },
-      points: {
+      // description: {
+      //   rules: ["required"],
+      //   api: "ae",
+      //   label: "Descripción",
+      //   form: {
+      //     type: "text",
+      //   },
+      //   list: true,
+      // },
+      user_id: {
         rules: ["required"],
         api: "ae",
-        label: "Puntos",
+        label: "Coordinador",
         form: {
-          type: "text",
+          type: "select",
+          optionsExtra: "gabinete",
         },
-        list: { width: "100px" },
+        list: {
+          width: "400px",
+          // options: ({ extraData }: any) => {
+          //   console.log(extraData);
+          // },
+          onRender: ({ item, extraData }: any) => {
+            let coo = extraData?.gabinete?.find(
+              (e: any) => e.user_id == item.user_id
+            );
+            return (
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <Avatar
+                  src={getUrlImages(
+                    "/ADM-" + item.user_id + ".webp?d=" + item.updated_at
+                  )}
+                  name={getFullName(coo)}
+                />
+                <p>{getFullName(coo)}</p>
+              </div>
+            );
+          },
+        },
+      },
+      activity_mode: {
+        rules: ["required"],
+        api: "ae",
+        label: "Modalidad",
+        form: {
+          type: "select",
+          options: [
+            { id: "P", name: "Presencial" },
+            { id: "V", name: "Virtual" },
+          ],
+        },
+        list: {
+          width: "100px",
+        },
+      },
+      activity_status: {
+        rules: ["required"],
+        api: "ae",
+        label: "Estado",
+        form: {
+          type: "select",
+          options: [
+            { id: "P", name: "Pendiente" },
+            { id: "E", name: "En curso" },
+            { id: "F", name: "Finalizada" },
+          ],
+        },
+        list: {
+          width: "100px",
+        },
       },
     };
   }, []);

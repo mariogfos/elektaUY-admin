@@ -6,14 +6,21 @@ type PropsType = {
   title?: string;
   subtitle?: string;
   style?: CSSProperties;
+  styleSubtitle?: CSSProperties;
 };
 
-const CardActivity = ({ children, title, subtitle, style }: PropsType) => {
+const CardActivity = ({
+  children,
+  title,
+  subtitle,
+  style,
+  styleSubtitle,
+}: PropsType) => {
   return (
     <div className={styles.CardActivity} style={style}>
       <div>
         <p>{title}</p>
-        {subtitle && <p>{subtitle}</p>}
+        {subtitle && <p style={styleSubtitle}>{subtitle}</p>}
       </div>
       {children}
     </div>

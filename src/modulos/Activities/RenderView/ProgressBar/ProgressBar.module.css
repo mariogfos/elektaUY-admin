@@ -6,15 +6,18 @@
     background-color: var(--cBlackV2);
     border-radius: 16px;
     height: 8px;
-    .Bar {
+    & > div {
       background-color: var(--cSuccess);
-      border-radius: 16px 0px 0px 16px;
-      border-right: 2px solid var(--cBlackV1);
+      /* border-radius: 16px 0px 0px 16px;
+      border-right: 2px solid var(--cBlackV1); */
+      border-radius: 16px;
       height: 8px;
+      transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out;
     }
   }
   & > div:nth-child(2) {
     width: 144px;
     text-align: right;
+    color: var(--cBlackV2);
   }
 }
