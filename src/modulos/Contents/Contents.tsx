@@ -235,11 +235,12 @@ const Contents = () => {
               "Organización",
               "Departamento",
               "Municipio",
+              "Barrio",
             ];
             if (item?.item?.destiny == 0 || item?.item?.destiny == 1) {
               return "Todos";
             }
-            if (user?.role.level == 3 && item?.item?.destiny == 2) {
+            if (user?.role.level == 2 && item?.item?.destiny == 2) {
               return "Mi organización";
             }
             if (user?.role.level == 3 && item?.item?.destiny == 3) {
