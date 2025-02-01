@@ -93,6 +93,7 @@ import {
   pathsPasoCarrasco,
   pathsPasoDeLosToros,
   pathsPaysandu,
+  pathsPiedrasColoradas,
   pathsPiriápolis,
   pathsPlácidoRosas,
   pathsPorvenir,
@@ -274,6 +275,9 @@ const Maps = ({
         break;
       case "Arévalo":
         path = pathsArevalo;
+        break;
+      case "Piedras Coloradas":
+        path = pathsPiedrasColoradas;
         break;
       case "Tupambaé":
         path = pathsTupambaé;
