@@ -29,7 +29,7 @@ import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 // };
 
 const paramsInitial = {
-  perPage: 14,
+  perPage: 10,
   page: 1,
   fullType: "L",
   searchBy: "",
@@ -67,6 +67,7 @@ const Affiliates = () => {
     }) => <RenderView {...props} />,
     extraData: true,
     hideActions: { add: true, edit: true, del: true },
+    loadView: { key_id: "affiliate_id" },
 
     // onHideActions: (item: any) => {
     //   return {

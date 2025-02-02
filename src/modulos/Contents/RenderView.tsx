@@ -100,7 +100,7 @@ const RenderView = (props: {
       if (data.destiny == 5) {
         lEntidad.push({
           id: item.barrio_id,
-          name: extraData.barrios.find(
+          name: extraData.barrios?.find(
             (barrio: any) => barrio.id == item.barrio_id
           )?.name,
         });

@@ -53,6 +53,9 @@ const WidgetEducation = ({
         "rgba(174, 214, 241, 1)",
         "rgba(170, 183, 184, 1)",
       ];
+      const repeatedColors = categories.map(
+        (_, index) => colors[index % colors.length]
+      );
 
       const options = {
         chart: {
@@ -62,7 +65,7 @@ const WidgetEducation = ({
             show: false,
           },
         },
-        colors: colors,
+        colors: repeatedColors,
         plotOptions: {
           bar: {
             columnWidth: "65%",
@@ -111,7 +114,7 @@ const WidgetEducation = ({
             colors: "#C6C6C6",
           },
           markers: {
-            fillColors: colors,
+            fillColors: repeatedColors,
             radius: 10,
           },
           itemMargin: {

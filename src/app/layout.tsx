@@ -5,7 +5,7 @@ import AxiosInstanceProvider from "@/mk/contexts/AxiosInstanceProvider";
 import axiosInterceptors from "@/mk/interceptors/axiosInterceptors";
 import AuthProvider from "@/mk/contexts/AuthProvider";
 import Layout from "@/components/layout/Layout";
-import { Viewport } from "next";
+import { Metadata, Viewport } from "next";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -17,9 +17,12 @@ import { Viewport } from "next";
 //   subsets: ["latin"],
 // });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME || "Default App Name",
   description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || "Default Description",
+  other: {
+    google: "notranslate",
+  },
 };
 export const viewport: Viewport = {
   width: "device-width",

@@ -96,9 +96,9 @@ const WidgetCandidates = ({ data, params }: any) => {
                 <div className={styles.professionInfo}>
                   {candidate?.dpto?.name}
                 </div>
-                <div className={styles.professionInfo}>
+                {/* <div className={styles.professionInfo}>
                   {candidate?.profession}
-                </div>
+                </div> */}
               </div>
             ))}
           </div>

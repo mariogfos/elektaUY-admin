@@ -28,7 +28,7 @@ import AddContent from "./AddContent/AddContent";
 import { get } from "http";
 
 const paramsInitial = {
-  perPage: 19,
+  perPage: 10,
   page: 1,
   fullType: "L",
   searchBy: "",
@@ -105,15 +105,15 @@ const rigthFile = (data: {
 const Contents = () => {
   const mod: ModCrudType = {
     modulo: "contents",
-    singular: "noticia",
-    plural: "Contenidos multimedia",
+    singular: "publicación",
+    plural: "Publicaciones",
     permiso: "contents",
     // import: true,
     extraData: true,
     saveMsg: {
-      add: "Noticia creada con éxito",
-      edit: "Noticia actualizada con éxito",
-      del: "Noticia eliminada con éxito",
+      add: "Publicación creada con éxito",
+      edit: "Publicación actualizada con éxito",
+      del: "Publicación eliminada con éxito",
     },
     renderView: (props: {
       open: boolean;
@@ -235,11 +235,12 @@ const Contents = () => {
               "Organización",
               "Departamento",
               "Municipio",
+              "Barrio",
             ];
             if (item?.item?.destiny == 0 || item?.item?.destiny == 1) {
               return "Todos";
             }
-            if (user?.role.level == 3 && item?.item?.destiny == 2) {
+            if (user?.role.level == 2 && item?.item?.destiny == 2) {
               return "Mi organización";
             }
             if (user?.role.level == 3 && item?.item?.destiny == 3) {
@@ -610,7 +611,7 @@ const Contents = () => {
     mod,
     onEdit,
     onDel,
-    title: "Noticias",
+    title: "Publicaciones",
   });
 
   const [openImport, setOpenImport] = useState(false);

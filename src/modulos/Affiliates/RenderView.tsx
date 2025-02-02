@@ -3,6 +3,7 @@ import styles from "./Affiliates.module.css";
 import { getUrlImages } from "@/mk/utils/string";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import { getFullName } from "../../mk/utils/string";
+import { getDateStrMes } from "@/mk/utils/date";
 
 const RenderView = (props: {
   open: boolean;
@@ -17,23 +18,24 @@ const RenderView = (props: {
   // });
 
   //   console.log(typeCant);
-  // console.log(props.item);
+  // console.log(props.item?.data);
   // console.log(props?.extraData);
   // let entidades = ["", "", "Provincia", "Cantón", "Parroquia", "Barrio"];
 
   // const getEntidad = () => {
   //   let entidad = ["", "", "prov", "canton", "parish", "barrio"];
   //   let data: any = [];
-  //   if (props.item?.level) {
+  //   if (props.item?.data?.level) {
   //     data =
   //       props?.extraData[
-  //         entidad[props.item.level] + `${props.item.level == 4 ? "es" : "s"}`
+  //         entidad[props.item?.data.level] + `${props.item?.data.level == 4 ? "es" : "s"}`
   //       ];
   //   }
   //   return data?.find(
-  //     (e: any) => e.id == props.item?.[entidad[props.item.level] + "_id"]
+  //     (e: any) => e.id == props.item?.data?.[entidad[props.item?.data.level] + "_id"]
   //   )?.name;
   // };
+  console.log(props.item);
   return (
     <DataModal
       open={props.open}
@@ -47,23 +49,24 @@ const RenderView = (props: {
           <Avatar
             src={getUrlImages(
               "/AFF-" +
-                props.item.affiliate_id +
+                props.item?.data.id +
                 ".webp?d=" +
-                props.item.updated_at
+                props.item?.data.updated_at
             )}
             h={100}
             w={100}
-            name={getFullName(props?.item)}
+            name={getFullName(props?.item?.data)}
           />
           <div>
-            <p className={styles.title}>{getFullName(props.item.affiliate)}</p>
-            {/* <p style={{ color: "var(--cWhiteV1)", fontSize: "var(--sL)" }}>
-              {
-                props.extraData.roles.find(
-                  (e: any) => e.id == props.item.role_id
-                ).name
-              }
-            </p> */}
+            <p className={styles.title}>{getFullName(props.item?.data)}</p>
+            <p style={{ color: "var(--cWhiteV1)", fontSize: "var(--sL)" }}>
+              {props.item?.data.barrio}
+            </p>
+            {props.item?.data.created_at && (
+              <div style={{ color: "var(--cWhiteV1)" }}>
+                Afiliado el {getDateStrMes(props.item?.data.created_at)}
+              </div>
+            )}
             {/* {props?.item?.level > 1 && (
               <p style={{ fontSize: 10 }}>
                 {entidades[props?.item.level] + ": " + getEntidad()}
@@ -79,16 +82,19 @@ const RenderView = (props: {
             </div>
           )} */}
           <div>
-            <p>Cédula de identidad</p>
-            <p>{props.item?.ci}</p>
+            <p>Departamento</p>
+            <p>{props.item?.data?.dpto || "No proporcionado"}</p>
           </div>
           <div>
-            <p>Nivel</p>
-            <p>{props.item?.level}</p>
+            <p>Correo electrónico</p>
+            <p>{props.item?.data?.email || "No proporcionado"}</p>
           </div>
           <div>
-            <p>Puntos</p>
-            <p>{props.item?.points}</p>
+            <p>Número de Whatsapp</p>
+            <p>
+              {props.item?.data?.prefix_phone && props.item?.data?.prefix_phone}{" "}
+              {props.item?.data?.phone || "No proporcionado"}
+            </p>
           </div>
         </section>
       </div>

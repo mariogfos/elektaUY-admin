@@ -1,9 +1,9 @@
 .roles {
   width: 100%;
-  position: relative;
+  /* position: relative;
   padding-left: var(--spL);
   padding-right: var(--spL);
-  padding-bottom: 70px;
+  padding-bottom: 70px; */
 }
 .renderViewContent {
   padding-top: var(--spL);

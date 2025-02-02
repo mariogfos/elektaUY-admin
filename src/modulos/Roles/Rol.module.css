@@ -1,9 +1,5 @@
 .roles {
   width: 100%;
-  position: relative;
-  padding-left: var(--spL);
-  padding-right: var(--spL);
-  padding-bottom: 70px;
   & fieldset {
     /* border border-[#A7A7A7] rounded-md px-4 mt-2 */
     border: 1px solid var(--cWhiteV2);

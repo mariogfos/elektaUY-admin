@@ -45,7 +45,7 @@ const PartyStructure = () => {
 
   useEffect(() => {
     reLoad(params);
-    if (params?.level == 3) {
+    if (params?.level == 2) {
       setCurrentList(params.searchBy);
     }
   }, [params]);
@@ -94,7 +94,7 @@ const PartyStructure = () => {
         />
       </div>
       <div>
-        <div style={{ position: "relative", padding: "0px 16px 70px 16px" }}>
+        <div style={{ position: "relative" }}>
           <div>
             <Card>
               <div className="tTitle">

@@ -237,8 +237,8 @@ const AddContent = ({
   };
 
   const onSave = async () => {
-    setItem({ ...formState });
     if (hasErrors(validate())) return;
+    setItem({ ...formState });
     if (formState.isType == "N" && !formState.avatar && action == "add") {
       showToast("Debe cargar una imagen", "error");
       return;
@@ -471,7 +471,10 @@ const AddContent = ({
             open={openDestiny}
             onClose={() => {
               setOpenDestiny(false);
-              setFormState({ ...formState, destiny: item.destiny });
+              setFormState({
+                ...formState,
+                destiny: item.destiny || formState.destiny,
+              });
             }}
             selDestinies={selDestinies(formState?.destiny)}
             formState={{ ...formState, lDestiny: ldestinys }}

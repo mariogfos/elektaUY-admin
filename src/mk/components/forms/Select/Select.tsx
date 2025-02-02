@@ -50,11 +50,9 @@ const Select = ({
   );
   const [openOptions, setOpenOptions] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
-  const inputFilter = useRef<HTMLInputElement>(null);
   const [selectedNames, setSelectedNames]: any = useState([]);
-
   const [position, setPosition]: any = useState(null);
-  // const [top, setTop] = useState(10);
+  const selectRef1 = useRef<HTMLDivElement>(null);
 
   const findParentWithClass = (element: any, className: string) => {
     while (element && element !== document) {
@@ -109,19 +107,9 @@ const Select = ({
   }, []);
 
   const calcPosition = () => {
-    // let fec: any = new Date();
-    // let f: any =
-    //   fec.getHours() +
-    //   "" +
-    //   fec.getMinutes() +
-    //   "" +
-    //   fec.getSeconds() +
-    //   fec.getMilliseconds();
-    // fec = f * 1;
-    // setTop(fec);
-
     const select: any = selectRef.current;
-    const child: any = select.querySelector("section");
+
+    const child: any = selectRef1.current;
 
     let parent: any = select.getBoundingClientRect();
     let childPosition: any = child?.getBoundingClientRect();
@@ -137,12 +125,11 @@ const Select = ({
       left: parent.left,
       width: parent.width,
     });
-    return;
   };
 
   useEffect(() => {
     if (openOptions) {
-      handleSelectPosition();
+      // handleSelectPosition();
       calcPosition();
     }
   }, [openOptions]);
@@ -197,15 +184,15 @@ const Select = ({
     setOpenOptions((old: boolean) => !old);
   };
 
-  const handleSelectPosition = () => {
-    // const select = selectRef.current;
-    // if (select) {
-    //   const top = select.getBoundingClientRect().top;
-    //   const bottom = window.innerHeight - select.getBoundingClientRect().bottom;
-    //   return top > bottom ? "bottom-full" : "top-full";
-    // }
-    // return "";
-  };
+  // const handleSelectPosition = () => {
+  //   // const select = selectRef.current;
+  //   // if (select) {
+  //   //   const top = select.getBoundingClientRect().top;
+  //   //   const bottom = window.innerHeight - select.getBoundingClientRect().bottom;
+  //   //   return top > bottom ? "bottom-full" : "top-full";
+  //   // }
+  //   // return "";
+  // };
 
   const Section = () => {
     const [search, setSearch] = useState("");
@@ -227,34 +214,24 @@ const Select = ({
       setFilterOptions(filteredOptions);
     };
 
-    const selectRef1 = useRef<HTMLDivElement>(null);
     useOnClickOutside(
       selectRef1,
       (e: any) => {
         setOpenOptions(false);
       },
       selectRef as any
-      // inputFilter as any
     );
     return (
       <section
         ref={selectRef1}
         className={styles.selectOptions + " " + selectOptionsClassName}
         style={{
-          // position: "fixed",
           top: (position?.top || 0) + "px",
           left: (position?.left || 0) + "px",
           width: (position?.width || 0) + "px",
-          // top: "0px",
-          // left: "5px",
-          // width: +"0px",
         }}
       >
-        {/* <div>{JSON.stringify(position)}</div> */}
-        <div
-          className={filter ? "" : "hidden"}
-          // ref={inputFilter}
-        >
+        <div className={filter ? "" : "hidden"}>
           <Input
             type="text"
             value={search}
@@ -333,8 +310,6 @@ const Select = ({
     <div
       ref={selectRef}
       className={styles.select + " " + className}
-      // style={{ zIndex: top }}
-      // onClick={disabled ? () => {} : handleSelectClickIcon}
       style={style}
     >
       <div onClick={disabled ? () => {} : handleSelectClickIcon}>

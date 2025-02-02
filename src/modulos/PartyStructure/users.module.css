@@ -14,7 +14,7 @@
     @media (max-width: 897px) {
       display: flex;
       flex-direction: column;
-      gap:0;
+      gap: 0;
     }
     /* display: flex;
         width:540px; */
@@ -122,10 +122,10 @@
   margin: 0 8px;
 }
 
-
-.selectOptions{
+.selectOptions {
   & > ul {
     & li {
-   padding: 8px 0px;
-    }}
+      padding: 8px 0px;
+    }
+  }
 }

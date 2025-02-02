@@ -140,6 +140,7 @@ const Profile = () => {
     setFormState(user);
     setErrors({});
     setOpenProfileModal(false);
+    setPreview(null);
   };
 
   const onChangeFile = async (e: any) => {
@@ -148,17 +149,16 @@ const Profile = () => {
     try {
       const file = e.target.files[0];
       if (
-        !["png", "jpg", "jpeg"].includes(
+        !["png", "jpg", "jpeg", "PNG"].includes(
           file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2)
         )
       ) {
-        showToast("Solo se permiten imágenes", "error");
+        showToast("Solo se permiten imágenes png, jpg, jpeg", "error");
         return;
       }
       const image: any = await resizeImage(file, 720, 1024, 0.7);
       let base64String = image.replace("data:", "").replace(/^.+,/, "");
       base64String = encodeURIComponent(base64String);
-      console.log("base64String compress", base64String);
       setPreview(image);
       setFormState({ ...formState, avatar: base64String });
       // const reader = new FileReader();
@@ -215,12 +215,12 @@ const Profile = () => {
               </label>
             )}
           </Avatar>
-          <input
+          {/* <input
             type="file"
             id="imagePerfil"
             className="hidden"
             onChange={onChangeFile}
-          />
+          /> */}
           <div>
             <p>{getFullName(user)}</p>
             <p>
@@ -291,55 +291,58 @@ const Profile = () => {
           ¿Estás seguro de que deseas cerrar sesión?
         </p>
       </DataModal>
-      <DataModal
-        open={openProfileModal}
-        onClose={onCancel}
-        title="Editar información personal"
-        onSave={onSave}
-        buttonText="Guardar cambios"
-        buttonCancel=""
-      >
-        <div className={styles.profileModal}>
-          <Avatar
-            name={getFullName(user)}
-            src={
-              preview ||
-              getUrlImages("/ADM-" + user?.id + ".webp?d=" + user?.updated_at)
-            }
-            w={100}
-            h={100}
-            className={styles.avatar}
-          >
-            {openProfileModal && (
-              <label
-                htmlFor="imagePerfil"
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                <IconGallery size={42} color={"var(--cWhite)"} />
-              </label>
-            )}
-          </Avatar>
+      {openProfileModal && (
+        <DataModal
+          open={openProfileModal}
+          onClose={onCancel}
+          title="Editar información personal"
+          onSave={onSave}
+          buttonText="Guardar cambios"
+          buttonCancel=""
+        >
+          <div className={styles.profileModal}>
+            <Avatar
+              name={getFullName(user)}
+              src={
+                preview ||
+                getUrlImages("/ADM-" + user?.id + ".webp?d=" + user?.updated_at)
+              }
+              w={100}
+              h={100}
+              className={styles.avatar}
+            >
+              {openProfileModal && (
+                <label
+                  htmlFor="imagePerfil"
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <IconGallery size={42} color={"var(--cWhite)"} />
+                </label>
+              )}
+            </Avatar>
 
-          <input
-            type="file"
-            id="imagePerfil"
-            className="hidden"
-            onChange={onChangeFile}
-          />
-        </div>
-        <div style={{ marginTop: "32px" }}>
-          <InputFullName
-            value={formState}
-            name={"full_name"}
-            errors={errors}
-            onChange={handleChange}
-            disabled={false}
-            onBlur={validate}
-          />
-        </div>
-      </DataModal>
+            <input
+              type="file"
+              id="imagePerfil"
+              className="hidden"
+              accept=".png,.jpeg,.jpg,.webp"
+              onChange={onChangeFile}
+            />
+          </div>
+          <div style={{ marginTop: "32px" }}>
+            <InputFullName
+              value={formState}
+              name={"full_name"}
+              errors={errors}
+              onChange={handleChange}
+              disabled={false}
+              onBlur={validate}
+            />
+          </div>
+        </DataModal>
+      )}
       {openAuthModal && (
         <Authentication
           open={openAuthModal}

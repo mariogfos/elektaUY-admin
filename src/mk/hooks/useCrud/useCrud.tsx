@@ -226,11 +226,17 @@ const useCrud = ({
     if (!userCan(mod.permiso, "R"))
       return showToast("No tiene permisos para visualizar", "error");
     if (mod.loadView) {
+      let searchBy = item.id;
+      if (mod.loadView.key_id) {
+        searchBy = item[mod.loadView.key_id];
+        // delete mod.loadView.key_id;
+      }
+
       const { data: view } = await execute("/" + mod.modulo, "GET", {
         page: 1,
         perPage: 1,
         fullType: "DET",
-        searchBy: item.id,
+        searchBy: searchBy,
         ...mod.loadView,
       });
       // const { data: d, ...rest } = view?.data ?? {};
@@ -933,21 +939,24 @@ const useCrud = ({
                   </section>
                 )}
               </section>
-              {((data?.data.length == params.perPage &&
+              {/* {((data?.data.length == params.perPage &&
                 data?.message?.total > data?.data.length) ||
-                params.page > 1) && (
-                <div style={{ marginTop: 12 }}>
-                  <Pagination
-                    currentPage={params.page}
-                    onPageChange={onChangePage}
-                    totalPages={Math.ceil(
-                      (data?.message?.total || 1) / (params.perPage || 1)
-                    )}
-                    previousLabel=""
-                    nextLabel=""
-                  />
-                </div>
-              )}
+                params.page > 1) && ( */}
+              <div>
+                <Pagination
+                  currentPage={params.page}
+                  onPageChange={onChangePage}
+                  setParams={setParams}
+                  params={params}
+                  totalPages={Math.ceil(
+                    (data?.message?.total || 1) / (params.perPage || 1)
+                  )}
+                  previousLabel=""
+                  nextLabel=""
+                  total={data?.message?.total || 0}
+                />
+              </div>
+              {/* )} */}
             </>
           )}
 
