@@ -16,6 +16,7 @@ const ModalDestiny = ({
 }: any) => {
   const [sel, setSel]: any = useState([]);
   const [destiniesFiltered, setDestiniesFiltered]: any = useState([]);
+  const [search, setSearch]: any = useState("");
   useEffect(() => {
     setSel(formState?.lDestiny || []);
   }, [formState]);
@@ -39,16 +40,16 @@ const ModalDestiny = ({
       .toUpperCase();
 
   useEffect(() => {
-    if (!formState?.searchDestiny) {
+    if (!search) {
       setDestiniesFiltered(selDestinies);
       return;
     }
-    const search = formState?.searchDestiny;
+    // const search = formState?.searchDestiny;
     const filtered = selDestinies.filter((d: any) =>
       normalizeText(d.name).includes(normalizeText(search))
     );
     setDestiniesFiltered(filtered);
-  }, [formState?.searchDestiny]);
+  }, [search]);
   const _onSave = async () => {
     // getMeta();
     if (sel <= 0) {
@@ -66,8 +67,8 @@ const ModalDestiny = ({
     onClose();
   };
 
-  const setSearch = (e: any) => {
-    setFormState({ ...formState, searchDestiny: e });
+  const onSearch = (e: any) => {
+    setSearch(e);
   };
   return (
     <DataModal open={open} onClose={_onClose} onSave={_onSave}>
@@ -86,11 +87,7 @@ const ModalDestiny = ({
         value={0}
         optionValue={["0", "N"]}
       /> */}
-      <DataSearch
-        name="searchDestiny"
-        setSearch={setSearch}
-        value={formState.searchDestiny}
-      />
+      <DataSearch name="searchDestiny" setSearch={onSearch} value={search} />
       {destiniesFiltered.map((d: any, i: number) => (
         <Check
           key={"check" + i}
