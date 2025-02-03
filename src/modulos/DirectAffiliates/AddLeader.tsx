@@ -67,14 +67,14 @@ const AddLeader = ({ open, onClose, execute, showToast, reLoad }: any) => {
         errors,
       });
     }
-    // if (field == "" || field == "phone") {
-    //   errors = checkRules({
-    //     value: formState.phone,
-    //     rules: ["required", "number", "min:8"],
-    //     key: "phone",
-    //     errors,
-    //   });
-    // }
+    if (field == "" || field == "phone") {
+      errors = checkRules({
+        value: formState.phone,
+        rules: ["required", "number", "min:8"],
+        key: "phone",
+        errors,
+      });
+    }
 
     setErrors(errors);
     return errors;
