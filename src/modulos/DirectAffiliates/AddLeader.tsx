@@ -4,12 +4,47 @@ import Select from "@/mk/components/forms/Select/Select";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import { PREFIX_COUNTRY } from "@/mk/utils/string";
 import styles from "./DirectAffiliates.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { checkRules, hasErrors } from "@/mk/utils/validate/Rules";
+import { useAuth } from "../../mk/contexts/AuthProvider";
 
 const AddLeader = ({ open, onClose, execute, showToast, reLoad }: any) => {
   const [errors, setErrors] = useState({});
-  const [formState, setFormState]: any = useState({ prefix_phone: "598" });
+  const { user } = useAuth();
+  const [formState, setFormState]: any = useState({});
+  console.log("USER", formState);
+  useEffect(() => {
+    let obj: any = { prefix_phone: "598" };
+    if (user?.role.level == 2) {
+      obj = {
+        ...obj,
+        lista_id: user?.datos?.lista_id || null,
+      };
+    } else if (user?.role.level == 3) {
+      obj = {
+        ...obj,
+        lista_id: user?.datos?.lista_id || null,
+        dpto_id: user?.datos?.dpto_id || null,
+      };
+    } else if (user?.role.level == 4) {
+      obj = {
+        ...obj,
+        lista_id: user?.datos?.lista_id || null,
+        dpto_id: user?.datos?.dpto_id || null,
+        mun_id: user?.datos?.mun_id || null,
+      };
+    } else if (user?.role.level == 5) {
+      obj = {
+        ...obj,
+        lista_id: user?.datos?.lista_id || null,
+        dpto_id: user?.datos?.dpto_id || null,
+        mun_id: user?.datos?.mun_id || null,
+        barrio_id: user?.datos?.barrio_id || null,
+      };
+    }
+
+    setFormState({ ...formState, ...obj });
+  }, []);
 
   const validate = (field: any = "") => {
     let errors: any = {};
@@ -117,6 +152,10 @@ const AddLeader = ({ open, onClose, execute, showToast, reLoad }: any) => {
       prefix_phone: formState.prefix_phone,
       phone: formState.phone,
       email: formState.email,
+      lista_id: formState.lista_id,
+      dpto_id: formState.dpto_id,
+      mun_id: formState.mun_id,
+      barrio_id: formState.barrio_id,
       // education_id: formState.education_level,
       // address: formState.address,
       // barrio: formState.barrio,
