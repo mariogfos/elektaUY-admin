@@ -706,23 +706,9 @@ const Contents = () => {
 
     return (
       <div onClick={() => onClick(item)} className={styles.renderCard}>
-        <div
-          style={{
-            width: "100%",
-            padding: 8,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-            }}
-          >
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <div>
+          <div>
+            <div>
               <Avatar
                 name={getFullName(candidate)}
                 src={getUrlImages(
