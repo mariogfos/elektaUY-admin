@@ -50,20 +50,20 @@ const paramsInitial = {
 //   return false;
 // };
 
-const lDestinies = (data: {
-  key: string;
-  user?: Record<string, any>;
-  item: Record<string, any>;
-}) => {
-  const r = [{ id: 0, name: "Todos" }];
-  const level = data.user?.role.level;
-  // const level = 3;
-  if (level <= 1) r.push({ id: 2, name: "Provincia" });
-  if (level <= 2) r.push({ id: 3, name: "Cantón" });
-  if (level <= 3) r.push({ id: 4, name: "Parroquia" });
-  // if (level <= 5) r.push({ id: 5, name: "Barrio" });
-  return r;
-};
+// const lDestinies = (data: {
+//   key: string;
+//   user?: Record<string, any>;
+//   item: Record<string, any>;
+// }) => {
+//   const r = [{ id: 0, name: "Todos" }];
+//   const level = data.user?.role.level;
+//   // const level = 3;
+//   if (level <= 1) r.push({ id: 2, name: "Provincia" });
+//   if (level <= 2) r.push({ id: 3, name: "Cantón" });
+//   if (level <= 3) r.push({ id: 4, name: "Parroquia" });
+//   // if (level <= 5) r.push({ id: 5, name: "Barrio" });
+//   return r;
+// };
 
 const topDestiny = (data: {
   key: string;
@@ -274,7 +274,13 @@ const Roptions = (props: any) => {
 
 const SurveysAdmin = () => {
   const onHideActions = (item: any) => {
+    let hoy: any = new Date();
+    hoy.setHours(hoy.getHours() + 4);
+    hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
     const r = { hideEdit: false, hideDel: false };
+    if (item?.end_at && new Date(item?.end_at) < hoy) {
+      return { hideEdit: true, hideDel: true };
+    }
     if (item?.sanswerscount == 0) return { hideEdit: false, hideDel: false };
     if (item?.end_at && new Date(item?.end_at) < new Date())
       return { hideEdit: true, hideDel: true };
@@ -461,7 +467,7 @@ const SurveysAdmin = () => {
         form: {
           // precarga: "0",
           type: "select",
-          options: lDestinies,
+          // options: lDestinies,
           onLeft: topDestiny,
         },
       },
