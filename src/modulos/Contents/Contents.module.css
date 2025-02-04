@@ -4,6 +4,11 @@
   padding-left: var(--spL);
   padding-right: var(--spL);
   padding-bottom: 70px; */
+  .renderCard {
+    width: 100%;
+    background-color: var(--cBlackV1);
+    border-radius: 12px;
+  }
 }
 .renderViewContent {
   padding-top: var(--spL);
@@ -83,55 +88,6 @@
       color: var(--cWhite);
       margin: var(--spM) 0px;
     }
-
-    /* display: flex;
-    margin-top: 12px;
-    gap: 12px; */
-    /* & > div:nth-child(odd) {
-      min-width: 30%;
-      background-color: var(--cBlackV1);
-      padding: 16px;
-      border-radius: 16px;
-
-      & > div {
-        background-color: var(--cWhiteV3);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 90%;
-        align-items: center;
-        border-radius: 8px;
-        font-size: 20px;
-        color: var(--cWhite);
-      }
-    }
-    & > div:nth-child(even) {
-      min-width: 69%;
-      background-color: var(--cBlackV1);
-      padding: 16px;
-      border-radius: 16px;
-
-      & > div {
-        overflow: auto;
-        white-space: nowrap;
-        display: flex;
-        gap: 12px;
-        width: 100%;
-
-        & > div {
-          background-color: var(--cWhiteV3);
-          border-radius: 8px;
-          padding: 8px;
-
-          min-width: 300px;
-          & > p {
-            color: var(--cWhiteV2);
-            font-size: 14px;
-            font-weight: 300;
-          }
-        }
-      }
-    } */
   }
 }
 

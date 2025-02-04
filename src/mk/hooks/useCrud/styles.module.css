@@ -52,6 +52,30 @@
     }
   }
 }
+.listAndCard {
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  & > div {
+    padding: 12px;
+    color: var(--cBlackV2);
+    background-color: var(--cBlackV1);
+    cursor: pointer;
+  }
+  & > div:nth-child(1) {
+    border: 1px solid var(--cBlackV1);
+    border-radius: 8px 0px 0px 8px;
+  }
+  & > div:nth-child(2) {
+    border: 1px solid var(--cBlackV1);
+    border-radius: 0px 8px 8px 0px;
+  }
+  .active {
+    border: 1px solid var(--cAccent);
+    background-color: #39acec33;
+  }
+}
 .formDelete {
   display: flex;
   color: var(--cWhiteV1);

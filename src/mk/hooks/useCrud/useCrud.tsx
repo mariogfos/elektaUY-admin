@@ -21,8 +21,11 @@ import styles from "./styles.module.css";
 import FloatButton from "@/mk/components/forms/FloatButton/FloatButton";
 import KeyValue from "@/mk/components/ui/KeyValue/KeyValue";
 import {
+  IconAdmin,
   IconEdit,
+  IconGrilla,
   IconImport,
+  IconMenu,
   IconTableEmpty,
   IconTrash,
 } from "@/components/layout/icons/IconsBiblioteca";
@@ -53,7 +56,7 @@ export type ModCrudType = {
   };
   onHideActions?: Function;
   saveMsg?: { add?: string; edit?: string; del?: string };
-  buttonExtra?: any;
+  listAndCard?: boolean;
 };
 
 export type TypeRenderForm = {
@@ -133,6 +136,7 @@ type UseCrudType = {
   extraData: any;
   findOptions: Function;
   getExtraData: Function;
+  openCard: boolean;
 };
 
 const useCrud = ({
@@ -158,6 +162,7 @@ const useCrud = ({
   const [params, setParams] = useState(paramsInitial);
   const [searchs, setSearchs]: any = useState({});
   const [action, setAction] = useState<ActionType>("add");
+  const [openCard, setOpenCard] = useState(false);
 
   const { data, reLoad, execute } = useAxios("/" + mod.modulo, "GET", params);
 
@@ -720,6 +725,22 @@ const useCrud = ({
               <IconImport />
             </div>
           )}
+          {mod.listAndCard && (
+            <div className={styles.listAndCard}>
+              <div
+                className={!openCard ? styles.active : ""}
+                onClick={() => setOpenCard(false)}
+              >
+                <IconMenu />
+              </div>
+              <div
+                className={openCard ? styles.active : ""}
+                onClick={() => setOpenCard(true)}
+              >
+                <IconGrilla />
+              </div>
+            </div>
+          )}
           {mod.hideActions?.add ? null : (
             <div>
               <Button onClick={onClick || onAdd}>
@@ -727,7 +748,6 @@ const useCrud = ({
               </Button>
             </div>
           )}
-          {mod?.buttonExtra && <div>{mod.buttonExtra}</div>}
         </nav>
       );
     }
@@ -919,6 +939,7 @@ const useCrud = ({
                     onRenderBody={props.onRenderBody}
                     onRenderFoot={props.onRenderFoot}
                     onRenderHead={props.onRenderHead}
+                    onRenderCard={props.onRenderCard}
                     onButtonActions={
                       mod.hideActions?.edit && mod.hideActions?.del
                         ? undefined
@@ -1121,6 +1142,7 @@ const useCrud = ({
     extraData,
     findOptions,
     getExtraData,
+    openCard,
   };
 };
 

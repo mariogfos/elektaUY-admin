@@ -38,9 +38,9 @@ const Header = ({
   const isActive = (path: string) => router.pathname === path;
   const menuItems = [
     { name: "Territorio", route: "/territory" },
-    { name: "Afiliados", route: "/educations" },
-    { name: "Metas", route: "/goals" },
-    { name: "Gamificación", route: "/gamification" },
+    // { name: "Afiliados", route: "/educations" },
+    // { name: "Metas", route: "/goals" },
+    // { name: "Gamificación", route: "/gamification" },
   ];
 
   const Title = () => {
