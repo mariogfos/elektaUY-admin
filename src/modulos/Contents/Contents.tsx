@@ -761,7 +761,7 @@ const Contents = () => {
                       display: "flex",
                       flexDirection: "column",
                       gap: 4,
-                      zIndex: 999,
+                      zIndex: 99,
                     }}
                   >
                     <div
