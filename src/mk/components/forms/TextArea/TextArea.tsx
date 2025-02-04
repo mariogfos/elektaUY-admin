@@ -9,11 +9,7 @@ interface PropsType extends PropsTypeInputBase {
   maxLength?: number; // Límite de caracteres
 }
 
-const TextArea = ({
-  maxLength = 500,
-  isLimit = false,
-  ...props
-}: PropsType) => {
+const TextArea = ({ maxLength, isLimit = false, ...props }: PropsType) => {
   const {
     name,
     placeholder = "",
@@ -30,10 +26,11 @@ const TextArea = ({
   const [charCount, setCharCount] = useState(value?.length || 0);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length <= maxLength) {
+    if (maxLength && e.target.value.length <= maxLength) {
       setCharCount(e.target.value.length); // Actualiza el contador de caracteres
-      onChange(e); // Llama al onChange original
+      onChange(e);
     }
+    if (!maxLength) onChange(e); // Llama al onChange original
   };
 
   return (
