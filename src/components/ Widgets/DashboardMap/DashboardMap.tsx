@@ -123,7 +123,7 @@ export const DashboardMap = ({
             </p>
           ) : (
             <p style={{ fontSize: 20 }}>
-              {formatNumber(data?.population?.habilitados)}
+              {formatNumber(data?.population?.habilitados, 0)}
             </p>
           )}
         </Card>
