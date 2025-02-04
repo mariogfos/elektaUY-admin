@@ -47,7 +47,6 @@ const AddContent = ({
   });
 
   useEffect(() => {
-    console.log("item useefefect", item);
     setOpenList(false);
     if (!formState?.title && action == "edit") {
       setFormState({ ...formState, isType: "P" });
