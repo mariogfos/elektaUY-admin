@@ -802,21 +802,40 @@ const Contents = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                position: "relative",
               }}
             >
               {item.type == "I" && (
-                <img
-                  style={{ width: "100%", height: "auto" }}
-                  src={getUrlImages(
-                    "/CONT-" +
-                      item.id +
-                      "-" +
-                      item.images[0]?.id +
-                      ".webp" +
-                      "?" +
-                      item?.updated_at
+                <>
+                  {item.images.length > 1 && (
+                    <p
+                      style={{
+                        position: "absolute",
+                        backgroundColor: "var(--cWhite)",
+                        padding: "2px 6px",
+                        borderRadius: 8,
+                        fontSize: 12,
+                        color: "var(--cBlack)",
+                        top: 8,
+                        right: 8,
+                      }}
+                    >
+                      +{item.images.length - 1}
+                    </p>
                   )}
-                />
+                  <img
+                    style={{ width: "100%", height: "auto" }}
+                    src={getUrlImages(
+                      "/CONT-" +
+                        item.id +
+                        "-" +
+                        item.images[0]?.id +
+                        ".webp" +
+                        "?" +
+                        item?.updated_at
+                    )}
+                  />
+                </>
               )}
               {item.type == "D" && <IconPDF size={48} color="var(--cError)" />}
               {item.type == "V" && (
