@@ -832,7 +832,17 @@ const Contents = () => {
               }}
             >
               <IconWorld size={20} />
-              <p>{getDestinys()?.join(", ")}</p>
+              <p
+                style={{
+                  width: "90%",
+                  overflow: "hidden",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 1,
+                  WebkitBoxOrient: "vertical",
+                }}
+              >
+                {getDestinys()?.join(", ")}
+              </p>
             </div>
             {item?.title && (
               <p
