@@ -1,3 +1,4 @@
+import { GMT } from "@/mk/utils/date";
 import { ValidFunctionType } from "@/mk/utils/validate/Rules";
 
 const formatDate = (date: Date) =>
@@ -5,8 +6,8 @@ const formatDate = (date: Date) =>
 
 export const validBetweenDate: ValidFunctionType = (value, param) => {
   const [start, end] = param.map((date) => new Date(date));
-  start.setHours(start.getHours() + 4);
-  end.setHours(end.getHours() + 4);
+  start.setHours(start.getHours() - GMT);
+  end.setHours(end.getHours() - GMT);
 
   // const formatDate = (date: Date) =>
   //   `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
@@ -15,17 +16,6 @@ export const validBetweenDate: ValidFunctionType = (value, param) => {
     ? `Debe estar entre ${formatDate(start)} y ${formatDate(end)}`
     : "";
 };
-
-// export const validDateGreaterNow: ValidFunctionType = (value, param) => {
-//   let date = new Date(value);
-//   let hoy = new Date();
-//   date.setHours(date.getHours() + 4);
-//   hoy.setHours(hoy.getHours() + 4);
-//   date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-//   hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
-
-//   return date >= hoy ? "" : "La fecha no debe ser menor a hoy";
-// };
 
 export const validDateGreater: ValidFunctionType = (
   value,
@@ -37,8 +27,8 @@ export const validDateGreater: ValidFunctionType = (
   if (param && param[0]) {
     hoy = new Date(field ? field[param[0]] : "");
   }
-  date.setHours(date.getHours() + 4);
-  hoy.setHours(hoy.getHours() + 4);
+  date.setHours(date.getHours() - GMT);
+  hoy.setHours(hoy.getHours() - GMT);
   date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
   hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
   return date >= hoy ? "" : "La fecha no debe ser menor a " + formatDate(hoy);
@@ -51,8 +41,8 @@ export const validDateLess: ValidFunctionType = (value, param, field = {}) => {
     hoy = new Date(field ? field[param[0]] : "");
   }
 
-  date.setHours(date.getHours() + 4);
-  hoy.setHours(hoy.getHours() + 4);
+  date.setHours(date.getHours() - GMT);
+  hoy.setHours(hoy.getHours() - GMT);
   date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
   hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
   return date <= hoy ? "" : "La fecha no debe ser mayor a" + formatDate(hoy);

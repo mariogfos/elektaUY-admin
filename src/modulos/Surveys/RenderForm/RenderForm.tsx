@@ -12,7 +12,7 @@ import Select from "@/mk/components/forms/Select/Select";
 import Check from "@/mk/components/forms/Check/Check";
 import Switch from "@/mk/components/forms/Switch/Switch";
 import Input from "@/mk/components/forms/Input/Input";
-import { compareDate, getDateStrMes } from "@/mk/utils/date";
+import { GMT, compareDate, getDateStrMes } from "@/mk/utils/date";
 import ModalDestiny from "./ModalDestiny";
 import { checkRules, hasErrors } from "@/mk/utils/validate/Rules";
 import SurveyQuestionTypePanel from "../SurveyQuestionTypePanel/SurveyQuestionTypePanel";
@@ -142,7 +142,7 @@ const RenderForm = ({
   };
   const disabled = () => {
     let hoy: any = new Date();
-    hoy.setHours(hoy.getHours() + 4);
+    hoy.setHours(hoy.getHours() - GMT);
     hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
     return item?.begin_at && new Date(item?.begin_at) <= hoy;
   };
