@@ -142,7 +142,7 @@ const RenderForm = ({
   };
   const disabled = () => {
     let hoy: any = new Date();
-    hoy.setHours(hoy.getHours() - GMT);
+    hoy.setHours(hoy.getHours() + 4);
     hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
     return item?.begin_at && new Date(item?.begin_at) <= hoy;
   };
