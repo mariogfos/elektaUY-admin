@@ -40,6 +40,7 @@ const Activities = () => {
       extraData?: Record<string, any>;
       openList: any;
       setOpenList: any;
+      execute?: any;
     }) => <RenderView {...props} />,
     renderForm: (props: {
       item: any;

@@ -12,6 +12,7 @@ import ProgressBar from "./ProgressBar/ProgressBar";
 import { getDateTimeStrMes } from "../../../mk/utils/date";
 import StateLabel from "./StateLabel/StateLabel";
 import { getUrlImages } from "@/mk/utils/string";
+import { useAuth } from "@/mk/contexts/AuthProvider";
 
 const RenderView = ({
   onClose,
@@ -23,12 +24,33 @@ const RenderView = ({
   openList,
   setOpenList,
 
+  execute,
   reLoad,
-  action,
-}: any) => {
+}: // action,
+any) => {
+  const { showToast } = useAuth();
+  const [task, setTask] = useState([]);
+
+  const getTask = async () => {
+    const { data } = await execute("/roles", "GET", {
+      fullType: "L",
+      // searchBy: item?.data.id,
+    });
+    if (data?.success === true) {
+      // showToast("Asistencia confirmada", "success");
+      setTask(data?.data);
+    } else {
+      showToast(data?.message, "info");
+      // close();
+    }
+  };
+
   useEffect(() => {
     setOpenList(false);
+    getTask();
   }, []);
+  console.log(task);
+
   const [level, setLevel] = useState(1);
 
   const typeActivity: any = {
