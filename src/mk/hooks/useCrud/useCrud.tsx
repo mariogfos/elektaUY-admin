@@ -57,6 +57,7 @@ export type ModCrudType = {
   onHideActions?: Function;
   saveMsg?: { add?: string; edit?: string; del?: string };
   listAndCard?: boolean;
+  noWaiting?: boolean;
 };
 
 export type TypeRenderForm = {
@@ -164,7 +165,12 @@ const useCrud = ({
   const [action, setAction] = useState<ActionType>("add");
   const [openCard, setOpenCard] = useState(false);
 
-  const { data, reLoad, execute } = useAxios("/" + mod.modulo, "GET", params);
+  const { data, reLoad, execute } = useAxios(
+    "/" + mod.modulo,
+    "GET",
+    params,
+    mod?.noWaiting
+  );
 
   const { isMobile } = useScreenSize();
 
@@ -237,13 +243,19 @@ const useCrud = ({
         // delete mod.loadView.key_id;
       }
 
-      const { data: view } = await execute("/" + mod.modulo, "GET", {
-        page: 1,
-        perPage: 1,
-        fullType: "DET",
-        searchBy: searchBy,
-        ...mod.loadView,
-      });
+      const { data: view } = await execute(
+        "/" + mod.modulo,
+        "GET",
+        {
+          page: 1,
+          perPage: 1,
+          fullType: "DET",
+          searchBy: searchBy,
+          ...mod.loadView,
+        },
+        false,
+        mod?.noWaiting
+      );
       // const { data: d, ...rest } = view?.data ?? {};
       // initOpen(setOpenView, { ...d, ...rest }, "view");
       initOpen(setOpenView, view?.data, "view");
@@ -263,14 +275,20 @@ const useCrud = ({
   const onExist = useCallback(
     async ({ type = "", cols = "id", modulo = "", searchBy = "" }: any) => {
       if (modulo == "") modulo = mod.modulo;
-      const { data: row } = await execute("/" + modulo, "GET", {
-        type,
-        searchBy,
-        cols,
-        perPage: -1,
-        page: 1,
-        _exist: 1,
-      });
+      const { data: row } = await execute(
+        "/" + modulo,
+        "GET",
+        {
+          type,
+          searchBy,
+          cols,
+          perPage: -1,
+          page: 1,
+          _exist: 1,
+        },
+        false,
+        mod?.noWaiting
+      );
       return row?.success ? row.data : false;
     },
     []
@@ -314,12 +332,13 @@ const useCrud = ({
       url,
       method,
       action == "del" ? { id: data.id } : param,
-      false
+      false,
+      mod?.noWaiting
     );
     if (response?.success) {
       onCloseCrud();
       setOpenDel(false);
-      reLoad();
+      reLoad(null, mod?.noWaiting);
       showToast(mod.saveMsg?.[action] || response?.message, "success");
     } else {
       showToast(response?.message, "error");
@@ -378,14 +397,20 @@ const useCrud = ({
   ) => {
     if (!userCan(mod.permiso, "R"))
       return showToast("No tiene permisos para visualizar", "error");
-    const { data: file } = await execute("/" + mod.modulo, "GET", {
-      ...params,
-      _export: type,
-      exportCols: mod?.exportCols || params.cols || "",
-      exportTitulo: mod?.exportTitulo || "Listado de " + mod.plural,
-      exportTitulos: mod?.exportTitulos || "",
-      exportAnchos: mod?.exportAnchos || "",
-    });
+    const { data: file } = await execute(
+      "/" + mod.modulo,
+      "GET",
+      {
+        ...params,
+        _export: type,
+        exportCols: mod?.exportCols || params.cols || "",
+        exportTitulo: mod?.exportTitulo || "Listado de " + mod.plural,
+        exportTitulos: mod?.exportTitulos || "",
+        exportAnchos: mod?.exportAnchos || "",
+      },
+      false,
+      mod?.noWaiting
+    );
     if (file?.success) {
       callBack(getUrlImages("/" + file.data.path));
     } else {
@@ -404,7 +429,7 @@ const useCrud = ({
   };
 
   useEffect(() => {
-    reLoad(params, true);
+    reLoad(params, mod?.noWaiting, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
 
@@ -418,7 +443,8 @@ const useCrud = ({
         page: 1,
         fullType: "EXTRA",
       },
-      false
+      false,
+      mod?.noWaiting
     );
     setExtraData(extraData?.data);
   };
