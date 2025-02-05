@@ -31,6 +31,7 @@ const Activities = () => {
     plural: "Actividades",
     permiso: "",
     // import: true,
+    filter: true,
     renderView: (props: {
       open: boolean;
       onClose: any;
@@ -184,6 +185,18 @@ const Activities = () => {
             { id: "V", name: "Virtual" },
           ],
         },
+        filter: {
+          // extraData: "leagues",
+          label: "Modalidad",
+          width: "200px",
+          options: () => {
+            return [
+              { id: "T", name: "Todos" },
+              { id: "P", name: "Presencial" },
+              { id: "V", name: "Virtual" },
+            ];
+          },
+        },
         list: {
           width: "100px",
         },
@@ -200,9 +213,51 @@ const Activities = () => {
             { id: "F", name: "Finalizada" },
           ],
         },
+        filter: {
+          // extraData: "leagues",
+          label: "Estado",
+          width: "200px",
+          options: () => {
+            return [
+              { id: "T", name: "Todos" },
+              { id: "P", name: "Pendiente" },
+              { id: "E", name: "En curso" },
+              { id: "F", name: "Finalizada" },
+            ];
+          },
+        },
         list: {
           width: "100px",
         },
+      },
+      month: {
+        rules: [""],
+        // api: "ae",
+        label: "",
+        form: false,
+        filter: {
+          // extraData: "leagues",
+          label: "Mes",
+          width: "200px",
+          options: () => {
+            return [
+              { id: "T", name: "Todos" },
+              { id: "01", name: "Enero" },
+              { id: "02", name: "Febrero" },
+              { id: "03", name: "Marzo" },
+              { id: "04", name: "Abril" },
+              { id: "05", name: "Mayo" },
+              { id: "06", name: "Junio" },
+              { id: "07", name: "Julio" },
+              { id: "08", name: "Agosto" },
+              { id: "09", name: "Septiembre" },
+              { id: "10", name: "Octubre" },
+              { id: "11", name: "Noviembre" },
+              { id: "12", name: "Diciembre" },
+            ];
+          },
+        },
+        list: false,
       },
     };
   }, []);
