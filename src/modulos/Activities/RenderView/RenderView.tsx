@@ -192,7 +192,7 @@ const RenderView = ({
             <ProgressBar level={level} maxLevel={5} />
             {/* <p onClick={() => setLevel(level + 1)}>Next level</p> */}
           </div>
-          {/* <Tasks id={1} /> */}
+          {/* <Tasks id={item?.data?.id} /> */}
         </section>
       </div>
     )

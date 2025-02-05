@@ -158,15 +158,16 @@ const RenderForm = ({
     });
     errors = checkRules({
       value: formState?.end_at,
-      rules: ["required"],
+      rules: ["required", "greaterDate"],
       key: "end_at",
       errors,
     });
     errors = checkRules({
       value: formState?.begin_at,
-      rules: ["required"],
+      rules: ["required", "greaterDate", "greaterDate:end_at"],
       key: "begin_at",
       errors,
+      data: formState,
     });
     errors = checkRules({
       value: formState?.type_activity,
@@ -304,26 +305,6 @@ const RenderForm = ({
           />
         </div>
       </CardActivity>
-      <CardActivity title="Fecha de actividad">
-        <div style={{ display: "flex", gap: 8 }}>
-          <Input
-            type="datetime-local"
-            label="Fecha y hora de inicio"
-            name="end_at"
-            value={formState?.end_at}
-            onChange={handleChangeInput}
-            error={errors}
-          />
-          <Input
-            type="datetime-local"
-            label="Fecha y hora de fin"
-            name="begin_at"
-            value={formState?.begin_at}
-            onChange={handleChangeInput}
-            error={errors}
-          />
-        </div>
-      </CardActivity>
       <CardActivity
         style={{ flexDirection: "row" }}
         title="Tipo de actividad"
@@ -390,18 +371,22 @@ const RenderForm = ({
           />
         )} */}
       </CardActivity>
-      <CardActivity
-        title="Cantidad de participantes"
-        subtitle="Indica el número máximo de participantes que se pueden inscribir para la actividad"
-        style={{ flexDirection: "row" }}
-      >
-        <div style={{ marginTop: 8 }}>
+
+      <CardActivity title="Fecha de actividad">
+        <div style={{ display: "flex", gap: 8 }}>
           <Input
-            type="number"
-            label="Cantidad de participantes"
-            name="volunteer_count"
-            style={{ width: 200 }}
-            value={formState?.volunteer_count}
+            type="datetime-local"
+            label="Fecha y hora de inicio"
+            name="end_at"
+            value={formState?.end_at}
+            onChange={handleChangeInput}
+            error={errors}
+          />
+          <Input
+            type="datetime-local"
+            label="Fecha y hora de fin"
+            name="begin_at"
+            value={formState?.begin_at}
             onChange={handleChangeInput}
             error={errors}
           />
@@ -423,6 +408,37 @@ const RenderForm = ({
           />
         </div>
       </CardActivity>
+      <CardActivity
+        title="Coordinador"
+        subtitle="Selecciona a una persona que sea responsable para que la actividad se cumpla con éxito."
+      >
+        <Select
+          name="user_id"
+          label="Coordinador"
+          value={formState?.user_id}
+          options={getGabinete()}
+          onChange={handleChangeInput}
+          error={errors}
+        />
+      </CardActivity>
+      <CardActivity
+        title="Cantidad de participantes"
+        subtitle="Indica el número máximo de participantes que se pueden inscribir para la actividad"
+        style={{ flexDirection: "row" }}
+      >
+        <div style={{ marginTop: 8 }}>
+          <Input
+            type="number"
+            label="Cantidad de participantes"
+            name="volunteer_count"
+            style={{ width: 200 }}
+            value={formState?.volunteer_count}
+            onChange={handleChangeInput}
+            error={errors}
+          />
+        </div>
+      </CardActivity>
+
       <CardActivity title="Información general">
         <Input
           name="name"
@@ -441,19 +457,7 @@ const RenderForm = ({
           maxLength={5000}
         />
       </CardActivity>
-      <CardActivity
-        title="Coordinador"
-        subtitle="Selecciona a una persona que sea responsable para que la actividad se cumpla con éxito."
-      >
-        <Select
-          name="user_id"
-          label="Coordinador"
-          value={formState?.user_id}
-          options={getGabinete()}
-          onChange={handleChangeInput}
-          error={errors}
-        />
-      </CardActivity>
+
       <CardActivity
         title="Imagen referencia"
         subtitle="Sube una imagen de la actividad"
