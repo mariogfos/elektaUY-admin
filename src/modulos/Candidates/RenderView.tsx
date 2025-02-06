@@ -260,13 +260,14 @@ const RenderView = (props: {
               </div>
             </>
           ) : null}
-
-          <div>
-            <p className={styles.title}>Ideología política</p>
-            <p className={styles.subtitle} style={{ marginTop: 12 }}>
-              {lIdeologies[props?.item?.ideology]?.name}
-            </p>
-          </div>
+          {props?.item?.ideology > 0 && (
+            <div>
+              <p className={styles.title}>Ideología política</p>
+              <p className={styles.subtitle} style={{ marginTop: 12 }}>
+                {lIdeologies[props?.item?.ideology]?.name}
+              </p>
+            </div>
+          )}
           <div>
             <p className={styles.title}>Biografía</p>
             <p style={{ marginTop: 12 }} className={styles.subtitle}>

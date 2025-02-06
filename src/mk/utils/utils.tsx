@@ -71,6 +71,7 @@ export let lAges = [
 ];
 
 export let lIdeologies = [
+  { id: "-1", name: "" },
   { id: "0", name: "Izquierda" },
   { id: "1", name: "Centro-Izquierda" },
   { id: "2", name: "Centro" },
