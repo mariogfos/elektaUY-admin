@@ -1,51 +1,88 @@
-import { GMT } from "@/mk/utils/date";
 import { ValidFunctionType } from "@/mk/utils/validate/Rules";
 
-const formatDate = (date: Date) =>
-  `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+const formatDate = (date: Date) => date.toISOString().split("T")[0];
 
 export const validBetweenDate: ValidFunctionType = (value, param) => {
-  const [start, end] = param.map((date) => new Date(date));
-  start.setHours(start.getHours() - GMT);
-  end.setHours(end.getHours() - GMT);
+  if (!value || param.length < 2) return "Fechas de comparación no válidas";
 
-  // const formatDate = (date: Date) =>
-  //   `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  const [start, end] = param.map(normalizeDateToUTC);
+  if (!start || !end) return "Fechas de comparación no válidas";
 
-  return new Date(value) < start || new Date(value) > end
+  const inputDate = normalizeDateToUTC(value);
+  if (!inputDate) return "Fecha ingresada no válida";
+
+  return inputDate < start || inputDate > end
     ? `Debe estar entre ${formatDate(start)} y ${formatDate(end)}`
     : "";
 };
 
-export const validDateGreater: ValidFunctionType = (
-  value,
-  param,
-  field = {}
-) => {
-  let date = new Date(value);
-  let hoy = new Date();
-  if (param && param[0]) {
-    hoy = new Date(field ? field[param[0]] : "");
+export const normalizeDateToUTC = (dateString: string) => {
+  let date = new Date(dateString);
+
+  if (isNaN(date.getTime())) return null; // Si no es una fecha válida, retornar null
+
+  // Verificar si la fecha contiene información de zona horaria (especificada en formato ISO)
+  const hasTimezone =
+    dateString.includes("T") &&
+    (dateString.includes("+") || dateString.includes("Z"));
+
+  if (!hasTimezone) {
+    // Si la fecha viene de un input <type="date"> (sin zona horaria), agregar "T00:00:00Z" para tratarla como UTC
+    date = new Date(dateString + "T00:00:00Z");
   }
-  date.setHours(date.getHours() - GMT);
-  hoy.setHours(hoy.getHours() - GMT);
-  date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
-  return date >= hoy ? "" : "La fecha no debe ser menor a " + formatDate(hoy);
+
+  // Normalizar la fecha a solo año, mes y día en UTC
+  return new Date(
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+  );
 };
 
-export const validDateLess: ValidFunctionType = (value, param, field = {}) => {
-  let date = new Date(value);
-  let hoy = new Date();
-  if (param && param[0]) {
-    hoy = new Date(field ? field[param[0]] : "");
-  }
+export const validDateGreater: ValidFunctionType = (
+  value: string,
+  param: any,
+  field: any = {}
+) => {
+  if (!value) return "La fecha no es válida";
 
-  date.setHours(date.getHours() - GMT);
-  hoy.setHours(hoy.getHours() - GMT);
-  date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
-  return date <= hoy ? "" : "La fecha no debe ser mayor a" + formatDate(hoy);
+  // Normalizar la fecha del input
+  let date = normalizeDateToUTC(value);
+  if (!date) return "La fecha ingresada no es válida";
+
+  // Normalizar la fecha de comparación (hoy por defecto o una segunda fecha proporcionada)
+  let compareDate =
+    param && param[0]
+      ? normalizeDateToUTC(field ? field[param[0]] : "")
+      : normalizeDateToUTC(new Date().toISOString());
+
+  if (!compareDate) return "La fecha de comparación no es válida";
+
+  console.log("rules day", date, compareDate);
+
+  return date >= compareDate
+    ? ""
+    : "La fecha no debe ser menor a " + compareDate.toISOString().split("T")[0];
+};
+
+export const validDateLess: ValidFunctionType = (
+  value: string,
+  param: any,
+  field: any = {}
+) => {
+  if (!value) return "La fecha no es válida";
+
+  let date = normalizeDateToUTC(value);
+  if (!date) return "La fecha ingresada no es válida";
+
+  let compareDate =
+    param && param[0]
+      ? normalizeDateToUTC(field ? field[param[0]] : "")
+      : normalizeDateToUTC(new Date().toISOString());
+
+  if (!compareDate) return "La fecha de comparación no es válida";
+
+  return date <= compareDate
+    ? ""
+    : "La fecha no debe ser mayor a " + compareDate.toISOString().split("T")[0];
 };
 
 export const validPassword: ValidFunctionType = (value, param) => {
