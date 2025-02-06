@@ -423,7 +423,7 @@ const Candidates = () => {
         list: false,
       },
       ideology: {
-        rules: ["required"],
+        rules: [""],
         api: "ae",
         label: "Ideología Política",
         form: {
