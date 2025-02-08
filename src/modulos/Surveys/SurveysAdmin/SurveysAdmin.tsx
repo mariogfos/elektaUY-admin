@@ -14,6 +14,7 @@ import {
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import Check from "@/mk/components/forms/Check/Check";
 import {
+  GMT,
   compareDate,
   differenceInDays,
   getDateStrMes,
@@ -275,7 +276,7 @@ const Roptions = (props: any) => {
 const SurveysAdmin = () => {
   const onHideActions = (item: any) => {
     let hoy: any = new Date();
-    hoy.setHours(hoy.getHours() + 4);
+    hoy.setHours(hoy.getHours() - GMT);
     hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
     const r = { hideEdit: false, hideDel: false };
     if (item?.end_at && new Date(item?.end_at) < hoy) {
@@ -386,7 +387,7 @@ const SurveysAdmin = () => {
     let texto = "Vigente";
 
     let hoy: any = new Date();
-    hoy.setHours(hoy.getHours() + 4);
+    hoy.setHours(hoy.getHours() - GMT);
     hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
     // console.log("FECHASSS", item.item?.begin_at, item.item?.end_at);
 
@@ -577,7 +578,7 @@ const SurveysAdmin = () => {
           onHide: (data: any) => !data.item.switch || data.item.switch == "N",
           disabled: (item: any) => {
             let hoy: any = new Date();
-            hoy.setHours(hoy.getHours() + 4);
+            hoy.setHours(hoy.getHours() - GMT);
             hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
             return item?.begin_at && new Date(item?.begin_at) <= hoy;
           },
@@ -614,7 +615,7 @@ const SurveysAdmin = () => {
           label: "Escribe tu pregunta",
           disabled: (item: any) => {
             let hoy: any = new Date();
-            hoy.setHours(hoy.getHours() + 4);
+            hoy.setHours(hoy.getHours() - GMT);
             hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
 
             return (
@@ -689,7 +690,7 @@ const SurveysAdmin = () => {
       //     prepareData: prepareData,
       //     disabled: (item: any) => {
       //       let hoy: any = new Date();
-      //       hoy.setHours(hoy.getHours() + 4);
+      //       hoy.setHours(hoy.getHours() - GMT);
       //       hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
 
       //       return (
@@ -715,7 +716,7 @@ const SurveysAdmin = () => {
           onRender: renderOptions,
           disabled: (item: any) => {
             let hoy: any = new Date();
-            hoy.setHours(hoy.getHours() + 4);
+            hoy.setHours(hoy.getHours() - GMT);
             hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
             return (
               (item?.begin_at && new Date(item?.begin_at) <= hoy) ||

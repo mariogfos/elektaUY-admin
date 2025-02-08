@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/mk/components/ui/Card/Card";
 import styles from "./viewSurveys.module.css";
 import {
+  GMT,
   differenceInDays,
   getDateRemaining,
   getDateStrMes,
@@ -83,7 +84,7 @@ const ViewSurveys = ({
   } = data?.metrics?.gender || {};
   const allGendersCountZero = m === 0 && f === 0 && x === 0 && incomplete === 0;
   let hoy: any = new Date();
-  hoy.setHours(hoy.getHours() + 4);
+  hoy.setHours(hoy.getHours() - GMT);
   hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
 
   const header: any = [

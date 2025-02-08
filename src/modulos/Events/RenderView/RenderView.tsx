@@ -17,7 +17,12 @@ import WidgetAge from "@/components/ Widgets/WidgetAge/WidgetAge";
 import Table from "@/mk/components/ui/Table/Table";
 import HorizontalProgresiveBar from "@/mk/components/ui/HorizontalProgresiveBar/HorizontalProgresiveBar";
 import { RandomsColors } from "@/mk/utils/utils";
-import { getDateStrMes, getDateTimeStrMes, getUTCNow } from "@/mk/utils/date";
+import {
+  GMT,
+  getDateStrMes,
+  getDateTimeStrMes,
+  getUTCNow,
+} from "@/mk/utils/date";
 import StatsCard from "@/mk/components/ui/StatsCard/StatsCard";
 import EventStatsCard from "@/mk/components/ui/EventsStatsCard/EventStatsCards";
 import ComparisonBar from "@/mk/components/ui/ComparisonBar/ComparisonBar";
@@ -35,7 +40,7 @@ const RenderView = (props: {
   const entidad = ["", "", "Lista", "Departamento", "Municipio", "Barrio"];
 
   let hoy: any = new Date();
-  hoy.setHours(hoy.getHours() + 4);
+  hoy.setHours(hoy.getHours() - GMT);
   hoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
 
   const [sexGraphData, setSexGraphData] = useState<any>({
