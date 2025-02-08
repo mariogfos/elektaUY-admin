@@ -1,12 +1,11 @@
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
-import React, { act, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardActivity from "./CardActivity";
 import Select from "@/mk/components/forms/Select/Select";
 import Input from "@/mk/components/forms/Input/Input";
 import Radio from "@/mk/components/forms/Ratio/Radio";
 import TextArea from "@/mk/components/forms/TextArea/TextArea";
 import styles from "../Activities.module.css";
-import UploadFileMultiple from "@/mk/components/forms/UploadFile/UploadFileMultiple";
 import { UploadFile } from "@/mk/components/forms/UploadFile/UploadFile";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import ModalDestiny from "./ModalDestiny";
@@ -169,6 +168,7 @@ const RenderForm = ({
       key: "begin_at",
       errors,
     });
+
     errors = checkRules({
       value: formState?.type_activity,
       rules: ["required"],
