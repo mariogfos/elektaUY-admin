@@ -19,7 +19,11 @@ export const validBetweenDate: ValidFunctionType = (value, param) => {
 export const normalizeDateToUTC = (dateString: string) => {
   dateString = dateString.replace(/\//g, "-");
   let date = new Date(dateString);
-  if (isNaN(date.getTime())) return null; // Si no es una fecha válida, retornar null
+  if (isNaN(date.getTime())) {
+    // console.log("La fecha no es válida222");
+    return null; // Si no es una fecha válida, retornar null
+  }
+  // console.log("fechaaaa", date.getTime());
 
   // Verificar si la fecha contiene información de zona horaria (especificada en formato ISO)
   const hasTimezone =
@@ -27,11 +31,11 @@ export const normalizeDateToUTC = (dateString: string) => {
     (dateString.includes("+") || dateString.includes("Z"));
 
   if (!hasTimezone) {
-    // Si la fecha viene de un input <type="date"> (sin zona horaria), agregar "T00:00:00Z" para tratarla como UTC
     dateString = (dateString + " ").split(" ")[0];
+    dateString = (dateString + "T").split("T")[0];
     date = new Date(dateString + "T00:00:00Z");
   }
-
+  // console.log("fafafafafa", dateString, date);
   // Normalizar la fecha a solo año, mes y día en UTC
   return new Date(
     Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
@@ -43,12 +47,18 @@ export const validDateGreater: ValidFunctionType = (
   param: any,
   field: any = {}
 ) => {
-  if (!value) return "La fecha no es válida";
+  if (!value) {
+    console.log("La fecha no es válida");
+    return "La fecha no es válida";
+  }
 
   // Normalizar la fecha del input
   let date = normalizeDateToUTC(value);
 
-  if (!date) return "La fecha ingresada no es válida";
+  if (!date) {
+    console.log("La fecha ingresada no es válida");
+    return "La fecha ingresada no es válida";
+  }
 
   // Normalizar la fecha de comparación (hoy por defecto o una segunda fecha proporcionada)
   let compareDate =
