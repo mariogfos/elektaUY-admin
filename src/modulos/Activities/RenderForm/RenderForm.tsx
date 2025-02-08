@@ -170,13 +170,6 @@ const RenderForm = ({
     });
 
     errors = checkRules({
-      value: formState.begin_at,
-      rules: ["required", "greaterDate"],
-      key: "begin_at",
-      errors,
-    });
-
-    errors = checkRules({
       value: formState?.type_activity,
       rules: ["required"],
       key: "type_activity",
