@@ -7,7 +7,7 @@ type PropsType = {
 };
 
 const ProgressBar = ({ level, maxLevel }: PropsType) => {
-  const percent = (level * 100) / maxLevel;
+  const percent = (level * 100) / maxLevel || 0;
   return (
     <div className={styles.ProgressBar}>
       <div>
