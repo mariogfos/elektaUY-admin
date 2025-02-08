@@ -2,7 +2,7 @@ import { CSSProperties } from "react";
 import styles from "./itemList.module.css";
 
 interface PropsType {
-  key?: number;
+  // key?: number;
   title: any;
   subtitle?: any;
   left?: any;
@@ -19,7 +19,7 @@ const ItemList = ({
   left,
   right,
   foot,
-  key = 0,
+  // key = 0,
   style = {},
   variant = "",
   active = false,
@@ -35,7 +35,7 @@ const ItemList = ({
         (active && styles.active)
       }
       style={style}
-      key={key}
+      // key={key}
     >
       <div>
         {icon && <span className={styles.icon}>{icon}</span>}

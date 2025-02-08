@@ -28,8 +28,12 @@ const Volunteers = ({ data, reLoad }: any) => {
     );
     // console.log(data);
 
-    if (data == "Registro exitoso") {
-      showToast("Afiliado aceptado", "success");
+    if (data?.success == true) {
+      if (status == "X") {
+        showToast("Afiliado inhabilitado", "success");
+      } else {
+        showToast("Afiliado habilitado", "success");
+      }
       reLoad(null, true);
     }
   };
@@ -41,9 +45,9 @@ const Volunteers = ({ data, reLoad }: any) => {
         en caso de que lo requieras
       </p>
       {volunteersEnabled.length > 0 ? (
-        volunteersEnabled.map((v: any, i: any) => (
+        volunteersEnabled.map((v: any, index: any) => (
           <ItemList
-            key={v.id}
+            key={index}
             variant="V3"
             left={
               <Avatar
@@ -71,9 +75,9 @@ const Volunteers = ({ data, reLoad }: any) => {
         Voluntarios que ya no participan de la tarea.
       </p>
       {volunteersDisabled.length > 0 ? (
-        volunteersDisabled.map((v: any, i: any) => (
+        volunteersDisabled.map((v: any, index: any) => (
           <ItemList
-            key={v.id}
+            key={index}
             variant="V3"
             left={
               <Avatar

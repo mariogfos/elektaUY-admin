@@ -13,6 +13,7 @@ import { cStatusTask, statusTask } from "@/mk/utils/utils";
 import Requests from "./Requests/Requests";
 import Reports from "./Reports/Reports";
 import Volunteers from "./Volunteers/Volunteers";
+import History from "./History/History";
 
 type PropsType = {
   open: boolean;
@@ -83,8 +84,8 @@ const ViewTask = ({ open, onClose, id }: PropsType) => {
             <div>
               <p>Vigencia</p>
               <p>
-                {getDateTimeStrMes(task?.data?.data?.end_at)} -{" "}
-                {getDateTimeStrMes(task?.data?.data?.begin_at)}
+                {getDateTimeStrMes(task?.data?.data?.begin_at)} -{" "}
+                {getDateTimeStrMes(task?.data?.data?.end_at)}
               </p>
             </div>
             <div>
@@ -101,7 +102,7 @@ const ViewTask = ({ open, onClose, id }: PropsType) => {
             sel={tab}
             setSel={setTab}
             values={[
-              { value: "A", name: "Actividad" },
+              { value: "A", name: "Historial" },
               {
                 value: "S",
                 name: "Solicitudes",
@@ -111,6 +112,7 @@ const ViewTask = ({ open, onClose, id }: PropsType) => {
               { value: "V", name: "Voluntarios" },
             ]}
           />
+          {tab == "A" && <History />}
           {tab == "S" && <Requests data={requestsData()} reLoad={reLoad} />}
           {tab == "R" && <Reports />}
           {tab == "V" && <Volunteers data={volunteersData()} reLoad={reLoad} />}

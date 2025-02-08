@@ -390,6 +390,7 @@ const RenderView = ({
           />
         )}
         <DataModal
+          title="Eliminar tarea"
           open={deleteTask.open}
           onClose={() => setDeleteTask({ open: false, id: null })}
           onSave={onDelTask}
