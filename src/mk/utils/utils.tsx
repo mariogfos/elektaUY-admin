@@ -98,3 +98,27 @@ export let lIdeologies = [
   { id: "24", name: "Republicanismo" },
   { id: "25", name: "Herrerismo" },
 ];
+export const statusTask: any = {
+  P: "Pendiente",
+  E: "En curso",
+  F: "Finalizada",
+  V: "Vencida",
+  S: "Sin completar",
+};
+export const cStatusTask: any = {
+  P: "var(--cBlackV2)",
+  E: "var(--cAccent)",
+  F: "var(--cSuccess)",
+  V: "var(--cError)",
+  S: "var(--cWarning)",
+};
+export const statusAc: any = {
+  P: "Pendiente",
+  E: "En curso",
+  F: "Finalizada",
+};
+export const cStatusAc: any = {
+  P: "var(--cBlackV2)",
+  E: "var(--cAccent)",
+  F: "var(--cSuccess)",
+};

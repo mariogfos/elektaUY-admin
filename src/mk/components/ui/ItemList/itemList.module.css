@@ -51,6 +51,11 @@
       }
     }
   }
+  &.V3 {
+    background-color: var(--cHover);
+    padding: 16px;
+    border-radius: 16px;
+  }
 
   & > div {
     display: flex;

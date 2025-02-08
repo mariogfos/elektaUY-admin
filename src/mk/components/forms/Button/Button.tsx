@@ -3,7 +3,13 @@ import styles from "./button.module.css";
 import { CSSProperties } from "react";
 
 type PropsType = {
-  variant?: "primary" | "secondary" | "terciary" | "accent" | "small";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "terciary"
+    | "accent"
+    | "small"
+    | "cancel";
   children: any;
   onClick?: (e?: any) => void;
   className?: string;

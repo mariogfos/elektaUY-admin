@@ -158,16 +158,16 @@ const RenderForm = ({
     });
     errors = checkRules({
       value: formState?.end_at,
-      rules: ["required", "greaterDate"],
+      rules: ["required", "greaterDate", "greaterDate:begin_at"],
       key: "end_at",
       errors,
+      data: formState,
     });
     errors = checkRules({
       value: formState?.begin_at,
-      rules: ["required", "greaterDate", "greaterDate:end_at"],
+      rules: ["required", "greaterDate"],
       key: "begin_at",
       errors,
-      data: formState,
     });
     errors = checkRules({
       value: formState?.type_activity,
@@ -377,16 +377,16 @@ const RenderForm = ({
           <Input
             type="datetime-local"
             label="Fecha y hora de inicio"
-            name="end_at"
-            value={formState?.end_at}
+            name="begin_at"
+            value={formState?.begin_at}
             onChange={handleChangeInput}
             error={errors}
           />
           <Input
             type="datetime-local"
             label="Fecha y hora de fin"
-            name="begin_at"
-            value={formState?.begin_at}
+            name="end_at"
+            value={formState?.end_at}
             onChange={handleChangeInput}
             error={errors}
           />

@@ -9,7 +9,7 @@ interface PropsType {
   right?: any;
   foot?: any;
   style?: CSSProperties;
-  variant?: string;
+  variant?: "V1" | "V2" | "V3" | "";
   active?: boolean;
   icon?: any;
 }
