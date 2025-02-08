@@ -28,7 +28,7 @@ const Volunteers = ({ data, reLoad }: any) => {
     );
     // console.log(data);
 
-    if (data == "Registro exitoso") {
+    if (data.success == true) {
       showToast("Afiliado aceptado", "success");
       reLoad(null, true);
     }
