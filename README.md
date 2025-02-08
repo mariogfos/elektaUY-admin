@@ -7,7 +7,7 @@ First, run the development server:
 ```bash
 npm run dev
 # ora
-yarn devsdssssasaasssssassaaaaaas
+yarn devsdssssasaasssssassaaaaaasas
 pnpm devssss
 # ord
 bun devs
