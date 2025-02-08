@@ -95,13 +95,11 @@ const AddTask = ({
     setErrors(errors);
     return errors;
   };
-  // console.log(volunters + Number(formState?.volunteer_count), volunterStop);
+  console.log(volunters + Number(formState?.volunteer_count), volunterStop);
   const onSave = async () => {
     let method = formState.id ? "PUT" : "POST";
     if (hasErrors(validate())) return;
-    // if (formState?.id) {
 
-    // }
     if (volunters + Number(formState?.volunteer_count) > volunterStop) {
       showToast("Los voluntarios sobrepasan a los de la actividad", "error");
       return;

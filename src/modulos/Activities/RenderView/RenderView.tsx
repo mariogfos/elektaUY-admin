@@ -260,6 +260,9 @@ const RenderView = ({
     tasks?.map((t: any) => {
       volunter = volunter + t.volunteer_count;
     });
+    if (itemTask?.id) {
+      volunter = volunter - itemTask.volunteer_count;
+    }
     return volunter;
   };
 
