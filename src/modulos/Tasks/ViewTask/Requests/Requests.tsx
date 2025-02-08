@@ -13,22 +13,27 @@ import Empty from "../Empty/Empty";
 const Requests = ({ data, reLoad }: any) => {
   const { execute } = useAxios();
   const { showToast } = useAuth();
-  const onAccept = async (item: any) => {
+  const onAccept = async (item: any, status: any) => {
     const { data } = await execute(
       "/task-participate",
       "POST",
       {
         task_id: item.task_id,
         affiliate_id: item.affiliate_id,
-        status: "A",
+        status: status,
       },
       false,
       true
     );
 
     if (data?.success) {
-      showToast("Afiliado aceptado", "success");
-      reLoad();
+      if (status == "A") {
+        showToast("Afiliado aceptado", "success");
+      } else {
+        showToast("Afiliado rechazado", "success");
+      }
+
+      reLoad(null, true);
     }
   };
   return (
@@ -53,8 +58,13 @@ const Requests = ({ data, reLoad }: any) => {
                 title={getFullName(d.affiliate)}
                 right={
                   <div style={{ display: "flex", gap: 8 }}>
-                    <Button variant="secondary">Rechazar</Button>
-                    <Button onClick={() => onAccept(d)}>Aceptar</Button>
+                    <Button
+                      variant="secondary"
+                      onClick={() => onAccept(d, "X")}
+                    >
+                      Rechazar
+                    </Button>
+                    <Button onClick={() => onAccept(d, "A")}>Aceptar</Button>
                   </div>
                 }
               />
