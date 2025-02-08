@@ -16,7 +16,7 @@
     }
   }
   & > div:nth-child(2) {
-    width: 144px;
+    width: 150px;
     text-align: right;
     color: var(--cBlackV2);
   }

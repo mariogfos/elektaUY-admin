@@ -63,7 +63,7 @@ const RenderView = ({
     }
   }, []);
 
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(0);
 
   const typeActivity: any = {
     T: "Taller",
@@ -333,7 +333,7 @@ const RenderView = ({
             <>
               <div>
                 <p>Tareas de la actividad</p>
-                <ProgressBar level={level} maxLevel={5} />
+                <ProgressBar level={level} maxLevel={tasks?.length} />
                 {/* <p onClick={() => setLevel(level + 1)}>Next level</p> */}
               </div>
               {/* <Tasks id={item?.data?.id} /> */}
