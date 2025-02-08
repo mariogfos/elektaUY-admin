@@ -152,9 +152,9 @@ const RenderView = ({
       label: "Voluntarios",
       responsive: "onlyDesktop",
       width: "100px",
-      // onRender: (item: any) => {
-      //   return statusTask[item.value];
-      // },
+      onRender: (item: any) => {
+        return item.item.participate_count + "/" + item.value;
+      },
     },
     {
       key: "task_status",
@@ -163,6 +163,59 @@ const RenderView = ({
       width: "100px",
       onRender: (item: any) => {
         return statusTask[item.value];
+      },
+    },
+    {
+      key: "pending_count",
+      label: "Solicitudes",
+      responsive: "onlyDesktop",
+      width: "100px",
+      onRender: (item: any) => {
+        if (item.value > 0) {
+          return (
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <p
+                style={{
+                  backgroundColor: "var(--cAccent)",
+                  color: "var(--cWhite)",
+                  padding: "2px 6px",
+                  borderRadius: "100px",
+                  fontSize: 12,
+                }}
+              >
+                {item.value}
+              </p>
+            </div>
+          );
+        } else {
+          return (
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <p
+                style={{
+                  backgroundColor: "var(--cBlackV2)",
+                  color: "var(--cWhiteV1)",
+                  padding: "1px 6px",
+                  borderRadius: "100px",
+                }}
+              >
+                -
+              </p>
+            </div>
+          );
+        }
+        // return <div>{item.value}</div>;
       },
     },
 

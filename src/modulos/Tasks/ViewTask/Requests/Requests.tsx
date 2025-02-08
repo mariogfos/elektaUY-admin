@@ -10,7 +10,7 @@ import { useAuth } from "@/mk/contexts/AuthProvider";
 import { IconInfoApp } from "@/components/layout/icons/IconsBiblioteca";
 import Empty from "../Empty/Empty";
 
-const Requests = ({ data }: any) => {
+const Requests = ({ data, reLoad }: any) => {
   const { execute } = useAxios();
   const { showToast } = useAuth();
   const onAccept = async (item: any) => {
@@ -28,6 +28,7 @@ const Requests = ({ data }: any) => {
 
     if (data?.success) {
       showToast("Afiliado aceptado", "success");
+      reLoad();
     }
   };
   return (
