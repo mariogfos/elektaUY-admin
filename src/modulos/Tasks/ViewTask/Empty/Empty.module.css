@@ -1,10 +1,10 @@
 .empty {
   background-color: var(--cHover);
-  padding: 16px;
-  border-radius: 16px;
+  padding: var(--spL);
+  border-radius: var(--bRadiusM);
   display: flex;
-  gap: 8px;
+  gap: var(--spS);
   align-items: center;
   justify-content: center;
-  margin-top: 8px;
+  margin-top: var(--spS);
 }
