@@ -390,16 +390,13 @@ const RenderView = ({
               <div>
                 <p>Tareas de la actividad</p>
                 <ProgressBar level={level} maxLevel={tasks?.length} />
-                {/* <p onClick={() => setLevel(level + 1)}>Next level</p> */}
               </div>
-              {/* <Tasks id={item?.data?.id} /> */}
               <div
                 style={{
                   width: "100%",
                   display: "flex",
                   justifyContent: "right",
                   margin: "8px 0px",
-                  // backgroundColor: "red",
                 }}
               >
                 <Button style={{ width: 200 }} onClick={() => setOpenAdd(true)}>

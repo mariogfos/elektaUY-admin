@@ -7,9 +7,9 @@
       display: flex;
       flex-direction: column;
       background-color: var(--cBlackV1);
-      padding: 8px 12px;
+      padding: var(--spS) var(--spM);
       width: 100%;
-      border-radius: 16px;
+      border-radius: var(--bRadiusM);
       /* gap: 8px; */
 
       & > div:nth-child(1) {
