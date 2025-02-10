@@ -139,55 +139,61 @@ const RenderCard = ({ extraData, item, onClick, onEdit, onDel }: PropsType) => {
               )}
             </div>
           </div>
-          <div
-            style={{
-              overflow: "hidden",
-              width: "100%",
-              height: "144px",
-              borderRadius: 8,
-              backgroundColor: "var(--cBlackV3)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              position: "relative",
-            }}
-          >
-            {item.type == "I" && (
-              <>
-                {item.images.length > 1 && (
-                  <p
-                    style={{
-                      position: "absolute",
-                      backgroundColor: "var(--cWhite)",
-                      padding: "2px 6px",
-                      borderRadius: 8,
-                      fontSize: 12,
-                      color: "var(--cBlack)",
-                      top: 8,
-                      right: 8,
-                    }}
-                  >
-                    +{item.images.length - 1}
-                  </p>
-                )}
-                <img
-                  style={{ width: "100%", height: "auto" }}
-                  src={getUrlImages(
-                    "/CONT-" +
-                      item.id +
-                      "-" +
-                      item.images[0]?.id +
-                      ".webp" +
-                      "?" +
-                      item?.updated_at
+          {((item.type == "I" && item.images.length > 0) ||
+            item.type == "D" ||
+            item.type == "V") && (
+            <div
+              style={{
+                overflow: "hidden",
+                width: "100%",
+                height: "144px",
+                borderRadius: 8,
+                backgroundColor: "var(--cBlackV3)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+              }}
+            >
+              {item.type == "I" && (
+                <>
+                  {item.images.length > 1 && (
+                    <p
+                      style={{
+                        position: "absolute",
+                        backgroundColor: "var(--cWhite)",
+                        padding: "2px 6px",
+                        borderRadius: 8,
+                        fontSize: 12,
+                        color: "var(--cBlack)",
+                        top: 8,
+                        right: 8,
+                      }}
+                    >
+                      +{item.images.length - 1}
+                    </p>
                   )}
-                />
-              </>
-            )}
-            {item.type == "D" && <IconPDF size={48} color="var(--cError)" />}
-            {item.type == "V" && <IconVideo size={48} color="var(--cError)" />}
-          </div>
+                  <img
+                    style={{ width: "100%", height: "auto" }}
+                    src={getUrlImages(
+                      "/CONT-" +
+                        item.id +
+                        "-" +
+                        item.images[0]?.id +
+                        ".webp" +
+                        "?" +
+                        item?.updated_at
+                    )}
+                  />
+                </>
+              )}
+              {item.type == "D" && <IconPDF size={48} color="var(--cError)" />}
+              {item.type == "V" && (
+                <IconVideo size={48} color="var(--cError)" />
+              )}
+            </div>
+          )}
           <div
             style={{
               display: "flex",
@@ -229,7 +235,7 @@ const RenderCard = ({ extraData, item, onClick, onEdit, onDel }: PropsType) => {
                 wordBreak: "break-all",
                 overflowWrap: "break-word",
                 display: "-webkit-box",
-                WebkitLineClamp: 2,
+                WebkitLineClamp: item.images.length > 0 ? 2 : 8,
                 WebkitBoxOrient: "vertical",
                 width: "90%",
                 overflow: "hidden",

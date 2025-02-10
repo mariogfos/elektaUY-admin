@@ -662,6 +662,7 @@ const Contents = () => {
     i: number,
     onClick: Function
   ) => {
+    // console.log(item);
     return (
       <RenderCard
         item={item}
