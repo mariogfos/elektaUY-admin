@@ -60,6 +60,15 @@ const AddTask = ({
       key: "begin_at",
       errors,
     });
+
+    errors = checkRules({
+      value: formState?.begin_at,
+      rules: ["greaterDate:begin_at"],
+      key: "begin_at",
+      errors,
+      data: { begin_at: activity?.begin_at },
+    });
+
     errors = checkRules({
       value: formState?.end_at,
       rules: ["required", "greaterDate", "greaterDate:begin_at"],
