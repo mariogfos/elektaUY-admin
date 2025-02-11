@@ -77,6 +77,13 @@ const AddTask = ({
       data: formState,
     });
     errors = checkRules({
+      value: formState?.end_at,
+      rules: ["lessDate:end_at"],
+      key: "end_at",
+      errors,
+      data: { end_at: activity?.end_at },
+    });
+    errors = checkRules({
       value: formState?.requirements,
       rules: ["required"],
       key: "requirements",
