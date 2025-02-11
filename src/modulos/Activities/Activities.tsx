@@ -144,7 +144,7 @@ const Activities = () => {
       //   },
       //   list: true,
       // },
-      user_id: {
+      coordinator_id: {
         rules: ["required"],
         api: "ae",
         label: "Coordinador",
@@ -159,13 +159,13 @@ const Activities = () => {
           // },
           onRender: ({ item, extraData }: any) => {
             let coo = extraData?.gabinete?.find(
-              (e: any) => e.user_id == item.user_id
+              (e: any) => e.user_id == item.coordinator_id
             );
             return (
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <Avatar
                   src={getUrlImages(
-                    "/ADM-" + item.user_id + ".webp?d=" + item.updated_at
+                    "/ADM-" + item.coordinator_id + ".webp?d=" + item.updated_at
                   )}
                   name={getFullName(coo)}
                 />

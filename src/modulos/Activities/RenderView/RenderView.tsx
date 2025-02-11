@@ -74,8 +74,8 @@ const RenderView = ({
 
   const getMissingDays = () => {
     const date = new Date();
-    const dateEnd = new Date(item?.data?.end_at);
-    const diff = dateEnd.getTime() - date.getTime();
+    const dateBegin = new Date(item?.data?.date_limit);
+    const diff = dateBegin.getTime() - date.getTime();
     return Math.ceil(diff / (1000 * 3600 * 24));
   };
 
@@ -419,8 +419,7 @@ const RenderView = ({
         {openAdd && (
           <AddTask
             reLoad={getTask}
-            activity_id={item?.data?.id}
-            coordinator_id={item?.data?.coordinator_id}
+            activity={item?.data}
             open={openAdd}
             onClose={() => {
               setOpenAdd(false);
@@ -428,7 +427,6 @@ const RenderView = ({
             }}
             item={itemTask}
             execute={execute}
-            volunterStop={item?.data?.volunteer_count}
             volunters={volunters()}
           />
         )}

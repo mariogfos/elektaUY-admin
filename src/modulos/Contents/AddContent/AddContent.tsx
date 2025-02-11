@@ -257,6 +257,7 @@ const AddContent = ({
         title: formState?.title,
         description: formState?.description,
         avatar: formState?.avatar,
+        file: formState?.file,
         type: formState?.type,
       }
     );

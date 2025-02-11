@@ -48,7 +48,7 @@ const RenderForm = ({
         address: "",
       });
     }
-    if (formState?.activity_mode == "P") {
+    if (formState?.activity_mode == "P" && action != "edit") {
       setFormState({
         ...formState,
         location: "",
@@ -170,9 +170,9 @@ const RenderForm = ({
     });
 
     errors = checkRules({
-      value: formState?.type_activity,
+      value: formState?.activity_type,
       rules: ["required"],
-      key: "type_activity",
+      key: "activity_type",
       errors,
     });
     errors = checkRules({
@@ -202,12 +202,13 @@ const RenderForm = ({
       key: "volunteer_count",
       errors,
     });
-    // errors = checkRules({
-    //   value: formState?.date_limit,
-    //   rules: ["required"],
-    //   key: "date_limit",
-    //   errors,
-    // });
+    errors = checkRules({
+      value: formState?.date_limit,
+      rules: ["required", "greaterDate:begin_at", "lessDate:end_at"],
+      key: "date_limit",
+      errors,
+      data: formState,
+    });
     errors = checkRules({
       value: formState?.name,
       rules: ["required"],
@@ -221,9 +222,9 @@ const RenderForm = ({
       errors,
     });
     errors = checkRules({
-      value: formState?.user_id,
+      value: formState?.coordinator_id,
       rules: ["required"],
-      key: "user_id",
+      key: "coordinator_id",
       errors,
     });
     if (action == "add") {
@@ -250,7 +251,7 @@ const RenderForm = ({
         destiny: formState?.destiny,
         begin_at: formState?.begin_at,
         end_at: formState?.end_at,
-        type_activity: formState?.type_activity,
+        activity_type: formState?.activity_type,
         activity_mode: formState?.activity_mode,
         address: formState?.address,
         location: formState?.location,
@@ -259,7 +260,7 @@ const RenderForm = ({
         date_limit: formState?.date_limit,
         name: formState?.name,
         description: formState?.description,
-        user_id: formState?.user_id,
+        coordinator_id: formState?.coordinator_id,
         avatar: formState?.avatar,
       }
     );
@@ -311,10 +312,10 @@ const RenderForm = ({
         subtitle="Define la naturaleza de la iniciativa que deseas organizar con tu equipo  y los afiliados"
       >
         <Select
-          name="type_activity"
+          name="activity_type"
           style={{ width: 200 }}
           label="Tipo de actividad"
-          value={formState?.type_activity}
+          value={formState?.activity_type}
           options={[
             { id: "T", name: "Taller" },
             { id: "C", name: "Capacitación" },
@@ -397,7 +398,7 @@ const RenderForm = ({
         subtitle="Define hasta cuándo pueden inscribirse los afiliados. Si no estableces una fecha, las inscripciones se cerrarán 24 horas antes del inicio."
         style={{ flexDirection: "row" }}
       >
-        <div style={{ marginTop: 8 }}>
+        <div style={{ marginTop: 8, width: 400 }}>
           <Input
             type="datetime-local"
             label="Fecha límite de inscripción"
@@ -413,9 +414,9 @@ const RenderForm = ({
         subtitle="Selecciona a una persona que sea responsable para que la actividad se cumpla con éxito."
       >
         <Select
-          name="user_id"
+          name="coordinator_id"
           label="Coordinador"
-          value={formState?.user_id}
+          value={formState?.coordinator_id}
           options={getGabinete()}
           onChange={handleChangeInput}
           error={errors}
