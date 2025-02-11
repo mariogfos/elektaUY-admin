@@ -15,6 +15,7 @@ import RenderForm from "./RenderForm/RenderForm";
 import RenderView from "./RenderView/RenderView";
 // import Pagination from "@/mk/components/ui/Pagination/Pagination";
 import { getDateStrMes } from "../../mk/utils/date";
+import { cStatusAc, statusAc } from "@/mk/utils/utils";
 
 const paramsInitial = {
   perPage: 10,
@@ -229,6 +230,19 @@ const Activities = () => {
         },
         list: {
           width: "100px",
+          onRender: ({ item }: any) => {
+            let status = item?.activity_status;
+            let startDate = new Date(item?.begin_at); // Convertir a fecha
+            let today = new Date(); // Fecha actual
+            // console.log(startDate, today);
+            if (item?.activity_status === "P" && today >= startDate) {
+              // Cambiar estado a "En curso" si la fecha y hora han llegado
+              status = "E";
+            }
+            return (
+              <div style={{ color: cStatusAc[status] }}>{statusAc[status]}</div>
+            );
+          },
         },
       },
       month: {

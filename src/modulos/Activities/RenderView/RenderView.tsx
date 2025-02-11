@@ -266,6 +266,23 @@ const RenderView = ({
     return volunter;
   };
 
+  const getStatus = () => {
+    // let startdate = new Date(item?.data?.begin_at).toISOString();
+    // let today = new Date().toISOString();
+    let status = item.data.activity_status;
+    let startDate = new Date(item?.data?.begin_at); // Convertir a fecha
+    let EndDate = new Date(item?.data?.begin_at);
+    let today = new Date(); // Fecha actual
+    // console.log(startDate, today);
+    if (item?.data?.activity_status === "P" && today >= startDate) {
+      // Cambiar estado a "En curso" si la fecha y hora han llegado
+      status = "E";
+    }
+
+    return status;
+  };
+  console.log(getStatus());
+
   return (
     open && (
       <div className={styles.RenderView}>
@@ -298,8 +315,8 @@ const RenderView = ({
               />
             </div>
             <div>
-              <p>{typeActivity[item?.data?.type_activity]}</p>
-              <StateLabel state={item?.data?.activity_status} />
+              <p>{typeActivity[item?.data?.activity_type]}</p>
+              <StateLabel state={getStatus()} />
             </div>
             <div>
               <p>{item?.data?.name}</p>
@@ -370,7 +387,7 @@ const RenderView = ({
                     {getMissingDays() == 0 ? (
                       <p>Ya empezó</p>
                     ) : getMissingDays() < 0 ? (
-                      <p>Finalizó</p>
+                      <p>Finalizaron las inscripciones</p>
                     ) : (
                       <p>
                         {"Faltan " +
