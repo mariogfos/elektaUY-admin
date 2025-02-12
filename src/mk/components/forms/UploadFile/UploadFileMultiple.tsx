@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
-import ControlLabel, { PropsTypeInputBase } from "../ControlLabel";
+import { PropsTypeInputBase } from "../ControlLabel";
 import { getUrlImages } from "@/mk/utils/string";
-import {
-  IconAdd,
-  IconImage,
-  IconX,
-} from "@/components/layout/icons/IconsBiblioteca";
 import { UploadFileM } from "./UploadFileM";
 import styles from "./uploadFile.module.css";
 
@@ -47,14 +42,13 @@ const UploadFileMultiple = ({
     const indice = img.replace(name, "").split("-")[0];
     const id = img.replace(name, "").split("-")[1] || 0;
     let act = "delete";
-    // console.log("deleteImg", img, indice, id);
+
     let newE: any = {};
     if (id == 0) {
       act = "";
 
       const newI: any = [];
       imgs.map((it: any, i: number) => {
-        // console.log("it", value[name + i], i);
         if (i !== parseInt(indice) && (value[name + i] || it.id != 0)) {
           newI.push(imgs[i]);
           if (value[name + i]) newE[name + (newI.length - 1)] = value[name + i];
@@ -63,7 +57,6 @@ const UploadFileMultiple = ({
       newI.push({ id: 0 });
       setValue(newE);
       setImgs(newI);
-      // console.log("imgs", newI);
     } else {
       if (value[name + indice]?.file == "delete") act = "";
       newE = {
@@ -74,8 +67,6 @@ const UploadFileMultiple = ({
     }
 
     onChange && onChange({ target: { name, value: newE } });
-
-    // console.log("newE", newE);
   };
 
   const _onChange = (e: any) => {
@@ -83,12 +74,6 @@ const UploadFileMultiple = ({
       (e.target.value.file == "" || e.target.value.file == "delete") &&
       imgs.length > 1
     ) {
-      // setImgs(
-      //   imgs.filter(
-      //     (_: any, i: number) =>
-      //       i !== parseInt(e.target.name.replace(name, "").split("-")[0])
-      //   )
-      // );
       deleteImg(e.target.name, false);
 
       return;
@@ -96,32 +81,15 @@ const UploadFileMultiple = ({
 
     const indice = e.target.name.replace(name, "").split("-")[0];
     const id = e.target.name.replace(name, "").split("-")[1] || 0;
-    // const add = !value[name + indice] || value[name + indice]?.file == "";
-
-    // console.log("add", value[name + indice]);
+    const edit = value[name + indice]?.file || id > 0;
+    console.log("edit", edit, name + indice, value[name + indice]?.file);
     const newE = { ...value, [name + indice]: { ...e.target.value, id } };
     onChange && onChange({ target: { name, value: newE } });
     setValue(newE);
-    //
 
     let add = true;
-    //iterar newE que es un objeto
-    // console.log("newE", newE);
-    // console.log("imgs", imgs);
-    // Object.values(newE).forEach((it: any, i: number) => {
-    //   if (it.file == "") add = false;
-    // });
 
-    // imgs.forEach((it: any, i: number) => {
-    //   if (!newE[name + i] && newE[name + i]?.file == "") add = false;
-    // });
-
-    // newE.((it: any, i: number) => {
-    //   if (it.file == "") add = false;
-    // });
-
-    // contar cuantos elementos hay en newE
-    add = imgs.length <= Object.keys(newE).length;
+    add = imgs.length <= Object.keys(newE).length + (images.length - 1);
 
     if (!add) {
       add = true;
@@ -136,36 +104,28 @@ const UploadFileMultiple = ({
       });
     }
 
-    if (imgs.length >= maxFiles || !add) return;
+    if (imgs.length >= maxFiles || !add || edit) return;
     setImgs((prev: any) => [...prev, { id: 0 }]);
-    //
   };
   return (
-    // <ControlLabel
-    //   {...props}
-    //   name={name}
-    //   value={value}
-    //   className={styles.uploadFileMultiple + " " + styles[className]}
-    // >
-    <>
-      <div
-        className={styles.uploadFileMultiple + " " + styles[className]}
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignContent: "space-around",
-          gap: "var(--sM)",
-          width: "100%",
-          flexWrap: "wrap",
-          border: "1px solid var(--cWhiteV2)",
-          padding: "var(--sM)",
-          borderRadius: "var(--bRadius)",
-          position: "relative",
-        }}
-      >
-        <label>
-          {props.label || "Puede subir hasta " + maxFiles + " imágenes"}
-          {/* {imgs.length > 1 ||
+    <div
+      className={styles.uploadFileMultiple + " " + styles[className]}
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "space-around",
+        gap: "var(--sM)",
+        width: "100%",
+        flexWrap: "wrap",
+        border: "1px solid var(--cWhiteV2)",
+        padding: "var(--sM)",
+        borderRadius: "var(--bRadius)",
+        position: "relative",
+      }}
+    >
+      <label>
+        {props.label || "Puede subir hasta " + maxFiles + " imágenes"}
+        {/* {imgs.length > 1 ||
             (value[name + "0"]?.file != "" && (
               <IconAdd
                 style={{
@@ -185,49 +145,52 @@ const UploadFileMultiple = ({
                 }}
               />
             ))} */}
-        </label>
-        {imgs.map((it: any, i: number) => (
-          <div
-            key={"img-" + i}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "12px",
-              alignItems: "center",
-              position: "relative",
-            }}
-          >
-            {/* {value[name + i]?.file.substr(0, 5)} */}
-            <UploadFileM
-              {...props}
-              className="v2"
-              // autoOpen={imgs.length > 1 && !it.id}
-              editor={editor}
-              sizePreview={sizePreview}
-              value={value[name + i]?.file || false}
-              name={name + i + "-" + it.id}
-              onChange={_onChange}
-              label=""
-              placeholder="Subir imagen"
-              fileName={
-                it.id
-                  ? getUrlImages(
-                      "/" +
-                        prefix +
-                        "-" +
-                        item.id +
-                        "-" +
-                        it.id +
-                        "." +
-                        (it.ext || "webp") +
-                        "?" +
-                        item.updated_at
-                    )
-                  : null
-              }
-            />
+      </label>
+      {JSON.stringify(imgs)}----
+      {JSON.stringify(Object.keys(value).length)}----
+      {images.length}
+      {imgs.map((it: any, i: number) => (
+        <div
+          key={"img-" + i}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "12px",
+            alignItems: "center",
+            position: "relative",
+          }}
+        >
+          {/* {value[name + i]?.file.substr(0, 5)} */}
+          <UploadFileM
+            {...props}
+            className="v2"
+            // autoOpen={imgs.length > 1 && !it.id}
+            editor={editor}
+            sizePreview={sizePreview}
+            value={value[name + i]?.file || false}
+            name={name + i + "-" + it.id}
+            onChange={_onChange}
+            label=""
+            placeholder="Subir imagen"
+            fileName={
+              it.id
+                ? getUrlImages(
+                    "/" +
+                      prefix +
+                      "-" +
+                      item.id +
+                      "-" +
+                      it.id +
+                      "." +
+                      (it.ext || "webp") +
+                      "?" +
+                      item.updated_at
+                  )
+                : null
+            }
+          />
 
-            {/* {i > 0 && !it.id && (
+          {/* {i > 0 && !it.id && (
               // (it.value?.file == "" || it.value?.file == "DELETE") &&
               <IconX
                 size={16}
@@ -246,9 +209,9 @@ const UploadFileMultiple = ({
                 }}
               />
             )} */}
-          </div>
-        ))}
-        {/* {imgs.length <= maxFiles && (
+        </div>
+      ))}
+      {/* {imgs.length <= maxFiles && (
           <div
             style={{
               display: "flex",
@@ -268,9 +231,7 @@ const UploadFileMultiple = ({
             <span>{props.ext.join(", ") || "jpg,png,jpeg"}</span>
           </div>
         )} */}
-      </div>
-    </>
-    // </ControlLabel>
+    </div>
   );
 };
 
