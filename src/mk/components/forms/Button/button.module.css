@@ -24,8 +24,8 @@
     background-color: var(--cPrimary);
   }
   &.secondary {
-    border: var(--bWidth) solid var(--cWhiteV1);
-    color: var(--cWhiteV1);
+    border: var(--bWidth) solid var(--cBlackV2);
+    color: var(--cBlackV2);
   }
 
   &.terciary {
@@ -35,6 +35,9 @@
 
   &.accent {
     background-color: var(--cAccent);
+  }
+  &.cancel {
+    background-color: var(--cError);
   }
 
   &:hover {

@@ -13,11 +13,12 @@ import { getFullName, getUrlImages } from "@/mk/utils/string";
 type PropsType = {
   formState: any;
   extraData: any;
+  action: any;
 };
-const Preview = ({ formState, extraData }: PropsType) => {
+const Preview = ({ formState, extraData, action }: PropsType) => {
   const dataFake = {
-    avatar:
-      "https://revistaverde.com.uy/wp-content/uploads/2020/03/lacalle-pou-presidente-3-20.jpg",
+    // avatar:
+    //   "https://revistaverde.com.uy/wp-content/uploads/2020/03/lacalle-pou-presidente-3-20.jpg",
     name: "Nombre candidato",
     title: "Lorem ipsum dolor sit amet consectetur.",
     subtitle: "Presidente de la República Oriental del Uruguay",
@@ -28,7 +29,22 @@ const Preview = ({ formState, extraData }: PropsType) => {
   const candidate = extraData?.candidates?.find(
     (can: any) => formState?.candidate_id == can.id
   );
-
+  // console.log(Object.keys(formState.avatar).length > 0);
+  // console.log(formState.images[0].id);
+  const nroImages = formState.id
+    ? formState?.images?.length + Object.keys(formState?.avatar || {}).length
+    : Object.keys(formState?.avatar || {}).length;
+  const avatar =
+    action == "edit" && formState?.images.length > 0
+      ? getUrlImages(
+          "/CONT-" +
+            formState?.id +
+            "-" +
+            formState?.images[0]?.id +
+            ".webp?d=" +
+            formState?.updated_at
+        )
+      : "data:image/webp;base64," + formState?.avatar?.avatar0?.file;
   return (
     <div className={styles.Preview}>
       <div>
@@ -58,7 +74,8 @@ const Preview = ({ formState, extraData }: PropsType) => {
             <span>{formState?.description || dataFake.description}</span>
           </div>
           {(formState?.isType == "N" ||
-            (formState?.isType == "P" && formState.avatar)) && (
+            (formState?.isType == "P" &&
+              (formState.avatar || formState?.images?.length > 0))) && (
             <div>
               <div
                 style={{
@@ -68,9 +85,11 @@ const Preview = ({ formState, extraData }: PropsType) => {
                   position: "relative",
                 }}
               >
-                {formState.avatar ? (
+                {Object?.keys(formState?.avatar || {}).length > 0 ||
+                formState?.images?.length > 0 ? (
                   <>
-                    {Object?.keys(formState?.avatar).length > 1 && (
+                    {(Object?.keys(formState?.avatar || {}).length > 1 ||
+                      formState?.images?.length > 1) && (
                       <p
                         style={{
                           position: "absolute",
@@ -82,18 +101,10 @@ const Preview = ({ formState, extraData }: PropsType) => {
                           padding: "2px 6px",
                         }}
                       >
-                        +{Object.keys(formState?.avatar).length}
+                        +{nroImages - 1}
                       </p>
                     )}
-                    <img
-                      src={
-                        "data:image/webp;base64," +
-                        formState?.avatar?.avatar0?.file
-                      }
-                      alt="avatar"
-                      width="auto"
-                      height="100%"
-                    />
+                    <img src={avatar} alt="avatar" width="auto" height="100%" />
                   </>
                 ) : (
                   <IconGallery />

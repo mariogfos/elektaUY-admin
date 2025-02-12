@@ -1,21 +1,10 @@
+import { cStatusAc, statusAc } from "@/mk/utils/utils";
 import React from "react";
 type PropsType = {
   state: string;
 };
 
 const StateLabel = ({ state }: PropsType) => {
-  const stateText: any = {
-    P: "Pendiente",
-    E: "En proceso",
-    F: "Finalizado",
-    C: "Cancelado",
-  };
-  const color: any = {
-    P: "var(--cBlackV2)",
-    E: "green",
-    F: "gray",
-    C: "red",
-  };
   return (
     <p
       // font-size: 12px;
@@ -25,7 +14,7 @@ const StateLabel = ({ state }: PropsType) => {
       // background-color: var(--cBlackV2);
       // border-radius: 50px;
       style={{
-        backgroundColor: color[state],
+        backgroundColor: cStatusAc[state],
         borderRadius: "50px",
         color: "var(--cWhiteV1)",
         fontSize: "12px",
@@ -33,7 +22,7 @@ const StateLabel = ({ state }: PropsType) => {
         padding: "4px 8px",
       }}
     >
-      {stateText[state]}
+      {statusAc[state]}
     </p>
   );
 };

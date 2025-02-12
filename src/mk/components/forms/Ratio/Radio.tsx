@@ -10,9 +10,13 @@ type PropsType = {
   label: string;
   subtitle?: string;
   onChange: (checked: boolean) => void; // Prop para manejar el cambio
+  disabled?: boolean;
 };
-const Radio = ({ checked, label, subtitle, onChange }: PropsType) => {
+const Radio = ({ checked, label, subtitle, onChange, disabled }: PropsType) => {
   const handleClick = () => {
+    if (disabled) {
+      return;
+    }
     onChange(!checked);
   };
   return (

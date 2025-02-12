@@ -15,6 +15,7 @@ import RenderForm from "./RenderForm/RenderForm";
 import RenderView from "./RenderView/RenderView";
 // import Pagination from "@/mk/components/ui/Pagination/Pagination";
 import { getDateStrMes } from "../../mk/utils/date";
+import { cStatusAc, statusAc } from "@/mk/utils/utils";
 
 const paramsInitial = {
   perPage: 10,
@@ -31,6 +32,7 @@ const Activities = () => {
     plural: "Actividades",
     permiso: "",
     // import: true,
+    filter: true,
     renderView: (props: {
       open: boolean;
       onClose: any;
@@ -39,6 +41,7 @@ const Activities = () => {
       extraData?: Record<string, any>;
       openList: any;
       setOpenList: any;
+      execute?: any;
     }) => <RenderView {...props} />,
     renderForm: (props: {
       item: any;
@@ -142,7 +145,7 @@ const Activities = () => {
       //   },
       //   list: true,
       // },
-      user_id: {
+      coordinator_id: {
         rules: ["required"],
         api: "ae",
         label: "Coordinador",
@@ -157,13 +160,13 @@ const Activities = () => {
           // },
           onRender: ({ item, extraData }: any) => {
             let coo = extraData?.gabinete?.find(
-              (e: any) => e.user_id == item.user_id
+              (e: any) => e.user_id == item.coordinator_id
             );
             return (
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <Avatar
                   src={getUrlImages(
-                    "/ADM-" + item.user_id + ".webp?d=" + item.updated_at
+                    "/ADM-" + item.coordinator_id + ".webp?d=" + item.updated_at
                   )}
                   name={getFullName(coo)}
                 />
@@ -184,6 +187,18 @@ const Activities = () => {
             { id: "V", name: "Virtual" },
           ],
         },
+        filter: {
+          // extraData: "leagues",
+          label: "Modalidad",
+          width: "200px",
+          options: () => {
+            return [
+              { id: "T", name: "Todos" },
+              { id: "P", name: "Presencial" },
+              { id: "V", name: "Virtual" },
+            ];
+          },
+        },
         list: {
           width: "100px",
         },
@@ -200,9 +215,64 @@ const Activities = () => {
             { id: "F", name: "Finalizada" },
           ],
         },
+        filter: {
+          // extraData: "leagues",
+          label: "Estado",
+          width: "200px",
+          options: () => {
+            return [
+              { id: "T", name: "Todos" },
+              { id: "P", name: "Pendiente" },
+              { id: "E", name: "En curso" },
+              { id: "F", name: "Finalizada" },
+            ];
+          },
+        },
         list: {
           width: "100px",
+          onRender: ({ item }: any) => {
+            let status = item?.activity_status;
+            let startDate = new Date(item?.begin_at); // Convertir a fecha
+            let today = new Date(); // Fecha actual
+            // console.log(startDate, today);
+            if (item?.activity_status === "P" && today >= startDate) {
+              // Cambiar estado a "En curso" si la fecha y hora han llegado
+              status = "E";
+            }
+            return (
+              <div style={{ color: cStatusAc[status] }}>{statusAc[status]}</div>
+            );
+          },
         },
+      },
+      month: {
+        rules: [""],
+        // api: "ae",
+        label: "",
+        form: false,
+        filter: {
+          // extraData: "leagues",
+          label: "Mes",
+          width: "200px",
+          options: () => {
+            return [
+              { id: "T", name: "Todos" },
+              { id: "01", name: "Enero" },
+              { id: "02", name: "Febrero" },
+              { id: "03", name: "Marzo" },
+              { id: "04", name: "Abril" },
+              { id: "05", name: "Mayo" },
+              { id: "06", name: "Junio" },
+              { id: "07", name: "Julio" },
+              { id: "08", name: "Agosto" },
+              { id: "09", name: "Septiembre" },
+              { id: "10", name: "Octubre" },
+              { id: "11", name: "Noviembre" },
+              { id: "12", name: "Diciembre" },
+            ];
+          },
+        },
+        list: false,
       },
     };
   }, []);

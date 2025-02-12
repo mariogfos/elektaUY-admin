@@ -11,6 +11,7 @@ const mod = {
   singular: "barrio",
   plural: "barrios",
   permiso: "barrios",
+  noWaiting: true,
   extraData: true,
   hideActions: { edit: true, del: true, add: true },
 };
@@ -18,13 +19,13 @@ type PropsType = {
   id: any;
 };
 
+const paramsInitial = {
+  perPage: 10,
+  page: 1,
+  fullType: "L",
+  searchBy: "",
+};
 const Tasks = ({ id }: PropsType) => {
-  const paramsInitial = {
-    perPage: 10,
-    page: 1,
-    fullType: "L",
-    searchBy: "",
-  };
   const fields = useMemo(
     () => ({
       id: { rules: [], api: "e" },

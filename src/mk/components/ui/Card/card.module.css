@@ -10,3 +10,8 @@
   margin-top: 16px;
   border: 1px solid var(--cBlackV3);
 }
+.V1 {
+  background-color: var(--cHover);
+  border-radius: 16px;
+  border: none;
+}

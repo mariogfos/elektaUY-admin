@@ -103,7 +103,7 @@
     gap: 0px;
     border-bottom-left-radius: var(--bRadius);
     border-bottom-right-radius: var(--bRadius);
-    border: 1px solid var(--cWhiteV3);
+    /* border: 1px solid var(--cWhiteV3); */
     & > div {
       display: flex;
       align-items: stretch; /* Hace que todas las celdas tengan la misma altura */

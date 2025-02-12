@@ -47,7 +47,6 @@ const AddContent = ({
   });
 
   useEffect(() => {
-    console.log("item useefefect", item);
     setOpenList(false);
     if (!formState?.title && action == "edit") {
       setFormState({ ...formState, isType: "P" });
@@ -199,7 +198,7 @@ const AddContent = ({
         key: "title",
         errors,
       });
-      // if (action == "add") {
+      // if (action == "add" && formState?.isType == "N") {
       //   errors = checkRules({
       //     value: formState?.avatar,
       //     rules: ["required"],
@@ -235,7 +234,7 @@ const AddContent = ({
     setErrors(errors);
     return errors;
   };
-
+  console.log(formState);
   const onSave = async () => {
     if (hasErrors(validate())) return;
     setItem({ ...formState });
@@ -258,6 +257,7 @@ const AddContent = ({
         title: formState?.title,
         description: formState?.description,
         avatar: formState?.avatar,
+        file: formState?.file,
         type: formState?.type,
       }
     );
@@ -463,7 +463,11 @@ const AddContent = ({
         <div className={styles.containerPreview}>
           <p>Vista previa</p>
           <div>
-            <Preview formState={formState} extraData={extraData} />
+            <Preview
+              formState={formState}
+              extraData={extraData}
+              action={action}
+            />
           </div>
         </div>
         {openDestiny && (

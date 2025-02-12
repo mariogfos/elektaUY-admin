@@ -8,6 +8,7 @@ interface PropsType {
   onClick?: () => void;
   hoverInColor?: string;
   outHoverColor?: string;
+  variant?: "V1" | "V2" | "";
 }
 
 export const Card = ({
@@ -17,6 +18,7 @@ export const Card = ({
   onClick,
   hoverInColor = "var(--cBlackV3)",
   outHoverColor = "var(--cHover)",
+  variant = "",
 }: PropsType) => {
   const handleMouseEnter = (e: MouseEvent<HTMLDivElement>) => {
     if (onClick) {
@@ -34,7 +36,7 @@ export const Card = ({
     <div
       style={style}
       onClick={onClick}
-      className={`${styles.card} ${className}`}
+      className={`${styles.card} ${className} ${styles[variant]}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

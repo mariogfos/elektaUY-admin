@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import styles from "../Activities.module.css";
 import {
   IconArrowLeft,
+  IconEdit,
   IconInfoApp,
+  IconTrash,
 } from "@/components/layout/icons/IconsBiblioteca";
-import Image from "next/image";
 import CardActivityView from "./CardActivityView";
 import KeyValue from "@/mk/components/ui/KeyValue/KeyValue";
-import Tasks from "@/modulos/Tasks/Tasks";
 import ProgressBar from "./ProgressBar/ProgressBar";
 import { getDateTimeStrMes } from "../../../mk/utils/date";
 import StateLabel from "./StateLabel/StateLabel";
 import { getUrlImages } from "@/mk/utils/string";
+import { useAuth } from "@/mk/contexts/AuthProvider";
+import Table from "@/mk/components/ui/Table/Table";
+import Button from "@/mk/components/forms/Button/Button";
+import AddTask from "@/modulos/Tasks/AddTask/AddTask";
+import ViewTask from "@/modulos/Tasks/ViewTask/ViewTask";
+import { cStatusTask, statusTask } from "../../../mk/utils/utils";
+import DataModal from "@/mk/components/ui/DataModal/DataModal";
 
 const RenderView = ({
   onClose,
@@ -19,17 +26,44 @@ const RenderView = ({
   item,
   setItem,
   extraData,
-  user,
   openList,
   setOpenList,
-
+  execute,
   reLoad,
-  action,
 }: any) => {
+  const { showToast, user } = useAuth();
+  const [tasks, setTasks] = useState([]);
+  const [openAdd, setOpenAdd] = useState(false);
+  const [itemTask, setItemTask]: any = useState({});
+  const [openView, setOpenView] = useState(false);
+  const [deleteTask, setDeleteTask]: any = useState({ open: false, id: null });
+
+  const getTask = async () => {
+    const { data } = await execute(
+      "/tasks",
+      "GET",
+      {
+        fullType: "L",
+        searchBy: item?.data.id,
+      },
+      false,
+      true
+    );
+    if (data?.success === true) {
+      setTasks(data?.data);
+    } else {
+      showToast(data?.message, "info");
+    }
+  };
+
   useEffect(() => {
     setOpenList(false);
+    if (!openAdd) {
+      getTask();
+    }
   }, []);
-  const [level, setLevel] = useState(1);
+
+  const [level, setLevel] = useState(0);
 
   const typeActivity: any = {
     T: "Taller",
@@ -40,8 +74,8 @@ const RenderView = ({
 
   const getMissingDays = () => {
     const date = new Date();
-    const dateEnd = new Date(item?.data?.end_at);
-    const diff = dateEnd.getTime() - date.getTime();
+    const dateBegin = new Date(item?.data?.date_limit);
+    const diff = dateBegin.getTime() - date.getTime();
     return Math.ceil(diff / (1000 * 3600 * 24));
   };
 
@@ -49,7 +83,7 @@ const RenderView = ({
     const names: any = ["Todos"];
     if (item?.data?.destiny == 2) {
       extraData?.listas.map((li: any) => {
-        let d = item?.data?.adestinies.find((e: any) => e.lista_id == li.id);
+        let d = item?.data?.adestinies?.find((e: any) => e.lista_id == li.id);
         if (d) {
           names.push(li.name);
         }
@@ -57,7 +91,7 @@ const RenderView = ({
     }
     if (item?.data?.destiny == 3) {
       extraData?.dptos.map((dpto: any) => {
-        let d = item?.data?.adestinies.find((e: any) => e.dpto_id == dpto.id);
+        let d = item?.data?.adestinies?.find((e: any) => e.dpto_id == dpto.id);
         if (d) {
           names.push(dpto.name);
         }
@@ -65,13 +99,200 @@ const RenderView = ({
     }
     if (item?.data?.destiny == 4) {
       extraData?.muns.map((mun: any) => {
-        let d = item?.data?.adestinies.find((e: any) => e.dpto_id == mun.id);
+        let d = item?.data?.adestinies?.find((e: any) => e.dpto_id == mun.id);
         if (d) {
           names.push(mun.name);
         }
       });
     }
     return names;
+  };
+
+  // const getStatusTask = (value: any) => {
+
+  // };
+  const onDelTask = async () => {
+    const { data } = await execute(
+      "/tasks/" + deleteTask.id,
+      "DELETE",
+      {},
+      false,
+      true
+    );
+    if (data?.success == true) {
+      showToast("Tarea eliminada", "success");
+      setDeleteTask({ open: false, id: null });
+      getTask();
+    } else {
+      showToast("Ocurrio un error", "error");
+    }
+  };
+
+  const header = [
+    // {
+    //   key: "index",
+    //   label: "Nº",
+    //   width: "50px",
+    //   onRender: (item: any) => item.i,
+    //   responsive: "onlyDesktop",
+    // },
+    {
+      key: "end_at",
+      label: "Fecha de finalización",
+      onRender: (item: any) => {
+        return getDateTimeStrMes(item.value);
+      },
+      responsive: "onlyDesktop",
+      width: "250px",
+    },
+    {
+      key: "description",
+      label: "Descripción de la tarea",
+      responsive: "onlyDesktop",
+      // width: "250px",
+    },
+    {
+      key: "volunteer_count",
+      label: "Voluntarios",
+      responsive: "onlyDesktop",
+      width: "100px",
+      onRender: (item: any) => {
+        return item.item.participate_count + "/" + item.value;
+      },
+    },
+    {
+      key: "task_status",
+      label: "Estado",
+      responsive: "onlyDesktop",
+      width: "100px",
+      onRender: (item: any) => {
+        let status = item?.value;
+        let startDate = new Date(item?.item?.begin_at);
+        // let EndDate = new Date(item?.data?.begin_at);
+        let today = new Date(); // Fecha actual
+
+        if (item?.value === "P" && today >= startDate) {
+          // Cambiar estado a "En curso" si la fecha y hora han llegado
+          status = "E";
+        }
+
+        return (
+          <p style={{ color: cStatusTask[status] }}>{statusTask[status]}</p>
+        );
+      },
+    },
+    {
+      key: "pending_count",
+      label: "Solicitudes",
+      responsive: "onlyDesktop",
+      width: "100px",
+      onRender: (item: any) => {
+        if (item.value > 0) {
+          return (
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <p
+                style={{
+                  backgroundColor: "var(--cAccent)",
+                  color: "var(--cWhite)",
+                  padding: "2px 6px",
+                  borderRadius: "100px",
+                  fontSize: 12,
+                }}
+              >
+                {item.value}
+              </p>
+            </div>
+          );
+        } else {
+          return (
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <p
+                style={{
+                  backgroundColor: "var(--cBlackV2)",
+                  color: "var(--cWhiteV1)",
+                  padding: "1px 6px",
+                  borderRadius: "100px",
+                }}
+              >
+                -
+              </p>
+            </div>
+          );
+        }
+      },
+    },
+
+    {
+      key: "acciones",
+      label: "Acciones",
+      responsive: "onlyDesktop",
+      width: "100px",
+      onRender: ({ item }: any) => {
+        return (
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-around",
+            }}
+          >
+            <IconEdit
+              color="var(--cWhite)"
+              onClick={(e: any) => {
+                e.stopPropagation();
+                setOpenAdd(true);
+                setItemTask({ ...item });
+              }}
+            />
+            <IconTrash
+              color="var(--cError)"
+              onClick={(e: any) => {
+                e.stopPropagation();
+                // onDelTask(item.id);
+                setDeleteTask({ open: true, id: item.id });
+              }}
+            />
+          </div>
+        );
+      },
+    },
+  ];
+
+  const volunters = () => {
+    let volunter = 0;
+    tasks?.map((t: any) => {
+      volunter = volunter + t.volunteer_count;
+    });
+    if (itemTask?.id) {
+      volunter = volunter - itemTask.volunteer_count;
+    }
+    return volunter;
+  };
+
+  const getStatus = () => {
+    let status = item.data.activity_status;
+    let startDate = new Date(item?.data?.begin_at);
+    // let EndDate = new Date(item?.data?.begin_at);
+    let today = new Date(); // Fecha actual
+
+    if (item?.data?.activity_status === "P" && today >= startDate) {
+      // Cambiar estado a "En curso" si la fecha y hora han llegado
+      status = "E";
+    }
+
+    return status;
   };
 
   return (
@@ -106,8 +327,8 @@ const RenderView = ({
               />
             </div>
             <div>
-              <p>{typeActivity[item?.data?.type_activity]}</p>
-              <StateLabel state={item?.data?.activity_status} />
+              <p>{typeActivity[item?.data?.activity_type]}</p>
+              <StateLabel state={getStatus()} />
             </div>
             <div>
               <p>{item?.data?.name}</p>
@@ -116,11 +337,11 @@ const RenderView = ({
             <div>
               <CardActivityView>
                 <p>Fecha de inicio</p>
-                <p>{getDateTimeStrMes(item?.data?.end_at)}</p>
+                <p>{getDateTimeStrMes(item?.data?.begin_at)}</p>
               </CardActivityView>
               <CardActivityView>
                 <p>Fecha de finalización</p>
-                <p>{getDateTimeStrMes(item?.data?.begin_at)}</p>
+                <p>{getDateTimeStrMes(item?.data?.end_at)}</p>
               </CardActivityView>
             </div>
             <CardActivityView title="Información de general">
@@ -130,8 +351,12 @@ const RenderView = ({
                 colorValue="var(--cSuccess)"
               />
               <KeyValue
-                title={"Voluntarios maximos"}
-                value={item?.data?.volunteer_count || 0}
+                title={"Voluntarios inscritos"}
+                value={
+                  item?.data?.participate_count +
+                  "/" +
+                  item?.data?.volunteer_count
+                }
               />
 
               {item?.data?.date_limit && (
@@ -173,6 +398,8 @@ const RenderView = ({
                     <IconInfoApp />
                     {getMissingDays() == 0 ? (
                       <p>Ya empezó</p>
+                    ) : getMissingDays() < 0 ? (
+                      <p>Finalizaron las inscripciones</p>
                     ) : (
                       <p>
                         {"Faltan " +
@@ -187,13 +414,69 @@ const RenderView = ({
           </div>
         </section>
         <section>
-          <div>
-            <p>Tareas de la actividad</p>
-            <ProgressBar level={level} maxLevel={5} />
-            {/* <p onClick={() => setLevel(level + 1)}>Next level</p> */}
-          </div>
-          {/* <Tasks id={1} /> */}
+          {item?.data?.coordinator_id == user?.id ? (
+            <>
+              <div>
+                <p>Tareas de la actividad</p>
+                <ProgressBar level={level} maxLevel={tasks?.length} />
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "right",
+                  margin: "8px 0px",
+                }}
+              >
+                <Button style={{ width: 200 }} onClick={() => setOpenAdd(true)}>
+                  Crear tarea
+                </Button>
+              </div>
+              <Table
+                data={tasks}
+                header={header}
+                onRowClick={(item) => {
+                  setOpenView(true);
+                  setItemTask(item);
+                }}
+              />
+            </>
+          ) : (
+            <p>No eres el organizador</p>
+          )}
         </section>
+        {openAdd && (
+          <AddTask
+            reLoad={getTask}
+            activity={item?.data}
+            open={openAdd}
+            onClose={() => {
+              setOpenAdd(false);
+              setItemTask({});
+            }}
+            item={itemTask}
+            execute={execute}
+            volunters={volunters()}
+          />
+        )}
+        {openView && (
+          <ViewTask
+            open={openView}
+            onClose={() => {
+              setOpenView(false);
+              setItemTask({});
+            }}
+            id={itemTask?.id}
+          />
+        )}
+        <DataModal
+          title="Eliminar tarea"
+          open={deleteTask.open}
+          onClose={() => setDeleteTask({ open: false, id: null })}
+          onSave={onDelTask}
+        >
+          <p>Estas seguro de eliminar la tarea</p>
+        </DataModal>
       </div>
     )
   );

@@ -79,7 +79,7 @@ const MainMenu = ({
             collapsed={collapsed}
             setSideBarOpen={setSideBarOpen}
           />
-          <MainmenuDropdown
+          {/* <MainmenuDropdown
             label="Candidatos"
             icon={<IconCandidates />}
             items={[
@@ -88,7 +88,7 @@ const MainMenu = ({
             ]}
             collapsed={collapsed}
             setSideBarOpen={setSideBarOpen}
-          />
+          /> */}
         </div>
       ) : (
         <div>

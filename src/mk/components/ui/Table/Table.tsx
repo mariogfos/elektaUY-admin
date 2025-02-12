@@ -54,6 +54,11 @@ type PropsType = {
   extraData?: any;
   sortCol?: { col: string; asc: boolean };
   onSort?: (col: string, asc: boolean) => void;
+  onRenderCard?: (
+    item: Record<string, any>,
+    i: number,
+    onClick: Function
+  ) => any;
 };
 
 const getWidth = (width: any) => {
@@ -76,6 +81,7 @@ const Table = ({
   onRowClick = (e) => {},
   onTabletRow,
   onButtonActions,
+  onRenderCard,
   actionsWidth,
   style = {},
   className = "",
@@ -92,7 +98,7 @@ const Table = ({
       className={styles.table + " " + styles[className] + " " + className}
       style={style}
     >
-      {(!isMobile || !onTabletRow) && showHeader && (
+      {(!isMobile || !onTabletRow) && showHeader && !onRenderCard && (
         <Head
           header={header}
           actionsWidth={actionsWidth}
@@ -107,6 +113,7 @@ const Table = ({
       <div style={height ? { height: height, overflowY: "auto" } : {}}>
         <Body
           onTabletRow={onTabletRow}
+          onRenderCard={onRenderCard}
           onRowClick={onRowClick}
           data={data}
           header={header}
@@ -299,6 +306,7 @@ const Body = memo(function Body({
   setScrollbarWidth,
   onRenderBody,
   extraData,
+  onRenderCard,
 }: {
   onTabletRow: any;
   onRowClick: any;
@@ -311,6 +319,7 @@ const Body = memo(function Body({
   setScrollbarWidth?: Function;
   onRenderBody?: null | ((row: any, i: number) => any);
   extraData?: any;
+  onRenderCard?: any;
 }) {
   const { isMobile } = useScreenSize();
   const divRef = useRef(null);
@@ -321,7 +330,17 @@ const Body = memo(function Body({
   return (
     <main
       ref={divRef}
-      style={height ? { height: height, overflowY: "auto" } : {}}
+      style={
+        height
+          ? { height: height, overflowY: "auto" }
+          : {
+              display: onRenderCard ? "grid" : "flex",
+              flexDirection: onRenderCard ? "row" : "column",
+              gridTemplateColumns: onRenderCard ? "1fr 1fr 1fr 1fr 1fr" : "",
+              gap: onRenderCard ? "16px" : "0px",
+              // border: onRenderCard ? "none" : "",
+            }
+      }
     >
       {data?.map((row: Record<string, any>, index: number) => (
         <Fragment key={"r_" + index}>
@@ -331,6 +350,8 @@ const Body = memo(function Body({
             <div key={"row" + index} onClick={(e) => onRowClick(row)}>
               {renderBody?.(row, index + 1)}
             </div>
+          ) : onRenderCard ? (
+            onRenderCard(row, index, onRowClick)
           ) : (
             <div key={"row" + index} onClick={(e) => onRowClick(row)}>
               {header.map((item: any, i: number) => (

@@ -25,10 +25,15 @@
   margin-bottom: 8px;
 }
 
-.labelLeft,
+.labelLeft {
+  font-size: 14px;
+  color: var(--cBlackV2);
+  text-align: left;
+}
 .labelRight {
   font-size: 14px;
   color: var(--cBlackV2);
+  text-align: right;
 }
 
 .checkboxContainer {
@@ -66,13 +71,11 @@
   color: var(--cWhite);
 }
 
-
 .checkboxValue + .checkboxNumber {
   color: var(--cBlackV2); /* Color del número debajo del círculo */
   font-size: 12px;
   margin-top: 8px; /* Espacio entre el círculo y el número */
   display: block;
-
 }
 
 .checkbox:checked + .checkboxValue {

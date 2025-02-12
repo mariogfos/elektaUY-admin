@@ -53,9 +53,9 @@ const SurveyList: React.FC<SurveyListProps> = ({ formState, setFormState }) => {
   // const [questions, setQuestions] :any= useState(formState);
   useEffect(() => {
     const _questions = formState?.questions;
-    console.log("useeffect entro");
+    // console.log("useeffect entro");
     if (_questions) {
-      console.log("useeffect entro2");
+      // console.log("useeffect entro2");
       _questions.sort((a: any, b: any) => a.order - b.order);
       setFormState({ ...formState, questions: _questions });
     }

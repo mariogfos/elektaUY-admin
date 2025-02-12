@@ -11,8 +11,14 @@ import {
   IconComment,
   IconDocs,
   IconDownload,
+  IconEdit,
   IconImage,
   IconLike,
+  IconOptions,
+  IconPDF,
+  IconTrash,
+  IconVideo,
+  IconWorld,
   IconYoutube,
 } from "@/components/layout/icons/IconsBiblioteca";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
@@ -26,6 +32,8 @@ import { useAuth } from "@/mk/contexts/AuthProvider";
 import Button from "@/mk/components/forms/Button/Button";
 import AddContent from "./AddContent/AddContent";
 import { get } from "http";
+import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
+import RenderCard from "./RenderCard/RenderCard";
 
 const paramsInitial = {
   perPage: 10,
@@ -123,6 +131,7 @@ const Contents = () => {
       extraData: any;
     }) => <RenderView {...props} />,
     loadView: { fullType: "DET" },
+    listAndCard: true,
     // hideActions: { add: true },
     // buttonExtra: (
     //   <Button onClick={() => (window.location.href = "/addContent")}>
@@ -596,6 +605,7 @@ const Contents = () => {
     showToast,
     execute,
     reLoad,
+    openCard,
     getExtraData,
   } = useCrud({
     paramsInitial,
@@ -647,21 +657,31 @@ const Contents = () => {
       </RenderItem>
     );
   };
-  // const onResponse = async () => {
-  //   // const { data } = await execute("/optimizeImages", "POST", {});
-  //   const { data } = await execute("/contents-automatic", "POST", {});
-  //   if (data?.success) {
-  //     showToast("success", "Se han enviado las encuestas");
-  //     console.log("data", data);
-  //   } else {
-  //     showToast("error", "No se han podido enviar las encuestas");
-  //   }
-  // };
+  const renderCard = (
+    item: Record<string, any>,
+    i: number,
+    onClick: Function
+  ) => {
+    // console.log(item);
+    return (
+      <RenderCard
+        item={item}
+        extraData={extraData}
+        onClick={onClick}
+        onDel={onDel}
+        onEdit={onEdit}
+      />
+    );
+  };
   if (!userCan(mod.permiso, "R")) return <NotAccess />;
   return (
     <div className={styles.roles}>
       {/* <IconLike onClick={() => onResponse()} /> */}
-      <List onTabletRow={renderItem} actionsWidth="140px" />
+      <List
+        onTabletRow={renderItem}
+        actionsWidth="140px"
+        onRenderCard={openCard ? renderCard : null}
+      />
       {openImport && (
         <ImportDataModal
           open={openImport}

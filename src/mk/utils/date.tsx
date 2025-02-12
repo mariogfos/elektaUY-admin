@@ -39,6 +39,8 @@ export const DAYS = [
   "Sábado",
 ];
 
+export const GMT = -3;
+
 export function getFormattedDate() {
   const date = new Date();
   const dayName = DAYS[date.getDay()];
@@ -74,7 +76,7 @@ export const convertirFechaUTCaLocal = (fechaUTCString: string | null) => {
   const fechaLocal = new Date(fechaUTC.getTime() - offsetUTC * 60000);
   // console.log("fechaLocal", fechaLocal);
   // if (process.env.NODE_ENV == "development")
-  if (offsetUTC == 0) fechaLocal.setHours(fechaLocal.getHours() - 4);
+  if (offsetUTC == 0) fechaLocal.setHours(fechaLocal.getHours() + GMT);
   return fechaLocal;
 };
 
@@ -349,8 +351,8 @@ export const compareDate = (
   if (typeof date1 == null) d1 = new Date();
   if (typeof date2 == null) d2 = new Date();
 
-  // d1.setHours(d1.getHours() + 4);
-  // d2.setHours(d2.getHours() + 4);
+  // d1.setHours(d1.getHours() - GMT);
+  // d2.setHours(d2.getHours() - GMT);
   // console.log("date1:", date1);
   console.log("compare", d1, d2, oper, typeof date1, typeof date2);
 

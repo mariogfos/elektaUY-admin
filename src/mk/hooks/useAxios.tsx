@@ -16,12 +16,14 @@ export type UseAxiosType = {
   reLoad: Function;
   waiting: number;
   setWaiting: Function;
+  notWaiting?: boolean;
 };
 
 const useAxios = (
   url: string | null = null,
   method: MethodType = "GET",
-  payload: object = {}
+  payload: object = {},
+  noWaiting = false
 ): UseAxiosType => {
   const [data, setData] = useState<any>(null);
   const [error, setError]: any = useState("");
@@ -36,9 +38,13 @@ const useAxios = (
   const cancel = () => {
     controllerRef.current.abort();
   };
-  const reLoad = async (_payload: any = null, prevent = false) => {
+  const reLoad = async (
+    _payload: any = null,
+    noWaiting = false,
+    prevent = false
+  ) => {
     if (prevent && countAxios == 0) return;
-    await execute(url, method, _payload || payload, true);
+    await execute(url, method, _payload || payload, true, noWaiting);
   };
   const execute: any = async (
     _url: string | null = url,
@@ -91,7 +97,7 @@ const useAxios = (
   useEffect(() => {
     if (url) {
       setCountAxios(countAxios + 1);
-      execute(url, method, payload, true);
+      execute(url, method, payload, true, noWaiting);
     } else {
       setError("");
       setData([]);
