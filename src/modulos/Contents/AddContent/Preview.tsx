@@ -75,7 +75,7 @@ const Preview = ({ formState, extraData, action }: PropsType) => {
           </div>
           {(formState?.isType == "N" ||
             (formState?.isType == "P" &&
-              (formState.avatar || formState?.images.length > 0))) && (
+              (formState.avatar || formState?.images?.length > 0))) && (
             <div>
               <div
                 style={{

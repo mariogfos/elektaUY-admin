@@ -65,10 +65,11 @@ const AddUsers = ({ open, onClose, precarga = null, reLoad }: PropsType) => {
   //   return data;
   // };
   const getBarrios = () => {
-    let data: any = [{ id: -1, name: "Otro" }];
+    // let data: any = [{ id: -1, name: "Otro" }];
+    let data: any = [];
     if (listsApi?.data?.barrios.length > 0) {
       listsApi?.data.barrios.find((item: any) => {
-        if (item.local_id == formState.local_id) {
+        if (item.mun_id == formState.mun_id) {
           data.push(item);
         }
       });

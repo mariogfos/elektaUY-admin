@@ -41,7 +41,7 @@ const RenderForm = ({
   }, []);
 
   useEffect(() => {
-    if (formState?.activity_mode == "V") {
+    if (formState?.activity_mode == "V" && action != "edit") {
       setFormState({
         ...formState,
         location: "",
@@ -204,7 +204,7 @@ const RenderForm = ({
     });
     errors = checkRules({
       value: formState?.date_limit,
-      rules: ["required", "lessDate:begin_at", "futureDate"],
+      rules: ["required", "lessDate:begin_at", "greaterDate"],
       key: "date_limit",
       errors,
       data: formState,
@@ -332,11 +332,13 @@ const RenderForm = ({
             label="Presencial"
             checked={formState.activity_mode == "P"}
             onChange={() => setFormState({ ...formState, activity_mode: "P" })}
+            disabled={action == "edit"}
           />
           <Radio
             label="Virtual"
             checked={formState.activity_mode == "V"}
             onChange={() => setFormState({ ...formState, activity_mode: "V" })}
+            disabled={action == "edit"}
           />
         </div>
         {formState?.activity_mode == "P" && (
@@ -395,7 +397,7 @@ const RenderForm = ({
       </CardActivity>
       <CardActivity
         title="Fecha límite de inscripción"
-        subtitle="Define hasta cuándo pueden inscribirse los afiliados. Si no estableces una fecha, las inscripciones se cerrarán 24 horas antes del inicio."
+        subtitle="Define hasta cuándo pueden inscribirse los afiliados"
         style={{ flexDirection: "row" }}
       >
         <div style={{ marginTop: 8, width: 400 }}>
