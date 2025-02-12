@@ -17,7 +17,7 @@ import Table from "@/mk/components/ui/Table/Table";
 import Button from "@/mk/components/forms/Button/Button";
 import AddTask from "@/modulos/Tasks/AddTask/AddTask";
 import ViewTask from "@/modulos/Tasks/ViewTask/ViewTask";
-import { statusTask } from "../../../mk/utils/utils";
+import { cStatusTask, statusTask } from "../../../mk/utils/utils";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 
 const RenderView = ({
@@ -107,6 +107,10 @@ const RenderView = ({
     }
     return names;
   };
+
+  // const getStatusTask = (value: any) => {
+
+  // };
   const onDelTask = async () => {
     const { data } = await execute(
       "/tasks/" + deleteTask.id,
@@ -133,7 +137,7 @@ const RenderView = ({
     //   responsive: "onlyDesktop",
     // },
     {
-      key: "begin_at",
+      key: "end_at",
       label: "Fecha de finalización",
       onRender: (item: any) => {
         return getDateTimeStrMes(item.value);
@@ -162,7 +166,19 @@ const RenderView = ({
       responsive: "onlyDesktop",
       width: "100px",
       onRender: (item: any) => {
-        return statusTask[item.value];
+        let status = item?.value;
+        let startDate = new Date(item?.item?.begin_at);
+        // let EndDate = new Date(item?.data?.begin_at);
+        let today = new Date(); // Fecha actual
+
+        if (item?.value === "P" && today >= startDate) {
+          // Cambiar estado a "En curso" si la fecha y hora han llegado
+          status = "E";
+        }
+
+        return (
+          <p style={{ color: cStatusTask[status] }}>{statusTask[status]}</p>
+        );
       },
     },
     {
