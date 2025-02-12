@@ -83,7 +83,7 @@ const RenderView = ({
     const names: any = ["Todos"];
     if (item?.data?.destiny == 2) {
       extraData?.listas.map((li: any) => {
-        let d = item?.data?.adestinies.find((e: any) => e.lista_id == li.id);
+        let d = item?.data?.adestinies?.find((e: any) => e.lista_id == li.id);
         if (d) {
           names.push(li.name);
         }
@@ -91,7 +91,7 @@ const RenderView = ({
     }
     if (item?.data?.destiny == 3) {
       extraData?.dptos.map((dpto: any) => {
-        let d = item?.data?.adestinies.find((e: any) => e.dpto_id == dpto.id);
+        let d = item?.data?.adestinies?.find((e: any) => e.dpto_id == dpto.id);
         if (d) {
           names.push(dpto.name);
         }
@@ -99,7 +99,7 @@ const RenderView = ({
     }
     if (item?.data?.destiny == 4) {
       extraData?.muns.map((mun: any) => {
-        let d = item?.data?.adestinies.find((e: any) => e.dpto_id == mun.id);
+        let d = item?.data?.adestinies?.find((e: any) => e.dpto_id == mun.id);
         if (d) {
           names.push(mun.name);
         }
