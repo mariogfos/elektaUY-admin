@@ -5,6 +5,7 @@ import {
   validOptionsSurvey,
   validDateGreater,
   validDateLess,
+  validDateFuture,
 } from "./rulesApp";
 
 export const validators = {
@@ -14,5 +15,6 @@ export const validators = {
   optionSurvey: validOptionsSurvey,
   greaterDate: validDateGreater,
   lessDate: validDateLess,
+  futureDate: validDateFuture,
   // Añadir otros validadores aquí
 };

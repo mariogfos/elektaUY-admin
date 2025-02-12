@@ -74,6 +74,34 @@ export const validDateGreater: ValidFunctionType = (
     ? ""
     : "La fecha no debe ser menor a " + compareDate.toISOString().split("T")[0];
 };
+export const validDateFuture: ValidFunctionType = (
+  value: string
+  // param: any,
+  // field: any = {}
+) => {
+  if (!value) {
+    console.log("La fecha no es válida");
+    return "La fecha no es válida";
+  }
+
+  // Normalizar la fecha del input
+  let date = normalizeDateToUTC(value);
+
+  if (!date) {
+    console.log("La fecha ingresada no es válida");
+    return "La fecha ingresada no es válida";
+  }
+
+  // Obtener la fecha actual en UTC sin la parte de la hora
+  let today = new Date();
+  today.setUTCHours(0, 0, 0, 0); // Asegurar que solo comparamos fechas, sin horas
+
+  // console.log("rules day", date, today);
+
+  return date > today
+    ? ""
+    : "La fecha debe ser mayor a " + today.toISOString().split("T")[0];
+};
 
 export const validDateLess: ValidFunctionType = (
   value: string,
