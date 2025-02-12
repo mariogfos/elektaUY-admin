@@ -198,7 +198,7 @@ const AddContent = ({
         key: "title",
         errors,
       });
-      // if (action == "add") {
+      // if (action == "add" && formState?.isType == "N") {
       //   errors = checkRules({
       //     value: formState?.avatar,
       //     rules: ["required"],
@@ -234,7 +234,7 @@ const AddContent = ({
     setErrors(errors);
     return errors;
   };
-
+  console.log(formState);
   const onSave = async () => {
     if (hasErrors(validate())) return;
     setItem({ ...formState });
@@ -463,7 +463,11 @@ const AddContent = ({
         <div className={styles.containerPreview}>
           <p>Vista previa</p>
           <div>
-            <Preview formState={formState} extraData={extraData} />
+            <Preview
+              formState={formState}
+              extraData={extraData}
+              action={action}
+            />
           </div>
         </div>
         {openDestiny && (

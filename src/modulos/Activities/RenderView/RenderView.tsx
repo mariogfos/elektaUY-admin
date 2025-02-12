@@ -215,7 +215,6 @@ const RenderView = ({
             </div>
           );
         }
-        // return <div>{item.value}</div>;
       },
     },
 
@@ -267,13 +266,11 @@ const RenderView = ({
   };
 
   const getStatus = () => {
-    // let startdate = new Date(item?.data?.begin_at).toISOString();
-    // let today = new Date().toISOString();
     let status = item.data.activity_status;
-    let startDate = new Date(item?.data?.begin_at); // Convertir a fecha
-    let EndDate = new Date(item?.data?.begin_at);
+    let startDate = new Date(item?.data?.begin_at);
+    // let EndDate = new Date(item?.data?.begin_at);
     let today = new Date(); // Fecha actual
-    // console.log(startDate, today);
+
     if (item?.data?.activity_status === "P" && today >= startDate) {
       // Cambiar estado a "En curso" si la fecha y hora han llegado
       status = "E";
@@ -281,7 +278,6 @@ const RenderView = ({
 
     return status;
   };
-  console.log(getStatus());
 
   return (
     open && (
