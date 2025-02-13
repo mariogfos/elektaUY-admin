@@ -23,11 +23,11 @@ type PropsType = {
 
 const RenderCard = ({ extraData, item, onClick, onEdit, onDel }: PropsType) => {
   const [openDrop, setOpenDrop]: any = useState({ open: false, item: null });
-  const candidate = extraData.candidates.find(
+  const candidate = extraData?.candidates.find(
     (c: any) => c.id == item?.candidate_id
   );
   const typeCand = extraData?.typeCands.find(
-    (t: any) => t.id == candidate.typecand_id
+    (t: any) => t.id == candidate?.typecand_id
   );
 
   const getDestinys = () => {
