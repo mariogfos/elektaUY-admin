@@ -5,13 +5,26 @@ type PropsType = {
   text: string;
   onClick: any;
   isActive: boolean;
+  disabled?: boolean;
 };
-const TagContents = ({ icon, text, onClick, isActive }: PropsType) => {
+const TagContents = ({
+  icon,
+  text,
+  onClick,
+  isActive,
+  disabled = false,
+}: PropsType) => {
+  const _onClick = () => {
+    if (disabled) {
+      return;
+    }
+    onClick();
+  };
   return (
     <div
       className={style.TagContents}
       style={{ backgroundColor: isActive ? "var(--cBlackV3)" : undefined }}
-      onClick={onClick}
+      onClick={_onClick}
     >
       {icon}
       <p>{text}</p>

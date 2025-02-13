@@ -44,6 +44,8 @@ const AddContent = ({
   const [openDestiny, setOpenDestiny] = useState(false);
   const [formState, setFormState]: any = useState({
     ...item,
+    isType: "N",
+    type: "I",
   });
 
   useEffect(() => {
@@ -54,9 +56,9 @@ const AddContent = ({
       setFormState({ ...formState, isType: "N" });
     }
 
-    if (!formState.isType && !formState.type) {
-      setFormState({ ...formState, isType: "N", type: "I" });
-    }
+    // if (!formState.isType && !formState.type) {
+    //   setFormState({ ...formState, isType: "N", type: "I" });
+    // }
   }, []);
 
   useEffect(() => {
@@ -84,10 +86,21 @@ const AddContent = ({
     if (formState?.isType == "P") {
       setFormState({ ...formState, title: null });
     }
-    if (formState?.isType == "N") {
-      setFormState({ ...formState, type: "I" });
-    }
+    // if (formState?.isType == "N") {
+    //   setFormState({ ...formState, type: "I" });
+    // }
   }, [formState?.isType]);
+
+  useEffect(() => {
+    if (formState?.type != "I") {
+      setFormState({ ...formState, avatar: null });
+    } else if (formState?.type != "V") {
+      setFormState({ ...formState, url: null });
+    } else if (formState?.type != "D") {
+      setFormState({ ...formState, file: null });
+    }
+  }, [formState?.type]);
+  // console.log(formState);
 
   useEffect(() => {
     if (formState?.destiny == 0 && action == "add") {
@@ -234,7 +247,6 @@ const AddContent = ({
     setErrors(errors);
     return errors;
   };
-  console.log(formState);
   const onSave = async () => {
     if (hasErrors(validate())) return;
     setItem({ ...formState });
@@ -344,12 +356,14 @@ const AddContent = ({
                 label="Noticia"
                 subtitle="Ideal para informar con mayor detalle sobre un acontecimiento importante."
                 onChange={() => setFormState({ ...formState, isType: "N" })}
+                disabled={action == "edit"}
               />
               <Radio
                 checked={formState?.isType == "P"}
                 label="Post"
                 subtitle="Publicación más informal, ideal para publicar eventos cotidianos."
                 onChange={() => setFormState({ ...formState, isType: "P" })}
+                disabled={action == "edit"}
               />
             </div>
           </CardContent>
@@ -396,21 +410,28 @@ const AddContent = ({
                 isActive={formState.type == "I"}
                 text="Contenido multimedia"
                 onClick={() => setFormState({ ...formState, type: "I" })}
+                disabled={action == "edit"}
               />
               {formState.isType == "P" && (
                 <>
+                  {/* {action != "edit" && ( */}
                   <TagContents
                     isActive={formState.type == "V"}
                     icon={<IconVideo size={16} />}
                     text={"Video"}
                     onClick={() => setFormState({ ...formState, type: "V" })}
+                    disabled={action == "edit"}
                   />
+                  {/* )} */}
+                  {/* {action != "edit" && ( */}
                   <TagContents
                     isActive={formState.type == "D"}
                     icon={<IconDocs size={16} />}
                     text="Documento"
                     onClick={() => setFormState({ ...formState, type: "D" })}
+                    disabled={action == "edit"}
                   />
+                  {/* )} */}
                 </>
               )}
             </div>
