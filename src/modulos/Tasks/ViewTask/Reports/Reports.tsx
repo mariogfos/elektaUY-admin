@@ -9,7 +9,6 @@ import { getDateTimeStrMes } from "@/mk/utils/date";
 import Empty from "../Empty/Empty";
 
 const Reports = ({ data }: any) => {
-  console.log(data);
   return data.length > 0 ? (
     data?.map((d: any, index: any) => {
       return (
