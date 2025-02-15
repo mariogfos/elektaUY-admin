@@ -79,13 +79,13 @@ const Activities = () => {
 
     loadView: {},
 
-    // onHideActions: (item: any) => {
-    //   return {
-    //     hideEdit: validate(item, user) || user.id == item.id,
+    onHideActions: (item: any) => {
+      return {
+        hideEdit: item?.activity_status == "F",
 
-    //     hideDel: validate(item, user) || user.id == item.id,
-    //   };
-    // },
+        hideDel: item?.activity_status == "F",
+      };
+    },
   };
 
   const fields = useMemo(() => {

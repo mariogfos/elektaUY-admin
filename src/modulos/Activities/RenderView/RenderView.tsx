@@ -244,6 +244,10 @@ const RenderView = ({
       responsive: "onlyDesktop",
       width: "100px",
       onRender: ({ item }: any) => {
+        if (item?.task_status == "F" || item?.task_status) {
+          return;
+        }
+
         return (
           <div
             style={{
@@ -312,10 +316,9 @@ const RenderView = ({
 
   const finishActivity = async () => {
     const { data } = await execute(
-      "/activities",
+      "/activities/" + item?.data?.id,
       "PUT",
       {
-        id: item?.data?.id,
         activity_status: "F",
       },
       false,
@@ -329,6 +332,17 @@ const RenderView = ({
       setLoadingTask(false);
     }
   };
+
+  const showFinishButton = () => {
+    let count = 0;
+    tasks?.map((t: any) => {
+      if (t.task_status == "F" || t.task_status == "V") {
+        count = count + 1;
+      }
+    });
+    return count == tasks.length;
+  };
+
   return (
     open && (
       <div className={styles.RenderView}>
@@ -445,7 +459,14 @@ const RenderView = ({
                 }
               />
             </CardActivityView>
-            <Button onClick={finishActivity}>Finalizar actividad</Button>
+            {showFinishButton() && (
+              <Button
+                disabled={item?.data?.activity_status == "F"}
+                onClick={finishActivity}
+              >
+                Finalizar actividad
+              </Button>
+            )}
           </div>
         </section>
         <section>
@@ -463,7 +484,11 @@ const RenderView = ({
                   margin: "8px 0px",
                 }}
               >
-                <Button style={{ width: 200 }} onClick={() => setOpenAdd(true)}>
+                <Button
+                  disabled={item?.data?.activity_status == "F"}
+                  style={{ width: 200 }}
+                  onClick={() => setOpenAdd(true)}
+                >
                   Crear tarea
                 </Button>
               </div>

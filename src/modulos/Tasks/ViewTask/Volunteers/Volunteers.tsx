@@ -8,7 +8,7 @@ import useAxios from "@/mk/hooks/useAxios";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import Empty from "../Empty/Empty";
 
-const Volunteers = ({ data, reLoad }: any) => {
+const Volunteers = ({ data, reLoad, statusTask }: any) => {
   const { execute } = useAxios();
   const { showToast } = useAuth();
   const volunteersEnabled = data?.filter((v: any) => v.status == "A");
@@ -60,6 +60,7 @@ const Volunteers = ({ data, reLoad }: any) => {
               <Button
                 variant="cancel"
                 onClick={() => enabledOrDisabled(v, "X")}
+                disabled={statusTask == "F" || statusTask == "V"}
               >
                 Inhabilitar
               </Button>
