@@ -9,6 +9,7 @@ import useAxios from "@/mk/hooks/useAxios";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import { IconInfoApp } from "@/components/layout/icons/IconsBiblioteca";
 import Empty from "../Empty/Empty";
+import { getDateTimeStrMes } from "@/mk/utils/date";
 
 const Requests = ({ data, reLoad }: any) => {
   const { execute } = useAxios();
@@ -33,9 +34,10 @@ const Requests = ({ data, reLoad }: any) => {
         showToast("Afiliado rechazado", "success");
       }
 
-      reLoad(null, true);
+      reLoad();
     }
   };
+  console.log(data);
   return (
     <div className={styles.Requests}>
       {data.length > 0 ? (
@@ -43,7 +45,7 @@ const Requests = ({ data, reLoad }: any) => {
           return (
             <Card variant="V1" key={i}>
               <p style={{ fontSize: 12, fontWeight: 400, marginBottom: 8 }}>
-                03/02/2025, 11:00
+                {getDateTimeStrMes(d?.created_at)}
               </p>
 
               <ItemList
@@ -68,10 +70,7 @@ const Requests = ({ data, reLoad }: any) => {
                   </div>
                 }
               />
-              <p>
-                Yo quiero hacer esta tarea, tengo un vivero y puedo conseguir
-                los 40 plantines que se están pidiendo.
-              </p>
+              {data?.comment && <p>{d?.comment}</p>}
             </Card>
           );
         })

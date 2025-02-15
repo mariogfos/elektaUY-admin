@@ -5,7 +5,7 @@ import ItemList from "@/mk/components/ui/ItemList/ItemList";
 import React from "react";
 import styles from "./Reports.module.css";
 
-const Reports = () => {
+const Reports = ({ data }: any) => {
   return (
     <Card variant="V1" className={styles.Reports}>
       <p style={{ fontSize: 12, fontWeight: 400, marginBottom: 8 }}>

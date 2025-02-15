@@ -14,19 +14,23 @@ import Requests from "./Requests/Requests";
 import Reports from "./Reports/Reports";
 import Volunteers from "./Volunteers/Volunteers";
 import History from "./History/History";
+import { useAuth } from "@/mk/contexts/AuthProvider";
 
 type PropsType = {
   open: boolean;
   onClose: any;
   id: any;
+  reLoad: any;
 };
 
-const ViewTask = ({ open, onClose, id }: PropsType) => {
+const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
   const [tab, setTab] = useState("S");
+  const { showToast } = useAuth();
   const {
     data: task,
     loaded,
-    reLoad,
+    execute,
+    reLoad: reLoadDet,
   } = useAxios(
     "/tasks",
     "GET",
@@ -56,6 +60,39 @@ const ViewTask = ({ open, onClose, id }: PropsType) => {
     });
     return data;
   };
+  // const getReport = async () => {
+  //   const { data, reLoad } = await execute(
+  //     "/task-report",
+  //     "GET",
+  //     {
+  //       fullType: "L",
+  //       searchBy: task?.data?.data?.id,
+  //     },
+  //     true
+  //   );
+  // };
+
+  const _reLoad = () => {
+    reLoadDet(null, true);
+    reLoad();
+  };
+  const onSave = async (status: any) => {
+    const { data } = await execute(
+      "/task-confirm",
+      "POST",
+      {
+        task_id: task?.data?.data?.id,
+        status: status,
+      },
+      false,
+      true
+    );
+    if (data.success == true) {
+      showToast("Tarea finalizada", "success");
+      reLoad();
+      onClose();
+    }
+  };
   return (
     <DataModal
       title="Detalles de la tarea"
@@ -64,6 +101,7 @@ const ViewTask = ({ open, onClose, id }: PropsType) => {
       buttonCancel=""
       buttonText={tab == "R" ? "Finalizar tarea" : ""}
       className={styles.ViewTask}
+      onSave={() => onSave("F")}
     >
       {!task ? (
         <div>Cargando....</div>
@@ -113,9 +151,11 @@ const ViewTask = ({ open, onClose, id }: PropsType) => {
             ]}
           />
           {tab == "A" && <History />}
-          {tab == "S" && <Requests data={requestsData()} reLoad={reLoad} />}
-          {tab == "R" && <Reports />}
-          {tab == "V" && <Volunteers data={volunteersData()} reLoad={reLoad} />}
+          {tab == "S" && <Requests data={requestsData()} reLoad={_reLoad} />}
+          {tab == "R" && <Reports data={task?.data?.data?.task_reports} />}
+          {tab == "V" && (
+            <Volunteers data={volunteersData()} reLoad={_reLoad} />
+          )}
         </>
       )}
     </DataModal>

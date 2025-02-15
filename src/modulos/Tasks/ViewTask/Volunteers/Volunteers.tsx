@@ -34,7 +34,7 @@ const Volunteers = ({ data, reLoad }: any) => {
       } else {
         showToast("Afiliado habilitado", "success");
       }
-      reLoad(null, true);
+      reLoad();
     }
   };
   return (
