@@ -4,33 +4,60 @@ import { Card } from "@/mk/components/ui/Card/Card";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
 import React from "react";
 import styles from "./Reports.module.css";
+import { getFullName, getUrlImages } from "@/mk/utils/string";
+import { getDateTimeStrMes } from "@/mk/utils/date";
+import Empty from "../Empty/Empty";
 
 const Reports = ({ data }: any) => {
-  return (
-    <Card variant="V1" className={styles.Reports}>
-      <p style={{ fontSize: 12, fontWeight: 400, marginBottom: 8 }}>
-        03/02/2025, 11:00
-      </p>
-      <ItemList
-        left={
-          <Avatar
-            name={"Pedro pinaicobo"}
-            src="https://www.billboard.com/wp-content/uploads/2024/04/Tito-Double-P-cr-Double-P-Records-press-2024-billboard-1548.jpg?w=942&h=623&crop=1"
+  console.log(data);
+  return data.length > 0 ? (
+    data?.map((d: any, index: any) => {
+      return (
+        <Card variant="V1" className={styles.Reports} key={index}>
+          <p style={{ fontSize: 12, fontWeight: 400, marginBottom: 8 }}>
+            {getDateTimeStrMes(d?.created_at)}
+          </p>
+          <ItemList
+            // style={{ paddingLeft: 0 }}
+            left={
+              <Avatar
+                name={getFullName(d?.affiliate)}
+                src={getUrlImages(
+                  "/AFF-" +
+                    d.affiliate_id +
+                    ".webp?d=" +
+                    d?.affiliate?.updated_at
+                )}
+              />
+            }
+            title={getFullName(d?.affiliate)}
+            // right={
+            //   <div style={{ display: "flex", gap: 8 }}>
+            //     <Button variant="secondary">Rechazar</Button>
+            //     <Button>Aceptar</Button>
+            //   </div>
+            // }
           />
-        }
-        title={"Lautaro Melgar Fernández"}
-        // right={
-        //   <div style={{ display: "flex", gap: 8 }}>
-        //     <Button variant="secondary">Rechazar</Button>
-        //     <Button>Aceptar</Button>
-        //   </div>
-        // }
-      />
-      <p>
-        Ya tengo las 40 plantas. Pueden mandar al chofer para preparar el
-        traslado de las plantas hacia la plaza el día de la actividad
-      </p>
-    </Card>
+          <p>{d?.description}</p>
+          <a
+            style={{
+              color: "var(--cAccent)",
+              fontSize: 10,
+              fontWeight: 400,
+              marginTop: 8,
+            }}
+            target="_blank"
+            href={getUrlImages(
+              "/TASKREPORT-" + d.id + ".webp?d=" + d?.updated_at
+            )}
+          >
+            Ver imagen
+          </a>
+        </Card>
+      );
+    })
+  ) : (
+    <Empty msg="No existen reportes" />
   );
 };
 

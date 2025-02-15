@@ -11,7 +11,7 @@ import { IconInfoApp } from "@/components/layout/icons/IconsBiblioteca";
 import Empty from "../Empty/Empty";
 import { getDateTimeStrMes } from "@/mk/utils/date";
 
-const Requests = ({ data, reLoad }: any) => {
+const Requests = ({ data, reLoad, statusTask }: any) => {
   const { execute } = useAxios();
   const { showToast } = useAuth();
   const onAccept = async (item: any, status: any) => {
@@ -37,7 +37,7 @@ const Requests = ({ data, reLoad }: any) => {
       reLoad();
     }
   };
-  console.log(data);
+
   return (
     <div className={styles.Requests}>
       {data.length > 0 ? (
@@ -53,7 +53,7 @@ const Requests = ({ data, reLoad }: any) => {
                   <Avatar
                     name={getFullName(d.affiliate)}
                     src={getUrlImages(
-                      "/AFF-" + d.id + ".webp?d=" + d?.updated_at
+                      "/AFF-" + d.affiliate_id + ".webp?d=" + d?.updated_at
                     )}
                   />
                 }
@@ -63,6 +63,7 @@ const Requests = ({ data, reLoad }: any) => {
                     <Button
                       variant="secondary"
                       onClick={() => onAccept(d, "X")}
+                      disabled={statusTask == "F" || statusTask == "V"}
                     >
                       Rechazar
                     </Button>

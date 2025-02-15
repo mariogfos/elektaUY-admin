@@ -24,7 +24,7 @@ type PropsType = {
 };
 
 const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
-  const [tab, setTab] = useState("S");
+  const [tab, setTab] = useState("H");
   const { showToast } = useAuth();
   const {
     data: task,
@@ -60,17 +60,6 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
     });
     return data;
   };
-  // const getReport = async () => {
-  //   const { data, reLoad } = await execute(
-  //     "/task-report",
-  //     "GET",
-  //     {
-  //       fullType: "L",
-  //       searchBy: task?.data?.data?.id,
-  //     },
-  //     true
-  //   );
-  // };
 
   const _reLoad = () => {
     reLoadDet(null, true);
@@ -88,20 +77,38 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
       true
     );
     if (data.success == true) {
-      showToast("Tarea finalizada", "success");
+      if (status == "F") {
+        showToast("Tarea finalizada", "success");
+      } else {
+        showToast("La tarea se marco como vencida", "success");
+      }
+
       reLoad();
       onClose();
     }
   };
+
   return (
     <DataModal
       title="Detalles de la tarea"
       open={open}
       onClose={onClose}
+      disabled={
+        task?.data?.data?.task_status == "F" ||
+        task?.data?.data?.task_status == "V"
+      }
       buttonCancel=""
-      buttonText={tab == "R" ? "Finalizar tarea" : ""}
+      buttonText={
+        tab == "R"
+          ? task?.data?.data?.task_reports.length > 0
+            ? "Finalizar tarea"
+            : "Marcar como vencida"
+          : ""
+      }
       className={styles.ViewTask}
-      onSave={() => onSave("F")}
+      onSave={() =>
+        task?.data?.data?.task_reports.length > 0 ? onSave("F") : onSave("V")
+      }
     >
       {!task ? (
         <div>Cargando....</div>
@@ -140,21 +147,38 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
             sel={tab}
             setSel={setTab}
             values={[
-              { value: "A", name: "Historial" },
+              { value: "H", name: "Historial" },
               {
                 value: "S",
                 name: "Solicitudes",
                 badge: requestsData().length > 0 ? requestsData().length : null,
               },
-              { value: "R", name: "Reportes" },
+              {
+                value: "R",
+                name: "Reportes",
+                badge:
+                  task?.data?.data?.task_reports.length > 0
+                    ? task?.data?.data?.task_reports.length
+                    : null,
+              },
               { value: "V", name: "Voluntarios" },
             ]}
           />
-          {tab == "A" && <History />}
-          {tab == "S" && <Requests data={requestsData()} reLoad={_reLoad} />}
+          {tab == "H" && <History />}
+          {tab == "S" && (
+            <Requests
+              data={requestsData()}
+              reLoad={_reLoad}
+              statusTask={task?.data?.data?.task_status}
+            />
+          )}
           {tab == "R" && <Reports data={task?.data?.data?.task_reports} />}
           {tab == "V" && (
-            <Volunteers data={volunteersData()} reLoad={_reLoad} />
+            <Volunteers
+              data={volunteersData()}
+              reLoad={_reLoad}
+              statusTask={task?.data?.data?.task_status}
+            />
           )}
         </>
       )}
