@@ -172,12 +172,13 @@ const RenderView = ({
       onRender: (item: any) => {
         let status = item?.value;
         let startDate = new Date(item?.item?.begin_at);
-        // let EndDate = new Date(item?.data?.begin_at);
-        let today = new Date(); // Fecha actual
-
+        let endDate = new Date(item?.data?.begin_at);
+        let today = new Date();
         if (item?.value === "P" && today >= startDate) {
-          // Cambiar estado a "En curso" si la fecha y hora han llegado
           status = "E";
+        }
+        if (today > endDate) {
+          status = "Sin completar";
         }
 
         return (
@@ -340,7 +341,7 @@ const RenderView = ({
         count = count + 1;
       }
     });
-    return count == tasks.length;
+    return count == tasks.length && tasks.length > 0;
   };
 
   return (
