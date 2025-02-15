@@ -139,7 +139,10 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
             </div>
             <div>
               <p>Voluntarios</p>
-              <p>0/{task?.data?.data?.volunteer_count}</p>
+              <p>
+                {task?.data?.data?.affiliate_tasks.length}/
+                {task?.data?.data?.volunteer_count}
+              </p>
             </div>
           </div>
           <FilterButton
