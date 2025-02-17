@@ -3,18 +3,15 @@
 import styles from "./Activities.module.css";
 import RenderItem from "../shared/RenderItem";
 import useCrudUtils from "../shared/useCrudUtils";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
-import NotAccess from "@/components/layout/NotAccess/NotAccess";
 import useCrud, { ModCrudType } from "@/mk/hooks/useCrud/useCrud";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
-// import RenderView from "./RenderView";
-// import { useAuth } from "@/mk/contexts/AuthProvider";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import RenderForm from "./RenderForm/RenderForm";
 import RenderView from "./RenderView/RenderView";
 // import Pagination from "@/mk/components/ui/Pagination/Pagination";
-import { getDateStrMes, getDateTimeStrMes } from "../../mk/utils/date";
+import { getDateTimeStrMes } from "../../mk/utils/date";
 import { cStatusAc, statusAc } from "@/mk/utils/utils";
 
 const paramsInitial = {
