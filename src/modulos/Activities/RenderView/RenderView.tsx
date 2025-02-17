@@ -246,7 +246,7 @@ const RenderView = ({
       responsive: "onlyDesktop",
       width: "100px",
       onRender: ({ item }: any) => {
-        if (item?.task_status == "F" || item?.task_status) {
+        if (item?.task_status == "F" || item?.task_status == "V") {
           return;
         }
 
