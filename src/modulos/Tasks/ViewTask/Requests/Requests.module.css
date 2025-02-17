@@ -1,9 +1,9 @@
 .Requests {
   & > div {
     & > p {
-      font-size: 12px;
+      font-size: var(--sS);
       font-weight: 400;
-      margin-bottom: 8px;
+      margin-bottom: var(--spS);
     }
   }
 }
