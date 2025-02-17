@@ -174,7 +174,6 @@ const RenderView = ({
         let startDate = new Date(item?.item?.begin_at);
         let endDate = new Date(item?.item?.end_at);
         let today = new Date();
-        console.log(endDate);
         if (item?.value === "P" && today >= startDate) {
           status = "E";
         }
