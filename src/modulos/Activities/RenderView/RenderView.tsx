@@ -168,17 +168,18 @@ const RenderView = ({
       key: "task_status",
       label: "Estado",
       responsive: "onlyDesktop",
-      width: "100px",
+      width: "120px",
       onRender: (item: any) => {
         let status = item?.value;
         let startDate = new Date(item?.item?.begin_at);
-        let endDate = new Date(item?.data?.begin_at);
+        let endDate = new Date(item?.item?.end_at);
         let today = new Date();
+        console.log(endDate);
         if (item?.value === "P" && today >= startDate) {
           status = "E";
         }
         if (today > endDate) {
-          status = "Sin completar";
+          status = "S";
         }
 
         return (
