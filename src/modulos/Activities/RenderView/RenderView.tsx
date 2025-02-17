@@ -192,50 +192,51 @@ const RenderView = ({
       responsive: "onlyDesktop",
       width: "100px",
       onRender: (item: any) => {
-        if (item.value > 0) {
-          return (
-            <div
+        // if (item.value > 0) {
+        return (
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <p
               style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
+                backgroundColor:
+                  item.value > 0 ? "var(--cAccent)" : "var(--cBlackV2)",
+                color: item.value > 0 ? "var(--cWhite)" : "var(--cWhiteV1)",
+                padding: item.value > 0 ? "2px 6px" : "2px 5px",
+                borderRadius: "100px",
+                fontSize: 10,
               }}
             >
-              <p
-                style={{
-                  backgroundColor: "var(--cAccent)",
-                  color: "var(--cWhite)",
-                  padding: "2px 6px",
-                  borderRadius: "100px",
-                  fontSize: 12,
-                }}
-              >
-                {item.value}
-              </p>
-            </div>
-          );
-        } else {
-          return (
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <p
-                style={{
-                  backgroundColor: "var(--cBlackV2)",
-                  color: "var(--cWhiteV1)",
-                  padding: "1px 6px",
-                  borderRadius: "100px",
-                }}
-              >
-                -
-              </p>
-            </div>
-          );
-        }
+              {item.value > 0 ? item.value : "-"}
+            </p>
+          </div>
+        );
+        // } else {
+        //   return (
+        //     <div
+        //       style={{
+        //         width: "100%",
+        //         display: "flex",
+        //         justifyContent: "center",
+        //       }}
+        //     >
+        //       <p
+        //         style={{
+        //           backgroundColor: "var(--cBlackV2)",
+        //           color: "var(--cWhiteV1)",
+        //           padding: "1px 6px",
+        //           borderRadius: "100px",
+        //         }}
+        //       >
+        //         -
+        //       </p>
+        //     </div>
+        //   );
+        // }
       },
     },
 
