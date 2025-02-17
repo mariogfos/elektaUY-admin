@@ -29,7 +29,7 @@ const Pagination = ({
   params,
   total = null,
 }: PropsType) => {
-  const [perPage, setPerPage] = useState(params?.perPage);
+  // const [perPage, setPerPage] = useState(params?.perPage);
   const { firstPage, lastPage, goToNextPage, goToPreviousPage, range } =
     useMemo(() => {
       const firstPage = totalPages > 1 ? Math.max(1, currentPage - 3) : 1;
@@ -109,7 +109,10 @@ const Pagination = ({
             { id: 40, name: "40" },
           ]}
           value={params?.perPage}
-          onChange={(e) => setParams({ ...params, perPage: e.target.value })}
+          onChange={(e) => {
+            setParams({ ...params, perPage: e.target.value, page: 1 });
+            // range(1, 3);
+          }}
         />
       </div>
 

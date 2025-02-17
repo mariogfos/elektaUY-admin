@@ -14,19 +14,23 @@ import Requests from "./Requests/Requests";
 import Reports from "./Reports/Reports";
 import Volunteers from "./Volunteers/Volunteers";
 import History from "./History/History";
+import { useAuth } from "@/mk/contexts/AuthProvider";
 
 type PropsType = {
   open: boolean;
   onClose: any;
   id: any;
+  reLoad: any;
 };
 
-const ViewTask = ({ open, onClose, id }: PropsType) => {
-  const [tab, setTab] = useState("S");
+const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
+  const [tab, setTab] = useState("H");
+  const { showToast } = useAuth();
   const {
     data: task,
     loaded,
-    reLoad,
+    execute,
+    reLoad: reLoadDet,
   } = useAxios(
     "/tasks",
     "GET",
@@ -56,14 +60,55 @@ const ViewTask = ({ open, onClose, id }: PropsType) => {
     });
     return data;
   };
+
+  const _reLoad = () => {
+    reLoadDet(null, true);
+    reLoad();
+  };
+  const onSave = async (status: any) => {
+    const { data } = await execute(
+      "/task-confirm",
+      "POST",
+      {
+        task_id: task?.data?.data?.id,
+        status: status,
+      },
+      false,
+      true
+    );
+    if (data.success == true) {
+      if (status == "F") {
+        showToast("Tarea finalizada", "success");
+      } else {
+        showToast("La tarea se marco como vencida", "success");
+      }
+
+      reLoad();
+      onClose();
+    }
+  };
+
   return (
     <DataModal
       title="Detalles de la tarea"
       open={open}
       onClose={onClose}
+      disabled={
+        task?.data?.data?.task_status == "F" ||
+        task?.data?.data?.task_status == "V"
+      }
       buttonCancel=""
-      buttonText={tab == "R" ? "Finalizar tarea" : ""}
+      buttonText={
+        tab == "R"
+          ? task?.data?.data?.task_reports.length > 0
+            ? "Finalizar tarea"
+            : "Marcar como vencida"
+          : ""
+      }
       className={styles.ViewTask}
+      onSave={() =>
+        task?.data?.data?.task_reports.length > 0 ? onSave("F") : onSave("V")
+      }
     >
       {!task ? (
         <div>Cargando....</div>
@@ -94,7 +139,10 @@ const ViewTask = ({ open, onClose, id }: PropsType) => {
             </div>
             <div>
               <p>Voluntarios</p>
-              <p>0/{task?.data?.data?.volunteer_count}</p>
+              <p>
+                {task?.data?.data?.affiliate_tasks.length}/
+                {task?.data?.data?.volunteer_count}
+              </p>
             </div>
           </div>
           <FilterButton
@@ -102,20 +150,39 @@ const ViewTask = ({ open, onClose, id }: PropsType) => {
             sel={tab}
             setSel={setTab}
             values={[
-              { value: "A", name: "Historial" },
+              { value: "H", name: "Historial" },
               {
                 value: "S",
                 name: "Solicitudes",
                 badge: requestsData().length > 0 ? requestsData().length : null,
               },
-              { value: "R", name: "Reportes" },
+              {
+                value: "R",
+                name: "Reportes",
+                badge:
+                  task?.data?.data?.task_reports.length > 0
+                    ? task?.data?.data?.task_reports.length
+                    : null,
+              },
               { value: "V", name: "Voluntarios" },
             ]}
           />
-          {tab == "A" && <History />}
-          {tab == "S" && <Requests data={requestsData()} reLoad={reLoad} />}
-          {tab == "R" && <Reports />}
-          {tab == "V" && <Volunteers data={volunteersData()} reLoad={reLoad} />}
+          {tab == "H" && <History />}
+          {tab == "S" && (
+            <Requests
+              data={requestsData()}
+              reLoad={_reLoad}
+              statusTask={task?.data?.data?.task_status}
+            />
+          )}
+          {tab == "R" && <Reports data={task?.data?.data?.task_reports} />}
+          {tab == "V" && (
+            <Volunteers
+              data={volunteersData()}
+              reLoad={_reLoad}
+              statusTask={task?.data?.data?.task_status}
+            />
+          )}
         </>
       )}
     </DataModal>

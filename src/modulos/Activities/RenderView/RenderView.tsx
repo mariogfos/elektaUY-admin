@@ -19,6 +19,8 @@ import AddTask from "@/modulos/Tasks/AddTask/AddTask";
 import ViewTask from "@/modulos/Tasks/ViewTask/ViewTask";
 import { cStatusTask, statusTask } from "../../../mk/utils/utils";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
+import LoadingScreen from "@/mk/components/ui/LoadingScreen/LoadingScreen";
+import SkeletonAdapterComponent from "@/mk/components/ui/LoadingScreen/SkeletonAdapter";
 
 const RenderView = ({
   onClose,
@@ -37,8 +39,10 @@ const RenderView = ({
   const [itemTask, setItemTask]: any = useState({});
   const [openView, setOpenView] = useState(false);
   const [deleteTask, setDeleteTask]: any = useState({ open: false, id: null });
+  const [loadingTask, setLoadingTask]: any = useState(false);
 
   const getTask = async () => {
+    setLoadingTask(true);
     const { data } = await execute(
       "/tasks",
       "GET",
@@ -50,9 +54,11 @@ const RenderView = ({
       true
     );
     if (data?.success === true) {
+      setLoadingTask(false);
       setTasks(data?.data);
     } else {
       showToast(data?.message, "info");
+      setLoadingTask(false);
     }
   };
 
@@ -62,8 +68,6 @@ const RenderView = ({
       getTask();
     }
   }, []);
-
-  const [level, setLevel] = useState(0);
 
   const typeActivity: any = {
     T: "Taller",
@@ -168,12 +172,13 @@ const RenderView = ({
       onRender: (item: any) => {
         let status = item?.value;
         let startDate = new Date(item?.item?.begin_at);
-        // let EndDate = new Date(item?.data?.begin_at);
-        let today = new Date(); // Fecha actual
-
+        let endDate = new Date(item?.data?.begin_at);
+        let today = new Date();
         if (item?.value === "P" && today >= startDate) {
-          // Cambiar estado a "En curso" si la fecha y hora han llegado
           status = "E";
+        }
+        if (today > endDate) {
+          status = "Sin completar";
         }
 
         return (
@@ -240,6 +245,10 @@ const RenderView = ({
       responsive: "onlyDesktop",
       width: "100px",
       onRender: ({ item }: any) => {
+        if (item?.task_status == "F" || item?.task_status) {
+          return;
+        }
+
         return (
           <div
             style={{
@@ -293,6 +302,46 @@ const RenderView = ({
     }
 
     return status;
+  };
+
+  const completeTasks = () => {
+    let level = 0;
+    tasks.map((t: any) => {
+      if (t.task_status == "F") {
+        level = level + 1;
+      }
+    });
+
+    return level;
+  };
+
+  const finishActivity = async () => {
+    const { data } = await execute(
+      "/activities/" + item?.data?.id,
+      "PUT",
+      {
+        activity_status: "F",
+      },
+      false,
+      true
+    );
+    if (data?.success === true) {
+      setLoadingTask(false);
+      setTasks(data?.data);
+    } else {
+      showToast(data?.message, "info");
+      setLoadingTask(false);
+    }
+  };
+
+  const showFinishButton = () => {
+    let count = 0;
+    tasks?.map((t: any) => {
+      if (t.task_status == "F" || t.task_status == "V") {
+        count = count + 1;
+      }
+    });
+    return count == tasks.length && tasks.length > 0;
   };
 
   return (
@@ -411,6 +460,14 @@ const RenderView = ({
                 }
               />
             </CardActivityView>
+            {showFinishButton() && (
+              <Button
+                disabled={item?.data?.activity_status == "F"}
+                onClick={finishActivity}
+              >
+                Finalizar actividad
+              </Button>
+            )}
           </div>
         </section>
         <section>
@@ -418,7 +475,7 @@ const RenderView = ({
             <>
               <div>
                 <p>Tareas de la actividad</p>
-                <ProgressBar level={level} maxLevel={tasks?.length} />
+                <ProgressBar level={completeTasks()} maxLevel={tasks?.length} />
               </div>
               <div
                 style={{
@@ -428,18 +485,26 @@ const RenderView = ({
                   margin: "8px 0px",
                 }}
               >
-                <Button style={{ width: 200 }} onClick={() => setOpenAdd(true)}>
+                <Button
+                  disabled={item?.data?.activity_status == "F"}
+                  style={{ width: 200 }}
+                  onClick={() => setOpenAdd(true)}
+                >
                   Crear tarea
                 </Button>
               </div>
-              <Table
-                data={tasks}
-                header={header}
-                onRowClick={(item) => {
-                  setOpenView(true);
-                  setItemTask(item);
-                }}
-              />
+              {loadingTask ? (
+                <SkeletonAdapterComponent type="TableSkeleton" />
+              ) : (
+                <Table
+                  data={tasks}
+                  header={header}
+                  onRowClick={(item) => {
+                    setOpenView(true);
+                    setItemTask(item);
+                  }}
+                />
+              )}
             </>
           ) : (
             <p>No eres el organizador</p>
@@ -462,6 +527,7 @@ const RenderView = ({
         {openView && (
           <ViewTask
             open={openView}
+            reLoad={getTask}
             onClose={() => {
               setOpenView(false);
               setItemTask({});

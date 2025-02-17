@@ -14,7 +14,7 @@ import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import RenderForm from "./RenderForm/RenderForm";
 import RenderView from "./RenderView/RenderView";
 // import Pagination from "@/mk/components/ui/Pagination/Pagination";
-import { getDateStrMes } from "../../mk/utils/date";
+import { getDateStrMes, getDateTimeStrMes } from "../../mk/utils/date";
 import { cStatusAc, statusAc } from "@/mk/utils/utils";
 
 const paramsInitial = {
@@ -79,13 +79,13 @@ const Activities = () => {
 
     loadView: {},
 
-    // onHideActions: (item: any) => {
-    //   return {
-    //     hideEdit: validate(item, user) || user.id == item.id,
+    onHideActions: (item: any) => {
+      return {
+        hideEdit: item?.activity_status == "F",
 
-    //     hideDel: validate(item, user) || user.id == item.id,
-    //   };
-    // },
+        hideDel: item?.activity_status == "F",
+      };
+    },
   };
 
   const fields = useMemo(() => {
@@ -99,7 +99,7 @@ const Activities = () => {
           type: "date",
         },
         list: {
-          width: "200px",
+          width: "240px",
           onRender: (item: any) => {
             // return getDateStrMes(item.item.created_at);
             // hacer que te diga hoy si la actividad se creo hoy con la hora
@@ -112,7 +112,7 @@ const Activities = () => {
             ) {
               return "Hoy";
             } else {
-              return getDateStrMes(item.item.created_at);
+              return getDateTimeStrMes(item.item.created_at);
             }
           },
         },

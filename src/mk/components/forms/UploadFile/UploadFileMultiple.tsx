@@ -146,9 +146,9 @@ const UploadFileMultiple = ({
               />
             ))} */}
       </label>
-      {JSON.stringify(imgs)}----
+      {/* {JSON.stringify(imgs)}----
       {JSON.stringify(Object.keys(value).length)}----
-      {images.length}
+      {images.length} */}
       {imgs.map((it: any, i: number) => (
         <div
           key={"img-" + i}

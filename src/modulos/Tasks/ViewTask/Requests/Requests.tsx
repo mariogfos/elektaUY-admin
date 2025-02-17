@@ -9,8 +9,9 @@ import useAxios from "@/mk/hooks/useAxios";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import { IconInfoApp } from "@/components/layout/icons/IconsBiblioteca";
 import Empty from "../Empty/Empty";
+import { getDateTimeStrMes } from "@/mk/utils/date";
 
-const Requests = ({ data, reLoad }: any) => {
+const Requests = ({ data, reLoad, statusTask }: any) => {
   const { execute } = useAxios();
   const { showToast } = useAuth();
   const onAccept = async (item: any, status: any) => {
@@ -33,9 +34,10 @@ const Requests = ({ data, reLoad }: any) => {
         showToast("Afiliado rechazado", "success");
       }
 
-      reLoad(null, true);
+      reLoad();
     }
   };
+
   return (
     <div className={styles.Requests}>
       {data.length > 0 ? (
@@ -43,7 +45,7 @@ const Requests = ({ data, reLoad }: any) => {
           return (
             <Card variant="V1" key={i}>
               <p style={{ fontSize: 12, fontWeight: 400, marginBottom: 8 }}>
-                03/02/2025, 11:00
+                {getDateTimeStrMes(d?.created_at)}
               </p>
 
               <ItemList
@@ -51,7 +53,7 @@ const Requests = ({ data, reLoad }: any) => {
                   <Avatar
                     name={getFullName(d.affiliate)}
                     src={getUrlImages(
-                      "/AFF-" + d.id + ".webp?d=" + d?.updated_at
+                      "/AFF-" + d.affiliate_id + ".webp?d=" + d?.updated_at
                     )}
                   />
                 }
@@ -61,6 +63,7 @@ const Requests = ({ data, reLoad }: any) => {
                     <Button
                       variant="secondary"
                       onClick={() => onAccept(d, "X")}
+                      disabled={statusTask == "F" || statusTask == "V"}
                     >
                       Rechazar
                     </Button>
@@ -68,10 +71,7 @@ const Requests = ({ data, reLoad }: any) => {
                   </div>
                 }
               />
-              <p>
-                Yo quiero hacer esta tarea, tengo un vivero y puedo conseguir
-                los 40 plantines que se están pidiendo.
-              </p>
+              {data?.comment && <p>{d?.comment}</p>}
             </Card>
           );
         })
