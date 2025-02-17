@@ -44,9 +44,7 @@ const Requests = ({ data, reLoad, statusTask }: any) => {
         data.map((d: any, i: any) => {
           return (
             <Card variant="V1" key={i}>
-              <p style={{ fontSize: 12, fontWeight: 400, marginBottom: 8 }}>
-                {getDateTimeStrMes(d?.created_at)}
-              </p>
+              <p>{getDateTimeStrMes(d?.created_at)}</p>
 
               <ItemList
                 left={
@@ -67,7 +65,12 @@ const Requests = ({ data, reLoad, statusTask }: any) => {
                     >
                       Rechazar
                     </Button>
-                    <Button onClick={() => onAccept(d, "A")}>Aceptar</Button>
+                    <Button
+                      onClick={() => onAccept(d, "A")}
+                      disabled={statusTask == "F" || statusTask == "V"}
+                    >
+                      Aceptar
+                    </Button>
                   </div>
                 }
               />
