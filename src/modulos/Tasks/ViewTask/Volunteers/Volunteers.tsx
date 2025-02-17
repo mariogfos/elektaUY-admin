@@ -26,7 +26,6 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
       false,
       true
     );
-    // console.log(data);
 
     if (data?.success == true) {
       if (status == "X") {
