@@ -5,7 +5,7 @@ asas
 First, run the development server:
 
 ```bash
-npm run dev
+npm run devsdsa
 # ora
 yarn devsdssssasaasssssassaaaaaasasssasassassssa
 pnpm devssssdfsdfs
