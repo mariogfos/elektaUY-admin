@@ -7,7 +7,6 @@ import styles from "./Requests.module.css";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import useAxios from "@/mk/hooks/useAxios";
 import { useAuth } from "@/mk/contexts/AuthProvider";
-import { IconInfoApp } from "@/components/layout/icons/IconsBiblioteca";
 import Empty from "../Empty/Empty";
 import { getDateTimeStrMes } from "@/mk/utils/date";
 
@@ -79,10 +78,6 @@ const Requests = ({ data, reLoad, statusTask }: any) => {
           );
         })
       ) : (
-        // <div className={styles.empty}>
-        //   <IconInfoApp />
-        //   <p>No existen solicitudes </p>
-        // </div>
         <Empty msg="No existen solicitudes" />
       )}
     </div>
