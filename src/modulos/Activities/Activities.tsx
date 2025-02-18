@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import styles from "./Activities.module.css";
 import RenderItem from "../shared/RenderItem";
@@ -10,7 +9,6 @@ import { getFullName, getUrlImages } from "@/mk/utils/string";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import RenderForm from "./RenderForm/RenderForm";
 import RenderView from "./RenderView/RenderView";
-// import Pagination from "@/mk/components/ui/Pagination/Pagination";
 import { getDateTimeStrMes } from "../../mk/utils/date";
 import { cStatusAc, statusAc } from "@/mk/utils/utils";
 
