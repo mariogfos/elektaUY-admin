@@ -229,9 +229,7 @@ const Activities = () => {
             let status = item?.activity_status;
             let startDate = new Date(item?.begin_at); // Convertir a fecha
             let today = new Date(); // Fecha actual
-            // console.log(startDate, today);
             if (item?.activity_status === "P" && today >= startDate) {
-              // Cambiar estado a "En curso" si la fecha y hora han llegado
               status = "E";
             }
             return (
