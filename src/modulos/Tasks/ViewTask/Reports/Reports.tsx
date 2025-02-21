@@ -1,4 +1,3 @@
-import Button from "@/mk/components/forms/Button/Button";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import { Card } from "@/mk/components/ui/Card/Card";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
@@ -13,9 +12,7 @@ const Reports = ({ data }: any) => {
     data?.map((d: any, index: any) => {
       return (
         <Card variant="V1" className={styles.Reports} key={index}>
-          <p style={{ fontSize: 12, fontWeight: 400, marginBottom: 8 }}>
-            {getDateTimeStrMes(d?.created_at)}
-          </p>
+          <p style={{}}>{getDateTimeStrMes(d?.created_at)}</p>
           <ItemList
             // style={{ paddingLeft: 0 }}
             left={
@@ -39,12 +36,6 @@ const Reports = ({ data }: any) => {
           />
           <p>{d?.description}</p>
           <a
-            style={{
-              color: "var(--cAccent)",
-              fontSize: 10,
-              fontWeight: 400,
-              marginTop: 8,
-            }}
             target="_blank"
             href={getUrlImages(
               "/TASKREPORT-" + d.id + ".webp?d=" + d?.updated_at

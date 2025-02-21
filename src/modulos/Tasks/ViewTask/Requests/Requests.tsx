@@ -7,7 +7,6 @@ import styles from "./Requests.module.css";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import useAxios from "@/mk/hooks/useAxios";
 import { useAuth } from "@/mk/contexts/AuthProvider";
-import { IconInfoApp } from "@/components/layout/icons/IconsBiblioteca";
 import Empty from "../Empty/Empty";
 import { getDateTimeStrMes } from "@/mk/utils/date";
 
@@ -44,9 +43,7 @@ const Requests = ({ data, reLoad, statusTask }: any) => {
         data.map((d: any, i: any) => {
           return (
             <Card variant="V1" key={i}>
-              <p style={{ fontSize: 12, fontWeight: 400, marginBottom: 8 }}>
-                {getDateTimeStrMes(d?.created_at)}
-              </p>
+              <p>{getDateTimeStrMes(d?.created_at)}</p>
 
               <ItemList
                 left={
@@ -67,7 +64,12 @@ const Requests = ({ data, reLoad, statusTask }: any) => {
                     >
                       Rechazar
                     </Button>
-                    <Button onClick={() => onAccept(d, "A")}>Aceptar</Button>
+                    <Button
+                      onClick={() => onAccept(d, "A")}
+                      disabled={statusTask == "F" || statusTask == "V"}
+                    >
+                      Aceptar
+                    </Button>
                   </div>
                 }
               />
@@ -76,10 +78,6 @@ const Requests = ({ data, reLoad, statusTask }: any) => {
           );
         })
       ) : (
-        // <div className={styles.empty}>
-        //   <IconInfoApp />
-        //   <p>No existen solicitudes </p>
-        // </div>
         <Empty msg="No existen solicitudes" />
       )}
     </div>

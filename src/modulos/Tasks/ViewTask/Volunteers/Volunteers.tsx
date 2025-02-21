@@ -26,7 +26,6 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
       false,
       true
     );
-    // console.log(data);
 
     if (data?.success == true) {
       if (status == "X") {
@@ -52,7 +51,9 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
             left={
               <Avatar
                 name={getFullName(v.affiliate)}
-                src={getUrlImages("/AFF-" + v.id + ".webp?d=" + v?.updated_at)}
+                src={getUrlImages(
+                  "/AFF-" + v.affiliate_id + ".webp?d=" + v?.updated_at
+                )}
               />
             }
             title={getFullName(v.affiliate)}
@@ -83,7 +84,9 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
             left={
               <Avatar
                 name={getFullName(v.affiliate)}
-                src={getUrlImages("/AFF-" + v.id + ".webp?d=" + v?.updated_at)}
+                src={getUrlImages(
+                  "/AFF-" + v.affiliate_id + ".webp?d=" + v?.updated_at
+                )}
               />
             }
             title={getFullName(v.affiliate)}
