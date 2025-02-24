@@ -250,7 +250,10 @@ const AddContent = ({
   const onSave = async () => {
     if (hasErrors(validate())) return;
     setItem({ ...formState });
-    if (formState.isType == "N" && !formState.avatar && action == "add") {
+    if (
+      (formState.isType == "N" && !formState.avatar && action == "add") ||
+      Object?.keys(formState?.avatar || {}).length <= 0
+    ) {
       showToast("Debe cargar una imagen", "error");
       return;
     }
