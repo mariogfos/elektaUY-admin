@@ -155,3 +155,24 @@ export const validOptionsSurvey: ValidFunctionType = (value, param, field) => {
   });
   return error;
 };
+
+export const validNumberGreater: ValidFunctionType = (
+  value: string,
+  param: any,
+  field: any = {}
+) => {
+  let [max]: any = param;
+  console.log(value, "VALue");
+  console.log(max, "MAXX");
+
+  if (max) {
+    if (parseFloat(value) < parseFloat(max)) {
+      return "El valor debe ser mayor a " + max;
+    }
+  }
+  if (parseFloat(value) <= 0) {
+    return "El valor debe ser mayor a 0";
+  }
+
+  return "";
+};

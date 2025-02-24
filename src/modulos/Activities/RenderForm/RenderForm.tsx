@@ -203,6 +203,12 @@ const RenderForm = ({
       errors,
     });
     errors = checkRules({
+      value: formState?.volunteer_count,
+      rules: ["greaterNumber"],
+      key: "volunteer_count",
+      errors,
+    });
+    errors = checkRules({
       value: formState?.date_limit,
       rules: ["required", "lessDate:begin_at", "greaterDate"],
       key: "date_limit",

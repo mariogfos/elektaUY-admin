@@ -49,6 +49,12 @@ const AddTask = ({
       errors,
     });
     errors = checkRules({
+      value: formState?.volunteer_count,
+      rules: ["greaterNumber"],
+      key: "volunteer_count",
+      errors,
+    });
+    errors = checkRules({
       value: formState?.points,
       rules: ["required"],
       key: "points",
