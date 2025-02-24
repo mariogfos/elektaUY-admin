@@ -325,6 +325,7 @@ const AddContent = ({
               onChange={handleChangeInput}
               value={formState.candidate_id}
               options={getCandidates()}
+              filter
               error={errors}
             />
           </CardContent>
