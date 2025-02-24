@@ -47,6 +47,8 @@ const RenderView = ({
       "/tasks",
       "GET",
       {
+        perPage: -1,
+        page: 1,
         fullType: "L",
         searchBy: item?.data.id,
       },

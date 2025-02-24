@@ -8,13 +8,14 @@ type PropsType = {
 
 const ProgressBar = ({ level, maxLevel }: PropsType) => {
   const percent = (level * 100) / maxLevel || 0;
+  const formattedPercent = percent % 1 === 0 ? percent : percent.toFixed(2);
   return (
     <div className={styles.ProgressBar}>
       <div>
         <div className={styles.Bar} style={{ width: `${percent}%` }} />
       </div>
       <div>
-        {level} de {maxLevel} ({percent}% hecho)
+        {level} de {maxLevel} ({formattedPercent}% hecho)
       </div>
     </div>
   );
