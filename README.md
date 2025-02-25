@@ -6,7 +6,7 @@ First, run the development server:
 
 ```bash
 npm run dev
-# ora
+# oraa
 yarn devsdssssasaasssssassaaaaaasasssasassassssaaa
 pnpm devssssdfsdfs
 # ord
