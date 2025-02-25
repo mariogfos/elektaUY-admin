@@ -34,7 +34,6 @@ export const validRule = (
 
   const [rule, params] = (_rule + ":").split(":");
   const param = params ? params.split(",") : [];
-
   const validations: Record<string, Function> = {
     validateIf: () =>
       param[1] !== formState[param[0]] ? "validar hasta aqui" : "",

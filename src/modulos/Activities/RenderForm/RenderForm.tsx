@@ -163,7 +163,7 @@ const RenderForm = ({
     });
     errors = checkRules({
       value: formState?.end_at,
-      rules: ["required", "greaterDate", "greaterDateTime:begin_at"],
+      rules: ["required", "greaterDate", "greaterDateTime:begin_at,4"],
       key: "end_at",
       errors,
       data: formState,

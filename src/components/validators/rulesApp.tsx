@@ -49,7 +49,7 @@ export const normalizeDateTimeToUTC = (dateString: string) => {
     console.log("La fecha no es válida222");
     return null; // Si no es una fecha válida, retornar null
   }
-  console.log("fechaaaa", date);
+  // console.log("fechaaaa", date);
 
   // Verificar si la fecha contiene información de zona horaria (especificada en formato ISO)
   const hasTimezone =
@@ -102,15 +102,19 @@ export const validDateTimeGreater: ValidFunctionType = (
 
   if (!compareDate) return "La fecha de comparación no es válida";
 
-  console.log("rules day params", param, value, field);
-  console.log("rules day", date, compareDate);
+  // console.log("rules day params", param, value, field);
+  // console.log("rules day", date, compareDate);
+  if (param[1]) {
+    compareDate = new Date(compareDate.getTime() + param[1] * 60 * 60 * 1000);
+  }
+  console.log(param[1]);
 
   return date > compareDate
     ? ""
     : "La fecha no debe ser menor a " +
         compareDate.toISOString().split("T")[0] +
         " " +
-        compareDate.toISOString().split("T")[1].substring(0, 5);
+        compareDate.toLocaleString().split(",")[1].substring(0, 6);
 };
 
 export const validDateGreater: ValidFunctionType = (
