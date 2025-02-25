@@ -3,6 +3,7 @@ import {
   validPassword,
   validCi,
   validOptionsSurvey,
+  validDateTimeGreater,
   validDateGreater,
   validDateLess,
   validDateFuture,
@@ -18,5 +19,6 @@ export const validators = {
   lessDate: validDateLess,
   futureDate: validDateFuture,
   greaterNumber: validNumberGreater,
+  greaterDateTime: validDateTimeGreater,
   // Añadir otros validadores aquí
 };
