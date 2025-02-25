@@ -110,7 +110,8 @@
       }
     }
     & > section:nth-child(2) {
-      flex-grow: 1;
+      /* flex-grow: 1; */
+      width: calc(100% - 460px);
       /* background-color: aqua; */
       /* background-color: blue; */
       & > div {
