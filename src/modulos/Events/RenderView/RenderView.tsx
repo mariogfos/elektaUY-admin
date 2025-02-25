@@ -37,7 +37,14 @@ const RenderView = (props: {
 }) => {
   const { data } = props?.item;
   const extraData = props?.extraData;
-  const entidad = ["", "", "Lista", "Departamento", "Municipio", "Barrio"];
+  const entidad = [
+    "",
+    "",
+    "Organizacion",
+    "Departamento",
+    "Municipio",
+    "Barrio",
+  ];
 
   let hoy: any = new Date();
   hoy.setHours(hoy.getHours() - GMT);
@@ -256,7 +263,7 @@ const RenderView = (props: {
             Destino:{" "}
             {entidad[data.destiny] +
               `${
-                getDestinys().length > 1 ? (data.destiny == 3 ? "es" : "s") : ""
+                getDestinys().length > 1 ? (data.destiny == 2 ? "es" : "s") : ""
               }`}{" "}
             {getDestinys()
               .map((e: any) => e.name)
