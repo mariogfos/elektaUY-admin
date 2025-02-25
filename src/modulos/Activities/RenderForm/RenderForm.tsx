@@ -488,7 +488,8 @@ const RenderForm = ({
           setError={setErrors}
           img={true}
           item={formState}
-          // editor={}
+          editor={{ width: 720, height: 363 }}
+          sizePreview={{ width: "720px", height: "363px" }}
           // sizePreview={_field.sizePreview}
           // autoOpen={data?.action == "add"}
         />
