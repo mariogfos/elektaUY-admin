@@ -173,8 +173,6 @@ const Maps = ({
 
   let path: any = [];
 
-
-
   if ((param?.level || 1) == 1) {
     path = pathsPais;
   }
