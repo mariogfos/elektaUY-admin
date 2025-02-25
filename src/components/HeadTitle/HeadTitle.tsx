@@ -57,7 +57,11 @@ const HeadTitle = ({
       >
         {customTitle ? customTitle : <h1>{title}</h1>}
       </div>
-      <span>{right}</span>
+      {right ? (
+        <span>{right}</span>
+      ) : (
+        <span style={{ width: 32, height: 32 }}>{right}</span>
+      )}
     </div>
   );
 };

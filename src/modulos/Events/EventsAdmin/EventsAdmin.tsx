@@ -273,7 +273,7 @@ const EventsAdmin = () => {
         api: "ae",
         label: "Descripción",
         list: false,
-        form: { type: "textArea", lines: 6, isLimit: true, maxLength: 5000 },
+        form: { type: "textArea", isLimit: true, maxLength: 5000 },
       },
       reaction: {
         api: "ae",

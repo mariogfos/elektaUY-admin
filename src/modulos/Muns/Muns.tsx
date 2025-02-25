@@ -16,7 +16,7 @@ const mod = {
   plural: "municipios",
   permiso: "muns",
   extraData: true,
-  import: true,
+  // import: true,
   hideActions: { edit: true, del: true, add: true },
 };
 

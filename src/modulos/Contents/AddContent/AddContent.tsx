@@ -252,7 +252,8 @@ const AddContent = ({
     if (hasErrors(validate())) return;
     setItem({ ...formState });
     if (
-      (formState.isType == "N" && !formState.avatar && action == "add") ||
+      formState.isType == "N" &&
+      action == "add" &&
       Object?.keys(formState?.avatar || {}).length <= 0
     ) {
       showToast("Debe cargar una imagen", "error");

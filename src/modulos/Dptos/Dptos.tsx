@@ -16,7 +16,7 @@ const mod: ModCrudType = {
   singular: "departamento",
   plural: "departamentos",
   permiso: "dptos",
-  import: true,
+  // import: true,
   hideActions: { edit: true, del: true, add: true },
 };
 

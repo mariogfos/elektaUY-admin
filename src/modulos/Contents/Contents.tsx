@@ -236,7 +236,7 @@ const Contents = () => {
         api: "ae",
         label: "Destino",
         list: {
-          width: "100px",
+          width: "120px",
           onRender: (item: any) => {
             let destinys = [
               "",
@@ -287,7 +287,7 @@ const Contents = () => {
         api: "ae",
         label: "Candidato",
         list: {
-          width: "250px",
+          width: "280px",
           // optionsExtra: "candidates",
           options: ({ extraData }: any) => {
             let data: any = [];
@@ -329,13 +329,25 @@ const Contents = () => {
       type: {
         rules: ["required"],
         api: "ae",
-        label: "Tipo",
+        label: "Tipo de archivo",
         list: { width: "100px" },
         form: {
           type: "select",
           options: lType,
           // precarga: "I"
         },
+      },
+      typeContent: {
+        // rules: [""],
+        api: "",
+        label: "Tipo de publicación",
+        list: {
+          width: "100px",
+          onRender: ({ item }: any) => {
+            return item?.title ? "Noticia" : "Post";
+          },
+        },
+        form: false,
       },
       title: {
         rules: [""],
