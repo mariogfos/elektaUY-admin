@@ -36,16 +36,8 @@ export const DashboardMap = ({
     const shouldShowBarrios =
       params[0]?.level === 2 &&
       (params[0]?.code === "Montevideo" || params[0]?.name === "Montevideo");
-    // if (shouldShowBarrios !== isMontevideoLevel2) {
+
     setIsMontevideoLevel2(shouldShowBarrios);
-    // }
-    console.log(
-      "useeffect",
-      params,
-      shouldShowBarrios,
-      isMontevideoLevel2,
-      itemSelected
-    );
   }, []);
 
   // Maneja el cambio del switch
@@ -139,7 +131,7 @@ export const DashboardMap = ({
 
       <div className={styles.ecuador}>
         <Maps
-          data={data?.entidad}
+          data={data}
           params={params}
           onClick={onClick}
           itemSelected={itemSelected}
