@@ -282,16 +282,16 @@ const RenderView = ({
     },
   ];
 
-  const volunters = () => {
-    let volunter = 0;
-    tasks?.map((t: any) => {
-      volunter = volunter + t.volunteer_count;
-    });
-    if (itemTask?.id) {
-      volunter = volunter - itemTask.volunteer_count;
-    }
-    return volunter;
-  };
+  // const volunters = () => {
+  //   let volunter = 0;
+  //   tasks?.map((t: any) => {
+  //     volunter = volunter + t.volunteer_count;
+  //   });
+  //   if (itemTask?.id) {
+  //     volunter = volunter - itemTask.volunteer_count;
+  //   }
+  //   return volunter;
+  // };
 
   const getStatus = () => {
     let status = item.data.activity_status;
@@ -524,7 +524,7 @@ const RenderView = ({
             }}
             item={itemTask}
             execute={execute}
-            volunters={volunters()}
+            // volunters={volunters()}
           />
         )}
         {openView && (

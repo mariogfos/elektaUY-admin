@@ -13,7 +13,6 @@ type PropsType = {
   reLoad: any;
   execute?: any;
   activity?: any;
-  volunters: any;
 };
 
 const AddTask = ({
@@ -23,7 +22,6 @@ const AddTask = ({
   reLoad,
   execute,
   activity,
-  volunters,
 }: PropsType) => {
   const [formState, setFormState]: any = useState({ ...item });
   const { showToast } = useAuth();
@@ -117,10 +115,9 @@ const AddTask = ({
   const onSave = async () => {
     let method = formState.id ? "PUT" : "POST";
     if (hasErrors(validate())) return;
-
     if (
-      volunters + Number(formState?.volunteer_count) >
-      activity.volunteer_count
+      parseFloat(formState?.volunteer_count) >
+      parseFloat(activity?.volunteer_count)
     ) {
       showToast("Los voluntarios sobrepasan a los de la actividad", "error");
       return;
