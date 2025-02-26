@@ -21,6 +21,7 @@ import { cStatusTask, statusTask } from "../../../mk/utils/utils";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import LoadingScreen from "@/mk/components/ui/LoadingScreen/LoadingScreen";
 import SkeletonAdapterComponent from "@/mk/components/ui/LoadingScreen/SkeletonAdapter";
+import ExpandableText from "@/mk/components/ui/ExpandableText/ExpandableText";
 
 const RenderView = ({
   onClose,
@@ -384,7 +385,17 @@ const RenderView = ({
             </div>
             <div>
               <p>{item?.data?.name}</p>
-              <p>{item?.data?.description}</p>
+              <ExpandableText
+                lines={10}
+                styleText={{
+                  fontSize: 16,
+
+                  color: "var(--cBlackV2)",
+                  // marginTop: "8px",
+                }}
+              >
+                {item?.data?.description}
+              </ExpandableText>
             </div>
             <div>
               <CardActivityView>

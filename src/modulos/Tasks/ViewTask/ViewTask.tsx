@@ -10,6 +10,7 @@ import Reports from "./Reports/Reports";
 import Volunteers from "./Volunteers/Volunteers";
 import History from "./History/History";
 import { useAuth } from "@/mk/contexts/AuthProvider";
+import ExpandableText from "@/mk/components/ui/ExpandableText/ExpandableText";
 
 type PropsType = {
   open: boolean;
@@ -121,7 +122,17 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
           <p>{task?.data?.data?.description}</p>
           <div className={styles.card}>
             <p>Requisitos</p>
-            <p>{task?.data?.data?.requirements}</p>
+            <ExpandableText
+              styleText={{
+                color: " var(--cWhiteV1)",
+                fontWeight: 400,
+                fontSize: " var(--sM)",
+                marginTop: "var(--spS)",
+              }}
+              lines={5}
+            >
+              {task?.data?.data?.requirements}
+            </ExpandableText>
           </div>
           <div className={styles.detail}>
             <div>
