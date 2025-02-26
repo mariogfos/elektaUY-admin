@@ -195,8 +195,10 @@ export const validDateLess: ValidFunctionType = (
       : normalizeDateToUTC(new Date().toISOString());
 
   if (!compareDate) return "La fecha de comparación no es válida";
+  // console.log(date, compareDate);
+  // console.log(value, field[param[0]]);
 
-  return date <= compareDate
+  return date < compareDate
     ? ""
     : "La fecha no debe ser mayor a " + compareDate.toISOString().split("T")[0];
 };

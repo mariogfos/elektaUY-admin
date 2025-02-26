@@ -77,7 +77,7 @@ const AddTask = ({
 
     errors = checkRules({
       value: formState?.end_at,
-      rules: ["required", "greaterDate", "greaterDate:begin_at"],
+      rules: ["required", "greaterDate", "greaterDateTime:begin_at,1"],
       key: "end_at",
       errors,
       data: formState,
