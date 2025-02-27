@@ -143,7 +143,7 @@ const Activities = () => {
       //   },
       //   list: true,
       // },
-      coordinator_id: {
+      coordinator: {
         rules: ["required"],
         api: "ae",
         label: "Coordinador",
@@ -157,18 +157,21 @@ const Activities = () => {
           //   console.log(extraData);
           // },
           onRender: ({ item, extraData }: any) => {
-            let coo = extraData?.gabinete?.find(
-              (e: any) => e.user_id == item.coordinator_id
-            );
+            // let coo = extraData?.gabinete?.find(
+            //   (e: any) => e.user_id == item.coordinator_id
+            // );
             return (
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <Avatar
                   src={getUrlImages(
-                    "/ADM-" + item.coordinator_id + ".webp?d=" + item.updated_at
+                    "/ADM-" +
+                      item.coordinator_id +
+                      ".webp?d=" +
+                      item?.coordinator.updated_at
                   )}
-                  name={getFullName(coo)}
+                  name={getFullName(item?.coordinator)}
                 />
-                <p>{getFullName(coo)}</p>
+                <p>{getFullName(item?.coordinator)}</p>
               </div>
             );
           },
