@@ -86,29 +86,32 @@ const Activities = () => {
   const fields = useMemo(() => {
     return {
       id: { rules: [], api: "e" },
-      created_at: {
+      begin_at: {
         rules: [],
         api: "e",
-        label: "Fecha de creación",
+        label: "Fecha de inicio",
         form: {
           type: "date",
         },
         list: {
           width: "240px",
-          onRender: (item: any) => {
-            // return getDateStrMes(item.item.created_at);
-            // hacer que te diga hoy si la actividad se creo hoy con la hora
-            const date = new Date(item.item.created_at);
-            const today = new Date();
-            if (
-              date.getDate() == today.getDate() &&
-              date.getMonth() == today.getMonth() &&
-              date.getFullYear() == today.getFullYear()
-            ) {
-              return "Hoy";
-            } else {
-              return getDateTimeStrMes(item.item.created_at);
-            }
+          // onRender: (item: any) => {
+          //   // return getDateStrMes(item.item.created_at);
+          //   // hacer que te diga hoy si la actividad se creo hoy con la hora
+          //   const date = new Date(item.item.created_at);
+          //   const today = new Date();
+          //   if (
+          //     date.getDate() == today.getDate() &&
+          //     date.getMonth() == today.getMonth() &&
+          //     date.getFullYear() == today.getFullYear()
+          //   ) {
+          //     return "Hoy";
+          //   } else {
+          //     return getDateTimeStrMes(item.item.created_at);
+          //   }
+          // },
+          onRender: ({ value }: any) => {
+            return getDateTimeStrMes(value);
           },
         },
       },
