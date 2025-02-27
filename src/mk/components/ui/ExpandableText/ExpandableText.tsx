@@ -14,26 +14,36 @@ export default function ExpandableText({
 }: PropsType) {
   const [expanded, setExpanded] = useState(false);
   const [showExpand, setShowExpand] = useState(false);
-  const textRef: any = useRef(null);
+  const textRef = useRef<HTMLParagraphElement | null>(null);
 
   useEffect(() => {
-    if (textRef.current) {
-      const lineHeight = parseInt(
-        window.getComputedStyle(textRef.current).lineHeight,
-        lines
-      );
-      const maxHeight = lineHeight * lines;
-      if (textRef.current.scrollHeight > maxHeight) {
-        setShowExpand(true);
+    const checkOverflow = () => {
+      if (textRef.current) {
+        const lineHeight = parseFloat(
+          window.getComputedStyle(textRef.current).lineHeight
+        );
+        const maxHeight = lineHeight * lines;
+
+        if (textRef.current.scrollHeight > maxHeight) {
+          setShowExpand(true);
+        } else {
+          setShowExpand(false);
+        }
       }
-    }
-  }, [lines]);
+    };
+
+    checkOverflow();
+
+    // Volver a chequear cuando la ventana se redimensiona
+    window.addEventListener("resize", checkOverflow);
+    return () => window.removeEventListener("resize", checkOverflow);
+  }, [children, lines]);
 
   return (
     <div className={styles.textContainer}>
       <p
         ref={textRef}
-        style={styleText}
+        style={{ ...styleText, WebkitLineClamp: expanded ? "unset" : lines }}
         className={`${styles.text} ${
           expanded ? styles.expanded : styles.clamped
         }`}
