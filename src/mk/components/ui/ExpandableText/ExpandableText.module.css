@@ -10,7 +10,7 @@
 }
 
 .clamped {
-  -webkit-line-clamp: 10; /* Máximo de 10 líneas */
+  -webkit-line-clamp: 10;
 }
 
 .expanded {
