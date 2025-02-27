@@ -460,7 +460,9 @@ const RenderView = ({
                   >
                     <IconInfoApp />
                     {getMissingDays() == 0 ? (
-                      <p>Ya empezó</p>
+                      <p>
+                        La actividad ya llegó a su fecha limite de inscripción
+                      </p>
                     ) : getMissingDays() < 0 ? (
                       <p>Finalizaron las inscripciones</p>
                     ) : (
