@@ -225,18 +225,26 @@ const Activities = () => {
               { id: "T", name: "Todos" },
               { id: "P", name: "Pendiente" },
               { id: "E", name: "En curso" },
+              { id: "S", name: "Sin completar" },
               { id: "F", name: "Finalizada" },
             ];
           },
         },
         list: {
-          width: "100px",
+          width: "120px",
           onRender: ({ item }: any) => {
             let status = item?.activity_status;
             let startDate = new Date(item?.begin_at); // Convertir a fecha
             let today = new Date(); // Fecha actual
+            let endDate = new Date(item?.end_at);
             if (item?.activity_status === "P" && today >= startDate) {
               status = "E";
+            }
+            if (today > endDate) {
+              status = "S";
+            }
+            if (item?.activity_status === "F") {
+              status = "F";
             }
             return (
               <div style={{ color: cStatusAc[status] }}>{statusAc[status]}</div>
