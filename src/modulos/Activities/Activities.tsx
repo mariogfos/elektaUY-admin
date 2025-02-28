@@ -167,7 +167,7 @@ const Activities = () => {
                     "/ADM-" +
                       item.coordinator_id +
                       ".webp?d=" +
-                      item?.coordinator.updated_at
+                      item?.coordinator?.updated_at
                   )}
                   name={getFullName(item?.coordinator)}
                 />

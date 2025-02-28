@@ -574,7 +574,7 @@ const ViewSurveys = ({
         <div style={{ width: "60%", marginTop: "var(--spL)" }}>
           <WidgetBase
             // title={`Afiliados por ${type == "prov" ? "provincia" : "canton"}`}
-            title={`Encuestas respondidas por provincia`}
+            title={`Encuestas respondidas por departamento`}
             style={{ marginBottom: "var(--sL)" }}
           >
             <Table
