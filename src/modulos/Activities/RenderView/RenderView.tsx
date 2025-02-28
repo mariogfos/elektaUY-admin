@@ -81,11 +81,13 @@ const RenderView = ({
 
   const getMissingDays = () => {
     const date = new Date();
+    date.setHours(0, 0, 0, 0);
     const dateBegin = new Date(item?.data?.date_limit);
-    const diff = dateBegin.getTime() - date.getTime();
-    return Math.ceil(diff / (1000 * 3600 * 24));
-  };
+    dateBegin.setHours(0, 0, 0, 0);
 
+    const diff = dateBegin.getTime() - date.getTime();
+    return Math.floor(diff / (1000 * 3600 * 24));
+  };
   const getDestinys = () => {
     const names: any = ["Todos"];
     if (item?.data?.destiny == 2) {
@@ -460,11 +462,11 @@ const RenderView = ({
                   >
                     <IconInfoApp />
                     {getMissingDays() == 0 ? (
+                      <p>Hoy cierran las inscripciones</p>
+                    ) : getMissingDays() < 0 ? (
                       <p>
                         La actividad ya llegó a su fecha limite de inscripción
                       </p>
-                    ) : getMissingDays() < 0 ? (
-                      <p>Finalizaron las inscripciones</p>
                     ) : (
                       <p>
                         {"Faltan " +
