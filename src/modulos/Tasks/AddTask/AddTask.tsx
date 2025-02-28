@@ -152,7 +152,7 @@ const AddTask = ({
 
   return (
     <DataModal
-      title="Crear tarea"
+      title={formState.id ? "Actualizar tarea" : "Crear tarea"}
       open={open}
       onClose={onClose}
       className={styles.AddTask}

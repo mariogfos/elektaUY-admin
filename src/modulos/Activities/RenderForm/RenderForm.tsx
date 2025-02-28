@@ -285,7 +285,7 @@ const RenderForm = ({
       className={styles.RenderForm}
       open={open}
       onClose={onClose}
-      title="Crear actividad"
+      title={formState?.id ? "Actualizar actividad" : "Crear actividad"}
       onSave={onSave}
     >
       <CardActivity
