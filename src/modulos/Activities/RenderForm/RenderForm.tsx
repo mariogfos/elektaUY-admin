@@ -77,7 +77,7 @@ const RenderForm = ({
   useEffect(() => {
     let lDestinies: any = formState.lDestiny || [];
     if (action == "edit" && !formState.lDestiny) {
-      formState?.cdestinies?.map((d: any) => {
+      formState?.adestinies?.map((d: any) => {
         if (formState?.destiny == 2) {
           lDestinies.push(d.lista_id);
         }
@@ -92,6 +92,7 @@ const RenderForm = ({
         }
       });
     }
+    setFormState({ ...formState, lDestiny: lDestinies });
     setLdestinys(lDestinies);
   }, [action, formState.lDestiny]);
 
@@ -279,7 +280,6 @@ const RenderForm = ({
       showToast(data.message, "error");
     }
   };
-
   return (
     <DataModal
       className={styles.RenderForm}
