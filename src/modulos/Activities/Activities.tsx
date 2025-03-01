@@ -13,7 +13,7 @@ import { getDateTimeStrMes } from "../../mk/utils/date";
 import { cStatusAc, statusAc } from "@/mk/utils/utils";
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",

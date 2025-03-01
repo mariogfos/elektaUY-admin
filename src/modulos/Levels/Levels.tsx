@@ -12,7 +12,7 @@ import { getUrlImages } from "@/mk/utils/string";
 import { formatNumber } from "@/mk/utils/numbers";
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",

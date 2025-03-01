@@ -36,7 +36,7 @@ import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import RenderCard from "./RenderCard/RenderCard";
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",

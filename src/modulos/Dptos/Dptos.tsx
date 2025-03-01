@@ -21,7 +21,7 @@ const mod: ModCrudType = {
 };
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",

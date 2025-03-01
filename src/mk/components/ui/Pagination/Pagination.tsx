@@ -5,6 +5,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import styles from "./pagination.module.css";
 import Select from "../../forms/Select/Select";
+import page from "../../../../app/ranking/page";
 
 type PropsType = {
   className?: string;
@@ -30,6 +31,12 @@ const Pagination = ({
   total = null,
 }: PropsType) => {
   // const [perPage, setPerPage] = useState(params?.perPage);
+  const [numsPagination, setNumsPaginations] = useState({
+    left: params.page,
+    right: params.perPage,
+  });
+
+  const maxPage = Math.ceil(Number(total) / 20);
   const { firstPage, lastPage, goToNextPage, goToPreviousPage, range } =
     useMemo(() => {
       const firstPage = totalPages > 1 ? Math.max(1, currentPage - 3) : 1;
@@ -52,12 +59,17 @@ const Pagination = ({
       return { firstPage, lastPage, goToNextPage, goToPreviousPage, range };
     }, [currentPage, totalPages]);
 
-  // useEffect(() => {
-  //   if (perPage) {
-  //     setParams({ ...params, perPage: perPage });
-  //   }
-  // }, [perPage]);
+  useEffect(() => {
+    if (currentPage > 1) {
+      setNumsPaginations({
+        left: params.perPage * currentPage - params.perPage + 1,
+        right: maxPage == currentPage ? total : currentPage * params.perPage,
+      });
+    }
+  }, [params.page]);
+  console.log(currentPage);
 
+  console.log(numsPagination);
   return (
     <div className={styles.pagination + " " + className}>
       <div>
@@ -96,8 +108,10 @@ const Pagination = ({
         <IconArrowRight onClick={goToNextPage} />
       </span> */}
       <div>
-        <p>Total {total} items </p>
-        <Select
+        <p>
+          {numsPagination.left}-{numsPagination.right} de {total}
+        </p>
+        {/* <Select
           inputStyle={{ marginBottom: 0 }}
           name="perPage"
           label=""
@@ -113,7 +127,7 @@ const Pagination = ({
             setParams({ ...params, perPage: e.target.value, page: 1 });
             // range(1, 3);
           }}
-        />
+        /> */}
       </div>
 
       {/* {total && <p> Total items: {total}</p>} */}

@@ -52,7 +52,7 @@ const arrayToSelect = (array: string[], level: number = 6) => {
 };
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",
