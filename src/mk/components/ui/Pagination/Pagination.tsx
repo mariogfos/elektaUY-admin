@@ -60,6 +60,13 @@ const Pagination = ({
     }, [currentPage, totalPages]);
 
   useEffect(() => {
+    if (currentPage == 1 && Number(total) < params.perPage) {
+      setNumsPaginations({
+        left: params.perPage * currentPage - params.perPage + 1,
+        right: total,
+      });
+      return;
+    }
     if (currentPage > 1) {
       setNumsPaginations({
         left: params.perPage * currentPage - params.perPage + 1,
