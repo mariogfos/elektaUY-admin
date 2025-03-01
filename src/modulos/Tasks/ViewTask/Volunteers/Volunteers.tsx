@@ -12,7 +12,7 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
   const { execute } = useAxios();
   const { showToast } = useAuth();
   const volunteersEnabled = data?.filter((v: any) => v.status == "A");
-  const volunteersDisabled = data?.filter((v: any) => v.status == "X");
+  const volunteersDisabled = data?.filter((v: any) => v.status == "R");
 
   const enabledOrDisabled = async (item: any, status: any) => {
     const { data } = await execute(
@@ -28,7 +28,7 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
     );
 
     if (data?.success == true) {
-      if (status == "X") {
+      if (status == "R") {
         showToast("Afiliado inhabilitado", "success");
       } else {
         showToast("Afiliado habilitado", "success");
@@ -60,7 +60,7 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
             right={
               <Button
                 variant="cancel"
-                onClick={() => enabledOrDisabled(v, "X")}
+                onClick={() => enabledOrDisabled(v, "R")}
                 disabled={statusTask == "F" || statusTask == "V"}
               >
                 Inhabilitar

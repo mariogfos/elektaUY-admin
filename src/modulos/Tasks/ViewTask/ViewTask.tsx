@@ -50,7 +50,7 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
   const volunteersData = () => {
     let data: any = [];
     task?.data?.data?.affiliate_tasks.map((t: any) => {
-      if (t.status == "A" || t.status == "X") {
+      if (t.status == "A" || t.status == "R") {
         data.push(t);
       }
     });
