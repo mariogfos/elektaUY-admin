@@ -32,8 +32,8 @@ const Pagination = ({
 }: PropsType) => {
   // const [perPage, setPerPage] = useState(params?.perPage);
   const [numsPagination, setNumsPaginations] = useState({
-    left: params.page,
-    right: params.perPage,
+    left: params?.page,
+    right: params?.perPage,
   });
 
   const maxPage = Math.ceil(Number(total) / 20);
@@ -60,20 +60,20 @@ const Pagination = ({
     }, [currentPage, totalPages]);
 
   useEffect(() => {
-    if (currentPage == 1 && Number(total) < params.perPage) {
+    if (currentPage == 1 && Number(total) < params?.perPage) {
       setNumsPaginations({
-        left: params.perPage * currentPage - params.perPage + 1,
+        left: params?.perPage * currentPage - params?.perPage + 1,
         right: total,
       });
       return;
     }
     if (currentPage > 1) {
       setNumsPaginations({
-        left: params.perPage * currentPage - params.perPage + 1,
-        right: maxPage == currentPage ? total : currentPage * params.perPage,
+        left: params?.perPage * currentPage - params?.perPage + 1,
+        right: maxPage == currentPage ? total : currentPage * params?.perPage,
       });
     }
-  }, [params.page]);
+  }, [params?.page]);
 
   return (
     <div className={styles.pagination + " " + className}>
