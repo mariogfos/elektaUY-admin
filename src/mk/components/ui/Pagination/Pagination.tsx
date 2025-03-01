@@ -67,9 +67,7 @@ const Pagination = ({
       });
     }
   }, [params.page]);
-  console.log(currentPage);
 
-  console.log(numsPagination);
   return (
     <div className={styles.pagination + " " + className}>
       <div>
