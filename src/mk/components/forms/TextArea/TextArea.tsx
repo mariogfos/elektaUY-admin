@@ -44,7 +44,7 @@ const TextArea = ({ maxLength, isLimit = false, ...props }: PropsType) => {
           style={{ width: "100%", ...style }}
           disabled={disabled}
           required={required}
-          rows={props.lines}
+          rows={props.lines || 6}
           maxLength={maxLength} // Aplica el límite de caracteres
           onChange={handleChange}
           onFocus={onFocus}

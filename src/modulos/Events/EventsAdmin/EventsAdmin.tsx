@@ -22,7 +22,7 @@ import RenderItem from "@/modulos/shared/RenderItem";
 import DataSearch from "@/mk/components/forms/DataSearch/DataSearch";
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",
@@ -273,7 +273,7 @@ const EventsAdmin = () => {
         api: "ae",
         label: "Descripción",
         list: false,
-        form: { type: "textArea", lines: 6, isLimit: true, maxLength: 5000 },
+        form: { type: "textArea", isLimit: true, maxLength: 5000 },
       },
       reaction: {
         api: "ae",

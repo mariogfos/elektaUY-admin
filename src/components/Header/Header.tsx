@@ -74,16 +74,16 @@ const Header = ({
               />
             ) : null
           }
-          right={
-            path == "/" ? (
-              <Dropdown
-                trigger={<IconSetting circle size={32} />}
-                items={menuItems}
-              />
-            ) : (
-              right()
-            )
-          }
+          // right={
+          //   path == "/" ? (
+          //     <Dropdown
+          //       trigger={<IconSetting circle size={32} />}
+          //       items={menuItems}
+          //     />
+          //   ) : (
+          //     right()
+          //   )
+          // }
         />
       </>
     );

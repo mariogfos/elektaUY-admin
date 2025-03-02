@@ -83,12 +83,9 @@
             font-weight: 700;
             color: var(--cWhite);
           }
-          & > p:nth-child(even) {
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--cBlackV2);
-            margin-top: 8px;
-          }
+          /* & > p:nth-child(even) {
+            
+          } */
         }
         & > div:nth-child(4) {
           display: flex;
@@ -110,7 +107,8 @@
       }
     }
     & > section:nth-child(2) {
-      flex-grow: 1;
+      /* flex-grow: 1; */
+      width: calc(100% - 460px);
       /* background-color: aqua; */
       /* background-color: blue; */
       & > div {

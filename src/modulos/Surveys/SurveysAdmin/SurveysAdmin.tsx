@@ -31,7 +31,7 @@ import useCrudUtils from "@/modulos/shared/useCrudUtils";
 import RenderForm from "../RenderForm/RenderForm";
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",

@@ -193,9 +193,15 @@ const ViewSurveys = ({
         const formattedPercentage = Number.isNaN(percentage)
           ? "0 %"
           : `${percentage.toFixed(1)} %`;
-        labels.push(answer.name);
+
+        if (answer.question?.type == "E") {
+          labels.push(answer.order);
+        } else {
+          labels.push(answer.name);
+        }
+
         values.push({
-          name: answer.name,
+          name: answer.question?.type == "E" ? answer.order : answer.name,
           values: [answer.sanswers_count],
         });
         formattedData.push({
@@ -504,6 +510,15 @@ const ViewSurveys = ({
                     key: "name",
                     responsive: "",
                     label: "Respuesta",
+                    onRender: ({ item, i }: any) => {
+                      if (
+                        item?.question.type == "E" &&
+                        (dataFormatted.length == i || i == 1)
+                      ) {
+                        return item.order + " (" + item.name + ")";
+                      }
+                      return item.name;
+                    },
 
                     width: "300%",
                   },
@@ -559,7 +574,7 @@ const ViewSurveys = ({
         <div style={{ width: "60%", marginTop: "var(--spL)" }}>
           <WidgetBase
             // title={`Afiliados por ${type == "prov" ? "provincia" : "canton"}`}
-            title={`Encuestas respondidas por provincia`}
+            title={`Encuestas respondidas por departamento`}
             style={{ marginBottom: "var(--sL)" }}
           >
             <Table

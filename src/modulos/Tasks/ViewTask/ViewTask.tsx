@@ -10,6 +10,7 @@ import Reports from "./Reports/Reports";
 import Volunteers from "./Volunteers/Volunteers";
 import History from "./History/History";
 import { useAuth } from "@/mk/contexts/AuthProvider";
+import ExpandableText from "@/mk/components/ui/ExpandableText/ExpandableText";
 
 type PropsType = {
   open: boolean;
@@ -49,7 +50,7 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
   const volunteersData = () => {
     let data: any = [];
     task?.data?.data?.affiliate_tasks.map((t: any) => {
-      if (t.status == "A" || t.status == "X") {
+      if (t.status == "A" || t.status == "R") {
         data.push(t);
       }
     });
@@ -82,6 +83,15 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
       onClose();
     }
   };
+  const getAfiliateVolunters = () => {
+    let count = 0;
+    task?.data?.data?.affiliate_tasks?.map((a: any) => {
+      if (a.status == "A") {
+        count = count + 1;
+      }
+    });
+    return count;
+  };
 
   return (
     <DataModal
@@ -112,7 +122,17 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
           <p>{task?.data?.data?.description}</p>
           <div className={styles.card}>
             <p>Requisitos</p>
-            <p>{task?.data?.data?.requirements}</p>
+            <ExpandableText
+              styleText={{
+                color: " var(--cWhiteV1)",
+                fontWeight: 400,
+                fontSize: " var(--sM)",
+                marginTop: "var(--spS)",
+              }}
+              lines={5}
+            >
+              {task?.data?.data?.requirements}
+            </ExpandableText>
           </div>
           <div className={styles.detail}>
             <div>
@@ -135,8 +155,7 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
             <div>
               <p>Voluntarios</p>
               <p>
-                {task?.data?.data?.affiliate_tasks.length}/
-                {task?.data?.data?.volunteer_count}
+                {getAfiliateVolunters()}/{task?.data?.data?.volunteer_count}
               </p>
             </div>
           </div>

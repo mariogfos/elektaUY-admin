@@ -16,12 +16,12 @@ const mod: ModCrudType = {
   singular: "departamento",
   plural: "departamentos",
   permiso: "dptos",
-  import: true,
+  // import: true,
   hideActions: { edit: true, del: true, add: true },
 };
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",

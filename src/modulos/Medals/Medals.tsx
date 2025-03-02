@@ -12,7 +12,7 @@ import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import { formatNumber } from "@/mk/utils/numbers";
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",

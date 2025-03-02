@@ -117,9 +117,11 @@ export const statusAc: any = {
   P: "Pendiente",
   E: "En curso",
   F: "Finalizada",
+  S: "Sin completar",
 };
 export const cStatusAc: any = {
   P: "var(--cBlackV2)",
   E: "var(--cAccent)",
   F: "var(--cSuccess)",
+  S: "var(--cWarning)",
 };

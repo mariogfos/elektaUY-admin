@@ -42,6 +42,81 @@ export const normalizeDateToUTC = (dateString: string) => {
   );
 };
 
+export const normalizeDateTimeToUTC = (dateString: string) => {
+  dateString = dateString.replace(/\//g, "-");
+  let date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    console.log("La fecha no es válida222");
+    return null; // Si no es una fecha válida, retornar null
+  }
+  // console.log("fechaaaa", date);
+
+  // Verificar si la fecha contiene información de zona horaria (especificada en formato ISO)
+  const hasTimezone =
+    dateString.includes("T") &&
+    (dateString.includes("+") || dateString.includes("Z"));
+
+  // if (!hasTimezone) {
+  //   dateString = dateString.replace("Z", "");
+  //   let dateString1 = (dateString + " ").split(" ")[0];
+  //   dateString1 = (dateString1 + "T").split("T")[0];
+  //   date = new Date(dateString1[0] + "T" + dateString1[1] + "Z");
+  // }
+  // console.log("fafafafafa", dateString, date);
+  // Normalizar la fecha a solo año, mes y día en UTC
+  return new Date(
+    Date.UTC(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate(),
+      date.getUTCHours(),
+      date.getUTCMinutes(),
+      date.getUTCSeconds()
+    )
+  );
+};
+
+export const validDateTimeGreater: ValidFunctionType = (
+  value: string,
+  param: any,
+  field: any = {}
+) => {
+  if (!value) {
+    console.log("La fecha no es válida");
+    return "La fecha no es válida";
+  }
+
+  // Normalizar la fecha del input
+  let date = normalizeDateTimeToUTC(value);
+
+  if (!date) {
+    console.log("La fecha ingresada no es válida");
+    return "La fecha ingresada no es válida";
+  }
+
+  // Normalizar la fecha de comparación (hoy por defecto o una segunda fecha proporcionada)
+  let compareDate =
+    param && param[0]
+      ? normalizeDateTimeToUTC(field ? field[param[0]] : "")
+      : normalizeDateTimeToUTC(new Date().toISOString());
+
+  if (!compareDate) return "La fecha de comparación no es válida";
+
+  // console.log("rules day params", param, value, field);
+  // console.log("rules day", date, compareDate);
+  if (param[1]) {
+    compareDate = new Date(compareDate.getTime() + param[1] * 60 * 60 * 1000);
+  }
+  console.log(param[1]);
+
+  return date > compareDate
+    ? ""
+    : "La fecha no debe ser menor a " +
+        compareDate.toISOString().split("T")[0] +
+        " " +
+        compareDate.toLocaleString().split(",")[1].substring(0, 6);
+};
+
 export const validDateGreater: ValidFunctionType = (
   value: string,
   param: any,
@@ -68,7 +143,8 @@ export const validDateGreater: ValidFunctionType = (
 
   if (!compareDate) return "La fecha de comparación no es válida";
 
-  // console.log("rules day", date, compareDate);
+  console.log("rules day params", param, value, field);
+  console.log("rules day", date, compareDate);
 
   return date >= compareDate
     ? ""
@@ -119,8 +195,10 @@ export const validDateLess: ValidFunctionType = (
       : normalizeDateToUTC(new Date().toISOString());
 
   if (!compareDate) return "La fecha de comparación no es válida";
+  // console.log(date, compareDate);
+  // console.log(value, field[param[0]]);
 
-  return date <= compareDate
+  return date < compareDate
     ? ""
     : "La fecha no debe ser mayor a " + compareDate.toISOString().split("T")[0];
 };
@@ -154,4 +232,25 @@ export const validOptionsSurvey: ValidFunctionType = (value, param, field) => {
     if (!option.name) error = "Todas las opciones deben tener un valor";
   });
   return error;
+};
+
+export const validNumberGreater: ValidFunctionType = (
+  value: string,
+  param: any,
+  field: any = {}
+) => {
+  let [max]: any = param;
+  console.log(value, "VALue");
+  console.log(max, "MAXX");
+
+  if (max) {
+    if (parseFloat(value) < parseFloat(max)) {
+      return "El valor debe ser mayor a " + max;
+    }
+  }
+  if (parseFloat(value) <= 0) {
+    return "El valor debe ser mayor a 0";
+  }
+
+  return "";
 };

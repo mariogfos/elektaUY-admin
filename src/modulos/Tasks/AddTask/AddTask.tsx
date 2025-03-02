@@ -13,7 +13,6 @@ type PropsType = {
   reLoad: any;
   execute?: any;
   activity?: any;
-  volunters: any;
 };
 
 const AddTask = ({
@@ -23,7 +22,6 @@ const AddTask = ({
   reLoad,
   execute,
   activity,
-  volunters,
 }: PropsType) => {
   const [formState, setFormState]: any = useState({ ...item });
   const { showToast } = useAuth();
@@ -45,6 +43,12 @@ const AddTask = ({
     errors = checkRules({
       value: formState?.volunteer_count,
       rules: ["required"],
+      key: "volunteer_count",
+      errors,
+    });
+    errors = checkRules({
+      value: formState?.volunteer_count,
+      rules: ["greaterNumber"],
       key: "volunteer_count",
       errors,
     });
@@ -71,7 +75,7 @@ const AddTask = ({
 
     errors = checkRules({
       value: formState?.end_at,
-      rules: ["required", "greaterDate", "greaterDate:begin_at"],
+      rules: ["required", "greaterDate", "greaterDateTime:begin_at,1"],
       key: "end_at",
       errors,
       data: formState,
@@ -111,10 +115,9 @@ const AddTask = ({
   const onSave = async () => {
     let method = formState.id ? "PUT" : "POST";
     if (hasErrors(validate())) return;
-
     if (
-      volunters + Number(formState?.volunteer_count) >
-      activity.volunteer_count
+      parseFloat(formState?.volunteer_count) >
+      parseFloat(activity?.volunteer_count)
     ) {
       showToast("Los voluntarios sobrepasan a los de la actividad", "error");
       return;
@@ -149,7 +152,7 @@ const AddTask = ({
 
   return (
     <DataModal
-      title="Crear tarea"
+      title={formState.id ? "Actualizar tarea" : "Crear tarea"}
       open={open}
       onClose={onClose}
       className={styles.AddTask}

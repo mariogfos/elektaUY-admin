@@ -611,7 +611,7 @@ const Maps = ({
 
   const _onClick = (code: string | number) => {
     if (!showBarrios) return;
-    let row = data?.find((d: any) => d.name == code);
+    let row = data?.entidad?.find((d: any) => d.name == code);
     onClick(row);
   };
 
@@ -621,21 +621,22 @@ const Maps = ({
     if (!show) return setTooltip({ visible: false, x: 0, y: 0, item: null });
     const rect = event.target.getBoundingClientRect();
     const svgRect = svgRef.current.getBoundingClientRect();
-    const item = data?.find((d: any) => d.name == id) || {
+    const item = data?.entidad?.find((d: any) => d.name == id) || {
       id: id || itemSelected?.id,
       name: itemSelected?.name || "Sin municipio",
       habitantes: itemSelected?.habitantes || 0,
       habilitados: itemSelected?.habilitados || 0,
       afiliados: itemSelected?.affiliate_count || 0,
       municipios: itemSelected?.municipios || 0,
-      // total: 0,
     };
 
+    const itemBarrios = data?.barrios?.find((d: any) => d.name == id);
+
     setTooltip({
-      visible: (id || item != null) && showBarrios ? true : false,
+      visible: id || item != null ? true : false,
       x: rect.left - svgRect.left + rect.width / 2,
       y: rect.top - svgRect.top,
-      item: paramLevel <= 2 ? item : null,
+      item: paramLevel <= 3 ? (!showBarrios ? itemBarrios : item) : null,
     });
   };
 
@@ -688,7 +689,7 @@ const Maps = ({
 
   const Tooltip = ({ item }: any) => {
     return (
-      paramLevel <= 2 && (
+      paramLevel <= 3 && (
         <div
           className={styles.tooltip}
           style={{
@@ -788,7 +789,7 @@ const Maps = ({
                 path.title !== "map" &&
                 path.title !== "line" &&
                 path.title !== "salar" &&
-                param?.level != 3 &&
+                param?.level != 4 &&
                 path.title !== "disabled" &&
                 path.code
                   ? _onClick(path?.code)

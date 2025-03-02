@@ -194,6 +194,9 @@ const RenderCard = ({ extraData, item, onClick, onEdit, onDel }: PropsType) => {
               )}
             </div>
           )}
+          <p style={{ color: "var(--cInfo)", fontSize: 12 }}>
+            {item.title ? "Noticia" : "Post"}
+          </p>
           <div
             style={{
               display: "flex",

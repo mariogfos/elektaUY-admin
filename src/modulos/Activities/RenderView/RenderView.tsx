@@ -21,6 +21,7 @@ import { cStatusTask, statusTask } from "../../../mk/utils/utils";
 import DataModal from "@/mk/components/ui/DataModal/DataModal";
 import LoadingScreen from "@/mk/components/ui/LoadingScreen/LoadingScreen";
 import SkeletonAdapterComponent from "@/mk/components/ui/LoadingScreen/SkeletonAdapter";
+import ExpandableText from "@/mk/components/ui/ExpandableText/ExpandableText";
 
 const RenderView = ({
   onClose,
@@ -47,6 +48,8 @@ const RenderView = ({
       "/tasks",
       "GET",
       {
+        perPage: -1,
+        page: 1,
         fullType: "L",
         searchBy: item?.data.id,
       },
@@ -78,11 +81,13 @@ const RenderView = ({
 
   const getMissingDays = () => {
     const date = new Date();
+    date.setHours(0, 0, 0, 0);
     const dateBegin = new Date(item?.data?.date_limit);
-    const diff = dateBegin.getTime() - date.getTime();
-    return Math.ceil(diff / (1000 * 3600 * 24));
-  };
+    dateBegin.setHours(0, 0, 0, 0);
 
+    const diff = dateBegin.getTime() - date.getTime();
+    return Math.floor(diff / (1000 * 3600 * 24));
+  };
   const getDestinys = () => {
     const names: any = ["Todos"];
     if (item?.data?.destiny == 2) {
@@ -215,28 +220,37 @@ const RenderView = ({
             </p>
           </div>
         );
-        // } else {
-        //   return (
-        //     <div
-        //       style={{
-        //         width: "100%",
-        //         display: "flex",
-        //         justifyContent: "center",
-        //       }}
-        //     >
-        //       <p
-        //         style={{
-        //           backgroundColor: "var(--cBlackV2)",
-        //           color: "var(--cWhiteV1)",
-        //           padding: "1px 6px",
-        //           borderRadius: "100px",
-        //         }}
-        //       >
-        //         -
-        //       </p>
-        //     </div>
-        //   );
-        // }
+      },
+    },
+    {
+      key: "report_count",
+      label: "Reportes",
+      responsive: "onlyDesktop",
+      width: "100px",
+      onRender: (item: any) => {
+        // if (item.value > 0) {
+        return (
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <p
+              style={{
+                backgroundColor:
+                  item.value > 0 ? "var(--cAccent)" : "var(--cBlackV2)",
+                color: item.value > 0 ? "var(--cWhite)" : "var(--cWhiteV1)",
+                padding: item.value > 0 ? "2px 6px" : "2px 5px",
+                borderRadius: "100px",
+                fontSize: 10,
+              }}
+            >
+              {item.value > 0 ? item.value : "-"}
+            </p>
+          </div>
+        );
       },
     },
 
@@ -280,16 +294,16 @@ const RenderView = ({
     },
   ];
 
-  const volunters = () => {
-    let volunter = 0;
-    tasks?.map((t: any) => {
-      volunter = volunter + t.volunteer_count;
-    });
-    if (itemTask?.id) {
-      volunter = volunter - itemTask.volunteer_count;
-    }
-    return volunter;
-  };
+  // const volunters = () => {
+  //   let volunter = 0;
+  //   tasks?.map((t: any) => {
+  //     volunter = volunter + t.volunteer_count;
+  //   });
+  //   if (itemTask?.id) {
+  //     volunter = volunter - itemTask.volunteer_count;
+  //   }
+  //   return volunter;
+  // };
 
   const getStatus = () => {
     let status = item.data.activity_status;
@@ -382,7 +396,17 @@ const RenderView = ({
             </div>
             <div>
               <p>{item?.data?.name}</p>
-              <p>{item?.data?.description}</p>
+              <ExpandableText
+                lines={10}
+                styleText={{
+                  fontSize: 16,
+
+                  color: "var(--cBlackV2)",
+                  // marginTop: "8px",
+                }}
+              >
+                {item?.data?.description}
+              </ExpandableText>
             </div>
             <div>
               <CardActivityView>
@@ -447,9 +471,11 @@ const RenderView = ({
                   >
                     <IconInfoApp />
                     {getMissingDays() == 0 ? (
-                      <p>Ya empezó</p>
+                      <p>Hoy cierran las inscripciones</p>
                     ) : getMissingDays() < 0 ? (
-                      <p>Finalizaron las inscripciones</p>
+                      <p>
+                        La actividad ya llegó a su fecha limite de inscripción
+                      </p>
                     ) : (
                       <p>
                         {"Faltan " +
@@ -522,7 +548,7 @@ const RenderView = ({
             }}
             item={itemTask}
             execute={execute}
-            volunters={volunters()}
+            // volunters={volunters()}
           />
         )}
         {openView && (

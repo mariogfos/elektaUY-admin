@@ -1,0 +1,25 @@
+.textContainer {
+  position: relative;
+}
+
+.text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3em;
+}
+
+.clamped {
+  -webkit-line-clamp: 10;
+}
+
+.expanded {
+  -webkit-line-clamp: unset; /* Quita el límite al expandir */
+}
+
+.expandBtn {
+  color: var(--cAccent);
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+}

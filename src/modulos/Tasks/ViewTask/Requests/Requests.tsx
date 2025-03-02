@@ -59,7 +59,7 @@ const Requests = ({ data, reLoad, statusTask }: any) => {
                   <div style={{ display: "flex", gap: 8 }}>
                     <Button
                       variant="secondary"
-                      onClick={() => onAccept(d, "X")}
+                      onClick={() => onAccept(d, "R")}
                       disabled={statusTask == "F" || statusTask == "V"}
                     >
                       Rechazar

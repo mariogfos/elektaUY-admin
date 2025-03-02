@@ -15,12 +15,12 @@
       font-size: var(--sL);
       font-weight: 600;
     }
-    & > p:nth-child(2) {
+    /* & > p:nth-child(2) {
       color: var(--cWhiteV1);
       font-weight: 400;
       font-size: var(--sM);
       margin-top: var(--spS);
-    }
+    } */
   }
   .detail {
     display: flex;

@@ -77,7 +77,7 @@ const RenderForm = ({
   useEffect(() => {
     let lDestinies: any = formState.lDestiny || [];
     if (action == "edit" && !formState.lDestiny) {
-      formState?.cdestinies?.map((d: any) => {
+      formState?.adestinies?.map((d: any) => {
         if (formState?.destiny == 2) {
           lDestinies.push(d.lista_id);
         }
@@ -92,6 +92,7 @@ const RenderForm = ({
         }
       });
     }
+    setFormState({ ...formState, lDestiny: lDestinies });
     setLdestinys(lDestinies);
   }, [action, formState.lDestiny]);
 
@@ -163,7 +164,7 @@ const RenderForm = ({
     });
     errors = checkRules({
       value: formState?.end_at,
-      rules: ["required", "greaterDate", "greaterDate:begin_at"],
+      rules: ["required", "greaterDate", "greaterDateTime:begin_at,1"],
       key: "end_at",
       errors,
       data: formState,
@@ -203,8 +204,14 @@ const RenderForm = ({
       errors,
     });
     errors = checkRules({
+      value: formState?.volunteer_count,
+      rules: ["greaterNumber"],
+      key: "volunteer_count",
+      errors,
+    });
+    errors = checkRules({
       value: formState?.date_limit,
-      rules: ["required", "lessDate:begin_at", "greaterDate"],
+      rules: ["required", "lessDate:begin_at"],
       key: "date_limit",
       errors,
       data: formState,
@@ -273,13 +280,12 @@ const RenderForm = ({
       showToast(data.message, "error");
     }
   };
-
   return (
     <DataModal
       className={styles.RenderForm}
       open={open}
       onClose={onClose}
-      title="Crear actividad"
+      title={formState?.id ? "Actualizar actividad" : "Crear actividad"}
       onSave={onSave}
     >
       <CardActivity
@@ -482,7 +488,8 @@ const RenderForm = ({
           setError={setErrors}
           img={true}
           item={formState}
-          // editor={}
+          editor={{ width: 720, height: 363 }}
+          sizePreview={{ width: "720px", height: "363px" }}
           // sizePreview={_field.sizePreview}
           // autoOpen={data?.action == "add"}
         />

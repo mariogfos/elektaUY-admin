@@ -29,7 +29,7 @@ import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 // };
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",

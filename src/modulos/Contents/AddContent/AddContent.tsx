@@ -44,21 +44,21 @@ const AddContent = ({
   const [openDestiny, setOpenDestiny] = useState(false);
   const [formState, setFormState]: any = useState({
     ...item,
-    isType: "N",
-    type: "I",
+    // isType: "N",
+    // type: "I",
   });
 
   useEffect(() => {
     setOpenList(false);
-    if (!formState?.title && action == "edit") {
-      setFormState({ ...formState, isType: "P" });
+    if (action == "edit") {
+      if (!formState?.title) {
+        setFormState({ ...formState, isType: "P" });
+      } else {
+        setFormState({ ...formState, isType: "N" });
+      }
     } else {
-      setFormState({ ...formState, isType: "N" });
+      setFormState({ ...formState, isType: "N", type: "I" });
     }
-
-    // if (!formState.isType && !formState.type) {
-    //   setFormState({ ...formState, isType: "N", type: "I" });
-    // }
   }, []);
 
   useEffect(() => {
@@ -91,16 +91,17 @@ const AddContent = ({
     // }
   }, [formState?.isType]);
 
-  useEffect(() => {
-    if (formState?.type != "I") {
-      setFormState({ ...formState, avatar: null });
-    } else if (formState?.type != "V") {
-      setFormState({ ...formState, url: null });
-    } else if (formState?.type != "D") {
-      setFormState({ ...formState, file: null });
-    }
-  }, [formState?.type]);
-  // console.log(formState);
+  // useEffect(() => {
+  //   if (action != "edit") {
+  //     if (formState?.type != "I") {
+  //       setFormState({ ...formState, avatar: null });
+  //     } else if (formState?.type != "V") {
+  //       setFormState({ ...formState, url: null });
+  //     } else if (formState?.type != "D") {
+  //       setFormState({ ...formState, file: null });
+  //     }
+  //   }
+  // }, [formState?.type]);
 
   useEffect(() => {
     if (formState?.destiny == 0 && action == "add") {
@@ -251,7 +252,8 @@ const AddContent = ({
     if (hasErrors(validate())) return;
     setItem({ ...formState });
     if (
-      (formState.isType == "N" && !formState.avatar && action == "add") ||
+      formState.isType == "N" &&
+      action == "add" &&
       Object?.keys(formState?.avatar || {}).length <= 0
     ) {
       showToast("Debe cargar una imagen", "error");
@@ -325,6 +327,7 @@ const AddContent = ({
               onChange={handleChangeInput}
               value={formState.candidate_id}
               options={getCandidates()}
+              filter
               error={errors}
             />
           </CardContent>
@@ -412,7 +415,14 @@ const AddContent = ({
                 icon={<IconGallery size={16} />}
                 isActive={formState.type == "I"}
                 text="Contenido multimedia"
-                onClick={() => setFormState({ ...formState, type: "I" })}
+                onClick={() =>
+                  setFormState({
+                    ...formState,
+                    type: "I",
+                    url: null,
+                    file: null,
+                  })
+                }
                 disabled={action == "edit"}
               />
               {formState.isType == "P" && (
@@ -422,7 +432,14 @@ const AddContent = ({
                     isActive={formState.type == "V"}
                     icon={<IconVideo size={16} />}
                     text={"Video"}
-                    onClick={() => setFormState({ ...formState, type: "V" })}
+                    onClick={() =>
+                      setFormState({
+                        ...formState,
+                        type: "V",
+                        file: null,
+                        avatar: null,
+                      })
+                    }
                     disabled={action == "edit"}
                   />
                   {/* )} */}
@@ -431,7 +448,14 @@ const AddContent = ({
                     isActive={formState.type == "D"}
                     icon={<IconDocs size={16} />}
                     text="Documento"
-                    onClick={() => setFormState({ ...formState, type: "D" })}
+                    onClick={() =>
+                      setFormState({
+                        ...formState,
+                        type: "D",
+                        url: null,
+                        avatar: null,
+                      })
+                    }
                     disabled={action == "edit"}
                   />
                   {/* )} */}

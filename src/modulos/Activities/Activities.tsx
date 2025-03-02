@@ -13,7 +13,7 @@ import { getDateTimeStrMes } from "../../mk/utils/date";
 import { cStatusAc, statusAc } from "@/mk/utils/utils";
 
 const paramsInitial = {
-  perPage: 10,
+  perPage: 20,
   page: 1,
   fullType: "L",
   searchBy: "",
@@ -86,29 +86,32 @@ const Activities = () => {
   const fields = useMemo(() => {
     return {
       id: { rules: [], api: "e" },
-      created_at: {
+      begin_at: {
         rules: [],
         api: "e",
-        label: "Fecha de creación",
+        label: "Fecha de inicio",
         form: {
           type: "date",
         },
         list: {
           width: "240px",
-          onRender: (item: any) => {
-            // return getDateStrMes(item.item.created_at);
-            // hacer que te diga hoy si la actividad se creo hoy con la hora
-            const date = new Date(item.item.created_at);
-            const today = new Date();
-            if (
-              date.getDate() == today.getDate() &&
-              date.getMonth() == today.getMonth() &&
-              date.getFullYear() == today.getFullYear()
-            ) {
-              return "Hoy";
-            } else {
-              return getDateTimeStrMes(item.item.created_at);
-            }
+          // onRender: (item: any) => {
+          //   // return getDateStrMes(item.item.created_at);
+          //   // hacer que te diga hoy si la actividad se creo hoy con la hora
+          //   const date = new Date(item.item.created_at);
+          //   const today = new Date();
+          //   if (
+          //     date.getDate() == today.getDate() &&
+          //     date.getMonth() == today.getMonth() &&
+          //     date.getFullYear() == today.getFullYear()
+          //   ) {
+          //     return "Hoy";
+          //   } else {
+          //     return getDateTimeStrMes(item.item.created_at);
+          //   }
+          // },
+          onRender: ({ value }: any) => {
+            return getDateTimeStrMes(value);
           },
         },
       },
@@ -140,7 +143,7 @@ const Activities = () => {
       //   },
       //   list: true,
       // },
-      coordinator_id: {
+      coordinator: {
         rules: ["required"],
         api: "ae",
         label: "Coordinador",
@@ -154,18 +157,21 @@ const Activities = () => {
           //   console.log(extraData);
           // },
           onRender: ({ item, extraData }: any) => {
-            let coo = extraData?.gabinete?.find(
-              (e: any) => e.user_id == item.coordinator_id
-            );
+            // let coo = extraData?.gabinete?.find(
+            //   (e: any) => e.user_id == item.coordinator_id
+            // );
             return (
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <Avatar
                   src={getUrlImages(
-                    "/ADM-" + item.coordinator_id + ".webp?d=" + item.updated_at
+                    "/ADM-" +
+                      item.coordinator_id +
+                      ".webp?d=" +
+                      item?.coordinator?.updated_at
                   )}
-                  name={getFullName(coo)}
+                  name={getFullName(item?.coordinator)}
                 />
-                <p>{getFullName(coo)}</p>
+                <p>{getFullName(item?.coordinator)}</p>
               </div>
             );
           },
@@ -219,18 +225,26 @@ const Activities = () => {
               { id: "T", name: "Todos" },
               { id: "P", name: "Pendiente" },
               { id: "E", name: "En curso" },
+              { id: "S", name: "Sin completar" },
               { id: "F", name: "Finalizada" },
             ];
           },
         },
         list: {
-          width: "100px",
+          width: "120px",
           onRender: ({ item }: any) => {
             let status = item?.activity_status;
             let startDate = new Date(item?.begin_at); // Convertir a fecha
             let today = new Date(); // Fecha actual
+            let endDate = new Date(item?.end_at);
             if (item?.activity_status === "P" && today >= startDate) {
               status = "E";
+            }
+            if (today > endDate) {
+              status = "S";
+            }
+            if (item?.activity_status === "F") {
+              status = "F";
             }
             return (
               <div style={{ color: cStatusAc[status] }}>{statusAc[status]}</div>

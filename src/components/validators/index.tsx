@@ -3,9 +3,11 @@ import {
   validPassword,
   validCi,
   validOptionsSurvey,
+  validDateTimeGreater,
   validDateGreater,
   validDateLess,
   validDateFuture,
+  validNumberGreater,
 } from "./rulesApp";
 
 export const validators = {
@@ -16,5 +18,7 @@ export const validators = {
   greaterDate: validDateGreater,
   lessDate: validDateLess,
   futureDate: validDateFuture,
+  greaterNumber: validNumberGreater,
+  greaterDateTime: validDateTimeGreater,
   // Añadir otros validadores aquí
 };

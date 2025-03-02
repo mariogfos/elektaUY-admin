@@ -351,7 +351,7 @@ const useCrud = ({
     let searchBy = { searchBy: _search };
     if (getSearch) searchBy = getSearch(_search, oldSearch);
     setSearchs(searchBy);
-    setParams({ ...params, ...searchBy });
+    setParams({ ...params, ...searchBy, page: 1 });
     setOldSearch(searchBy);
   };
   const [oldFilter, setOldFilter]: any = useState({});
@@ -364,7 +364,7 @@ const useCrud = ({
       if (filterBy.filterBy[key]) fil.push(key + ":" + filterBy.filterBy[key]);
     }
     fil = fil.join("|");
-    setParams({ ...params, ...(fil ? { filterBy: fil } : {}) });
+    setParams({ ...params, ...(fil ? { filterBy: fil, page: 1 } : {}) });
     setOldFilter(filterBy);
   };
 
