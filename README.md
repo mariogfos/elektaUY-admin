@@ -9,7 +9,7 @@ npm run dev
 # oraa
 yarn devsdssssasaasssssassaaaaaasasssasassassssaaa
 pnpm devssssdfsdfs
-# ord
+# ordddß
 bun devs
 ```
 
