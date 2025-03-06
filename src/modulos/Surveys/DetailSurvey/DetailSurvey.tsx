@@ -50,7 +50,7 @@ const DetailSurvey = () => {
     }));
   };
   useEffect(() => {
-    setStore({ ...store, title: "Eventos" });
+    setStore({ ...store, title: "Encuesta" });
   }, []);
   // if (!loaded) return <DetailSurveySkeleton />;
   return (

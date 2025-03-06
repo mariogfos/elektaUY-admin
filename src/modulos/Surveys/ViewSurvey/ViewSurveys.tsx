@@ -56,12 +56,19 @@ const ViewSurveys = ({
   user,
   edit,
   onChangeParams,
-  extraData,
 }: ViewSurveysProps) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [filters, setFilters] = useState<Record<string, any>>({});
   const [filterTags, setFilterTags] = useState<string[]>([]);
   const [dataFormatted, setDataFormatted]: any = useState([]);
+  const entidad = [
+    "",
+    "",
+    "Organizacion",
+    "Departamento",
+    "Municipio",
+    "Barrio",
+  ];
   const [squestion_id, setSquestion_id]: any = useState(
     data?.data?.squestions?.[0]?.id
   );
@@ -141,6 +148,10 @@ const ViewSurveys = ({
 
   const { data: provs } = useAxios("/dptos", "GET", {
     fullType: "L",
+    perPage: -1,
+  });
+  const { data: extraData } = useAxios("/surveys", "GET", {
+    fullType: "EXTRA",
     perPage: -1,
   });
   // const { data: education } = useAxios("/educations", "GET", {
@@ -273,7 +284,7 @@ const ViewSurveys = ({
       );
     }
     if (item === "education") {
-      return extraData?.educations?.find(
+      return extraData?.data?.data?.educations?.find(
         (education: any) => education.id === filters[item]
       )?.name;
     }
@@ -363,6 +374,43 @@ const ViewSurveys = ({
     setSquestion_id(value.target.value);
     onChangeParams({ ...filters, squestion_id: value.target.value });
   };
+  const getDestinys = () => {
+    let lEntidad: any = [];
+    data?.data?.sdestinies?.map((item: any, index: number) => {
+      if (data?.data?.destiny == 2) {
+        lEntidad.push({
+          id: item.lista_id,
+          name: extraData?.data?.listas?.find(
+            (lista: any) => lista.id == item.lista_id
+          )?.name,
+        });
+      }
+      if (data?.data?.destiny == 3) {
+        lEntidad.push({
+          id: item.dpto_id,
+          name: extraData?.data?.dptos?.find(
+            (dpto: any) => dpto.id == item.dpto_id
+          )?.name,
+        });
+      }
+      if (data?.data?.destiny == 4) {
+        lEntidad.push({
+          id: item.mun_id,
+          name: extraData?.data?.muns.find((mun: any) => mun.id == item.mun_id)
+            ?.name,
+        });
+      }
+      if (data?.data?.destiny == 5) {
+        lEntidad.push({
+          id: item.barrio_id,
+          name: extraData?.data?.barrios?.find(
+            (barrio: any) => barrio.id == item.barrio_id
+          )?.name,
+        });
+      }
+    });
+    return lEntidad;
+  };
 
   return (
     <div>
@@ -377,6 +425,23 @@ const ViewSurveys = ({
               ? "Se publicará " + getDateStrMes(data?.data?.begin_at)
               : `Publicada el ${getDateTimeStrMes(data?.data?.created_at)}`}
           </div>
+          {data?.data?.destiny != 0 &&
+            user?.role.level != data?.data?.destiny && (
+              <p style={{ marginBottom: 12, color: "var(--cInfo)" }}>
+                Destino:{" "}
+                {entidad[data?.data?.destiny] +
+                  `${
+                    getDestinys().length > 1
+                      ? data?.data?.destiny == 2
+                        ? "es"
+                        : "s"
+                      : ""
+                  }`}{" "}
+                {getDestinys()
+                  .map((e: any) => e.name)
+                  .join(", ")}
+              </p>
+            )}
           <div className="tTitle">{data?.data?.name}</div>
         </div>
         <div className={styles.filtersStyle}>
@@ -560,7 +625,7 @@ const ViewSurveys = ({
             <WidgetEducation
               widget4={data?.metrics?.education}
               title={"Estadística por educación"}
-              educations={extraData?.educations}
+              educations={extraData?.data?.educations}
             />
           </div>
           <div style={{ marginTop: 16 }}>
@@ -630,7 +695,7 @@ const ViewSurveys = ({
           },
           {
             title: "Educación",
-            data: extraData?.educations || [],
+            data: extraData?.data?.educations || [],
             filters: filters,
             setFilters: setFilters,
             type: "education",
