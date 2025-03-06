@@ -17,7 +17,6 @@ const RenderView = (props: {
     props.onEdit && props.onEdit(props.item);
     props.onClose();
   };
-
   return (
     <DataModal
       open={props.open}
@@ -29,7 +28,7 @@ const RenderView = (props: {
       fullScreen={true}
     >
       <ViewSurveys
-        extraData={props.extraData}
+        extraData={props?.extraData}
         data={props?.item}
         user={user}
         edit={edit}
