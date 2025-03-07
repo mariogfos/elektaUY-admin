@@ -688,6 +688,7 @@ const Maps = ({
   };
 
   const Tooltip = ({ item }: any) => {
+    console.log(item);
     return (
       paramLevel <= 3 && (
         <div
@@ -753,7 +754,7 @@ const Maps = ({
               >
                 <p>Municipios: </p>
                 <p style={{ color: "#101111" }}>
-                  {formatNumber(item?.distritosCount || item?.distritos, 0)}
+                  {formatNumber(item?.munCount || 0, 0)}
                 </p>
               </div>
             )}
