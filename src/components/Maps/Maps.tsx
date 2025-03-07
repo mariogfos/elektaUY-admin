@@ -688,7 +688,6 @@ const Maps = ({
   };
 
   const Tooltip = ({ item }: any) => {
-    console.log(item);
     return (
       paramLevel <= 3 && (
         <div
