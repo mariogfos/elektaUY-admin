@@ -182,7 +182,7 @@ const RenderView = ({
         if (item?.value === "P" && today >= startDate) {
           status = "E";
         }
-        if (today > endDate) {
+        if (item?.value === "P" && today > endDate) {
           status = "S";
         }
 
