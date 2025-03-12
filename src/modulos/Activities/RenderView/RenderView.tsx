@@ -263,7 +263,6 @@ const RenderView = ({
         if (item?.task_status == "F" || item?.task_status == "V") {
           return;
         }
-
         return (
           <div
             style={{
@@ -280,14 +279,16 @@ const RenderView = ({
                 setItemTask({ ...item });
               }}
             />
-            <IconTrash
-              color="var(--cError)"
-              onClick={(e: any) => {
-                e.stopPropagation();
-                // onDelTask(item.id);
-                setDeleteTask({ open: true, id: item.id });
-              }}
-            />
+            {item.participate_count <= 0 && (
+              <IconTrash
+                color="var(--cError)"
+                onClick={(e: any) => {
+                  e.stopPropagation();
+                  // onDelTask(item.id);
+                  setDeleteTask({ open: true, id: item.id });
+                }}
+              />
+            )}
           </div>
         );
       },

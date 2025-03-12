@@ -181,7 +181,7 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
               { value: "V", name: "Voluntarios" },
             ]}
           />
-          {tab == "H" && <History />}
+          {tab == "H" && <History id={task?.data?.data?.id} />}
           {tab == "S" && (
             <Requests
               data={requestsData()}
