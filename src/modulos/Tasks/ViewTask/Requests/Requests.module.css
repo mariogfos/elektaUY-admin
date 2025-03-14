@@ -1,5 +1,5 @@
 .Requests {
-  & > div {
+  .card {
     & > p {
       font-size: var(--sS);
       font-weight: 400;

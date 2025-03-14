@@ -53,7 +53,7 @@ const Requests = ({
       {data.length > 0 ? (
         data.map((d: any, i: any) => {
           return (
-            <Card variant="V1" key={i}>
+            <Card variant="V1" key={i} className={styles.card}>
               <p>{getDateTimeStrMes(d?.created_at)}</p>
 
               <ItemList

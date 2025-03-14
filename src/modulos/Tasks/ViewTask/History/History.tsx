@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Empty from "../Empty/Empty";
 import styles from "./History.module.css";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
@@ -7,25 +7,41 @@ import { getFullName, getUrlImages } from "@/mk/utils/string";
 import useAxios from "@/mk/hooks/useAxios";
 import { getDateTimeStrMes, getHourStr } from "@/mk/utils/date";
 import LoadingScreen from "@/mk/components/ui/LoadingScreen/LoadingScreen";
+import SkeletonAdapterComponent from "@/mk/components/ui/LoadingScreen/SkeletonAdapter";
 
 type PropsType = {
   id: any;
 };
 const History = ({ id }: PropsType) => {
-  const { data: history } = useAxios(
-    "/histories",
-    "GET",
-    {
-      fullType: "L",
-      searchBy: id,
-      entity: "task",
-      page: 1,
-      perPage: -1,
-    },
-    true
-  );
+  const [history, setHistory]: any = useState([]);
+  const { execute } = useAxios();
+  const [loading, setLoading] = useState(false);
+
+  const getHistory = async () => {
+    setLoading(true);
+    const { data } = await execute(
+      "/histories",
+      "GET",
+      {
+        fullType: "L",
+        searchBy: id,
+        entity: "task",
+        page: 1,
+        perPage: -1,
+      },
+      false,
+      true
+    );
+    if (data?.success) {
+      setHistory(data?.data);
+    }
+    setLoading(false);
+  };
+  useEffect(() => {
+    getHistory();
+  }, []);
+
   const getTitle = (item: any) => {
-    // console.log(item);
     if (item?.type_action == "I") {
       return (
         <p>
@@ -124,18 +140,16 @@ const History = ({ id }: PropsType) => {
     }
     return text;
   };
-
   return (
     <div className={styles.History}>
-      {/* {!loaded && <LoadingScreen type="TableSkeleton" />} */}
-      {history?.data?.length < 0 && (
-        <Empty msg="No se encuentra ningún historial" />
-      )}
-      {history?.data?.map((d: any, i: any) => {
+      {loading && <SkeletonAdapterComponent type="TableSkeleton" />}
+      {history?.length < 0 && <Empty msg="No se encuentra ningún historial" />}
+
+      {history?.map((d: any, i: any) => {
         const label =
           i === 0 ||
           getLabelDate(d.created_at) !==
-            getLabelDate(history?.data[i - 1]?.created_at)
+            getLabelDate(history[i - 1]?.created_at)
             ? getLabelDate(d.created_at)
             : null;
 
