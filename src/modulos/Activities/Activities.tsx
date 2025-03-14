@@ -76,9 +76,9 @@ const Activities = () => {
 
     onHideActions: (item: any) => {
       return {
-        hideEdit: item?.activity_status == "F",
+        hideEdit: item?.activity_status == "F" || user.id != item.user_id,
 
-        hideDel: item?.activity_status == "F",
+        hideDel: item?.activity_status == "F" || user.id != item.user_id,
       };
     },
   };
