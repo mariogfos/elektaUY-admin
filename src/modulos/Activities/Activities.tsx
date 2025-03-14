@@ -240,12 +240,12 @@ const Activities = () => {
             if (item?.activity_status === "P" && today >= startDate) {
               status = "E";
             }
-            if (today > endDate) {
+            if (item?.activity_status === "P" && today > endDate) {
               status = "S";
             }
-            if (item?.activity_status === "F") {
-              status = "F";
-            }
+            // if (item?.activity_status === "F") {
+            //   status = "F";
+            // }
             return (
               <div style={{ color: cStatusAc[status] }}>{statusAc[status]}</div>
             );

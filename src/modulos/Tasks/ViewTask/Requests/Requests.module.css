@@ -5,5 +5,11 @@
       font-weight: 400;
       margin-bottom: var(--spS);
     }
+    & > a {
+      color: var(--cAccent);
+      font-size: var(--sXs);
+      font-weight: 400;
+      /* margin-top: var(--sXxs); */
+    }
   }
 }

@@ -5,6 +5,7 @@ import ItemList from "@/mk/components/ui/ItemList/ItemList";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import useAxios from "@/mk/hooks/useAxios";
+import { getDateTimeStrMes, getHourStr } from "@/mk/utils/date";
 
 type PropsType = {
   id: any;
@@ -17,50 +18,32 @@ const History = ({ id }: PropsType) => {
       fullType: "L",
       searchBy: id,
       entity: "task",
+      page: 1,
+      perPage: -1,
     },
     true
   );
-  let data = [
-    {
-      type: "A",
-      coordinator: "Emiliano Lora",
-      avatar:
-        "https://i.pinimg.com/236x/14/20/7d/14207d52efefefaf3abdf69053d83b41.jpg",
-      affiliate: "Lautaro Melgar",
-      created_at: new Date().toISOString(),
-    },
-    {
-      type: "C",
-      coordinator: "Emiliano Lora",
-      created_at: new Date(Date.now() - 200000000).toISOString(),
-      avatar:
-        "https://i.pinimg.com/236x/14/20/7d/14207d52efefefaf3abdf69053d83b41.jpg",
-    },
-    {
-      type: "W",
-      affiliate: "Lautaro Melgar",
-      created_at: new Date(Date.now() - 100000000).toISOString(),
-      avatar:
-        "https://guillemrecolons.com/wp-content/uploads/2020/01/Ventajas-y-desventajas-de-los-perfiles-privados-en-las-redes-sociales.webp",
-    },
-    {
-      type: "W",
-      affiliate: "Fernanda Claros",
-      created_at: new Date().toISOString(),
-      avatar:
-        "https://img.wattpad.com/6e10fe43fb8c450fc971f5f9a30c471153a29a2e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6353377a706941574530425937513d3d2d32362e313630643937663934353530623561363935393136313931383537302e6a7067?s=fit&w=720&h=720",
-    },
-  ];
-
   const getTitle = (item: any) => {
-    if (item.type == "A") {
+    // console.log(item);
+    if (item?.type_action == "I") {
       return (
         <p>
-          {item.coordinator}{" "}
+          {getFullName(item?.affiliate)}
+          <span style={{ color: "var(--cBlackV2)", fontWeight: 400 }}>
+            {" "}
+            envió su reporte
+          </span>
+        </p>
+      );
+    }
+    if (item?.type_action == "A") {
+      return (
+        <p>
+          {getFullName(item?.user)}{" "}
           <span style={{ color: "var(--cBlackV2)", fontWeight: 400 }}>
             aceptó a
           </span>{" "}
-          {item.affiliate}
+          {getFullName(item?.affiliate)}
           <span style={{ color: "var(--cBlackV2)", fontWeight: 400 }}>
             {" "}
             como voluntario
@@ -68,23 +51,56 @@ const History = ({ id }: PropsType) => {
         </p>
       );
     }
-    if (item.type == "W") {
+    if (item.type_action == "W") {
       return (
         <p>
-          {item.affiliate}{" "}
+          {getFullName(item?.affiliate)}{" "}
           <span style={{ color: "var(--cBlackV2)", fontWeight: 400 }}>
             mandó una solicitud para ser voluntario
           </span>
         </p>
       );
     }
-    if (item.type == "C") {
+    if (item.type_action == "C") {
       return (
         <p>
-          {item.coordinator}{" "}
+          {getFullName(item?.user)}{" "}
           <span style={{ color: "var(--cBlackV2)", fontWeight: 400 }}>
             creó la tarea
           </span>
+        </p>
+      );
+    }
+    if (item.type_action == "H") {
+      return (
+        <p>
+          {getFullName(item?.user)}{" "}
+          <span style={{ color: "var(--cBlackV2)", fontWeight: 400 }}>
+            habilitó a
+          </span>{" "}
+          {getFullName(item?.affiliate)}
+        </p>
+      );
+    }
+    if (item.type_action == "D") {
+      return (
+        <p>
+          {getFullName(item?.user)}{" "}
+          <span style={{ color: "var(--cBlackV2)", fontWeight: 400 }}>
+            deshabilitó a
+          </span>{" "}
+          {getFullName(item?.affiliate)}
+        </p>
+      );
+    }
+    if (item.type_action == "R") {
+      return (
+        <p>
+          {getFullName(item?.user)}{" "}
+          <span style={{ color: "var(--cBlackV2)", fontWeight: 400 }}>
+            rechazo a
+          </span>{" "}
+          {getFullName(item?.affiliate)}
         </p>
       );
     }
@@ -108,20 +124,24 @@ const History = ({ id }: PropsType) => {
     return text;
   };
 
-  data.sort(
-    (a: any, b: any) =>
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  );
-
   return (
     <div className={styles.History}>
-      {data.length > 0 ? (
-        data.map((d: any, i: any) => {
+      {history?.data?.length > 0 ? (
+        history?.data?.map((d: any, i: any) => {
           const label =
             i === 0 ||
-            getLabelDate(d.created_at) !== getLabelDate(data[i - 1].created_at)
+            getLabelDate(d.created_at) !==
+              getLabelDate(history?.data[i - 1]?.created_at)
               ? getLabelDate(d.created_at)
               : null;
+
+          let avatar = d.user_id
+            ? getUrlImages(
+                "/ADM-" + d.user_id + ".webp?d=" + d?.user?.updated_at
+              )
+            : getUrlImages(
+                "/AFF-" + d.affiliate_id + ".webp?d=" + d?.affiliate?.updated_at
+              );
           return (
             <div key={i}>
               {label && (
@@ -140,11 +160,11 @@ const History = ({ id }: PropsType) => {
                 variant="V3"
                 left={
                   <Avatar
-                    name={getFullName(d.affiliate)}
-                    // src={getUrlImages(
-                    //   "/AFF-" + d.affiliate_id + ".webp?d=" + d?.updated_at
-                    // )}
-                    src={d.avatar}
+                    name={
+                      d.user_id ? getFullName(d.user) : getFullName(d.affiliate)
+                    }
+                    src={avatar}
+                    // src={d.avatar}
                   />
                 }
                 title={getTitle(d)}
@@ -156,6 +176,11 @@ const History = ({ id }: PropsType) => {
                 //     })}
                 //   </span>
                 // }
+                subtitle={
+                  <p style={{ color: "var(--cWhiteV1)" }}>
+                    {getDateTimeStrMes(d.created_at)}
+                  </p>
+                }
               />
             </div>
           );

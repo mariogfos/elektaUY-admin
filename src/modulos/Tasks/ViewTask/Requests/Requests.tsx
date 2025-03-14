@@ -73,7 +73,15 @@ const Requests = ({ data, reLoad, statusTask }: any) => {
                   </div>
                 }
               />
-              {data?.comment && <p>{d?.comment}</p>}
+              {d?.comment && <p>{d?.comment}</p>}
+              <a
+                target="_blank"
+                href={getUrlImages(
+                  "/TASKAPPLICATION-" + d.id + ".webp?d=" + d?.updated_at
+                )}
+              >
+                Ver imagen
+              </a>
             </Card>
           );
         })

@@ -11,7 +11,7 @@ import {
 } from "@/components/layout/icons/IconsBiblioteca";
 import Select from "@/mk/components/forms/Select/Select";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
-import Radio from "@/mk/components/forms/Ratio/Radio";
+import Radio from "@/mk/components/forms/Radio/Radio";
 import Input from "@/mk/components/forms/Input/Input";
 import TextArea from "@/mk/components/forms/TextArea/TextArea";
 import CardContent from "./CardContent";

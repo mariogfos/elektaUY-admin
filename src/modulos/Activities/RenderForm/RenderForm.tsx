@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CardActivity from "./CardActivity";
 import Select from "@/mk/components/forms/Select/Select";
 import Input from "@/mk/components/forms/Input/Input";
-import Radio from "@/mk/components/forms/Ratio/Radio";
+import Radio from "@/mk/components/forms/Radio/Radio";
 import TextArea from "@/mk/components/forms/TextArea/TextArea";
 import styles from "../Activities.module.css";
 import { UploadFile } from "@/mk/components/forms/UploadFile/UploadFile";
@@ -280,6 +280,21 @@ const RenderForm = ({
       showToast(data.message, "error");
     }
   };
+
+  const getStatus = () => {
+    let status = item?.activity_status;
+    let startDate = new Date(item?.begin_at); // Convertir a fecha
+    let today = new Date(); // Fecha actual
+    let endDate = new Date(item?.end_at);
+    if (item?.activity_status === "P" && today >= startDate) {
+      status = "E";
+    }
+    if (item?.activity_status === "P" && today > endDate) {
+      status = "S";
+    }
+    return status;
+  };
+  // console.log(getStatus());
   return (
     <DataModal
       className={styles.RenderForm}
@@ -308,6 +323,7 @@ const RenderForm = ({
             value={formState?.destiny}
             options={lDestinies()}
             onChange={handleChangeInput}
+            disabled={getStatus() == "E" || getStatus() == "S"}
             error={errors}
           />
         </div>
@@ -329,6 +345,7 @@ const RenderForm = ({
             { id: "V", name: "Voluntariado" },
           ]}
           onChange={handleChangeInput}
+          disabled={getStatus() == "E" || getStatus() == "S"}
           error={errors}
         />
       </CardActivity>
@@ -354,6 +371,7 @@ const RenderForm = ({
             value={formState?.address}
             onChange={handleChangeInput}
             error={errors}
+            disabled={getStatus() == "E" || getStatus() == "S"}
           />
         )}
 
@@ -368,6 +386,7 @@ const RenderForm = ({
           value={formState?.location}
           onChange={handleChangeInput}
           error={errors}
+          disabled={getStatus() == "E" || getStatus() == "S"}
         />
 
         {/* {formState?.modalidad == "P" && (
@@ -389,6 +408,7 @@ const RenderForm = ({
             name="begin_at"
             value={formState?.begin_at}
             onChange={handleChangeInput}
+            disabled={getStatus() == "E" || getStatus() == "S"}
             error={errors}
           />
           <Input
