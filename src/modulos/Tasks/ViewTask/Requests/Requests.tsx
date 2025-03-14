@@ -2,7 +2,7 @@ import Button from "@/mk/components/forms/Button/Button";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import { Card } from "@/mk/components/ui/Card/Card";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Requests.module.css";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import useAxios from "@/mk/hooks/useAxios";
@@ -19,6 +19,7 @@ const Requests = ({
 }: any) => {
   const { execute } = useAxios();
   const { showToast } = useAuth();
+
   const onAccept = async (item: any, status: any) => {
     const { data } = await execute(
       "/task-participate",
@@ -43,6 +44,10 @@ const Requests = ({
     }
   };
 
+  const [imageErrors, setImageErrors]: any = useState({});
+  const handleImageError = (id: number) => {
+    setImageErrors((prev: any) => ({ ...prev, [id]: true }));
+  };
   return (
     <div className={styles.Requests}>
       {data.length > 0 ? (
@@ -84,14 +89,26 @@ const Requests = ({
                 }
               />
               {d?.comment && <p>{d?.comment}</p>}
-              <a
-                target="_blank"
-                href={getUrlImages(
+              <img
+                alt="requests"
+                src={getUrlImages(
                   "/TASKAPPLICATION-" + d.id + ".webp?d=" + d?.updated_at
                 )}
-              >
-                Ver imagen
-              </a>
+                onError={() => {
+                  handleImageError(d.id);
+                }}
+                style={{ maxWidth: "100px", display: "none" }}
+              />
+              {!imageErrors[d.id] && (
+                <a
+                  target="_blank"
+                  href={getUrlImages(
+                    "/TASKAPPLICATION-" + d.id + ".webp?d=" + d?.updated_at
+                  )}
+                >
+                  Ver imagen
+                </a>
+              )}
             </Card>
           );
         })

@@ -1,13 +1,17 @@
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import { Card } from "@/mk/components/ui/Card/Card";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Reports.module.css";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import { getDateTimeStrMes } from "@/mk/utils/date";
 import Empty from "../Empty/Empty";
 
 const Reports = ({ data }: any) => {
+  const [imageErrors, setImageErrors]: any = useState({});
+  const handleImageError = (id: number) => {
+    setImageErrors((prev: any) => ({ ...prev, [id]: true }));
+  };
   return data.length > 0 ? (
     data?.map((d: any, index: any) => {
       return (
@@ -35,14 +39,26 @@ const Reports = ({ data }: any) => {
             // }
           />
           <p>{d?.description}</p>
-          <a
-            target="_blank"
-            href={getUrlImages(
-              "/TASKREPORT-" + d.id + ".webp?d=" + d?.updated_at
+          <img
+            alt="requests"
+            src={getUrlImages(
+              "/TASKAPPLICATION-" + d.id + ".webp?d=" + d?.updated_at
             )}
-          >
-            Ver imagen
-          </a>
+            onError={() => {
+              handleImageError(d.id);
+            }}
+            style={{ maxWidth: "100px", display: "none" }}
+          />
+          {!imageErrors[d.id] && (
+            <a
+              target="_blank"
+              href={getUrlImages(
+                "/TASKREPORT-" + d.id + ".webp?d=" + d?.updated_at
+              )}
+            >
+              Ver imagen
+            </a>
+          )}
         </Card>
       );
     })

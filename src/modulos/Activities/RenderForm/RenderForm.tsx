@@ -214,7 +214,7 @@ const RenderForm = ({
     });
     errors = checkRules({
       value: formState?.date_limit,
-      rules: ["required", "lessDate:begin_at"],
+      rules: ["required", "greaterDate", "lessDate:begin_at"],
       key: "date_limit",
       errors,
       data: formState,
