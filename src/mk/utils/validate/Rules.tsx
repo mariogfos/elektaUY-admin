@@ -34,6 +34,7 @@ export const validRule = (
 
   const [rule, params] = (_rule + ":").split(":");
   const param = params ? params.split(",") : [];
+
   const validations: Record<string, Function> = {
     validateIf: () =>
       param[1] !== formState[param[0]] ? "validar hasta aqui" : "",
@@ -94,8 +95,14 @@ export const validRule = (
     integer: () =>
       !/^[0-9]+$/.test(value) ? "No es un número entero valido" : "",
     positive: () => (value < 0 ? "Debe ser número positivo " : ""),
-    greater: () => (value <= param[0] ? `Debe ser mayor` : ""),
-    less: () => (value >= param[0] ? `Debe ser menor que ${param[0]}` : ""),
+    greater: () =>
+      value < formState[param[0]]
+        ? `Debe ser mayor o igual a ${formState[param[0]]}`
+        : "",
+    less: () =>
+      value > formState[param[0]]
+        ? `Debe ser menor  o igual a ${formState[param[0]]}`
+        : "",
     googleMapsLink: () =>
       !/^https:\/\/(www\.)?(google\.(com|es|com\.mx|.*)\/maps\/(place|search|dir)\/|maps\.app\.goo\.gl\/)/.test(
         value

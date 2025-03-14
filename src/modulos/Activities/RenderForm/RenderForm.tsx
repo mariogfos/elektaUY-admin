@@ -156,12 +156,14 @@ const RenderForm = ({
       key: "destiny",
       errors,
     });
-    errors = checkRules({
-      value: formState?.begin_at,
-      rules: ["required", "futureDate"],
-      key: "begin_at",
-      errors,
-    });
+    if (item?.participate_task < 0) {
+      errors = checkRules({
+        value: formState?.begin_at,
+        rules: ["required", "futureDate"],
+        key: "begin_at",
+        errors,
+      });
+    }
     errors = checkRules({
       value: formState?.end_at,
       rules: ["required", "greaterDate", "greaterDateTime:begin_at,1"],
@@ -199,9 +201,10 @@ const RenderForm = ({
     });
     errors = checkRules({
       value: formState?.volunteer_count,
-      rules: ["required"],
+      rules: ["required", "greater:volunteer_count"],
       key: "volunteer_count",
       errors,
+      data: item,
     });
     errors = checkRules({
       value: formState?.volunteer_count,
@@ -262,7 +265,6 @@ const RenderForm = ({
         activity_mode: formState?.activity_mode,
         address: formState?.address,
         location: formState?.location,
-        // participants: formState?.participants,
         volunteer_count: formState?.volunteer_count,
         date_limit: formState?.date_limit,
         name: formState?.name,
@@ -294,7 +296,7 @@ const RenderForm = ({
     }
     return status;
   };
-  // console.log(getStatus());
+
   return (
     <DataModal
       className={styles.RenderForm}
@@ -323,7 +325,11 @@ const RenderForm = ({
             value={formState?.destiny}
             options={lDestinies()}
             onChange={handleChangeInput}
-            disabled={getStatus() == "E" || getStatus() == "S"}
+            disabled={
+              getStatus() == "E" ||
+              getStatus() == "S" ||
+              item?.participate_task > 0
+            }
             error={errors}
           />
         </div>
@@ -345,7 +351,11 @@ const RenderForm = ({
             { id: "V", name: "Voluntariado" },
           ]}
           onChange={handleChangeInput}
-          disabled={getStatus() == "E" || getStatus() == "S"}
+          disabled={
+            getStatus() == "E" ||
+            getStatus() == "S" ||
+            item?.participate_task > 0
+          }
           error={errors}
         />
       </CardActivity>
@@ -371,7 +381,11 @@ const RenderForm = ({
             value={formState?.address}
             onChange={handleChangeInput}
             error={errors}
-            disabled={getStatus() == "E" || getStatus() == "S"}
+            disabled={
+              getStatus() == "E" ||
+              getStatus() == "S" ||
+              item?.participate_task > 0
+            }
           />
         )}
 
@@ -386,7 +400,11 @@ const RenderForm = ({
           value={formState?.location}
           onChange={handleChangeInput}
           error={errors}
-          disabled={getStatus() == "E" || getStatus() == "S"}
+          disabled={
+            getStatus() == "E" ||
+            getStatus() == "S" ||
+            item?.participate_task > 0
+          }
         />
 
         {/* {formState?.modalidad == "P" && (
@@ -408,7 +426,11 @@ const RenderForm = ({
             name="begin_at"
             value={formState?.begin_at}
             onChange={handleChangeInput}
-            disabled={getStatus() == "E" || getStatus() == "S"}
+            disabled={
+              getStatus() == "E" ||
+              getStatus() == "S" ||
+              item?.participate_task > 0
+            }
             error={errors}
           />
           <Input
@@ -434,6 +456,11 @@ const RenderForm = ({
             value={formState?.date_limit}
             onChange={handleChangeInput}
             error={errors}
+            disabled={
+              getStatus() == "E" ||
+              getStatus() == "S" ||
+              item?.participate_task > 0
+            }
           />
         </div>
       </CardActivity>
@@ -510,6 +537,11 @@ const RenderForm = ({
           item={formState}
           editor={{ width: 720, height: 363 }}
           sizePreview={{ width: "720px", height: "363px" }}
+          disabled={
+            getStatus() == "E" ||
+            getStatus() == "S" ||
+            item?.participate_task > 0
+          }
           // sizePreview={_field.sizePreview}
           // autoOpen={data?.action == "add"}
         />

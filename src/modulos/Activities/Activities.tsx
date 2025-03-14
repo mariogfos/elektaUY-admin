@@ -78,7 +78,10 @@ const Activities = () => {
       return {
         hideEdit: item?.activity_status == "F" || user.id != item.user_id,
 
-        hideDel: item?.activity_status == "F" || user.id != item.user_id,
+        hideDel:
+          item?.activity_status == "F" ||
+          user.id != item.user_id ||
+          item.participate_count > 0,
       };
     },
   };
