@@ -10,7 +10,13 @@ import { useAuth } from "@/mk/contexts/AuthProvider";
 import Empty from "../Empty/Empty";
 import { getDateTimeStrMes } from "@/mk/utils/date";
 
-const Requests = ({ data, reLoad, statusTask }: any) => {
+const Requests = ({
+  data,
+  reLoad,
+  statusTask,
+  participants,
+  volunters,
+}: any) => {
   const { execute } = useAxios();
   const { showToast } = useAuth();
   const onAccept = async (item: any, status: any) => {
@@ -66,7 +72,11 @@ const Requests = ({ data, reLoad, statusTask }: any) => {
                     </Button>
                     <Button
                       onClick={() => onAccept(d, "A")}
-                      disabled={statusTask == "F" || statusTask == "V"}
+                      disabled={
+                        statusTask == "F" ||
+                        statusTask == "V" ||
+                        participants >= volunters
+                      }
                     >
                       Aceptar
                     </Button>

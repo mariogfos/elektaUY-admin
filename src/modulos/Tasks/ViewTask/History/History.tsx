@@ -6,6 +6,7 @@ import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import useAxios from "@/mk/hooks/useAxios";
 import { getDateTimeStrMes, getHourStr } from "@/mk/utils/date";
+import LoadingScreen from "@/mk/components/ui/LoadingScreen/LoadingScreen";
 
 type PropsType = {
   id: any;
@@ -126,68 +127,66 @@ const History = ({ id }: PropsType) => {
 
   return (
     <div className={styles.History}>
-      {history?.data?.length > 0 ? (
-        history?.data?.map((d: any, i: any) => {
-          const label =
-            i === 0 ||
-            getLabelDate(d.created_at) !==
-              getLabelDate(history?.data[i - 1]?.created_at)
-              ? getLabelDate(d.created_at)
-              : null;
-
-          let avatar = d.user_id
-            ? getUrlImages(
-                "/ADM-" + d.user_id + ".webp?d=" + d?.user?.updated_at
-              )
-            : getUrlImages(
-                "/AFF-" + d.affiliate_id + ".webp?d=" + d?.affiliate?.updated_at
-              );
-          return (
-            <div key={i}>
-              {label && (
-                <p
-                  style={{
-                    color: "var(--cWhite)",
-                    fontWeight: "600",
-                    fontSize: 16,
-                    margin: "8px 0px",
-                  }}
-                >
-                  {label}
-                </p>
-              )}
-              <ItemList
-                variant="V3"
-                left={
-                  <Avatar
-                    name={
-                      d.user_id ? getFullName(d.user) : getFullName(d.affiliate)
-                    }
-                    src={avatar}
-                    // src={d.avatar}
-                  />
-                }
-                title={getTitle(d)}
-                // right={
-                //   <span>
-                //     {new Date(d.created_at).toLocaleTimeString([], {
-                //       hour: "2-digit",
-                //       minute: "2-digit",
-                //     })}
-                //   </span>
-                // }
-                subtitle={
-                  <p style={{ color: "var(--cWhiteV1)" }}>
-                    {getDateTimeStrMes(d.created_at)}
-                  </p>
-                }
-              />
-            </div>
-          );
-        })
-      ) : (
+      {/* {!loaded && <LoadingScreen type="TableSkeleton" />} */}
+      {history?.data?.length < 0 && (
         <Empty msg="No se encuentra ningún historial" />
       )}
+      {history?.data?.map((d: any, i: any) => {
+        const label =
+          i === 0 ||
+          getLabelDate(d.created_at) !==
+            getLabelDate(history?.data[i - 1]?.created_at)
+            ? getLabelDate(d.created_at)
+            : null;
+
+        let avatar = d.user_id
+          ? getUrlImages("/ADM-" + d.user_id + ".webp?d=" + d?.user?.updated_at)
+          : getUrlImages(
+              "/AFF-" + d.affiliate_id + ".webp?d=" + d?.affiliate?.updated_at
+            );
+        return (
+          <div key={i}>
+            {label && (
+              <p
+                style={{
+                  color: "var(--cWhite)",
+                  fontWeight: "600",
+                  fontSize: 16,
+                  margin: "8px 0px",
+                }}
+              >
+                {label}
+              </p>
+            )}
+            <ItemList
+              variant="V3"
+              left={
+                <Avatar
+                  name={
+                    d.user_id ? getFullName(d.user) : getFullName(d.affiliate)
+                  }
+                  src={avatar}
+                  // src={d.avatar}
+                />
+              }
+              title={getTitle(d)}
+              // right={
+              //   <span>
+              //     {new Date(d.created_at).toLocaleTimeString([], {
+              //       hour: "2-digit",
+              //       minute: "2-digit",
+              //     })}
+              //   </span>
+              // }
+              subtitle={
+                <p style={{ color: "var(--cWhiteV1)" }}>
+                  {getDateTimeStrMes(d.created_at)}
+                </p>
+              }
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -83,7 +83,7 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
       onClose();
     }
   };
-  const getAfiliateVolunters = () => {
+  const getAfiliateParticipate = () => {
     let count = 0;
     task?.data?.data?.affiliate_tasks?.map((a: any) => {
       if (a.status == "A") {
@@ -155,7 +155,7 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
             <div>
               <p>Voluntarios</p>
               <p>
-                {getAfiliateVolunters()}/{task?.data?.data?.volunteer_count}
+                {getAfiliateParticipate()}/{task?.data?.data?.volunteer_count}
               </p>
             </div>
           </div>
@@ -187,6 +187,8 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
               data={requestsData()}
               reLoad={_reLoad}
               statusTask={task?.data?.data?.task_status}
+              participants={getAfiliateParticipate()}
+              volunters={task?.data?.data?.volunteer_count}
             />
           )}
           {tab == "R" && <Reports data={task?.data?.data?.task_reports} />}
@@ -195,6 +197,8 @@ const ViewTask = ({ open, onClose, id, reLoad }: PropsType) => {
               data={volunteersData()}
               reLoad={_reLoad}
               statusTask={task?.data?.data?.task_status}
+              participants={getAfiliateParticipate()}
+              volunters={task?.data?.data?.volunteer_count}
             />
           )}
         </>

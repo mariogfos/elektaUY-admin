@@ -1,20 +1,28 @@
 import Button from "@/mk/components/forms/Button/Button";
 import { Avatar } from "@/mk/components/ui/Avatar/Avatar";
 import ItemList from "@/mk/components/ui/ItemList/ItemList";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Volunteers.module.css";
 import { getFullName, getUrlImages } from "@/mk/utils/string";
 import useAxios from "@/mk/hooks/useAxios";
 import { useAuth } from "@/mk/contexts/AuthProvider";
 import Empty from "../Empty/Empty";
 
-const Volunteers = ({ data, reLoad, statusTask }: any) => {
+const Volunteers = ({
+  data,
+  reLoad,
+  statusTask,
+  volunters,
+  participants,
+}: any) => {
   const { execute } = useAxios();
   const { showToast } = useAuth();
   const volunteersEnabled = data?.filter((v: any) => v.status == "A");
   const volunteersDisabled = data?.filter((v: any) => v.status == "R");
+  const [loaded, setLoaded] = useState(false);
 
   const enabledOrDisabled = async (item: any, status: any) => {
+    setLoaded(true);
     const { data } = await execute(
       "/task-participate",
       "POST",
@@ -33,6 +41,7 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
       } else {
         showToast("Afiliado habilitado", "success");
       }
+      setLoaded(false);
       reLoad();
     }
   };
@@ -61,7 +70,7 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
               <Button
                 variant="cancel"
                 onClick={() => enabledOrDisabled(v, "R")}
-                disabled={statusTask == "F" || statusTask == "V"}
+                disabled={statusTask == "F" || statusTask == "V" || loaded}
               >
                 Inhabilitar
               </Button>
@@ -91,7 +100,15 @@ const Volunteers = ({ data, reLoad, statusTask }: any) => {
             }
             title={getFullName(v.affiliate)}
             right={
-              <Button onClick={() => enabledOrDisabled(v, "A")}>
+              <Button
+                onClick={() => enabledOrDisabled(v, "A")}
+                disabled={
+                  statusTask == "F" ||
+                  statusTask == "V" ||
+                  participants >= volunters ||
+                  loaded
+                }
+              >
                 Habilitar
               </Button>
             }
