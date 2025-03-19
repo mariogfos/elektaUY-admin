@@ -78,6 +78,7 @@ const DetailSurvey = () => {
         <ViewSurveys
           data={data?.data}
           user={user}
+          reLoad={reLoad}
           onChangeParams={onChangeParams}
           extraData={{ educations: data?.data?.educations }}
         />

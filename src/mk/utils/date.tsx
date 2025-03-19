@@ -300,20 +300,6 @@ export const differenceInDays = (begin_at: string, end_at: string): number => {
   const differenceInTime: number = endDate.getTime() - beginDate.getTime();
   const differenceInDays: number = differenceInTime / (1000 * 3600 * 24);
 
-  //  console.log(
-  //   // getUTCNow(),
-  // Math.round(differenceInDays),
-  //   // 'differenceInTime',
-  //   differenceInTime,
-  //   'beginDate',
-  //  beginDate,
-  //   'endDate',
-  //  endDate,
-  //   'localEndDate',
-  //   localEndDate,
-  // differenceInDays > 0 && differenceInDays < 1,
-  //    ',differenceInDays'
-  // );
   if (differenceInDays > 0 && differenceInDays < 1) {
     return 1; // Si la diferencia es menor a un día pero mayor que 0, devolver 1 día
   }

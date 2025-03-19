@@ -27,6 +27,7 @@ import FiltersModal from "@/mk/components/forms/FiltersModal/FiltersModal";
 import Button from "@/mk/components/forms/Button/Button";
 import HorizontalProgresiveBar from "@/mk/components/ui/HorizontalProgresiveBar/HorizontalProgresiveBar";
 import LoadingScreen from "@/mk/components/ui/LoadingScreen/LoadingScreen";
+import { useAuth } from "@/mk/contexts/AuthProvider";
 
 interface GraphValue {
   name: string;
@@ -49,18 +50,21 @@ interface ViewSurveysProps {
   edit?: any;
   onChangeParams: (params: any) => void;
   extraData?: any;
+  reLoad?: any;
 }
 
 const ViewSurveys = ({
   data,
   user,
   edit,
+  reLoad,
   onChangeParams,
 }: ViewSurveysProps) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [filters, setFilters] = useState<Record<string, any>>({});
   const [filterTags, setFilterTags] = useState<string[]>([]);
   const [dataFormatted, setDataFormatted]: any = useState([]);
+  const { showToast } = useAuth();
   const entidad = [
     "",
     "",
@@ -146,7 +150,7 @@ const ViewSurveys = ({
     },
   ];
 
-  const { data: provs } = useAxios("/dptos", "GET", {
+  const { data: provs, execute } = useAxios("/dptos", "GET", {
     fullType: "L",
     perPage: -1,
   });
@@ -412,6 +416,18 @@ const ViewSurveys = ({
     return lEntidad;
   };
 
+  const finishSurvey = async () => {
+    const { data: finish } = await execute("/surveys-finalize", "POST", {
+      survey_id: data?.data?.id,
+    });
+    if (finish.success) {
+      showToast("Encuesta finalizada", "success");
+      reLoad();
+    }
+  };
+  // console.log(data);
+  // console.log(differenceInDays(hoy, data?.data?.begin_at));
+  console.log(getDateRemaining(hoy, data?.data?.end_at));
   return (
     <div>
       <div className={styles.headerViewSurveys}>
@@ -445,6 +461,12 @@ const ViewSurveys = ({
           <div className="tTitle">{data?.data?.name}</div>
         </div>
         <div className={styles.filtersStyle}>
+          {getDateRemaining(hoy, data?.data?.end_at) != "Finalizada" &&
+            !data?.data?.end_at && (
+              <Button small onClick={finishSurvey}>
+                Finalizar encuesta
+              </Button>
+            )}
           <div
             style={{
               display: "flex",
