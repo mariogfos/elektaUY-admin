@@ -1,0 +1,20 @@
+.CardForm {
+  background-color: var(--cBlackV1);
+  padding: var(--spM);
+  border-radius: var(--bRadiusM);
+  margin-bottom: 8px;
+  & > div {
+    & > p:nth-child(1) {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cWhite);
+      margin-bottom: 12px;
+    }
+    & > p:nth-child(2) {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--cBlackV2);
+      margin-bottom: 12px;
+    }
+  }
+}

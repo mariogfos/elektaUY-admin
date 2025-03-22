@@ -1,0 +1,26 @@
+.RenderView {
+  & > section {
+    width: 100%;
+    display: flex;
+    gap: 16;
+    & > div:nth-child(1) {
+      flex-grow: 1;
+      background-color: var(--cBlackV1);
+      border-radius: 16px;
+      padding: 16px;
+      height: 836px;
+    }
+    & > div:nth-child(2) {
+      padding: 16px;
+      width: 600px;
+      background-color: var(--cBlackV1);
+      border-radius: 16px;
+
+      .title {
+        font-weight: 700;
+        font-size: 24px;
+        color: var(--cWhite);
+      }
+    }
+  }
+}

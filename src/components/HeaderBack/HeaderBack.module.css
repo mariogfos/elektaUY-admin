@@ -1,0 +1,15 @@
+.HeaderBack {
+  display: flex;
+  align-items: center;
+  gap: var(--spS);
+  color: var(--cWhite);
+  font-size: var(--sXl);
+  font-weight: 700;
+  margin-bottom: 16px;
+  & > p:nth-child(1) {
+    cursor: pointer;
+    color: var(--cBlackV2);
+    font-weight: 600;
+    font-size: var(--sL);
+  }
+}

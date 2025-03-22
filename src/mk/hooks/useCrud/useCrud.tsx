@@ -954,7 +954,7 @@ const useCrud = ({
           {openList && (
             <>
               <section style={{}}>
-                {data?.data.length > 0 ? (
+                {data?.data?.length > 0 ? (
                   <Table
                     data={data?.data}
                     onRowClick={

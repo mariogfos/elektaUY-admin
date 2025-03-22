@@ -79,6 +79,11 @@ const MainMenu = ({
             collapsed={collapsed}
             setSideBarOpen={setSideBarOpen}
           />
+          <MainmenuItem
+            href="/support"
+            label="Soporte"
+            icon={<IconCandidates />}
+          />
           {/* <MainmenuDropdown
             label="Candidatos"
             icon={<IconCandidates />}
