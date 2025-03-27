@@ -88,34 +88,36 @@ const RenderView = ({
     const diff = dateBegin.getTime() - date.getTime();
     return Math.floor(diff / (1000 * 3600 * 24));
   };
-  const getDestinys = () => {
-    const names: any = ["Todos"];
-    if (item?.data?.destiny == 2) {
-      extraData?.listas.map((li: any) => {
-        let d = item?.data?.adestinies?.find((e: any) => e.lista_id == li.id);
-        if (d) {
-          names.push(li.name);
-        }
-      });
-    }
-    if (item?.data?.destiny == 3) {
-      extraData?.dptos.map((dpto: any) => {
-        let d = item?.data?.adestinies?.find((e: any) => e.dpto_id == dpto.id);
-        if (d) {
-          names.push(dpto.name);
-        }
-      });
-    }
-    if (item?.data?.destiny == 4) {
-      extraData?.muns.map((mun: any) => {
-        let d = item?.data?.adestinies?.find((e: any) => e.dpto_id == mun.id);
-        if (d) {
-          names.push(mun.name);
-        }
-      });
-    }
-    return names;
-  };
+  // const getDestinys = () => {
+  //   const names: any = ["Todos"];
+  //   if (item?.data?.destiny == 2) {
+  //     extraData?.listas.map((li: any) => {
+  //       let d = item?.data?.adestinies?.find((e: any) => e.lista_id == li.id);
+  //       if (d) {
+  //         names.push(li.name);
+  //       }
+  //     });
+  //   }
+  //   if (item?.data?.destiny == 3) {
+  //     extraData?.dptos.map((dpto: any) => {
+  //       let d = item?.data?.adestinies?.find((e: any) => e.dpto_id == dpto.id);
+  //       if (d) {
+  //         names.push(dpto.name);
+  //       }
+  //     });
+  //   }
+  //   if (item?.data?.destiny == 4) {
+  //     extraData?.muns.map((mun: any) => {
+  //       let d = item?.data?.adestinies?.find((e: any) => e.dpto_id == mun.id);
+  //       if (d) {
+  //         names.push(mun.name);
+  //       }
+  //     });
+  //   }
+  //   return names;
+  // };
+  // console.log(item?.data);
+  // console.log(extraData);
 
   // const getStatusTask = (value: any) => {
 
@@ -422,7 +424,11 @@ const RenderView = ({
             <CardActivityView title="Información de general">
               <KeyValue
                 title={"Destino"}
-                value={getDestinys().join(", ")}
+                value={
+                  typeof item?.data?.destiny_name == "object"
+                    ? item?.data?.destiny_name?.join(", ")
+                    : item?.data?.destiny_name
+                }
                 colorValue="var(--cSuccess)"
               />
               <KeyValue
