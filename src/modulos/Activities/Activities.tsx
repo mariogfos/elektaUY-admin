@@ -77,7 +77,6 @@ const Activities = () => {
     onHideActions: (item: any) => {
       // let startDate = new Date(item?.begin_at); // Convertir a fecha
       // let today = new Date();
-      console.log(user.id, item.user_id);
       return {
         hideEdit: item?.activity_status == "F" || user.id != item.user_id,
 
